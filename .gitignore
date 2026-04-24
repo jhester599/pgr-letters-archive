@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+
+# Raw audio (temporary; only compressed output in docs/audio/ is committed)
+data/audio_raw/*.mp3
+data/audio_raw/*.wav
+data/audio_raw/*.m4a
+data/audio_raw/*.aac
+
+# NotebookLM Playwright browser session state
+.browser_state/
+playwright-report/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp

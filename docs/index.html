@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PGR Shareholder Letters — Audio Archive</title>
+
+  <!-- Podcast RSS feed discovery -->
+  <link rel="alternate" type="application/rss+xml"
+        title="PGR Shareholder Letters Podcast"
+        href="feed.xml" />
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="PGR Shareholder Letters — Audio Archive" />
+  <meta property="og:description" content="AI-generated audio overviews of Progressive Corporation CEO Tricia Griffith's quarterly shareholder letters." />
+  <meta name="author"             content="Jeff Hester" />
+
+  <style>
+    /* ── Reset & base ─────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brand-blue:   #003087;
+      --brand-mid:    #0052cc;
+      --brand-light:  #e8f0fe;
+      --text-primary: #1a1a2e;
+      --text-muted:   #555570;
+      --bg:           #f7f8fc;
+      --surface:      #ffffff;
+      --border:       #d0d5e8;
+      --radius:       10px;
+      --shadow:       0 2px 8px rgba(0,0,0,.08);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                   Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ───────────────────────────────────────────────────────────── */
+    header {
+      background: var(--brand-blue);
+      color: #fff;
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    header .logo { font-size: 1.6rem; }
+    header h1    { font-size: 1.25rem; font-weight: 700; }
+    header p     { font-size: .85rem; opacity: .8; margin-top: .15rem; }
+    .header-links {
+      margin-left: auto;
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+    }
+    .header-links a {
+      color: #fff;
+      text-decoration: none;
+      font-size: .82rem;
+      border: 1px solid rgba(255,255,255,.4);
+      border-radius: 20px;
+      padding: .25rem .75rem;
+      transition: background .15s;
+    }
+    .header-links a:hover { background: rgba(255,255,255,.15); }
+
+    /* ── Layout ───────────────────────────────────────────────────────────── */
+    main {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 1.5rem auto;
+      padding: 0 1.25rem;
+    }
+    @media (max-width: 720px) {
+      main { grid-template-columns: 1fr; }
+    }
+
+    /* ── Episode list (sidebar) ───────────────────────────────────────────── */
+    #episode-list {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      height: fit-content;
+      position: sticky;
+      top: 1rem;
+    }
+    #episode-list h2 {
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: .9rem 1rem .5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    #episodes {
+      list-style: none;
+      max-height: 75vh;
+      overflow-y: auto;
+    }
+    #episodes li {
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background .12s;
+    }
+    #episodes li:last-child { border-bottom: none; }
+    #episodes li:hover  { background: var(--brand-light); }
+    #episodes li.active { background: var(--brand-light); border-left: 3px solid var(--brand-mid); }
+    .ep-inner {
+      padding: .7rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: .15rem;
+    }
+    .ep-title  { font-size: .88rem; font-weight: 600; }
+    .ep-meta   { font-size: .75rem; color: var(--text-muted); }
+    .ep-badge  {
+      display: inline-block;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-top: .25rem;
+      width: fit-content;
+    }
+    .badge-audio  { background: #e3f6ec; color: #1a7a45; }
+    .badge-text   { background: #fff3cd; color: #856404; }
+    .badge-none   { background: #f0f0f0; color: #888; }
+
+    /* ── Content panel ────────────────────────────────────────────────────── */
+    #content-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.75rem;
+    }
+
+    /* Audio player */
+    #player-section {
+      background: var(--brand-light);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      display: none;
+    }
+    #player-section h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: .6rem;
+      color: var(--brand-blue);
+    }
+    #player-section p  { font-size: .82rem; color: var(--text-muted); margin-bottom: .75rem; }
+    audio { width: 100%; border-radius: 4px; }
+
+    /* Letter text */
+    #letter-section { display: none; }
+    #letter-section h3 {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: .75rem;
+      padding-bottom: .5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    #letter-text {
+      white-space: pre-wrap;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: .92rem;
+      line-height: 1.75;
+      max-height: 60vh;
+      overflow-y: auto;
+      padding-right: .5rem;
+    }
+
+    /* Placeholder shown when nothing is selected */
+    #placeholder {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-muted);
+    }
+    #placeholder .icon { font-size: 3rem; display: block; margin-bottom: .75rem; }
+    #placeholder h2    { font-size: 1.1rem; font-weight: 600; }
+    #placeholder p     { font-size: .85rem; margin-top: .4rem; }
+
+    /* Loading / error states */
+    #loading, #error {
+      text-align: center;
+      padding: 3rem;
+      font-size: .9rem;
+    }
+    #error { color: #c0392b; display: none; }
+
+    /* Stats bar */
+    #stats {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      padding: .75rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 1rem;
+      font-size: .8rem;
+      color: var(--text-muted);
+    }
+    #stats span b { color: var(--text-primary); }
+
+    /* ── Footer ───────────────────────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: .78rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+    footer a { color: var(--brand-mid); text-decoration: none; }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <span class="logo">🎙️</span>
+  <div>
+    <h1>PGR Shareholder Letters — Audio Archive</h1>
+    <p>Progressive Corporation CEO Tricia Griffith's quarterly letters, as audio overviews</p>
+  </div>
+  <nav class="header-links">
+    <a href="feed.xml">RSS / Podcast Feed</a>
+    <a href="https://github.com/jhester599/pgr-letters-archive" target="_blank">GitHub</a>
+  </nav>
+</header>
+
+<main>
+  <!-- ── Sidebar ── -->
+  <aside>
+    <div id="stats">
+      <span>Letters: <b id="stat-letters">—</b></span>
+      <span>Audio: <b id="stat-audio">—</b></span>
+      <span>Last updated: <b id="stat-updated">—</b></span>
+    </div>
+    <div id="episode-list">
+      <h2>Episodes</h2>
+      <ul id="episodes">
+        <li><div class="ep-inner"><span class="ep-title" id="loading">Loading…</span></div></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- ── Content panel ── -->
+  <section id="content-panel">
+    <div id="placeholder">
+      <span class="icon">📻</span>
+      <h2>Select an episode</h2>
+      <p>Choose a quarter from the list to read the letter or listen to its audio overview.</p>
+    </div>
+    <div id="error">⚠️ Failed to load episode data. Please check back later.</div>
+
+    <div id="player-section">
+      <h2 id="player-title"></h2>
+      <p id="player-subtitle"></p>
+      <audio id="audio-player" controls preload="none">
+        Your browser does not support the HTML5 audio element.
+      </audio>
+    </div>
+
+    <div id="letter-section">
+      <h3>Full Shareholder Letter</h3>
+      <pre id="letter-text"></pre>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Curated by <strong>Jeff Hester</strong> &middot;
+  Source data: <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000080661" target="_blank">SEC EDGAR</a> &middot;
+  Audio by <a href="https://notebooklm.google.com" target="_blank">Google NotebookLM</a> &middot;
+  <a href="feed.xml">Subscribe via RSS</a>
+</footer>
+
+<script>
+  // ── State ──────────────────────────────────────────────────────────────────
+  let ledger = null;
+  let activeId = null;
+
+  // ── Boot ───────────────────────────────────────────────────────────────────
+  async function init() {
+    try {
+      const resp = await fetch("ledger.json?" + Date.now());
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      ledger = await resp.json();
+    } catch (err) {
+      console.error("Failed to load ledger.json:", err);
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("error").style.display   = "block";
+      return;
+    }
+
+    renderStats();
+    renderEpisodeList();
+  }
+
+  // ── Stats bar ──────────────────────────────────────────────────────────────
+  function renderStats() {
+    document.getElementById("stat-letters").textContent =
+      ledger.meta?.total_letters ?? ledger.filings.filter(f => f.letter_scraped).length;
+    document.getElementById("stat-audio").textContent =
+      ledger.meta?.total_audio ?? ledger.filings.filter(f => f.audio_compressed).length;
+
+    const updated = ledger.meta?.last_updated
+      ? new Date(ledger.meta.last_updated).toLocaleDateString("en-US",
+          { month: "short", day: "numeric", year: "numeric" })
+      : "—";
+    document.getElementById("stat-updated").textContent = updated;
+  }
+
+  // ── Episode list ───────────────────────────────────────────────────────────
+  function renderEpisodeList() {
+    const ul = document.getElementById("episodes");
+    ul.innerHTML = "";
+
+    // Sort: newest first
+    const sorted = [...ledger.filings]
+      .filter(f => f.letter_scraped || f.audio_compressed)
+      .sort((a, b) => (b.year * 10 + qNum(b.quarter)) - (a.year * 10 + qNum(a.quarter)));
+
+    if (!sorted.length) {
+      ul.innerHTML = '<li><div class="ep-inner"><span class="ep-title">No episodes yet</span></div></li>';
+      return;
+    }
+
+    for (const filing of sorted) {
+      const li = document.createElement("li");
+      li.dataset.id = filing.id;
+
+      const badge = filing.audio_compressed
+        ? '<span class="ep-badge badge-audio">Audio available</span>'
+        : filing.letter_scraped
+        ? '<span class="ep-badge badge-text">Text only</span>'
+        : '<span class="ep-badge badge-none">Pending</span>';
+
+      li.innerHTML = `
+        <div class="ep-inner">
+          <span class="ep-title">${filing.year} ${filing.quarter} — ${filing.form_type}</span>
+          <span class="ep-meta">Period ending ${filing.report_date || "unknown"}</span>
+          ${badge}
+        </div>`;
+
+      li.addEventListener("click", () => selectEpisode(filing.id));
+      ul.appendChild(li);
+    }
+  }
+
+  // ── Episode selection ──────────────────────────────────────────────────────
+  async function selectEpisode(id) {
+    if (activeId === id) return;
+    activeId = id;
+
+    // Update sidebar highlight
+    document.querySelectorAll("#episodes li").forEach(li => {
+      li.classList.toggle("active", li.dataset.id === id);
+    });
+
+    const filing = ledger.filings.find(f => f.id === id);
+    if (!filing) return;
+
+    // Hide placeholder, show sections
+    document.getElementById("placeholder").style.display    = "none";
+    document.getElementById("player-section").style.display =
+      filing.audio_compressed ? "block" : "none";
+    document.getElementById("letter-section").style.display =
+      filing.letter_scraped ? "block" : "none";
+
+    // Wire up audio player
+    if (filing.audio_compressed && filing.audio_file) {
+      const audioEl = document.getElementById("audio-player");
+      // Derive the filename from the stored path
+      const audioFilename = filing.audio_file.split("/").pop();
+      audioEl.src = `audio/${audioFilename}`;
+      audioEl.load();
+      document.getElementById("player-title").textContent =
+        `${filing.year} ${filing.quarter} — CEO Shareholder Letter`;
+      document.getElementById("player-subtitle").textContent =
+        `${filing.form_type} filing • Period ending ${filing.report_date || "unknown"} • AI-generated audio overview via NotebookLM`;
+    }
+
+    // Load letter text
+    if (filing.letter_scraped && filing.letter_file) {
+      const textEl = document.getElementById("letter-text");
+      textEl.textContent = "Loading letter…";
+      try {
+        // letter_file is relative to repo root; on GitHub Pages
+        // we need to go up one level from docs/
+        const letterFilename = filing.letter_file.split("/").pop();
+        const resp = await fetch(`../data/letters/${letterFilename}`);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        textEl.textContent = await resp.text();
+      } catch (err) {
+        textEl.textContent =
+          "Letter text is not available in this deployment. " +
+          "Clone the repository to access raw text files.";
+      }
+    }
+  }
+
+  // ── Helpers ────────────────────────────────────────────────────────────────
+  function qNum(q) {
+    return { Q1: 1, Q2: 2, Q3: 3, Q4: 4 }[q] ?? 0;
+  }
+
+  // ── Start ──────────────────────────────────────────────────────────────────
+  init();
+</script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PGR 2011 Q2 — Shareholder Letter</title>
+  <link rel="stylesheet" href="../assets/reading.css" />
+</head>
+<body>
+  <div id="progress-bar"></div>
+
+  <header class="reading-header">
+    <nav class="reading-nav">
+      <a href="../index.html" class="nav-back">← Archive</a>
+      <div class="nav-episodes">
+        <a href="PGR_2008_Q2.html" class="nav-ep-link">← 2008 Q2</a>
+        <a href="PGR_2011_Q3.html" class="nav-ep-link">2011 Q3 →</a>
+      </div>
+      <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    </nav>
+  </header>
+
+  <main class="reading-main">
+    <article class="letter-article">
+      <header class="letter-header">
+        <div class="letter-meta">
+          <span class="meta-quarter">2011 Q2</span>
+          <span class="meta-form">10-Q</span>
+          <span class="meta-date">Period ending 2011-06-30</span>
+        </div>
+        <h1>CEO Shareholder Letter</h1>
+        
+      </header>
+      <div class="letter-body">
+        <p>EX-99<br />
+7<br />
+dex99.htm<br />
+EX-99<br />
+EX-99<br />
+Exhibit 99<br />
+The Progressive Corporation<br />
+Letter to Shareholders<br />
+Second Quarter 2011<br />
+The second quarter of 2011<br />
+will surely be an expensive one for the insurance industry. The country had more than its fair share of severe weather conditions. For Progressive, while expense is one dimension of storms, a more important dimension is the amplification of the role<br />
+we can and do play following such losses. Events of this size and frequency reinforce, in a very dramatic way, that we must step up when we are needed most. Our deployment logistics and the commitment of so many people to leave their regular routine<br />
+and go where our customers need them, continues to impress me no matter how familiar I am with the planning, preparation, and expectations that are in place for exactly such occasions. The $125 million that we attribute to the aggregate storm damage<br />
+for the quarter was very manageable within current pricing and, while higher than the prior year, the 93.4 combined ratio for the quarter was very acceptable.<br />
+Growth for the quarter was 5% on policy counts and 3% on premium. The difference is not a simple reconciliation and depends on customer and geographic mix, but a reasonable takeaway is that we are, and<br />
+have been for some time, experiencing a head wind of flat to lower average written premium per policy. Protracted reductions in accident frequency and, for now, an aging population of vehicles on the road are all contributing to this period of low<br />
+to no premium inflation. While welcomed by the consumer, it puts added emphasis on expense management, retention efforts, and yield expectations of acquisition spending. Macro trends may not tell the whole story, however, and in any given time<br />
+period we have significant rate activity by state, including increases to best reflect our expectation of loss costs in that state and for individual risks. The second quarter was no exception.<br />
+A notable outcome in the second quarter was the continued return to health, both in profit and new business growth, of several of our large personal auto<br />
+states. These include states in which we had been forced to make adjustments to reflect trends emerging last year, particularly in personal injury protection coverage. We believe we are better positioned to grow profitably in these states going<br />
+forward.<br />
+Recognizing we have significant ground to make up and surpass in our Commercial Auto product, the first step is a quarter where<br />
+growth turns positive over the prior year. With written premium growth of 3%, this was that quarter. In part through prior rate actions earning through the book and in part from selected pockets of increased demand, it feels like a good step in the<br />
+right direction.<br />
+Changes in frequency and severity from the first quarter, excluding comprehensive coverage from the storms, were<br />
+unremarkable and need no additional commentary in making comparisons with prior periods.<br />
+I noted in the first quarter report that, With<br />
+many aspects of our business going well, we actively seek greater growth... That statement remains very true. In addition to the constant vigilance of rate level in every program and state, and the notable returning health of some large<br />
+states, we continued our emphasis on several of our emerging growth initiatives during the quarter.<br />
+Our<br />
+marketing rollout of Snapshot<br />
+®<br />
+, which began in the first quarter, continued during the second. Consumer acceptance is consistent with our expectations<br />
+and increased data is serving to validate our research and testing. We provided additional commentary on Snapshot as part of our Investor Relations presentation on June 17th, and the marketing support we discussed has<br />
+subsequently been rolled out. The Snapshot discount is now available in 38 markets, and while early acceptance has been greater with Direct customers, our independent agents are showing<br />
+increasing interest in the product for their customers.<br />
+Our appeal to those who prefer to bundle their home and auto product<br />
+continued in the quarter. We added new television creative that is intended to position Progressive as a viable choice for those who favor that option and, equally importantly, ensure our current customers know that when and if they have that need,<br />
+we are there for them.<br />
+Another point we highlighted at our Investor Relations meeting was our internal commitment to mobile<br />
+technology as a very real and potentially very significant means of transacting all insurance interactions with us. We showed the small, but rapid, increase in payments collected via mobile devices, the increasing importance of Internet search on<br />
+mobile devices, and provided a general outline of our feature development roadmap for the next several quarters. In July we sold our first policy on a mobile device and have subsequently sold many more. We are intrigued by the acceptance of the<br />
+mobile-based offerings today similar to the early acceptance of the Internet-based offering some 15 years ago. The factoids are interesting but the message is clear - we have a growing population that expects to transact much of its affairs via an<br />
+untethered mobile device.<br />
+All things considered, the second quarter produced results similar to the first, with expected seasonality<br />
+reflected in the combined ratio. Our focus remains on profitable growth. Our plan is anchored by the increasing traction of the emerging growth initiatives outlined above, our constant product improvements, and the generally healthier outlook for<br />
+several large states.<br />
+Glenn M. Renwick<br />
+President and Chief Executive Officer</p>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    // Dark mode — restore saved preference before first paint
+    (function () {
+      const saved = localStorage.getItem("pgr-theme");
+      if (saved) document.documentElement.setAttribute("data-theme", saved);
+    })();
+
+    document.getElementById("theme-toggle").addEventListener("click", function () {
+      const current = document.documentElement.getAttribute("data-theme") || "light";
+      const next = current === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("pgr-theme", next);
+      this.textContent = next === "dark" ? "☀️" : "🌙";
+    });
+
+    // Scroll progress bar
+    const bar = document.getElementById("progress-bar");
+    window.addEventListener("scroll", function () {
+      const doc = document.documentElement;
+      const scrolled = doc.scrollTop || document.body.scrollTop;
+      const total = doc.scrollHeight - doc.clientHeight;
+      bar.style.width = total > 0 ? (scrolled / total * 100) + "%" : "0%";
+    }, { passive: true });
+
+    // Audio toggle (only wired up if audio section exists)
+    const audioToggle = document.getElementById("audio-toggle");
+    if (audioToggle) {
+      audioToggle.addEventListener("click", function () {
+        const wrap = document.getElementById("audio-player-wrap");
+        wrap.classList.toggle("open");
+        this.textContent = wrap.classList.contains("open")
+          ? "▲ Hide AI Audio Overview"
+          : "🎙 AI Audio Overview";
+      });
+    }
+  </script>
+</body>
+</html>

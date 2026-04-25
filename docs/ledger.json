@@ -1,6 +1,6 @@
 {
   "meta": {
-    "last_updated": "2026-04-25T20:08:20.891405+00:00",
+    "last_updated": "2026-04-25T22:07:11.068732+00:00",
     "total_letters": 41,
     "total_audio": 0,
     "description": "State ledger for the PGR Letters Archive pipeline. Each entry tracks one SEC filing through the scrape \u2192 generate \u2192 compress lifecycle."
@@ -19,7 +19,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:00.021658+00:00"
+      "processed_date": "2026-04-25T20:07:00.021658+00:00",
+      "page_url": "letters/PGR_2025_Q4.html",
+      "page_built": true
     },
     {
       "id": "PGR_2025_Q3",
@@ -34,7 +36,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:00.814119+00:00"
+      "processed_date": "2026-04-25T20:07:00.814119+00:00",
+      "page_url": "letters/PGR_2025_Q3.html",
+      "page_built": true
     },
     {
       "id": "PGR_2025_Q2",
@@ -49,7 +53,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:01.703236+00:00"
+      "processed_date": "2026-04-25T20:07:01.703236+00:00",
+      "page_url": "letters/PGR_2025_Q2.html",
+      "page_built": true
     },
     {
       "id": "PGR_2025_Q1",
@@ -64,7 +70,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:02.543765+00:00"
+      "processed_date": "2026-04-25T20:07:02.543765+00:00",
+      "page_url": "letters/PGR_2025_Q1.html",
+      "page_built": true
     },
     {
       "id": "PGR_2024_Q4",
@@ -79,7 +87,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:03.412332+00:00"
+      "processed_date": "2026-04-25T20:07:03.412332+00:00",
+      "page_url": "letters/PGR_2024_Q4.html",
+      "page_built": true
     },
     {
       "id": "PGR_2024_Q3",
@@ -94,7 +104,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:04.301543+00:00"
+      "processed_date": "2026-04-25T20:07:04.301543+00:00",
+      "page_url": "letters/PGR_2024_Q3.html",
+      "page_built": true
     },
     {
       "id": "PGR_2024_Q2",
@@ -109,7 +121,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:05.242062+00:00"
+      "processed_date": "2026-04-25T20:07:05.242062+00:00",
+      "page_url": "letters/PGR_2024_Q2.html",
+      "page_built": true
     },
     {
       "id": "PGR_2024_Q1",
@@ -124,7 +138,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:06.112448+00:00"
+      "processed_date": "2026-04-25T20:07:06.112448+00:00",
+      "page_url": "letters/PGR_2024_Q1.html",
+      "page_built": true
     },
     {
       "id": "PGR_2023_Q4",
@@ -139,7 +155,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:07.189345+00:00"
+      "processed_date": "2026-04-25T20:07:07.189345+00:00",
+      "page_url": "letters/PGR_2023_Q4.html",
+      "page_built": true
     },
     {
       "id": "PGR_2023_Q3",
@@ -154,7 +172,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:08.052717+00:00"
+      "processed_date": "2026-04-25T20:07:08.052717+00:00",
+      "page_url": "letters/PGR_2023_Q3.html",
+      "page_built": true
     },
     {
       "id": "PGR_2023_Q2",
@@ -169,7 +189,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:08.932971+00:00"
+      "processed_date": "2026-04-25T20:07:08.932971+00:00",
+      "page_url": "letters/PGR_2023_Q2.html",
+      "page_built": true
     },
     {
       "id": "PGR_2023_Q1",
@@ -184,7 +206,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:10.142128+00:00"
+      "processed_date": "2026-04-25T20:07:10.142128+00:00",
+      "page_url": "letters/PGR_2023_Q1.html",
+      "page_built": true
     },
     {
       "id": "PGR_2022_Q4",
@@ -199,7 +223,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:11.116363+00:00"
+      "processed_date": "2026-04-25T20:07:11.116363+00:00",
+      "page_url": "letters/PGR_2022_Q4.html",
+      "page_built": true
     },
     {
       "id": "PGR_2022_Q3",
@@ -214,7 +240,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:12.267126+00:00"
+      "processed_date": "2026-04-25T20:07:12.267126+00:00",
+      "page_url": "letters/PGR_2022_Q3.html",
+      "page_built": true
     },
     {
       "id": "PGR_2022_Q2",
@@ -229,7 +257,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:13.512006+00:00"
+      "processed_date": "2026-04-25T20:07:13.512006+00:00",
+      "page_url": "letters/PGR_2022_Q2.html",
+      "page_built": true
     },
     {
       "id": "PGR_2022_Q1",
@@ -244,7 +274,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:14.573852+00:00"
+      "processed_date": "2026-04-25T20:07:14.573852+00:00",
+      "page_url": "letters/PGR_2022_Q1.html",
+      "page_built": true
     },
     {
       "id": "PGR_2021_Q4",
@@ -259,7 +291,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:15.488286+00:00"
+      "processed_date": "2026-04-25T20:07:15.488286+00:00",
+      "page_url": "letters/PGR_2021_Q4.html",
+      "page_built": true
     },
     {
       "id": "PGR_2021_Q3",
@@ -274,7 +308,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:16.366329+00:00"
+      "processed_date": "2026-04-25T20:07:16.366329+00:00",
+      "page_url": "letters/PGR_2021_Q3.html",
+      "page_built": true
     },
     {
       "id": "PGR_2021_Q2",
@@ -289,7 +325,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:17.367137+00:00"
+      "processed_date": "2026-04-25T20:07:17.367137+00:00",
+      "page_url": "letters/PGR_2021_Q2.html",
+      "page_built": true
     },
     {
       "id": "PGR_2021_Q1",
@@ -304,7 +342,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:18.505102+00:00"
+      "processed_date": "2026-04-25T20:07:18.505102+00:00",
+      "page_url": "letters/PGR_2021_Q1.html",
+      "page_built": true
     },
     {
       "id": "PGR_2020_Q4",
@@ -319,7 +359,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:19.416741+00:00"
+      "processed_date": "2026-04-25T20:07:19.416741+00:00",
+      "page_url": "letters/PGR_2020_Q4.html",
+      "page_built": true
     },
     {
       "id": "PGR_2020_Q3",
@@ -334,7 +376,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:20.467522+00:00"
+      "processed_date": "2026-04-25T20:07:20.467522+00:00",
+      "page_url": "letters/PGR_2020_Q3.html",
+      "page_built": true
     },
     {
       "id": "PGR_2020_Q2",
@@ -797,7 +841,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:35.172410+00:00"
+      "processed_date": "2026-04-25T20:07:35.172410+00:00",
+      "page_url": "letters/PGR_2013_Q2.html",
+      "page_built": true
     },
     {
       "id": "PGR_2013_Q1",
@@ -812,7 +858,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:36.158574+00:00"
+      "processed_date": "2026-04-25T20:07:36.158574+00:00",
+      "page_url": "letters/PGR_2013_Q1.html",
+      "page_built": true
     },
     {
       "id": "PGR_2012_Q4",
@@ -827,7 +875,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:37.155568+00:00"
+      "processed_date": "2026-04-25T20:07:37.155568+00:00",
+      "page_url": "letters/PGR_2012_Q4.html",
+      "page_built": true
     },
     {
       "id": "PGR_2012_Q3",
@@ -842,7 +892,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:38.164602+00:00"
+      "processed_date": "2026-04-25T20:07:38.164602+00:00",
+      "page_url": "letters/PGR_2012_Q3.html",
+      "page_built": true
     },
     {
       "id": "PGR_2012_Q2",
@@ -857,7 +909,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:39.030089+00:00"
+      "processed_date": "2026-04-25T20:07:39.030089+00:00",
+      "page_url": "letters/PGR_2012_Q2.html",
+      "page_built": true
     },
     {
       "id": "PGR_2012_Q1",
@@ -872,7 +926,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:40.111116+00:00"
+      "processed_date": "2026-04-25T20:07:40.111116+00:00",
+      "page_url": "letters/PGR_2012_Q1.html",
+      "page_built": true
     },
     {
       "id": "PGR_2011_Q4",
@@ -887,7 +943,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:41.056080+00:00"
+      "processed_date": "2026-04-25T20:07:41.056080+00:00",
+      "page_url": "letters/PGR_2011_Q4.html",
+      "page_built": true
     },
     {
       "id": "PGR_2011_Q3",
@@ -902,7 +960,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:41.923614+00:00"
+      "processed_date": "2026-04-25T20:07:41.923614+00:00",
+      "page_url": "letters/PGR_2011_Q3.html",
+      "page_built": true
     },
     {
       "id": "PGR_2011_Q2",
@@ -917,7 +977,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:43.357351+00:00"
+      "processed_date": "2026-04-25T20:07:43.357351+00:00",
+      "page_url": "letters/PGR_2011_Q2.html",
+      "page_built": true
     },
     {
       "id": "PGR_2011_Q1",
@@ -1108,7 +1170,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:49.404242+00:00"
+      "processed_date": "2026-04-25T20:07:49.404242+00:00",
+      "page_url": "letters/PGR_2008_Q2.html",
+      "page_built": true
     },
     {
       "id": "PGR_2008_Q1",
@@ -1123,7 +1187,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:50.546856+00:00"
+      "processed_date": "2026-04-25T20:07:50.546856+00:00",
+      "page_url": "letters/PGR_2008_Q1.html",
+      "page_built": true
     },
     {
       "id": "PGR_2007_Q4",
@@ -1138,7 +1204,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:51.401505+00:00"
+      "processed_date": "2026-04-25T20:07:51.401505+00:00",
+      "page_url": "letters/PGR_2007_Q4.html",
+      "page_built": true
     },
     {
       "id": "PGR_2007_Q3",
@@ -1153,7 +1221,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:52.276286+00:00"
+      "processed_date": "2026-04-25T20:07:52.276286+00:00",
+      "page_url": "letters/PGR_2007_Q3.html",
+      "page_built": true
     },
     {
       "id": "PGR_2007_Q2",
@@ -1168,7 +1238,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:53.204580+00:00"
+      "processed_date": "2026-04-25T20:07:53.204580+00:00",
+      "page_url": "letters/PGR_2007_Q2.html",
+      "page_built": true
     },
     {
       "id": "PGR_2007_Q1",
@@ -1183,7 +1255,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:54.210729+00:00"
+      "processed_date": "2026-04-25T20:07:54.210729+00:00",
+      "page_url": "letters/PGR_2007_Q1.html",
+      "page_built": true
     },
     {
       "id": "PGR_2006_Q4",
@@ -1198,7 +1272,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:55.100425+00:00"
+      "processed_date": "2026-04-25T20:07:55.100425+00:00",
+      "page_url": "letters/PGR_2006_Q4.html",
+      "page_built": true
     },
     {
       "id": "PGR_2006_Q3",
@@ -1213,7 +1289,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:56.057037+00:00"
+      "processed_date": "2026-04-25T20:07:56.057037+00:00",
+      "page_url": "letters/PGR_2006_Q3.html",
+      "page_built": true
     },
     {
       "id": "PGR_2006_Q2",
@@ -1228,7 +1306,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:56.910489+00:00"
+      "processed_date": "2026-04-25T20:07:56.910489+00:00",
+      "page_url": "letters/PGR_2006_Q2.html",
+      "page_built": true
     },
     {
       "id": "PGR_2006_Q1",
@@ -1259,7 +1339,9 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-25T20:07:58.089569+00:00"
+      "processed_date": "2026-04-25T20:07:58.089569+00:00",
+      "page_url": "letters/PGR_2005_Q4.html",
+      "page_built": true
     },
     {
       "id": "PGR_2005_Q3",

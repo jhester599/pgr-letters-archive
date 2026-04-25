@@ -138,11 +138,23 @@ The scraper checks `already_processed()` by accession number, so it's safe to re
 **Force re-generation of audio for a specific quarter:**
 Set `audio_generated: false` on the filing in `ledger.json` and re-run `generator.py`.
 
-**Backfill all historical letters:**
+**Backfill all historical letters (one-time):**
 ```bash
-python scripts/scraper.py   # downloads all available from EDGAR recent list
-# For older filings, manually fetch older submission pages and run again
+# Preview everything EDGAR has, without downloading
+python scripts/backfill.py --dry-run
+
+# Download all available filings (may take several minutes)
+python scripts/backfill.py
+
+# Limit to a specific year range
+python scripts/backfill.py --from-year 2010
+
+# After backfill, generate audio for everything (no per-run limit)
+python scripts/generator.py --max-new 0
 ```
+`backfill.py` paginates through all of EDGAR's historical pages for PGR, not just
+the most-recent ~40 filings that `scraper.py` covers. It shares the same ledger and
+letter directory, and is fully idempotent — safe to re-run at any time.
 
 **Regenerate the RSS feed without a new audio run:**
 ```bash

@@ -39,7 +39,88 @@ def _quarter_sort_key(filing: dict) -> int:
 
 def render_letter_html(text: str) -> str:
     """Convert plain letter text to HTML paragraphs, escaping special characters."""
-    pass  # implemented in Task 3
+    paragraphs = [p.strip() for p in text.split("\n\n") if p.strip()]
+    return "\n".join(f"<p>{html.escape(p)}</p>" for p in paragraphs)
+
+
+_HTML_TEMPLATE = """\
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PGR {year} {quarter} — Shareholder Letter</title>
+  <link rel="stylesheet" href="../assets/reading.css" />
+</head>
+<body>
+  <div id="progress-bar"></div>
+
+  <header class="reading-header">
+    <nav class="reading-nav">
+      <a href="../index.html" class="nav-back">← Archive</a>
+      <div class="nav-episodes">
+        {prev_link}
+        {next_link}
+      </div>
+      <button id="theme-toggle" aria-label="Toggle dark mode">\U0001f319</button>
+    </nav>
+  </header>
+
+  <main class="reading-main">
+    <article class="letter-article">
+      <header class="letter-header">
+        <div class="letter-meta">
+          <span class="meta-quarter">{year} {quarter}</span>
+          <span class="meta-form">{form_type}</span>
+          <span class="meta-date">Period ending {report_date}</span>
+        </div>
+        <h1>CEO Shareholder Letter</h1>
+        {audio_section}
+      </header>
+      <div class="letter-body">
+        {letter_paragraphs}
+      </div>
+    </article>
+  </main>
+
+  <script>
+    // Dark mode — restore saved preference before first paint
+    (function () {{
+      const saved = localStorage.getItem("pgr-theme");
+      if (saved) document.documentElement.setAttribute("data-theme", saved);
+    }})();
+
+    document.getElementById("theme-toggle").addEventListener("click", function () {{
+      const current = document.documentElement.getAttribute("data-theme") || "light";
+      const next = current === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("pgr-theme", next);
+      this.textContent = next === "dark" ? "☀️" : "\U0001f319";
+    }});
+
+    // Scroll progress bar
+    const bar = document.getElementById("progress-bar");
+    window.addEventListener("scroll", function () {{
+      const doc = document.documentElement;
+      const scrolled = doc.scrollTop || document.body.scrollTop;
+      const total = doc.scrollHeight - doc.clientHeight;
+      bar.style.width = total > 0 ? (scrolled / total * 100) + "%" : "0%";
+    }}, {{ passive: true }});
+
+    // Audio toggle (only wired up if audio section exists)
+    const audioToggle = document.getElementById("audio-toggle");
+    if (audioToggle) {{
+      audioToggle.addEventListener("click", function () {{
+        const wrap = document.getElementById("audio-player-wrap");
+        wrap.classList.toggle("open");
+        this.textContent = wrap.classList.contains("open")
+          ? "▲ Hide AI Audio Overview"
+          : "\U0001f399 AI Audio Overview";
+      }});
+    }}
+  </script>
+</body>
+</html>"""
 
 
 def build_page(
@@ -49,7 +130,45 @@ def build_page(
     next_filing: "dict | None",
 ) -> str:
     """Render a complete HTML reading page for one filing."""
-    pass  # implemented in Task 3
+    prev_link = (
+        f'<a href="{prev_filing["id"]}.html" class="nav-ep-link">'
+        f'← {prev_filing["year"]} {prev_filing["quarter"]}</a>'
+        if prev_filing else ""
+    )
+    next_link = (
+        f'<a href="{next_filing["id"]}.html" class="nav-ep-link">'
+        f'{next_filing["year"]} {next_filing["quarter"]} →</a>'
+        if next_filing else ""
+    )
+
+    if filing.get("audio_compressed") and filing.get("audio_file"):
+        audio_filename = filing["audio_file"].split("/")[-1]
+        audio_section = (
+            '<div class="audio-section">'
+            '<button class="audio-toggle" id="audio-toggle">'
+            "\U0001f399 AI Audio Overview</button>"
+            '<div class="audio-player-wrap" id="audio-player-wrap">'
+            '<p class="audio-label">AI-generated podcast overview via NotebookLM</p>'
+            f'<audio controls preload="none">'
+            f'<source src="../audio/{audio_filename}" type="audio/mpeg" />'
+            "Your browser does not support the audio element."
+            "</audio>"
+            "</div>"
+            "</div>"
+        )
+    else:
+        audio_section = ""
+
+    return _HTML_TEMPLATE.format(
+        year=filing["year"],
+        quarter=filing["quarter"],
+        form_type=filing["form_type"],
+        report_date=filing.get("report_date", "unknown"),
+        prev_link=prev_link,
+        next_link=next_link,
+        audio_section=audio_section,
+        letter_paragraphs=render_letter_html(letter_text),
+    )
 
 
 def main(rebuild: bool = False) -> None:

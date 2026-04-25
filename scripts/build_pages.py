@@ -17,6 +17,7 @@ import argparse
 import html
 import logging
 from pathlib import Path
+import re
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -37,11 +38,163 @@ def _quarter_sort_key(filing: dict) -> int:
     return filing["year"] * 10 + {"Q1": 1, "Q2": 2, "Q3": 3, "Q4": 4}.get(filing["quarter"], 0)
 
 
+_MOJIBAKE_REPLACEMENTS = {
+    "\x91": "\u2018",
+    "\x92": "\u2019",
+    "\x93": "\u201c",
+    "\x94": "\u201d",
+    "\x96": "\u2013",
+    "\x97": "\u2014",
+    "\xa0": " ",
+    "\u00e2\u20ac\u02dc": "\u2018",
+    "\u00e2\u20ac\u2122": "\u2019",
+    "\u00e2\u20ac\u0153": "\u201c",
+    "\u00e2\u20ac\u009d": "\u201d",
+    "\u00e2\u20ac\u201d": "\u2014",
+    "\u00e2\u20ac\u201c": "\u2013",
+    "\u00e2\u20ac\u00a6": "\u2026",
+    "\u00e2\u20ac\u2018": "\u2011",
+    "\u00e2\u20ac\u00af": "\u202f",
+    "\u00c2\u00ae": "\u00ae",
+    "\u00c2\u00b7": "\u00b7",
+}
+
+_SEC_NOISE_LINES = {
+    "EX-99",
+    "DOCUMENT",
+    "EXHIBIT 99",
+    "LETTER TO SHAREHOLDERS",
+}
+
+_ORDINAL_SUFFIXES = {"st", "nd", "rd", "th"}
+_TRADEMARK_LINES = {"\u00ae", "\u2122"}
+
+
+def _repair_text_encoding(text: str) -> str:
+    """Repair common mojibake left behind by SEC HTML extraction."""
+    repaired = text
+    for bad, good in _MOJIBAKE_REPLACEMENTS.items():
+        repaired = repaired.replace(bad, good)
+    return repaired
+
+
+def _is_sec_noise(line: str) -> bool:
+    upper_line = line.upper()
+    lower_line = line.lower()
+    if upper_line in _SEC_NOISE_LINES:
+        return True
+    if re.fullmatch(r"EX-99(?:\([A-Z]\)|\.[A-Z])?", upper_line):
+        return True
+    if re.fullmatch(r"EX-99(?:\([A-Z]\)|\.[A-Z])?\s+LETTER TO SHAREHOLDERS", upper_line):
+        return True
+    if re.fullmatch(r"EXHIBIT\s+NO\.\s+99(?:\([A-Z]\))?", upper_line):
+        return True
+    if "letter to shareholders" == lower_line:
+        return True
+    return bool(re.fullmatch(r"(?:pgr-\d+.*exhibit99.*|l\d+aexv99\w*)\.html?", lower_line))
+
+
+def _is_page_number(line: str, next_line: str | None) -> bool:
+    if not line.isdigit():
+        return False
+    if next_line in _ORDINAL_SUFFIXES:
+        return False
+    return 1 <= int(line) <= 200
+
+
+def _is_heading(line: str) -> bool:
+    letters = [char for char in line if char.isalpha()]
+    if len(letters) < 6 or line.endswith((".", ",", ";", ":")):
+        return False
+    return all(not char.isalpha() or char.isupper() for char in line)
+
+
+def _has_terminal_punctuation(text: str) -> bool:
+    return text.rstrip().endswith((".", "?", "!", "\u201d", '"', ":", ";"))
+
+
+def _should_join_lines(previous: str, current: str) -> bool:
+    if not previous:
+        return False
+    if current[:1].islower():
+        return True
+    return not _has_terminal_punctuation(previous)
+
+
+def _append_inline_marker(paragraph: str, marker: str) -> str:
+    if marker in _TRADEMARK_LINES or marker in _ORDINAL_SUFFIXES:
+        return f"{paragraph}{marker}"
+    return f"{paragraph} {marker}"
+
+
+def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
+    """Normalize extracted filing text into display-ready paragraph/heading blocks."""
+    text = _repair_text_encoding(text)
+    raw_lines = [line.strip() for line in text.replace("\r\n", "\n").split("\n")]
+
+    filtered_lines: list[str | None] = []
+    for index, line in enumerate(raw_lines):
+        if not line:
+            filtered_lines.append(None)
+            continue
+
+        next_line = next(
+            (candidate.strip() for candidate in raw_lines[index + 1:] if candidate.strip()),
+            None,
+        )
+        if _is_sec_noise(line) or _is_page_number(line, next_line):
+            continue
+        filtered_lines.append(line)
+
+    blocks: list[tuple[str, str]] = []
+    paragraph = ""
+
+    def flush_paragraph() -> None:
+        nonlocal paragraph
+        if paragraph:
+            blocks.append(("paragraph", paragraph.strip()))
+            paragraph = ""
+
+    for line in filtered_lines:
+        if line is None:
+            flush_paragraph()
+            continue
+
+        if line in _TRADEMARK_LINES or line == "SM":
+            paragraph = _append_inline_marker(paragraph, line)
+            continue
+        if line in _ORDINAL_SUFFIXES and paragraph and paragraph[-1:].isdigit():
+            paragraph = _append_inline_marker(paragraph, line)
+            continue
+        if paragraph and line[:1] in {".", ",", ";", ":", ")", "%"}:
+            paragraph = f"{paragraph}{line}"
+            continue
+
+        if _is_heading(line):
+            flush_paragraph()
+            blocks.append(("heading", line))
+            continue
+
+        if paragraph and _should_join_lines(paragraph, line):
+            paragraph = f"{paragraph} {line}"
+        else:
+            flush_paragraph()
+            paragraph = line
+
+    flush_paragraph()
+    return blocks
+
+
 def render_letter_html(text: str) -> str:
-    """Convert plain letter text to HTML paragraphs, escaping special characters."""
-    paragraphs = [p.strip() for p in text.split("\n\n") if p.strip()]
-    escaped = [html.escape(p).replace("\n", "<br />\n") for p in paragraphs]
-    return "\n".join(f"<p>{e}</p>" for e in escaped)
+    """Convert extracted plain letter text to polished, escaped HTML blocks."""
+    rendered = []
+    for block_type, block_text in _normalized_letter_blocks(text):
+        escaped_text = html.escape(block_text)
+        tag = "h2" if block_type == "heading" else "p"
+        rendered.append(f"<{tag}>{escaped_text}</{tag}>")
+    return "\n".join(rendered)
+
+
 
 
 _HTML_TEMPLATE = """\

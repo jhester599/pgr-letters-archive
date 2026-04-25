@@ -36,10 +36,75 @@ def test_render_letter_html_escapes_html():
     assert "<b>" not in result
 
 
-def test_render_letter_html_single_newline_becomes_br():
+def test_render_letter_html_single_newline_starts_new_paragraph_when_complete():
     result = render_letter_html("Line one.\nLine two.")
-    assert "<br />" in result
-    assert "<p>Line one.\nLine two.</p>" not in result
+    assert "<p>Line one.</p>" in result
+    assert "<p>Line two.</p>" in result
+    assert "<br />" not in result
+
+
+def test_render_letter_html_removes_sec_header_noise():
+    text = "\n".join([
+        "EX-99",
+        "13",
+        "pgr-20251231exhibit99.htm",
+        "EX-99",
+        "Document",
+        "Exhibit 99",
+        "LETTER TO SHAREHOLDERS",
+        "The best part of customer-focused growth is that every customer increases share.",
+    ])
+
+    result = render_letter_html(text)
+
+    assert "EX-99" not in result
+    assert "pgr-20251231exhibit99.htm" not in result
+    assert "Document" not in result
+    assert "LETTER TO SHAREHOLDERS" not in result
+    assert "The best part of customer-focused growth" in result
+
+
+def test_render_letter_html_removes_older_exhibit_header_variants():
+    text = "\n".join([
+        "EX-99.A",
+        "24",
+        "l17994aexv99wa.htm",
+        "EX-99(A) LETTER TO SHAREHOLDERS",
+        "Exhibit\xa0No.\xa099(A)",
+        "LETTER TO SHAREHOLDERS",
+        "MEASUREMENT IS CENTRAL TO PROGRESSIVE\x92S BUSINESS DISCIPLINE.",
+    ])
+
+    result = render_letter_html(text)
+
+    assert "EX-99" not in result
+    assert "l17994aexv99wa.htm" not in result
+    assert "LETTER TO SHAREHOLDERS" not in result
+    assert "Exhibit" not in result
+    assert "PROGRESSIVE’S BUSINESS DISCIPLINE" in result
+
+
+def test_render_letter_html_removes_page_numbers_and_repairs_wrapped_lines():
+    text = "Every customer increases share of the\n1\nmarket. We serve them."
+
+    result = render_letter_html(text)
+
+    assert "<p>Every customer increases share of the market. We serve them.</p>" in result
+    assert ">1<" not in result
+
+
+def test_render_letter_html_repairs_split_trademark_markers():
+    text = "Keys to Progress\nÂ®\nwhere customers participate in the survey.\n99\nth\npercentile."
+
+    result = render_letter_html(text)
+
+    assert "Keys to Progress® where customers participate" in result
+    assert "99th percentile." in result
+
+
+def test_render_letter_html_repairs_common_mojibake():
+    result = render_letter_html("Iâ€™m proud of Progressiveâ€™s results.")
+    assert "I’m proud of Progressive’s results." in result
 
 
 def test_build_page_contains_metadata():

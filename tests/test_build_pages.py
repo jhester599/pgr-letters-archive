@@ -183,7 +183,7 @@ def test_main_rebuild_forces_regeneration(fake_env):
     build_pages.main(rebuild=False)
     mtime1 = (pages_out / "PGR_2025_Q3.html").stat().st_mtime
 
-    time.sleep(0.05)
+    time.sleep(0.15)
     build_pages.main(rebuild=True)
     mtime2 = (pages_out / "PGR_2025_Q3.html").stat().st_mtime
     assert mtime2 > mtime1

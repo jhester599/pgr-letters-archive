@@ -183,7 +183,11 @@ def main(rebuild: bool = False) -> None:
             log.debug("Skipping already-built page for %s", filing["id"])
             continue
 
-        letter_path = BASE_DIR / filing["letter_file"]
+        letter_file = filing.get("letter_file")
+        if not letter_file:
+            log.warning("No letter_file for %s — skipping", filing["id"])
+            continue
+        letter_path = BASE_DIR / letter_file
         if not letter_path.exists():
             log.warning("Letter file not found: %s — skipping %s", letter_path, filing["id"])
             continue

@@ -68,6 +68,9 @@ jobs:
           PAGES_BASE_URL: "https://jhester599.github.io/pgr-letters-archive"
         run: python scripts/compressor.py
 
+      - name: Build reading pages
+        run: python scripts/build_pages.py
+
       # ── 6. Commit and push any new / updated files ────────────────────────
       - name: Commit and push changes
         run: |
@@ -78,7 +81,8 @@ jobs:
             data/letters/ \
             docs/audio/ \
             docs/ledger.json \
-            docs/feed.xml
+            docs/feed.xml \
+            docs/letters/
 
           if git diff --staged --quiet; then
             echo "No new files to commit — pipeline found nothing new."

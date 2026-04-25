@@ -40,7 +40,8 @@ def _quarter_sort_key(filing: dict) -> int:
 def render_letter_html(text: str) -> str:
     """Convert plain letter text to HTML paragraphs, escaping special characters."""
     paragraphs = [p.strip() for p in text.split("\n\n") if p.strip()]
-    return "\n".join(f"<p>{html.escape(p)}</p>" for p in paragraphs)
+    escaped = [html.escape(p).replace("\n", "<br />\n") for p in paragraphs]
+    return "\n".join(f"<p>{e}</p>" for e in escaped)
 
 
 _HTML_TEMPLATE = """\
@@ -126,8 +127,8 @@ _HTML_TEMPLATE = """\
 def build_page(
     filing: dict,
     letter_text: str,
-    prev_filing: "dict | None",
-    next_filing: "dict | None",
+    prev_filing: dict | None,
+    next_filing: dict | None,
 ) -> str:
     """Render a complete HTML reading page for one filing."""
     prev_link = (
@@ -143,19 +144,17 @@ def build_page(
 
     if filing.get("audio_compressed") and filing.get("audio_file"):
         audio_filename = filing["audio_file"].split("/")[-1]
-        audio_section = (
-            '<div class="audio-section">'
-            '<button class="audio-toggle" id="audio-toggle">'
-            "\U0001f399 AI Audio Overview</button>"
-            '<div class="audio-player-wrap" id="audio-player-wrap">'
-            '<p class="audio-label">AI-generated podcast overview via NotebookLM</p>'
-            f'<audio controls preload="none">'
-            f'<source src="../audio/{audio_filename}" type="audio/mpeg" />'
-            "Your browser does not support the audio element."
-            "</audio>"
-            "</div>"
-            "</div>"
-        )
+        audio_section = f"""\
+<div class="audio-section">
+  <button class="audio-toggle" id="audio-toggle">\U0001f399 AI Audio Overview</button>
+  <div class="audio-player-wrap" id="audio-player-wrap">
+    <p class="audio-label">AI-generated podcast overview via NotebookLM</p>
+    <audio controls preload="none">
+      <source src="../audio/{audio_filename}" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+</div>"""
     else:
         audio_section = ""
 

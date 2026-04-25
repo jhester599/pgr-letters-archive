@@ -36,6 +36,12 @@ def test_render_letter_html_escapes_html():
     assert "<b>" not in result
 
 
+def test_render_letter_html_single_newline_becomes_br():
+    result = render_letter_html("Line one.\nLine two.")
+    assert "<br />" in result
+    assert "<p>Line one.\nLine two.</p>" not in result
+
+
 def test_build_page_contains_metadata():
     page = build_page(SAMPLE_FILING, SAMPLE_TEXT, None, None)
     assert "2025 Q3" in page

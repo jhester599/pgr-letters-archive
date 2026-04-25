@@ -38,7 +38,7 @@ EDGAR_ARCHIVES = "https://www.sec.gov/Archives/edgar/data"
 
 # SEC requires a descriptive User-Agent; using project name + contact
 HEADERS = {
-    "User-Agent": "PGR-Letters-Archive jhester599@github.com",
+    "User-Agent": "PGR-Letters-Archive jeffrey.r.hester@gmail.com",
     "Accept-Encoding": "gzip, deflate",
     "Accept": "application/json, text/html, */*",
 }
@@ -124,16 +124,32 @@ def fetch_submissions() -> dict:
 
 
 def fetch_filing_documents(accession_number: str) -> Optional[list[dict]]:
-    """Return the list of document dicts from the filing's index JSON."""
+    """Return the list of document dicts from the filing's HTML index page."""
     acc = accession_number.replace("-", "")
-    url = f"{EDGAR_ARCHIVES}/{CIK_PLAIN}/{acc}/{acc}-index.json"
+    url = f"{EDGAR_ARCHIVES}/{CIK_PLAIN}/{acc}/{accession_number}-index.htm"
     resp = get(url)
     if not resp:
         return None
     try:
-        return resp.json().get("documents", [])
+        soup = BeautifulSoup(resp.text, "lxml")
+        documents = []
+        for row in soup.select("table tr"):
+            cells = row.find_all("td")
+            # Index page table columns: seq, type, filename, description, size
+            if len(cells) < 3:
+                continue
+            doc_type = cells[1].get_text(strip=True)
+            link = cells[2].find("a")
+            if link and doc_type:
+                href = link["href"]
+                # Strip iXBRL viewer prefix: /ix?doc=/Archives/...
+                if "?doc=" in href:
+                    href = href.split("?doc=", 1)[1]
+                filename = href.split("/")[-1]
+                documents.append({"type": doc_type, "filename": filename})
+        return documents
     except Exception as exc:
-        log.error("Failed to parse filing index JSON: %s", exc)
+        log.error("Failed to parse filing index HTML: %s", exc)
         return None
 
 # ── Document extraction ───────────────────────────────────────────────────────

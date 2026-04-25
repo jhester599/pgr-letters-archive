@@ -96,3 +96,94 @@ def test_build_page_back_link_present():
 def test_build_page_reading_css_linked():
     page = build_page(SAMPLE_FILING, SAMPLE_TEXT, None, None)
     assert "../assets/reading.css" in page
+
+
+# ── Integration tests ────────────────────────────────────────────────────
+
+import json
+import time
+import build_pages
+import scraper
+
+
+@pytest.fixture
+def fake_env(tmp_path, monkeypatch):
+    """Temp ledger + letter file; PAGES_DIR and BASE_DIR redirected."""
+    # Letter file
+    letters_dir = tmp_path / "data" / "letters"
+    letters_dir.mkdir(parents=True)
+    (letters_dir / "PGR_2025_Q3_Letter.txt").write_text(
+        "Para one.\n\nPara two.", encoding="utf-8"
+    )
+
+    # Pages output dir
+    pages_out = tmp_path / "docs" / "letters"
+    pages_out.mkdir(parents=True)
+
+    # Ledger
+    ledger_data = {
+        "meta": {
+            "last_updated": None,
+            "total_letters": 1,
+            "total_audio": 0,
+            "description": "",
+        },
+        "filings": [{
+            "id":               "PGR_2025_Q3",
+            "year":             2025,
+            "quarter":          "Q3",
+            "form_type":        "10-Q",
+            "report_date":      "2025-09-30",
+            "letter_file":      "data/letters/PGR_2025_Q3_Letter.txt",
+            "audio_file":       "docs/audio/PGR_2025_Q3_Letter.mp3",
+            "letter_scraped":   True,
+            "audio_compressed": False,
+            "page_built":       False,
+        }],
+    }
+    ledger_file = tmp_path / "docs" / "ledger.json"
+    ledger_file.parent.mkdir(parents=True, exist_ok=True)
+    ledger_file.write_text(json.dumps(ledger_data, indent=2), encoding="utf-8")
+
+    monkeypatch.setattr(build_pages, "PAGES_DIR", pages_out)
+    monkeypatch.setattr(build_pages, "BASE_DIR",  tmp_path)
+    monkeypatch.setattr(scraper,     "BASE_DIR",  tmp_path)
+    monkeypatch.setattr(scraper,     "LEDGER_PATH", ledger_file)
+
+    return tmp_path, ledger_file, pages_out
+
+
+def test_main_creates_html_file(fake_env):
+    _, _, pages_out = fake_env
+    build_pages.main(rebuild=False)
+    assert (pages_out / "PGR_2025_Q3.html").exists()
+
+
+def test_main_sets_page_built_in_ledger(fake_env):
+    _, ledger_file, _ = fake_env
+    build_pages.main(rebuild=False)
+    updated = json.loads(ledger_file.read_text())
+    filing = updated["filings"][0]
+    assert filing["page_built"] is True
+    assert filing["page_url"] == "letters/PGR_2025_Q3.html"
+
+
+def test_main_is_idempotent(fake_env):
+    _, _, pages_out = fake_env
+    build_pages.main(rebuild=False)
+    mtime1 = (pages_out / "PGR_2025_Q3.html").stat().st_mtime
+
+    build_pages.main(rebuild=False)   # second run — page_built=True in ledger
+    mtime2 = (pages_out / "PGR_2025_Q3.html").stat().st_mtime
+    assert mtime1 == mtime2  # file not rewritten
+
+
+def test_main_rebuild_forces_regeneration(fake_env):
+    _, _, pages_out = fake_env
+    build_pages.main(rebuild=False)
+    mtime1 = (pages_out / "PGR_2025_Q3.html").stat().st_mtime
+
+    time.sleep(0.05)
+    build_pages.main(rebuild=True)
+    mtime2 = (pages_out / "PGR_2025_Q3.html").stat().st_mtime
+    assert mtime2 > mtime1

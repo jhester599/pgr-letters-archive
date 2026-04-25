@@ -171,7 +171,37 @@ def build_page(
 
 
 def main(rebuild: bool = False) -> None:
-    pass  # implemented in Task 4
+    PAGES_DIR.mkdir(parents=True, exist_ok=True)
+    ledger = load_ledger()
+
+    scrapeable = [f for f in ledger["filings"] if f.get("letter_scraped")]
+    scrapeable.sort(key=_quarter_sort_key)
+
+    built = 0
+    for i, filing in enumerate(scrapeable):
+        if not rebuild and filing.get("page_built"):
+            log.debug("Skipping already-built page for %s", filing["id"])
+            continue
+
+        letter_path = BASE_DIR / filing["letter_file"]
+        if not letter_path.exists():
+            log.warning("Letter file not found: %s — skipping %s", letter_path, filing["id"])
+            continue
+
+        letter_text  = letter_path.read_text(encoding="utf-8")
+        prev_filing  = scrapeable[i - 1] if i > 0 else None
+        next_filing  = scrapeable[i + 1] if i < len(scrapeable) - 1 else None
+        html_content = build_page(filing, letter_text, prev_filing, next_filing)
+        page_filename = f"{filing['id']}.html"
+
+        (PAGES_DIR / page_filename).write_text(html_content, encoding="utf-8")
+        filing["page_url"]   = f"letters/{page_filename}"
+        filing["page_built"] = True
+        save_ledger(ledger)
+        built += 1
+        log.info("Built %s", page_filename)
+
+    log.info("Done. %d page(s) built.", built)
 
 
 if __name__ == "__main__":

@@ -135,6 +135,7 @@
       padding: .1rem .4rem;
       border-radius: 4px;
       margin-top: .25rem;
+      margin-right: .3rem;
       width: fit-content;
     }
     .badge-audio  { background: #e3f6ec; color: #1a7a45; }
@@ -371,7 +372,12 @@
         </div>`;
 
       if (filing.page_url) {
-        li.addEventListener("click", () => { window.location.href = filing.page_url; });
+        li.addEventListener("click", () => {
+          const url = filing.page_url;
+          if (url && url.startsWith("letters/")) {
+            window.location.href = url;
+          }
+        });
       } else {
         li.addEventListener("click", () => selectEpisode(filing.id));
       }

@@ -26,10 +26,14 @@ docs/               — GitHub Pages root (served at /pgr-letters-archive/)
   ledger.json       — State ledger; also the front-end's data source
   audio/            — Compressed 64 kbps MP3s (committed)
   feed.xml          — Podcast RSS feed (regenerated each run)
+  letters/          — Standalone HTML reading pages (one per letter)
+  assets/
+    reading.css     — Stylesheet for reading pages
 scripts/
   scraper.py        — SEC EDGAR downloader
   generator.py      — NotebookLM audio generation
   compressor.py     — FFmpeg compression + RSS generation
+  build_pages.py    — Per-letter HTML reading page generator
 requirements.txt
 PLAN.md             — Architecture, phases, technical decisions
 CLAUDE.md           — This file
@@ -118,9 +122,11 @@ error, re-run `notebooklm login` and update the secret.
     "letter_file":           "data/letters/PGR_2025_Q1_Letter.txt",
     "audio_raw_file":        "data/audio_raw/PGR_2025_Q1_Letter.mp4",
     "audio_file":            "docs/audio/PGR_2025_Q1_Letter.mp3",
+    "page_url":              "letters/PGR_2025_Q1.html",
     "letter_scraped":        true,
     "audio_generated":       true,
     "audio_compressed":      true,
+    "page_built":            true,
     "processed_date":        "2025-04-15T12:00:00Z",
     "audio_generated_date":  "2025-04-15T13:00:00Z",
     "audio_compressed_date": "2025-04-15T13:30:00Z"
@@ -128,7 +134,7 @@ error, re-run `notebooklm login` and update the secret.
 }
 ```
 
-Flag lifecycle: `letter_scraped` → `audio_generated` → `audio_compressed`
+Flag lifecycle: `letter_scraped` → `audio_generated` → `audio_compressed` → `page_built`
 
 ## Proving the concept — initial run checklist
 
@@ -230,6 +236,16 @@ letter directory, and is fully idempotent — safe to re-run at any time.
 **Regenerate the RSS feed without a new audio run:**
 ```bash
 python scripts/compressor.py   # no pending audio → skips compression, still writes feed.xml
+```
+
+**Rebuild all reading pages (after CSS or template changes):**
+```bash
+python scripts/build_pages.py --rebuild
+```
+
+**Build only new reading pages (standard run):**
+```bash
+python scripts/build_pages.py
 ```
 
 **Add a podcast cover image:**

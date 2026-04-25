@@ -1,0 +1,205 @@
+/* docs/assets/reading.css — Reading page styles */
+
+/* ── CSS custom properties ─────────────────────────────────────────────── */
+:root {
+  --brand-blue:   #003087;
+  --brand-mid:    #0052cc;
+  --bg:           #f7f8fc;
+  --surface:      #ffffff;
+  --text-primary: #1a1a2e;
+  --text-muted:   #555570;
+  --border:       #d0d5e8;
+  --column-width: 700px;
+  --progress-h:   3px;
+}
+
+[data-theme="dark"] {
+  --bg:           #0f1117;
+  --surface:      #1a1d27;
+  --text-primary: #e8eaf0;
+  --text-muted:   #9da3b4;
+  --border:       #2e3248;
+  --brand-mid:    #4f7ee8;
+}
+
+/* ── Reset ──────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── Progress bar ───────────────────────────────────────────────────────── */
+#progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: var(--progress-h);
+  width: 0%;
+  background: var(--brand-mid);
+  z-index: 1000;
+  transition: width 0.1s linear;
+}
+
+/* ── Sticky nav header ──────────────────────────────────────────────────── */
+.reading-header {
+  position: sticky;
+  top: var(--progress-h);
+  z-index: 100;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0.65rem 1.5rem;
+}
+
+.reading-nav {
+  max-width: calc(var(--column-width) + 4rem);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-back {
+  color: var(--brand-mid);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.nav-back:hover { text-decoration: underline; }
+
+.nav-episodes {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.nav-ep-link {
+  color: var(--brand-mid);
+  text-decoration: none;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.nav-ep-link:hover { background: var(--border); }
+
+#theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 0.2rem 0.6rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+#theme-toggle:hover { background: var(--border); }
+
+/* ── Main content column ────────────────────────────────────────────────── */
+.reading-main {
+  max-width: calc(var(--column-width) + 4rem);
+  margin: 0 auto;
+  padding: 2.5rem 2rem 4rem;
+}
+
+/* ── Letter header ──────────────────────────────────────────────────────── */
+.letter-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.letter-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.meta-quarter {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-mid);
+}
+
+.meta-form,
+.meta-date {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.meta-form::before,
+.meta-date::before { content: "·"; margin-right: 0.5rem; }
+
+.letter-header h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 1rem;
+}
+
+/* ── Audio player (collapsed by default) ────────────────────────────────── */
+.audio-section { margin-top: 1rem; }
+
+.audio-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.4rem 0.85rem;
+  cursor: pointer;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background 0.15s;
+}
+.audio-toggle:hover { background: var(--border); }
+
+.audio-player-wrap { display: none; margin-top: 0.75rem; }
+.audio-player-wrap.open { display: block; }
+
+audio { width: 100%; border-radius: 4px; margin-top: 0.25rem; }
+
+.audio-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
+}
+
+/* ── Letter body ────────────────────────────────────────────────────────── */
+.letter-body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--text-primary);
+}
+
+.letter-body p { margin-bottom: 1.4em; }
+.letter-body p:last-child { margin-bottom: 0; }
+
+/* ── Print styles ───────────────────────────────────────────────────────── */
+@media print {
+  #progress-bar, .reading-header { display: none; }
+  body { background: #fff; color: #000; }
+  .reading-main { padding: 0; max-width: 100%; }
+  .letter-body { font-size: 11pt; line-height: 1.6; }
+  .audio-section { display: none; }
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .reading-main { padding: 1.5rem 1rem 3rem; }
+  .reading-header { padding: 0.5rem 1rem; }
+  .letter-header h1 { font-size: 1.25rem; }
+  .letter-body { font-size: 0.97rem; }
+}

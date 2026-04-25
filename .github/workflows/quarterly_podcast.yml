@@ -1,0 +1,103 @@
+name: Quarterly Podcast Pipeline
+
+# Runs every Friday at midnight UTC to catch the filing windows:
+#   • Q1 (Jan–Mar): filed mid-April to mid-May
+#   • Q2 (Apr–Jun): filed mid-July to mid-August
+#   • Q3 (Jul–Sep): filed mid-October to mid-November
+#   • Q4 / Annual (10-K): filed mid-February to early-March
+#
+# Also supports manual triggering for testing or backfills.
+on:
+  schedule:
+    - cron: "0 0 * * 5"   # Every Friday at 00:00 UTC
+  workflow_dispatch:       # Allow manual runs from the Actions tab
+
+jobs:
+  run-pipeline:
+    name: Scrape → Generate → Compress → Publish
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write      # Required to push new files back to main
+      pages: write         # Required if using GitHub Pages deployment API
+      id-token: write      # Required for OIDC-based Pages deployment
+
+    steps:
+      # ── 1. Checkout ──────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Use a PAT (PIPELINE_TOKEN) if you need to push and trigger a
+          # subsequent Pages deployment; the default GITHUB_TOKEN works fine
+          # for push+Pages in most setups.
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # ── 2. Python setup ───────────────────────────────────────────────────
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      # ── 3. System dependencies ────────────────────────────────────────────
+      - name: Install FFmpeg
+        run: sudo apt-get install -y ffmpeg
+
+      # ── 4. Python dependencies ────────────────────────────────────────────
+      - name: Install Python packages
+        run: pip install -r requirements.txt
+
+      - name: Install Playwright browser (Chromium)
+        run: playwright install chromium --with-deps
+
+      # ── 5. Run pipeline scripts ───────────────────────────────────────────
+      - name: Scrape SEC EDGAR for new filings
+        run: python scripts/scraper.py
+
+      - name: Generate audio overviews via NotebookLM
+        env:
+          # NOTEBOOKLM_AUTH_JSON: capture locally with:
+          #   notebooklm login
+          #   cat ~/.notebooklm/profiles/default/storage_state.json
+          # Store the full JSON as the NOTEBOOKLM_AUTH_JSON repository secret.
+          NOTEBOOKLM_AUTH_JSON: ${{ secrets.NOTEBOOKLM_AUTH_JSON }}
+        run: python scripts/generator.py --max-new 1
+
+      - name: Compress audio and regenerate RSS feed
+        env:
+          PAGES_BASE_URL: "https://jhester599.github.io/pgr-letters-archive"
+        run: python scripts/compressor.py
+
+      # ── 6. Commit and push any new / updated files ────────────────────────
+      - name: Commit and push changes
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add \
+            data/letters/ \
+            docs/audio/ \
+            docs/ledger.json \
+            docs/feed.xml
+
+          if git diff --staged --quiet; then
+            echo "No new files to commit — pipeline found nothing new."
+          else
+            TIMESTAMP=$(date -u '+%Y-%m-%d')
+            git commit -m "chore: auto-update quarterly podcast archive [${TIMESTAMP}]"
+            git push origin main
+            echo "Changes pushed to main."
+          fi
+
+      # ── 7. Deploy to GitHub Pages ─────────────────────────────────────────
+      # GitHub Pages is configured to serve from the /docs folder on main,
+      # so pushing to main (step 6) is sufficient to trigger a Pages build.
+      # The steps below are an alternative if you prefer the Pages API flow.
+      #
+      # - name: Upload Pages artifact
+      #   uses: actions/upload-pages-artifact@v3
+      #   with:
+      #     path: docs/
+      #
+      # - name: Deploy to GitHub Pages
+      #   uses: actions/deploy-pages@v4

@@ -1,0 +1,9 @@
+{
+  "meta": {
+    "last_updated": null,
+    "total_letters": 0,
+    "total_audio": 0,
+    "description": "State ledger for the PGR Letters Archive pipeline. Each entry tracks one SEC filing through the scrape → generate → compress lifecycle."
+  },
+  "filings": []
+}

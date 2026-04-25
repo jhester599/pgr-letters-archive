@@ -140,6 +140,7 @@
     .badge-audio  { background: #e3f6ec; color: #1a7a45; }
     .badge-text   { background: #fff3cd; color: #856404; }
     .badge-none   { background: #f0f0f0; color: #888; }
+    .badge-read   { background: #e8f0fe; color: #003087; }
 
     /* ── Content panel ────────────────────────────────────────────────────── */
     #content-panel {
@@ -352,11 +353,15 @@
       const li = document.createElement("li");
       li.dataset.id = filing.id;
 
-      const badge = filing.audio_compressed
+      const audioBadge = filing.audio_compressed
         ? '<span class="ep-badge badge-audio">Audio available</span>'
         : filing.letter_scraped
         ? '<span class="ep-badge badge-text">Text only</span>'
         : '<span class="ep-badge badge-none">Pending</span>';
+      const readBadge = filing.page_url
+        ? '<span class="ep-badge badge-read">Read →</span>'
+        : '';
+      const badge = audioBadge + readBadge;
 
       li.innerHTML = `
         <div class="ep-inner">
@@ -365,7 +370,11 @@
           ${badge}
         </div>`;
 
-      li.addEventListener("click", () => selectEpisode(filing.id));
+      if (filing.page_url) {
+        li.addEventListener("click", () => { window.location.href = filing.page_url; });
+      } else {
+        li.addEventListener("click", () => selectEpisode(filing.id));
+      }
       ul.appendChild(li);
     }
   }

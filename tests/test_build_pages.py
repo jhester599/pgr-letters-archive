@@ -107,6 +107,74 @@ def test_render_letter_html_repairs_common_mojibake():
     assert "I’m proud of Progressive’s results." in result
 
 
+def test_render_letter_html_renders_signature_as_two_line_block():
+    result = render_letter_html(
+        "Stay well and be kind to others,\n"
+        "/s/ Tricia Griffith\n"
+        "Tricia Griffith\n"
+        "President and Chief Executive Officer"
+    )
+
+    assert "<p>Stay well and be kind to others,</p>" in result
+    assert "/s/" not in result
+    assert '<div class="signature-block">' in result
+    assert '<p class="signature-name">Tricia Griffith</p>' in result
+    assert '<p class="signature-title">President and Chief Executive Officer</p>' in result
+
+
+def test_render_letter_html_italicizes_customer_or_employee_story_quotes():
+    result = render_letter_html(
+        "Melissa, a supervisor from our Customer Relationship Organization, wrote:\n"
+        "On a beautiful Saturday afternoon, my husband and I headed to the auto parts store.\n"
+        "The exchange continued, only reinforcing my silent cheerleading from the aisle over.\n"
+        "The story below is from Ashley, one of our teammates in Virginia.\n"
+        "In March 2017, I had just been promoted to a supervisor role in Virginia."
+    )
+
+    assert '<p>Melissa, a supervisor from our Customer Relationship Organization, wrote:</p>' in result
+    assert '<p class="quoted-story"><em>On a beautiful Saturday afternoon' in result
+    assert '<p class="quoted-story"><em>The exchange continued' in result
+    assert '<p>The story below is from Ashley, one of our teammates in Virginia.</p>' in result
+    assert '<p class="quoted-story"><em>In March 2017, I had just been promoted' in result
+
+
+def test_render_letter_html_keeps_inline_quoted_terms_standard_text():
+    result = render_letter_html(
+        "We rolled out a companywide deployment of a “Net Promoter Score” in 2006.\n"
+        "Underlying this concept is our belief that the strength of response to a single question,\n"
+        "“How likely is it that you would recommend insurance from Progressive?”"
+    )
+
+    assert "quoted-story" not in result
+    assert "<em>" not in result
+    assert "Net Promoter Score" in result
+
+
+def test_render_letter_html_does_not_treat_shared_how_narration_as_quote_intro():
+    result = render_letter_html(
+        "During a roundtable discussion, members were able to share how Progressive’s Core Values translated to service.\n"
+        "For a fourth consecutive year, Progressive was named a Gallup Exceptional Workplace.\n"
+        "After receiving a vehicle through Keys to Progress, Shaniece shared an emotional update:\n"
+        "This car has already made such a profound difference in our lives."
+    )
+
+    assert '<p>For a fourth consecutive year, Progressive was named a Gallup Exceptional Workplace.</p>' in result
+    assert '<p class="quoted-story"><em>This car has already made such a profound difference' in result
+
+
+def test_render_letter_html_stops_story_quote_before_next_section_heading():
+    result = render_letter_html(
+        "Brenda, one of our Seguros consultants, shared with me her personal connection:\n"
+        "“Experiencing firsthand the positive effects of such programs has been truly inspiring.”\n"
+        "Broad Needs of Customers\n"
+        "Our Vision is to become consumers’, agents’, and business owners’ #1 destination."
+    )
+
+    assert '<p class="quoted-story"><em>“Experiencing firsthand' in result
+    assert '<p class="quoted-story"><em>Broad Needs of Customers' not in result
+    assert '<h2>Broad Needs of Customers</h2>' in result
+
+
 def test_build_page_contains_metadata():
     page = build_page(SAMPLE_FILING, SAMPLE_TEXT, None, None)
     assert "2025 Q3" in page

@@ -66,8 +66,17 @@ _SEC_NOISE_LINES = {
     "LETTER TO SHAREHOLDERS",
 }
 
+_SECTION_HEADINGS = {
+    "Broad Needs of Customers",
+    "Broad Needs of Our Customers",
+    "Competitive Prices",
+    "Leading Brand",
+    "People and Culture",
+}
+
 _ORDINAL_SUFFIXES = {"st", "nd", "rd", "th"}
 _TRADEMARK_LINES = {"\u00ae", "\u2122"}
+_SIGNATURE_TITLE = "President and Chief Executive Officer"
 
 
 def _repair_text_encoding(text: str) -> str:
@@ -103,10 +112,73 @@ def _is_page_number(line: str, next_line: str | None) -> bool:
 
 
 def _is_heading(line: str) -> bool:
+    if line in _SECTION_HEADINGS:
+        return True
     letters = [char for char in line if char.isalpha()]
     if len(letters) < 6 or line.endswith((".", ",", ";", ":")):
         return False
     return all(not char.isalpha() or char.isupper() for char in line)
+
+
+def _is_signature_marker(line: str) -> bool:
+    return line.lower().startswith("/s/")
+
+
+def _signature_name_from_marker(line: str) -> str:
+    return re.sub(r"^/s/\s*", "", line, flags=re.IGNORECASE).strip()
+
+
+def _is_signature_title(line: str) -> bool:
+    return line == _SIGNATURE_TITLE
+
+
+def _is_story_quote_intro(line: str) -> bool:
+    lower_line = line.lower()
+    if lower_line.endswith(":") and (" wrote" in lower_line or " shared" in lower_line):
+        return True
+    return any(
+        phrase in lower_line
+        for phrase in (
+            "this letter comes to you",
+            "this letter hits all of those sentiments",
+            "the story below is from",
+            "i'd like to share a powerful story",
+            "i\u2019d like to share a powerful story",
+            "below is a great example",
+            "in their own words",
+            "he shared a peek",
+            "she recently shared",
+        )
+    )
+
+
+def _is_story_quote_reset(line: str) -> bool:
+    lower_line = line.lower()
+    return lower_line.startswith((
+        "also relevant",
+        "at the heart",
+        "below are some highlights",
+        "broad needs",
+        "competitive prices",
+        "heading into",
+        "i hope those",
+        "in addition to",
+        "lastly,",
+        "looking ahead",
+        "never resting",
+        "our employee resource groups",
+        "our people and culture",
+        "leading brand",
+        "stay well",
+        "spreading kindness",
+        "take care",
+        "thanks for",
+        "through the discipline",
+        "times like this",
+        "to our employees",
+        "we ended",
+        "we truly came",
+    ))
 
 
 def _has_terminal_punctuation(text: str) -> bool:
@@ -148,16 +220,52 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
 
     blocks: list[tuple[str, str]] = []
     paragraph = ""
+    paragraph_kind = "paragraph"
+    quote_mode = False
 
     def flush_paragraph() -> None:
-        nonlocal paragraph
+        nonlocal paragraph, paragraph_kind
         if paragraph:
-            blocks.append(("paragraph", paragraph.strip()))
+            blocks.append((paragraph_kind, paragraph.strip()))
             paragraph = ""
+            paragraph_kind = "paragraph"
 
-    for line in filtered_lines:
+    index = 0
+    while index < len(filtered_lines):
+        line = filtered_lines[index]
+        index += 1
+
         if line is None:
             flush_paragraph()
+            continue
+
+        if _is_signature_marker(line):
+            flush_paragraph()
+            name = _signature_name_from_marker(line)
+            while index < len(filtered_lines) and filtered_lines[index] is None:
+                index += 1
+            if index < len(filtered_lines) and filtered_lines[index]:
+                name = filtered_lines[index] or name
+                index += 1
+            while index < len(filtered_lines) and filtered_lines[index] is None:
+                index += 1
+            if index < len(filtered_lines) and _is_signature_title(filtered_lines[index] or ""):
+                blocks.append(("signature", f"{name}\n{filtered_lines[index]}"))
+                index += 1
+            else:
+                blocks.append(("signature", f"{name}\n{_SIGNATURE_TITLE}"))
+            quote_mode = False
+            continue
+
+        if (
+            index < len(filtered_lines)
+            and filtered_lines[index] == _SIGNATURE_TITLE
+            and line not in _TRADEMARK_LINES
+        ):
+            flush_paragraph()
+            blocks.append(("signature", f"{line}\n{filtered_lines[index]}"))
+            index += 1
+            quote_mode = False
             continue
 
         if line in _TRADEMARK_LINES or line == "SM":
@@ -173,13 +281,24 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
         if _is_heading(line):
             flush_paragraph()
             blocks.append(("heading", line))
+            quote_mode = False
             continue
 
+        line_starts_new_paragraph = not paragraph or not _should_join_lines(paragraph, line)
+        if line_starts_new_paragraph and quote_mode and _is_story_quote_reset(line):
+            quote_mode = False
+
+        current_kind = "quote" if quote_mode else "paragraph"
         if paragraph and _should_join_lines(paragraph, line):
             paragraph = f"{paragraph} {line}"
         else:
             flush_paragraph()
+            paragraph_kind = current_kind
             paragraph = line
+
+        if line_starts_new_paragraph and _is_story_quote_intro(line):
+            paragraph_kind = "paragraph"
+            quote_mode = True
 
     flush_paragraph()
     return blocks
@@ -189,9 +308,20 @@ def render_letter_html(text: str) -> str:
     """Convert extracted plain letter text to polished, escaped HTML blocks."""
     rendered = []
     for block_type, block_text in _normalized_letter_blocks(text):
-        escaped_text = html.escape(block_text)
-        tag = "h2" if block_type == "heading" else "p"
-        rendered.append(f"<{tag}>{escaped_text}</{tag}>")
+        if block_type == "signature":
+            name, title = block_text.split("\n", 1)
+            rendered.append(
+                '<div class="signature-block">\n'
+                f'  <p class="signature-name">{html.escape(name)}</p>\n'
+                f'  <p class="signature-title">{html.escape(title)}</p>\n'
+                "</div>"
+            )
+        elif block_type == "heading":
+            rendered.append(f"<h2>{html.escape(block_text)}</h2>")
+        elif block_type == "quote":
+            rendered.append(f'<p class="quoted-story"><em>{html.escape(block_text)}</em></p>')
+        else:
+            rendered.append(f"<p>{html.escape(block_text)}</p>")
     return "\n".join(rendered)
 
 

@@ -130,6 +130,77 @@ error, re-run `notebooklm login` and update the secret.
 
 Flag lifecycle: `letter_scraped` → `audio_generated` → `audio_compressed`
 
+## Proving the concept — initial run checklist
+
+The recommended approach is to run `scraper.py` first on the recent filing window,
+verify the full cycle works end-to-end, and then run the historical backfill.
+
+### Step 1 — Scrape recent filings
+
+```bash
+python scripts/scraper.py
+```
+
+Expect 8–12 quarterly letters covering roughly the last 3 years (the EDGAR
+`filings.recent` window holds ~40 entries across all form types).
+
+**Verify:**
+- `data/letters/` contains `.txt` files with readable, clean letter text
+- `docs/ledger.json` has entries with `"letter_scraped": true`
+- Any entries with `"skip_reason": "no_exhibit_99"` are expected — some filings
+  don't include the CEO letter as a standalone exhibit
+
+### Step 2 — Generate one audio overview
+
+```bash
+python scripts/generator.py --max-new 1
+```
+
+This processes a single letter to confirm the NotebookLM flow works without
+committing to a long batch run.
+
+**Verify:**
+- `data/audio_raw/` contains a `.mp4` file
+- The ledger entry for that quarter now has `"audio_generated": true`
+
+### Step 3 — Compress and publish
+
+```bash
+python scripts/compressor.py
+```
+
+**Verify:**
+- `docs/audio/` contains a `.mp3` file (~4–10 MB at 64 kbps)
+- `docs/feed.xml` has been created with one episode entry
+- The ledger entry now has `"audio_compressed": true`
+
+### Step 4 — Check the web front-end
+
+```bash
+cd docs && python -m http.server 8000
+# Open http://localhost:8000 in a browser
+```
+
+**Verify:**
+- The episode appears in the sidebar list
+- The audio player loads and plays the compressed MP3
+- The letter text loads in the content panel
+
+### Step 5 — Historical backfill (once concept is proven)
+
+```bash
+# Preview everything EDGAR has, without downloading
+python scripts/backfill.py --dry-run
+
+# Download the full archive
+python scripts/backfill.py
+
+# Generate audio for all backfilled letters
+python scripts/generator.py --max-new 0
+```
+
+---
+
 ## Common tasks
 
 **Re-run scraper without re-downloading existing letters:**

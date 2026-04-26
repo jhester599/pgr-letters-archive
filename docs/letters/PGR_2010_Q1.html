@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PGR 2010 Q1 — Shareholder Letter</title>
+  <link rel="stylesheet" href="../assets/reading.css" />
+</head>
+<body>
+  <div id="progress-bar"></div>
+
+  <header class="reading-header">
+    <nav class="reading-nav">
+      <a href="../index.html" class="nav-back">← Archive</a>
+      <div class="nav-episodes">
+        <a href="PGR_2009_Q4.html" class="nav-ep-link">← 2009 Q4</a>
+        <a href="PGR_2010_Q2.html" class="nav-ep-link">2010 Q2 →</a>
+      </div>
+      <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    </nav>
+  </header>
+
+  <main class="reading-main">
+    <article class="letter-article">
+      <header class="letter-header">
+        <div class="letter-meta">
+          <span class="meta-quarter">2010 Q1</span>
+          <span class="meta-form">10-Q</span>
+          <span class="meta-date">Period ending 2010-03-31</span>
+        </div>
+        <h1>CEO Shareholder Letter</h1>
+        
+      </header>
+      <div class="letter-body">
+        <p>dex99.htm</p>
+<h2>LETTER TO SHAREHOLDERS FROM GLENN M. RENWICK, PRESIDENT AND CEO</h2>
+<p>Letter to Shareholders from Glenn M. Renwick, President and CEO The Progressive Corporation Letter to Shareholders First Quarter 2010 Q1 was a very good quarter.</p>
+<p>The momentum building through 2009, notably in our Agency Business, has carried through well so far in 2010. This quarter’s premium growth at 7% is the best we have seen over the last 19 quarters. Of course our goal is profitable growth and that story only gets better. We achieved this growth at an aggregate underwriting margin of over nine points, recording a combined ratio for the quarter of just under 91.</p>
+<p>Our aggregate results are a blend of many individual products. The first quarter’s results are all the more pleasing in that all business components are contributing well and meeting targets, rather than significant outperformance subsidizing underperformance in any area. The notable exception on growth is our Commercial Auto business, which, while understandably still down on volume, is showing continued signs of a slow recovery and all the while is maintaining healthy margins.</p>
+<p>At a state level, results are acceptably balanced, with some outliers, notably our personal injury protection states, which remain on our watch list.</p>
+<p>However, much of the improvement we expected, based on our actions in these states, materialized during the quarter. Florida, our largest premium state, is currently operating outside our targets on most products and will be a welcome contributor to underwriting profitability when our actions take further hold.</p>
+<p>Our rate of new application growth was strong for the quarter in all business lines. Perhaps an early appearance of spring bolstered our motorcycle and other special lines sales, but they are off to a good start to the season. Direct auto remains a strong source of growth, especially in Internet sales. Pleasingly, the increased Agency auto production that characterized the latter part of 2009 has continued into this year.</p>
+<p>As we began our now multi-year focus on retaining customers, we posed a goal to ourselves to increase the average policy life of auto customers by a specified fixed amount per year for the next several years. We started slowly and in fact had little to calibrate the goal, but our performance suggests that through specific retention efforts and customer mix changes, the goal was, and remains, very attainable. The leverage across our growing customer set is very meaningful.</p>
+<p>During the quarter we continued to make excellent progress on product development efforts, reinforced our ongoing brand building, and further consolidated gains in our customer service, claims, and technology areas. While our expense ratio of 21.7 has remained stubbornly higher than we might like in a period of low-to-negative change in average premium per customer, our macro measure of efficiency – policies-in-force per FTE (full time equivalent) – improved 12% versus a year ago continuing the significant gains of the last two years. Advertising expenditures, which we are pleased to make when the yield is attractive, are contributing to our increased expense and we may well do even more.</p>
+<p>Our fully taxable equivalent total return on investments for the quarter was a respectable 3.2% and we ended the quarter with $964 million in unrealized gains and a debt-to-total capital ratio of 26%.</p>
+<p>During the quarter, we completed the sale of our Professional Liability Group to an affiliate of our partner, the American Bankers Association. We thank all involved and wish our former colleagues well.</p>
+<p>Overall, a very healthy quarter to get 2010 started and, from where I sit, the view looks very interesting for the rest of the year.</p>
+<div class="signature-block">
+  <p class="signature-name">Glenn M. Renwick</p>
+  <p class="signature-title">President and Chief Executive Officer</p>
+</div>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    // Dark mode — restore saved preference before first paint
+    (function () {
+      const saved = localStorage.getItem("pgr-theme");
+      if (saved) document.documentElement.setAttribute("data-theme", saved);
+    })();
+
+    document.getElementById("theme-toggle").addEventListener("click", function () {
+      const current = document.documentElement.getAttribute("data-theme") || "light";
+      const next = current === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("pgr-theme", next);
+      this.textContent = next === "dark" ? "☀️" : "🌙";
+    });
+
+    // Scroll progress bar
+    const bar = document.getElementById("progress-bar");
+    window.addEventListener("scroll", function () {
+      const doc = document.documentElement;
+      const scrolled = doc.scrollTop || document.body.scrollTop;
+      const total = doc.scrollHeight - doc.clientHeight;
+      bar.style.width = total > 0 ? (scrolled / total * 100) + "%" : "0%";
+    }, { passive: true });
+
+    // Audio toggle (only wired up if audio section exists)
+    const audioToggle = document.getElementById("audio-toggle");
+    if (audioToggle) {
+      audioToggle.addEventListener("click", function () {
+        const wrap = document.getElementById("audio-player-wrap");
+        wrap.classList.toggle("open");
+        this.textContent = wrap.classList.contains("open")
+          ? "▲ Hide AI Audio Overview"
+          : "🎙 AI Audio Overview";
+      });
+    }
+  </script>
+</body>
+</html>

@@ -135,10 +135,17 @@ def fetch_filing_documents(accession_number: str) -> Optional[list[dict]]:
         documents = []
         for row in soup.select("table tr"):
             cells = row.find_all("td")
-            # Index page table columns: seq, type, filename, description, size
+            # Index page table columns: seq, description, filename, type, size
+            # cells[3] is the short exhibit code (e.g. "EX-99") in all EDGAR eras;
+            # cells[1] is a long description in older filings but equals the code
+            # in modern ones. Always prefer cells[3] when present.
             if len(cells) < 3:
                 continue
-            doc_type = cells[1].get_text(strip=True)
+            doc_type = (
+                cells[3].get_text(strip=True)
+                if len(cells) >= 4 and cells[3].get_text(strip=True)
+                else cells[1].get_text(strip=True)
+            )
             link = cells[2].find("a")
             if link and doc_type:
                 href = link["href"]

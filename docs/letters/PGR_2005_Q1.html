@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PGR 2005 Q1 — Shareholder Letter</title>
+  <link rel="stylesheet" href="../assets/reading.css" />
+</head>
+<body>
+  <div id="progress-bar"></div>
+
+  <header class="reading-header">
+    <nav class="reading-nav">
+      <a href="../index.html" class="nav-back">← Archive</a>
+      <div class="nav-episodes">
+        <a href="PGR_2004_Q4.html" class="nav-ep-link">← 2004 Q4</a>
+        <a href="PGR_2005_Q2.html" class="nav-ep-link">2005 Q2 →</a>
+      </div>
+      <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    </nav>
+  </header>
+
+  <main class="reading-main">
+    <article class="letter-article">
+      <header class="letter-header">
+        <div class="letter-meta">
+          <span class="meta-quarter">2005 Q1</span>
+          <span class="meta-form">10-Q</span>
+          <span class="meta-date">Period ending 2005-03-31</span>
+        </div>
+        <h1>CEO Shareholder Letter</h1>
+        
+      </header>
+      <div class="letter-body">
+        <p>The first quarter of ’05 played out very acceptably and much as expected. Our 10% written premium growth and 8% earned premium growth for the quarter reflect the market conditions we have been reporting for some time. The quality of growth is encouraging with new customers and extended retention more than offsetting lower premiums per customer. Profitability of every business segment was very strong and each continues to operate very well.</p>
+<p>Our Personal Lines Direct Business growth rate of slightly more than 15% has been more robust in these soft market conditions than that of our Agency Business growth of 6%, but both are strong contributors to profitability. Our Commercial Auto product continues its very solid performance with 16% growth for the quarter and excellent margins.</p>
+<p>Net income for the quarter was $413 million, slightly more than our full-year 2001 result. However, net income for first quarter 2005 is less than the same period last year by some $47 million – this is not a surprising result. In the first quarter of 2004, we had a combined ratio of 83.2% and, while welcomed, not a level of profitability we expected to maintain. We continue to evaluate prudent tradeoffs of profit for growth and seek growth where it makes sense to do so. We see ourselves as a company that has considerable capacity to grow, and are taking numerous actions that we believe will make us even more competitive in the market and position us for future growth, especially when market conditions change.</p>
+<p>During the quarter, we continued to make progress on important initiatives:</p>
+<p>Claims quality continues to rise. Part of the reason for our financial success is a focus on increasing the quality and accuracy of claims settlements. We are very diligent about getting an accurate read on our performance, and the results continue to be directionally pleasing. Consistent claims quality and process allow us to more easily redeploy claims talent in situations where we have uneven geographic growth, allowing us to maximize these opportunities. During the first quarter, this helped in Florida, our largest state.</p>
+<p>We have announced a significant expansion of our concierge-level claims service, and during the quarter our team made considerable headway in finding suitable future sites in the right locations with appropriate zoning. This has been our single biggest constraint to the expansion timeline. As a result, we expect to more than double the number of sites in the next two years.</p>
+<p>The Agency group’s launch of the Drive Insurance from Progressive brand took on momentum during the quarter. Our positioning with, and commitment to, independent agents has been clarified and reinforced by our recent branding activities. Drive Insurance commercials are now airing nationally and are being well received. We are hopeful that greater brand identity that complements our product offerings, systems, claims and customer service will position us very well for future growth in the Agency channel.  In addition, we continue to evaluate the customer service model for our Agency customers. We have provided enhanced systems capability to our agents and are beginning to position them as the primary service providers, a move that maximizes their value to their customers and reduces the long-term servicing costs for the channel.</p>
+<p>Our Progressive Direct brand has focused on our online sales and service capabilities and we are very pleased with the results. Sales that involve complete or partial Internet quoting continue to be the most notable of our recent marketing trends.  Our Progressive Direct marketing efforts continue to emphasize ease of doing business and credible price comparisons for the consumer.</p>
+<p>As we build each brand and focus on the customers who prefer to buy online or by phone vs. customers who prefer to buy through an independent agent, we better appreciate how different these customers’ needs are and thus the response we must provide.</p>
+<p>With spring now underway in most parts of the country, our Special Lines products, namely motorcycle, motor home, boat, etc. are experiencing strong seasonal demand and posted about a 27% growth in written premium through the first quarter. This group of products, included with the Personal Lines results in both Agency and Direct, provide a more tailored product for these largely recreational-type vehicles than that offered by many other companies through endorsements to an auto policy. This in- depth understanding of these vehicles leads to specialized coverage options and claims handling that is valued by consumers. As a result, we expect to extend our market leadership position in motorcycles this year.  We are also very satisfied with our boat product, even with four hurricanes last year, and hope to benefit from what we expect will be greater market interest.</p>
+<p>Our possible entry into the New Jersey market, announced in our 2004 Annual Report, has progressed in the first quarter. We are exploring rate, rule and company structure issues with the New Jersey Department of Banking and Insurance and currently anticipate a market entry in the second half of the year.</p>
+<p>It’s always good to get off to a good start, and I think we have done that, but the really exciting story for Progressive is our view of the future and the progress being made on the initiatives necessary to get there.</p>
+<div class="signature-block">
+  <p class="signature-name">Glenn M. Renwick</p>
+  <p class="signature-title">President and Chief Executive Officer</p>
+</div>
+<p>The Progressive Corporation and Subsidiaries</p>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    // Dark mode — restore saved preference before first paint
+    (function () {
+      const saved = localStorage.getItem("pgr-theme");
+      if (saved) document.documentElement.setAttribute("data-theme", saved);
+    })();
+
+    document.getElementById("theme-toggle").addEventListener("click", function () {
+      const current = document.documentElement.getAttribute("data-theme") || "light";
+      const next = current === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("pgr-theme", next);
+      this.textContent = next === "dark" ? "☀️" : "🌙";
+    });
+
+    // Scroll progress bar
+    const bar = document.getElementById("progress-bar");
+    window.addEventListener("scroll", function () {
+      const doc = document.documentElement;
+      const scrolled = doc.scrollTop || document.body.scrollTop;
+      const total = doc.scrollHeight - doc.clientHeight;
+      bar.style.width = total > 0 ? (scrolled / total * 100) + "%" : "0%";
+    }, { passive: true });
+
+    // Audio toggle (only wired up if audio section exists)
+    const audioToggle = document.getElementById("audio-toggle");
+    if (audioToggle) {
+      audioToggle.addEventListener("click", function () {
+        const wrap = document.getElementById("audio-player-wrap");
+        wrap.classList.toggle("open");
+        this.textContent = wrap.classList.contains("open")
+          ? "▲ Hide AI Audio Overview"
+          : "🎙 AI Audio Overview";
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PGR 2005 Q2 — Shareholder Letter</title>
+  <link rel="stylesheet" href="../assets/reading.css" />
+</head>
+<body>
+  <div id="progress-bar"></div>
+
+  <header class="reading-header">
+    <nav class="reading-nav">
+      <a href="../index.html" class="nav-back">← Archive</a>
+      <div class="nav-episodes">
+        <a href="PGR_2005_Q1.html" class="nav-ep-link">← 2005 Q1</a>
+        <a href="PGR_2005_Q3.html" class="nav-ep-link">2005 Q3 →</a>
+      </div>
+      <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    </nav>
+  </header>
+
+  <main class="reading-main">
+    <article class="letter-article">
+      <header class="letter-header">
+        <div class="letter-meta">
+          <span class="meta-quarter">2005 Q2</span>
+          <span class="meta-form">10-Q</span>
+          <span class="meta-date">Period ending 2005-06-30</span>
+        </div>
+        <h1>CEO Shareholder Letter</h1>
+        
+      </header>
+      <div class="letter-body">
+        <p>As we mark the halfway point of the year with the release of second quarter results, our business is in excellent shape and our operating results are strong.</p>
+<p>In the first half of the year, our results were not affected by any major weather events, even though the winter seemed to last well into May in some parts of the country. However, we will watch what is projected to be an active hurricane season.  We now see these events largely as an opportunity to execute on our preparedness programs and provide customers our hallmark claims response.</p>
+<p>Through June, we reported net premiums written growth of 8% and strong profitability with our combined ratio at 85.6.  Growth is at lower levels than the average of the last several years as the market continues to reflect low accident frequency, stabilizing or reducing rates for many consumers.  While this business environment is good for consumers and for profitability, it does not motivate consumer shopping behavior.  We observed this result last year and expect it to continue through the year.  We are less certain just how long it will continue. Severity trends in most coverages are no longer offset entirely by lower frequency.  We are attempting to be smart about competing in the current market conditions and, more importantly, preparing for growth when conditions again favor increased consumer shopping.</p>
+<p>With insurance rates generally stable or down, our growth comes from increasing numbers of new customers or from keeping our customers longer – preferably both.  Our retention measures, in fact, have been improving modestly this year for most classes of business.  More importantly, our understanding of and focus on customer retention initiatives and measures have progressed well in the first six months – the more we know, the more opportunities present themselves.  We highlighted our retention agenda during our presentation to industry analysts at our annual presentation in New York (which is available via “Conference Call Archives” on our Web site).  New customer growth is best measured by growth in policies in force.  Our Drive® branded auto offering through independent agents has about 7% more policies in force than last year.  On the same measure the Progressive DirectSM auto offering has increased about 14%, Commercial Auto about 13% and our Special Lines increase tops the bill at 16%.  Combined we are closing in on 10 million policies in force providing coverage for over 14 million drivers.</p>
+<p>So far this year we have had some great progress on our strategic initiatives and many other important projects.</p>
+<p>In Claims the attention to file quality and customer service continues to meet, and often exceed, our expectations.  Our efforts to provide a concierge level of service to a larger number of customers took a big step forward as we announced our intent to expand the number of service centers by about 50 over the next couple of years.  Two sites opened in the second quarter and we plan to open four more during the remainder of this year. We have improved the design of these centers, and believe we have a significant breakthrough in claims handling that meets our fast, fair, better standard in every way. We are evaluating our product design, marketing, training and communication to ensure we are letting our customers take full advantage of this service.</p>
+<p>Even though we formally announced the two brand strategy—Drive Insurance from Progressive and Progressive Direct—only nine months ago, it seems as though we’ve been operating like this much longer.  Agency group management is pleased with the acceptance of Drive by agents and their ability to now promote agent-related benefits.</p>
+<p>The Progressive Direct brand has used a fresh presentation of our price comparison service in commercials aired throughout most of the second quarter.  Our Direct business growth, especially Internet-generated business, is very attractive given the otherwise soft market conditions, with those who relate to our “easy” message turning to Progressive Direct.  At the analyst meeting in New York, we provided the most insight we have shared to date on our Internet business.  I suspect many now realize just how exciting this trend is both as a growth engine and as a source of interesting underwriting information.  The Progressive Direct group has done a great job of making the Internet site and the online experience, including phone service to assist customers as necessary, “best of breed.”  Our Internet leadership is clearly a position we value and intend to maintain.</p>
+<p>The full market deployment of both our new customer billing system and claims management platform continue to meet our expectations and work is well under way on our redesigned policy management system.  We have broken ground on our planned data center in Colorado Springs and expect it to be operational in 2007.</p>
+<p>We are very satisfied with the year-to-date results, and continuously excited by the progress we are making on our initiatives for the future.</p>
+<div class="signature-block">
+  <p class="signature-name">Glenn M. Renwick</p>
+  <p class="signature-title">President and Chief Executive Officer</p>
+</div>
+<p>The Progressive Corporation and Subsidiaries</p>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    // Dark mode — restore saved preference before first paint
+    (function () {
+      const saved = localStorage.getItem("pgr-theme");
+      if (saved) document.documentElement.setAttribute("data-theme", saved);
+    })();
+
+    document.getElementById("theme-toggle").addEventListener("click", function () {
+      const current = document.documentElement.getAttribute("data-theme") || "light";
+      const next = current === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("pgr-theme", next);
+      this.textContent = next === "dark" ? "☀️" : "🌙";
+    });
+
+    // Scroll progress bar
+    const bar = document.getElementById("progress-bar");
+    window.addEventListener("scroll", function () {
+      const doc = document.documentElement;
+      const scrolled = doc.scrollTop || document.body.scrollTop;
+      const total = doc.scrollHeight - doc.clientHeight;
+      bar.style.width = total > 0 ? (scrolled / total * 100) + "%" : "0%";
+    }, { passive: true });
+
+    // Audio toggle (only wired up if audio section exists)
+    const audioToggle = document.getElementById("audio-toggle");
+    if (audioToggle) {
+      audioToggle.addEventListener("click", function () {
+        const wrap = document.getElementById("audio-player-wrap");
+        wrap.classList.toggle("open");
+        this.textContent = wrap.classList.contains("open")
+          ? "▲ Hide AI Audio Overview"
+          : "🎙 AI Audio Overview";
+      });
+    }
+  </script>
+</body>
+</html>

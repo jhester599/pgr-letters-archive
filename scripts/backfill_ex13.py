@@ -88,7 +88,25 @@ def fetch_ex13_html(accession_number: str, filename: str) -> str | None:
 
 
 def fetch_ex13_bundled(accession_number: str) -> str | None:
-    pass  # implemented in Task 3
+    """Fetch and extract EX-13 from an SGML bundled submission file (1993–2000 format)."""
+    acc = accession_number.replace("-", "")
+    url = f"{EDGAR_ARCHIVES}/{CIK_PLAIN}/{acc}/{accession_number}.txt"
+    resp = get(url)
+    if not resp:
+        return None
+
+    raw = resp.text
+    m = re.search(r"<TYPE>EX-13.*?</DOCUMENT>", raw, re.DOTALL | re.IGNORECASE)
+    if not m:
+        log.warning("No <TYPE>EX-13 block found in bundled text for %s", accession_number)
+        return None
+
+    block = m.group(0)
+    block = re.sub(r"<[^>]+>", " ", block)
+    lines = [line.strip() for line in block.splitlines()]
+    cleaned = "\n".join(line for line in lines if line)
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
+    return cleaned.strip()
 
 
 def extract_letter(text: str) -> tuple[str, str]:

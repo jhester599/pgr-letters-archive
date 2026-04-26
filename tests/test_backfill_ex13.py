@@ -52,3 +52,76 @@ def test_fetch_ex13_html_strips_tags_and_returns_text(monkeypatch):
     assert "Hello shareholder." in result
     assert "Second paragraph." in result
     assert "<p>" not in result
+
+
+# ── fetch_ex13_bundled ────────────────────────────────────────────────────────
+
+_BUNDLED_TEXT = """\
+-----BEGIN PRIVACY-ENHANCED MESSAGE-----
+<IMS-DOCUMENT>
+<DOCUMENT>
+<TYPE>10-K
+<SEQUENCE>1
+<TEXT>
+Main 10-K content here. Should NOT appear in output.
+</TEXT>
+</DOCUMENT>
+<DOCUMENT>
+<TYPE>EX-13
+<SEQUENCE>8
+<DESCRIPTION>EXHIBIT 13
+<TEXT>
+<PAGE>   1
+1996 Annual Report to Shareholders
+
+<TABLE>
+<CAPTION>Some table content
+</TABLE>
+
+Letter to Shareholders
+
+Dear Shareholders, this is the actual letter content.
+We had a wonderful year.
+
+Financial Review
+Financial data follows.
+</TEXT>
+</DOCUMENT>
+</IMS-DOCUMENT>
+-----END PRIVACY-ENHANCED MESSAGE-----
+"""
+
+
+def test_fetch_ex13_bundled_extracts_correct_block(monkeypatch):
+    import backfill_ex13
+
+    class FakeResp:
+        text = _BUNDLED_TEXT
+        headers = {}
+        def raise_for_status(self): pass
+
+    monkeypatch.setattr(backfill_ex13, "get", lambda url: FakeResp())
+    result = fetch_ex13_bundled("0000950152-97-002528")
+    assert result is not None
+    assert "Annual Report" in result
+    assert "Letter to Shareholders" in result
+    assert "Dear Shareholders" in result
+    # SGML tags stripped
+    assert "<TYPE>" not in result
+    assert "<PAGE>" not in result
+    assert "<TABLE>" not in result
+    # Main 10-K section not included
+    assert "10-K content" not in result
+
+
+def test_fetch_ex13_bundled_missing_block_returns_none(monkeypatch):
+    import backfill_ex13
+
+    class FakeResp:
+        text = "<IMS-DOCUMENT><DOCUMENT><TYPE>10-K<TEXT>no ex-13 here</TEXT></DOCUMENT></IMS-DOCUMENT>"
+        headers = {}
+        def raise_for_status(self): pass
+
+    monkeypatch.setattr(backfill_ex13, "get", lambda url: FakeResp())
+    result = fetch_ex13_bundled("0000950152-97-002528")
+    assert result is None

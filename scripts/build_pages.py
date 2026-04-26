@@ -152,7 +152,8 @@ _CAPS_SEP_PATTERNS = [
     # "ALL CAPS HEADING  Body text" — two or more spaces (SGML/PDF column layout)
     (re.compile(r"^([A-Z][A-Z0-9\s,;:’’’#&%()\-]+?)\s{2,}(.{15,})$"), 5),
     # "ALL CAPS HEADING – Body" or "— Body" (en/em dash separator)
-    (re.compile(r"^([A-Z][A-Z0-9\s,;:’’’#&%()\-]+?)\s*[–—\-]{1,2}\s*(.{10,})$"), 5),
+    # Require whitespace before dash to avoid matching phone numbers ("CALL 1-800").
+    (re.compile(r"^([A-Z][A-Z0-9\s,;:’’’#&%()\-]+?)\s+[–—\-]{1,2}\s*(.{10,})$"), 5),
 ]
 
 
@@ -163,6 +164,9 @@ def _split_leading_all_caps_heading(line: str) -> tuple[str, str] | None:
             continue
         heading, rest = match.groups()
         heading = heading.strip()
+        # Q/A answer markers are never section headings.
+        if heading.startswith("A - ") or heading.startswith("Q - "):
+            continue
         # Heading must be all-uppercase alpha and at most 60 chars long.
         letters = [c for c in heading if c.isalpha()]
         if len(letters) < min_letters or len(heading) > 60:
@@ -175,6 +179,9 @@ def _split_leading_all_caps_heading(line: str) -> tuple[str, str] | None:
 def _is_heading(line: str) -> bool:
     if line in _SECTION_HEADINGS:
         return True
+    # Q/A answer lines are prose, not section headings.
+    if line.startswith("A - "):
+        return False
     letters = [char for char in line if char.isalpha()]
     if len(letters) < 6 or line.endswith((".", ",", ";", ":")):
         return False

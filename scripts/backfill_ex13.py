@@ -144,6 +144,19 @@ def fetch_ex13_pdf(year: int) -> str | None:
 _MIN_LETTER_CHARS = 50  # minimum chars to consider a match the real letter, not a TOC entry
 
 
+def _trim_after_signature(text: str) -> str:
+    """Stop annual-report extraction after the CEO signature block when present."""
+    lines = text.splitlines()
+    signature_seen = False
+    for index, line in enumerate(lines):
+        normalized = line.strip().lower()
+        if normalized.startswith("/s/"):
+            signature_seen = True
+        if signature_seen and "chief executive officer" in normalized:
+            return "\n".join(lines[: index + 1]).strip()
+    return text.strip()
+
+
 def extract_letter(text: str) -> tuple[str, str]:
     """Extract the 'Letter to Shareholders' section from Annual Report text.
 
@@ -170,6 +183,7 @@ def extract_letter(text: str) -> tuple[str, str]:
         else:
             letter = tail.strip()
 
+        letter = _trim_after_signature(letter)
         if len(letter) >= _MIN_LETTER_CHARS and len(letter) > len(best):
             best = letter
 

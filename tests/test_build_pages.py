@@ -135,6 +135,14 @@ def test_render_letter_html_suppresses_unknown_omitted_graphic_notes():
     assert "<p>Next paragraph starts here.</p>" in result
 
 
+def test_render_letter_html_suppresses_artwork_placeholders():
+    result = render_letter_html("Opening paragraph.\n\n[ARTWORK]\n\nClosing paragraph.")
+
+    assert "Opening paragraph" in result
+    assert "[ARTWORK]" not in result
+    assert "Closing paragraph" in result
+
+
 def test_render_letter_html_renders_known_storm_tracking_figure():
     result = render_letter_html("[\nStorm Tracking — 2005 Season graphic intentionally omitted\n]")
 
@@ -232,6 +240,19 @@ def test_render_letter_html_renders_signature_as_two_line_block():
     assert '<div class="signature-block">' in result
     assert '<p class="signature-name">Tricia Griffith</p>' in result
     assert '<p class="signature-title">President and Chief Executive Officer</p>' in result
+
+
+def test_render_letter_html_consumes_legacy_multiline_signature_title():
+    result = render_letter_html(
+        "/s/ Joy Love and Peace\n"
+        "Peter Lewis\n"
+        "Peter B. Lewis, Chairman, President\n"
+        "and Chief Executive Officer"
+    )
+
+    assert '<p class="signature-name">Peter Lewis</p>' in result
+    assert '<p class="signature-title">President and Chief Executive Officer</p>' in result
+    assert "Peter B. Lewis, Chairman" not in result
 
 
 def test_render_letter_html_italicizes_customer_or_employee_story_quotes():

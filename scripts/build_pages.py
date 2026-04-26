@@ -246,6 +246,10 @@ def _is_omitted_graphic_note(text: str) -> bool:
     return text.startswith("[") and text.endswith("]") and "graphic intentionally omitted" in text.lower()
 
 
+def _is_artwork_placeholder(text: str) -> bool:
+    return text.strip().upper() == "[ARTWORK]"
+
+
 def _figure_key_from_note(text: str) -> str | None:
     if not _is_omitted_graphic_note(text):
         return None
@@ -320,6 +324,11 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
             flush_paragraph()
             continue
 
+        if _is_artwork_placeholder(line):
+            flush_paragraph()
+            quote_mode = False
+            continue
+
         if _is_signature_marker(line):
             flush_paragraph()
             name = _signature_name_from_marker(line)
@@ -333,6 +342,21 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
             if index < len(filtered_lines) and _is_signature_title(filtered_lines[index] or ""):
                 blocks.append(("signature", f"{name}\n{filtered_lines[index]}"))
                 index += 1
+            elif index < len(filtered_lines):
+                lookahead_index = index
+                title_lines: list[str] = []
+                while lookahead_index < len(filtered_lines) and len(title_lines) < 3:
+                    candidate = filtered_lines[lookahead_index]
+                    if candidate is None:
+                        break
+                    title_lines.append(candidate)
+                    lookahead_index += 1
+                    if "chief executive officer" in " ".join(title_lines).lower():
+                        index = lookahead_index
+                        blocks.append(("signature", f"{name}\n{_SIGNATURE_TITLE}"))
+                        break
+                else:
+                    blocks.append(("signature", f"{name}\n{_SIGNATURE_TITLE}"))
             else:
                 blocks.append(("signature", f"{name}\n{_SIGNATURE_TITLE}"))
             quote_mode = False

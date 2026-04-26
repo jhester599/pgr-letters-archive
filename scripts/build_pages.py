@@ -329,9 +329,10 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
     paragraph = ""
     paragraph_kind = "paragraph"
     quote_mode = False
+    quote_mode_direct = False  # True when quote_mode set by _is_direct_block_quote_start
 
     def flush_paragraph() -> None:
-        nonlocal paragraph, paragraph_kind, quote_mode
+        nonlocal paragraph, paragraph_kind, quote_mode, quote_mode_direct
         if paragraph:
             stripped = paragraph.strip()
             # Post-assembly upgrade: if the fully-joined block starts with a
@@ -340,6 +341,7 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
             if paragraph_kind == "paragraph" and _is_direct_block_quote_start(stripped):
                 paragraph_kind = "quote"
                 quote_mode = True
+                quote_mode_direct = True
             figure_key = _figure_key_from_note(stripped)
             if figure_key in _KNOWN_FIGURES:
                 blocks.append(("figure", figure_key))
@@ -349,6 +351,12 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
                 blocks.append(("formula", stripped))
             else:
                 blocks.append((paragraph_kind, stripped))
+            # Auto-reset for direct block quotes: once the paragraph ends with a
+            # closing quotation mark the testimonial is complete.
+            if quote_mode_direct and paragraph_kind == "quote":
+                if stripped.endswith(('"', '”')):
+                    quote_mode = False
+                    quote_mode_direct = False
             paragraph = ""
             paragraph_kind = "paragraph"
 
@@ -364,6 +372,7 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
         if _is_artwork_placeholder(line):
             flush_paragraph()
             quote_mode = False
+            quote_mode_direct = False
             continue
 
         if _is_signature_marker(line):
@@ -397,6 +406,7 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
             else:
                 blocks.append(("signature", f"{name}\n{_SIGNATURE_TITLE}"))
             quote_mode = False
+            quote_mode_direct = False
             continue
 
         if (
@@ -408,6 +418,7 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
             blocks.append(("signature", f"{line}\n{filtered_lines[index]}"))
             index += 1
             quote_mode = False
+            quote_mode_direct = False
             continue
 
         if line in _TRADEMARK_LINES or line == "SM":
@@ -431,12 +442,14 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
             flush_paragraph()
             blocks.append(("heading", line))
             quote_mode = False
+            quote_mode_direct = False
             continue
 
         if _is_heading(line):
             flush_paragraph()
             blocks.append(("heading", line))
             quote_mode = False
+            quote_mode_direct = False
             continue
 
         split_heading = _split_leading_all_caps_heading(line)
@@ -449,23 +462,29 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
         line_starts_new_paragraph = not paragraph or not _should_join_lines(paragraph, line)
         if line_starts_new_paragraph and quote_mode and _is_story_quote_reset(line):
             quote_mode = False
+            quote_mode_direct = False
 
         # Direct block-quote detection: a long line starting with " that isn't
         # a CEO-quoting-a-term construction activates quote_mode immediately.
         if line_starts_new_paragraph and not quote_mode and _is_direct_block_quote_start(line):
             quote_mode = True
+            quote_mode_direct = True
 
         current_kind = "quote" if quote_mode else "paragraph"
         if paragraph and _should_join_lines(paragraph, line):
             paragraph = f"{paragraph} {line}"
         else:
             flush_paragraph()
+            # Recompute after flush: flush_paragraph may have reset quote_mode
+            # (e.g. a direct block quote that ended with a closing ").
+            current_kind = "quote" if quote_mode else "paragraph"
             paragraph_kind = current_kind
             paragraph = line
 
         if line_starts_new_paragraph and _is_story_quote_intro(line):
             paragraph_kind = "paragraph"
             quote_mode = True
+            quote_mode_direct = False
 
     flush_paragraph()
     return blocks

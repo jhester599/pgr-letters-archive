@@ -93,6 +93,45 @@ def test_render_letter_html_removes_page_numbers_and_repairs_wrapped_lines():
     assert ">1<" not in result
 
 
+def test_render_letter_html_removes_dash_wrapped_page_numbers():
+    text = "Underwriting loss of 4.4% in 2000.\n- 1 -\nIn our own small way we contributed to the cycle."
+
+    result = render_letter_html(text)
+
+    assert "- 1 -" not in result
+    assert "<p>Underwriting loss of 4.4% in 2000.</p>" in result
+    assert "<p>In our own small way we contributed to the cycle.</p>" in result
+
+
+def test_render_letter_html_promotes_standalone_title_case_headings():
+    text = "Maximum Preparedness\nUnderwriting cycle aside, our future will largely be determined by how we craft it."
+
+    result = render_letter_html(text)
+
+    assert "<h2>Maximum Preparedness</h2>" in result
+    assert "<p>Underwriting cycle aside, our future will largely be determined by how we craft it.</p>" in result
+    assert "Maximum Preparedness Underwriting cycle aside" not in result
+
+
+def test_render_letter_html_keeps_omitted_graphic_note_separate_from_heading():
+    text = "[\nPrivate Passenger Auto Combined Ratios 1976-2005 graphic intentionally omitted\n]\nMarket Conditions\nWith some good reason, the cyclical nature of insurance is often cited."
+
+    result = render_letter_html(text)
+
+    assert "<p>[ Private Passenger Auto Combined Ratios 1976-2005 graphic intentionally omitted ]</p>" in result
+    assert "<h2>Market Conditions</h2>" in result
+    assert "omitted ] Market Conditions" not in result
+
+
+def test_render_letter_html_splits_initial_all_caps_heading_from_sentence():
+    text = "MEASUREMENT IS CENTRAL TO PROGRESSIVE’S BUSINESS DISCIPLINE. We find ways to measure just about everything."
+
+    result = render_letter_html(text)
+
+    assert "<h2>MEASUREMENT IS CENTRAL TO PROGRESSIVE’S BUSINESS DISCIPLINE.</h2>" in result
+    assert "<p>We find ways to measure just about everything.</p>" in result
+
+
 def test_render_letter_html_repairs_split_trademark_markers():
     text = "Keys to Progress\nÂ®\nwhere customers participate in the survey.\n99\nth\npercentile."
 

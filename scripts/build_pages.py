@@ -69,9 +69,18 @@ _SEC_NOISE_LINES = {
 _SECTION_HEADINGS = {
     "Broad Needs of Customers",
     "Broad Needs of Our Customers",
+    "Claims",
+    "Constancy of Purpose",
     "Competitive Prices",
+    "Investments and Capital Management",
     "Leading Brand",
+    "Marketing",
+    "Market Conditions",
+    "Maximum Preparedness",
     "People and Culture",
+    "Retention and Customer Service",
+    "Technology",
+    "Use of Gainshare to Align Shareholder and Employee Interests",
 }
 
 _ORDINAL_SUFFIXES = {"st", "nd", "rd", "th"}
@@ -104,11 +113,27 @@ def _is_sec_noise(line: str) -> bool:
 
 
 def _is_page_number(line: str, next_line: str | None) -> bool:
+    if re.fullmatch(r"-\s*\d{1,3}\s*-", line):
+        return True
     if not line.isdigit():
         return False
     if next_line in _ORDINAL_SUFFIXES:
         return False
     return 1 <= int(line) <= 200
+
+
+def _split_leading_all_caps_heading(line: str) -> tuple[str, str] | None:
+    match = re.match(r"^([A-Z0-9][A-Z0-9\s,;:'’#&%()\-]+[.!?])\s+(.+)$", line)
+    if not match:
+        return None
+
+    heading, rest = match.groups()
+    letters = [char for char in heading if char.isalpha()]
+    if len(letters) < 12:
+        return None
+    if all(not char.isalpha() or char.isupper() for char in heading):
+        return heading.strip(), rest.strip()
+    return None
 
 
 def _is_heading(line: str) -> bool:
@@ -199,6 +224,10 @@ def _append_inline_marker(paragraph: str, marker: str) -> str:
     return f"{paragraph} {marker}"
 
 
+def _is_omitted_graphic_note(text: str) -> bool:
+    return text.startswith("[") and text.endswith("]") and "graphic intentionally omitted" in text.lower()
+
+
 def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
     """Normalize extracted filing text into display-ready paragraph/heading blocks."""
     text = _repair_text_encoding(text)
@@ -278,11 +307,24 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
             paragraph = f"{paragraph}{line}"
             continue
 
+        if _is_omitted_graphic_note(paragraph) and _is_heading(line):
+            flush_paragraph()
+            blocks.append(("heading", line))
+            quote_mode = False
+            continue
+
         if _is_heading(line):
             flush_paragraph()
             blocks.append(("heading", line))
             quote_mode = False
             continue
+
+        split_heading = _split_leading_all_caps_heading(line)
+        if split_heading:
+            flush_paragraph()
+            heading, rest = split_heading
+            blocks.append(("heading", heading))
+            line = rest
 
         line_starts_new_paragraph = not paragraph or not _should_join_lines(paragraph, line)
         if line_starts_new_paragraph and quote_mode and _is_story_quote_reset(line):

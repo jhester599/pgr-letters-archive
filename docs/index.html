@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,6 +31,17 @@
       --border:       #d0d5e8;
       --radius:       10px;
       --shadow:       0 2px 8px rgba(0,0,0,.08);
+    }
+
+    [data-theme="dark"] {
+      --brand-mid:    #4f7ee8;
+      --brand-light:  #1a2340;
+      --text-primary: #e8eaf0;
+      --text-muted:   #9da3b4;
+      --bg:           #0f1117;
+      --surface:      #1a1d27;
+      --border:       #2e3248;
+      --shadow:       0 2px 8px rgba(0,0,0,.4);
     }
 
     body {
@@ -71,6 +82,19 @@
       transition: background .15s;
     }
     .header-links a:hover { background: rgba(255,255,255,.15); }
+
+    #theme-toggle {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,.4);
+      border-radius: 20px;
+      color: #fff;
+      cursor: pointer;
+      font-size: .9rem;
+      line-height: 1;
+      padding: .25rem .6rem;
+      transition: background .15s;
+    }
+    #theme-toggle:hover { background: rgba(255,255,255,.15); }
 
     /* ── Layout ───────────────────────────────────────────────────────────── */
     main {
@@ -145,7 +169,7 @@
       white-space: nowrap;
     }
     .quarter-list {
-      background: #fbfcff;
+      background: var(--bg);
       border-top: 1px solid var(--border);
       list-style: none;
       padding: .25rem 0 .35rem;
@@ -206,6 +230,10 @@
     .badge-text   { background: #fff3cd; color: #856404; }
     .badge-none   { background: #f0f0f0; color: #888; }
     .badge-read   { background: #e8f0fe; color: #003087; }
+    [data-theme="dark"] .badge-audio { background: #0e3320; color: #5ecf8a; }
+    [data-theme="dark"] .badge-text  { background: #2e2200; color: #f0c040; }
+    [data-theme="dark"] .badge-none  { background: #222; color: #aaa; }
+    [data-theme="dark"] .badge-read  { background: #1a2340; color: #7fa8f0; }
 
     /* ── Content panel ────────────────────────────────────────────────────── */
     #content-panel {
@@ -313,6 +341,7 @@
   <nav class="header-links">
     <a href="feed.xml">RSS / Podcast Feed</a>
     <a href="https://github.com/jhester599/pgr-letters-archive" target="_blank">GitHub</a>
+    <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
   </nav>
 </header>
 
@@ -364,6 +393,24 @@
 </footer>
 
 <script>
+  // ── Theme toggle ───────────────────────────────────────────────────────────
+  (function () {
+    const saved = localStorage.getItem("pgr-theme");
+    if (saved) document.documentElement.setAttribute("data-theme", saved);
+  })();
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const btn = document.getElementById("theme-toggle");
+    const current = document.documentElement.getAttribute("data-theme") || "light";
+    btn.textContent = current === "dark" ? "☀️" : "🌙";
+    btn.addEventListener("click", function () {
+      const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("pgr-theme", next);
+      btn.textContent = next === "dark" ? "☀️" : "🌙";
+    });
+  });
+
   // ── State ──────────────────────────────────────────────────────────────────
   let ledger = null;
   let activeId = null;

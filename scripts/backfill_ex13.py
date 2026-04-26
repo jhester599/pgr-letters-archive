@@ -110,7 +110,30 @@ def fetch_ex13_bundled(accession_number: str) -> str | None:
 
 
 def extract_letter(text: str) -> tuple[str, str]:
-    pass  # implemented in Task 4
+    """Extract the 'Letter to Shareholders' section from Annual Report text.
+
+    Returns (letter_text, extraction_method).
+    extraction_method is 'letter_section' or 'full_ex13_fallback'.
+    """
+    start_m = _START_RE.search(text)
+    if not start_m:
+        return text, "full_ex13_fallback"
+
+    # Skip past the heading line itself
+    line_end = text.find("\n", start_m.end())
+    body_start = line_end + 1 if line_end >= 0 else start_m.end()
+    tail = text[body_start:]
+
+    # Find end boundary — back up to the start of the matched line
+    end_m = _END_RE.search(tail)
+    if end_m:
+        line_start = tail.rfind("\n", 0, end_m.start())
+        end_pos = line_start if line_start >= 0 else end_m.start()
+        letter = tail[:end_pos].strip()
+    else:
+        letter = tail.strip()
+
+    return letter, "letter_section"
 
 
 def process_filing(filing: dict, ledger: dict, dry_run: bool) -> str:

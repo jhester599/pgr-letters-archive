@@ -125,3 +125,56 @@ def test_fetch_ex13_bundled_missing_block_returns_none(monkeypatch):
     monkeypatch.setattr(backfill_ex13, "get", lambda url: FakeResp())
     result = fetch_ex13_bundled("0000950152-97-002528")
     assert result is None
+
+
+# ── extract_letter ────────────────────────────────────────────────────────────
+
+_ANNUAL_REPORT = """\
+1996 Annual Report to Shareholders
+
+Financial Highlights
+Some financial data.
+
+Letter to Shareholders
+
+Dear Shareholders,
+
+We had a wonderful year. This is the first paragraph.
+
+This is the second paragraph.
+
+Sincerely,
+Peter Lewis
+
+Financial Review
+
+Management discussion follows here.
+"""
+
+
+def test_extract_letter_finds_section():
+    text, method = extract_letter(_ANNUAL_REPORT)
+    assert method == "letter_section"
+    assert "Dear Shareholders" in text
+    assert "We had a wonderful year" in text
+    assert "Peter Lewis" in text
+    assert "Financial Review" not in text
+    assert "Management discussion" not in text
+
+
+def test_extract_letter_fallback():
+    text, method = extract_letter("Plain text with no headings whatsoever.")
+    assert method == "full_ex13_fallback"
+    assert "Plain text" in text
+
+
+def test_extract_letter_case_insensitive():
+    upper = _ANNUAL_REPORT.replace("Letter to Shareholders", "LETTER TO SHAREHOLDERS")
+    _, method = extract_letter(upper)
+    assert method == "letter_section"
+
+
+def test_extract_letter_strips_header_line():
+    text, method = extract_letter(_ANNUAL_REPORT)
+    assert method == "letter_section"
+    assert "Letter to Shareholders" not in text

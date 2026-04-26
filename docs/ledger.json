@@ -1,6 +1,6 @@
 {
   "meta": {
-    "last_updated": "2026-04-26T02:09:32.429281+00:00",
+    "last_updated": "2026-04-26T02:44:47.249681+00:00",
     "total_letters": 51,
     "total_audio": 0,
     "description": "State ledger for the PGR Letters Archive pipeline. Each entry tracks one SEC filing through the scrape \u2192 generate \u2192 compress lifecycle."
@@ -1405,8 +1405,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "skip_reason": null,
-      "page_built": false,
-      "page_url": null,
+      "page_built": true,
+      "page_url": "letters/PGR_2004_Q4.html",
       "extraction_method": "pdf_letter_section",
       "processed_date": "2026-04-26T02:09:32.429132+00:00"
     },
@@ -1472,8 +1472,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "skip_reason": null,
-      "page_built": false,
-      "page_url": null,
+      "page_built": true,
+      "page_url": "letters/PGR_2003_Q4.html",
       "extraction_method": "pdf_letter_section",
       "processed_date": "2026-04-26T02:07:57.519356+00:00"
     },
@@ -1539,8 +1539,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "skip_reason": null,
-      "page_built": false,
-      "page_url": null,
+      "page_built": true,
+      "page_url": "letters/PGR_2002_Q4.html",
       "extraction_method": "pdf_letter_section",
       "processed_date": "2026-04-26T02:07:54.756206+00:00"
     },
@@ -1654,8 +1654,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "skip_reason": null,
-      "page_built": false,
-      "page_url": null,
+      "page_built": true,
+      "page_url": "letters/PGR_2000_Q4.html",
       "extraction_method": "letter_section",
       "processed_date": "2026-04-26T01:56:55.169840+00:00"
     },
@@ -1721,8 +1721,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "skip_reason": null,
-      "page_built": false,
-      "page_url": null,
+      "page_built": true,
+      "page_url": "letters/PGR_1999_Q4.html",
       "extraction_method": "letter_section",
       "processed_date": "2026-04-26T01:56:54.360613+00:00"
     },
@@ -1788,8 +1788,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "skip_reason": null,
-      "page_built": false,
-      "page_url": null,
+      "page_built": true,
+      "page_url": "letters/PGR_1998_Q4.html",
       "extraction_method": "letter_section",
       "processed_date": "2026-04-26T01:56:53.587811+00:00"
     },
@@ -1855,8 +1855,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "skip_reason": null,
-      "page_built": false,
-      "page_url": null,
+      "page_built": true,
+      "page_url": "letters/PGR_1997_Q4.html",
       "extraction_method": "letter_section",
       "processed_date": "2026-04-26T01:56:52.810807+00:00"
     },
@@ -1922,8 +1922,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "skip_reason": null,
-      "page_built": false,
-      "page_url": null,
+      "page_built": true,
+      "page_url": "letters/PGR_1996_Q4.html",
       "extraction_method": "letter_section",
       "processed_date": "2026-04-26T01:56:52.030705+00:00"
     },
@@ -2037,8 +2037,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "skip_reason": null,
-      "page_built": false,
-      "page_url": null,
+      "page_built": true,
+      "page_url": "letters/PGR_1994_Q4.html",
       "extraction_method": "letter_section",
       "processed_date": "2026-04-26T01:56:51.218888+00:00"
     },
@@ -2104,8 +2104,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "skip_reason": null,
-      "page_built": false,
-      "page_url": null,
+      "page_built": true,
+      "page_url": "letters/PGR_1993_Q4.html",
       "extraction_method": "letter_section",
       "processed_date": "2026-04-26T01:56:50.445209+00:00"
     }

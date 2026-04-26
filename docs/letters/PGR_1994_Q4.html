@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PGR 1994 Q4 — Shareholder Letter</title>
+  <link rel="stylesheet" href="../assets/reading.css" />
+</head>
+<body>
+  <div id="progress-bar"></div>
+
+  <header class="reading-header">
+    <nav class="reading-nav">
+      <a href="../index.html" class="nav-back">← Archive</a>
+      <div class="nav-episodes">
+        <a href="PGR_1993_Q4.html" class="nav-ep-link">← 1993 Q4</a>
+        <a href="PGR_1996_Q4.html" class="nav-ep-link">1996 Q4 →</a>
+      </div>
+      <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    </nav>
+  </header>
+
+  <main class="reading-main">
+    <article class="letter-article">
+      <header class="letter-header">
+        <div class="letter-meta">
+          <span class="meta-quarter">1994 Q4</span>
+          <span class="meta-form">10-K</span>
+          <span class="meta-date">Period ending 1994-12-31</span>
+        </div>
+        <h1>CEO Shareholder Letter</h1>
+        
+      </header>
+      <div class="letter-body">
+        <p>2                                     8                                    16                              32</p>
+<h2>[ARTWORK]</h2>
+<p>Diversity reminds me of the art of pointillism: perfect individual dots up close; blurred images from five paces back; remarkable clarity of each point&#x27;s purpose and value from the intended perspective.</p>
+<p>Progressive&#x27;s Golden Rule Core Value requires us to respect all people, value the differ- ences among  them  and  deal with  them  in  the way we want to be dealt with. To build on this Core Value, &quot;Diversity&quot; is  the theme of our 1994  Annual Report. For Progressive, &quot;Diversity&quot; is about changing in ways that enhance and enrich our systems,  and about embracing and nurturing our changing  mosaic of  peo- ple, customers, strategies, culture and environment.</p>
+<p>Reactions to this theme from our people, customers and agents appear as statements throughout this re- port.  Artist Carter Kustera responded to &quot;Diversity&quot; by creating a large series of silhouette drawings with text inspired by his interest in daytime TV talk shows, and is not intended to represent any Progressive person. Kustera isolates and recognizes the in- dividual and the abstraction created when hundreds of different personalities are represented as a whole, which makes the viewer a participant in this collage of colorful identities. Kustera&#x27;s drawings will be a part of Progressive&#x27;s growing collection of contemporary art.</p>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    // Dark mode — restore saved preference before first paint
+    (function () {
+      const saved = localStorage.getItem("pgr-theme");
+      if (saved) document.documentElement.setAttribute("data-theme", saved);
+    })();
+
+    document.getElementById("theme-toggle").addEventListener("click", function () {
+      const current = document.documentElement.getAttribute("data-theme") || "light";
+      const next = current === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("pgr-theme", next);
+      this.textContent = next === "dark" ? "☀️" : "🌙";
+    });
+
+    // Scroll progress bar
+    const bar = document.getElementById("progress-bar");
+    window.addEventListener("scroll", function () {
+      const doc = document.documentElement;
+      const scrolled = doc.scrollTop || document.body.scrollTop;
+      const total = doc.scrollHeight - doc.clientHeight;
+      bar.style.width = total > 0 ? (scrolled / total * 100) + "%" : "0%";
+    }, { passive: true });
+
+    // Audio toggle (only wired up if audio section exists)
+    const audioToggle = document.getElementById("audio-toggle");
+    if (audioToggle) {
+      audioToggle.addEventListener("click", function () {
+        const wrap = document.getElementById("audio-player-wrap");
+        wrap.classList.toggle("open");
+        this.textContent = wrap.classList.contains("open")
+          ? "▲ Hide AI Audio Overview"
+          : "🎙 AI Audio Overview";
+      });
+    }
+  </script>
+</body>
+</html>

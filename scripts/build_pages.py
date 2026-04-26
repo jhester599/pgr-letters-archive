@@ -146,17 +146,29 @@ def _is_page_number(line: str, next_line: str | None) -> bool:
     return 1 <= int(line) <= 200
 
 
-def _split_leading_all_caps_heading(line: str) -> tuple[str, str] | None:
-    match = re.match(r"^([A-Z0-9][A-Z0-9\s,;:'’#&%()\-]+[.!?])\s+(.+)$", line)
-    if not match:
-        return None
+_CAPS_SEP_PATTERNS = [
+    # "ALL CAPS HEADING. Body text" — heading ends with terminal punct
+    (re.compile(r"^([A-Z0-9][A-Z0-9\s,;:’’’#&%()\-]+[.!?])\s+(.{10,})$"), 8),
+    # "ALL CAPS HEADING  Body text" — two or more spaces (SGML/PDF column layout)
+    (re.compile(r"^([A-Z][A-Z0-9\s,;:’’’#&%()\-]+?)\s{2,}(.{15,})$"), 5),
+    # "ALL CAPS HEADING – Body" or "— Body" (en/em dash separator)
+    (re.compile(r"^([A-Z][A-Z0-9\s,;:’’’#&%()\-]+?)\s*[–—\-]{1,2}\s*(.{10,})$"), 5),
+]
 
-    heading, rest = match.groups()
-    letters = [char for char in heading if char.isalpha()]
-    if len(letters) < 12:
-        return None
-    if all(not char.isalpha() or char.isupper() for char in heading):
-        return heading.strip(), rest.strip()
+
+def _split_leading_all_caps_heading(line: str) -> tuple[str, str] | None:
+    for pattern, min_letters in _CAPS_SEP_PATTERNS:
+        match = pattern.match(line)
+        if not match:
+            continue
+        heading, rest = match.groups()
+        heading = heading.strip()
+        # Heading must be all-uppercase alpha and at most 60 chars long.
+        letters = [c for c in heading if c.isalpha()]
+        if len(letters) < min_letters or len(heading) > 60:
+            continue
+        if all(not c.isalpha() or c.isupper() for c in heading):
+            return heading, rest.strip()
     return None
 
 

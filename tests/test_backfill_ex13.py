@@ -178,3 +178,99 @@ def test_extract_letter_strips_header_line():
     text, method = extract_letter(_ANNUAL_REPORT)
     assert method == "letter_section"
     assert "Letter to Shareholders" not in text
+
+
+# ── Integration tests ─────────────────────────────────────────────────────────
+
+import json
+import backfill_ex13
+import scraper
+
+_INDEX_HTML = """\
+<html><body><table>
+<tr><td>1</td><td>10-K</td>
+    <td><a href="/Archives/edgar/data/80661/123/form10k.htm">form10k.htm</a></td>
+    <td>desc</td><td>size</td></tr>
+<tr><td>8</td><td>EX-13 ANNUAL REPORT</td>
+    <td><a href="/Archives/edgar/data/80661/123/exhibit13.htm">exhibit13.htm</a></td>
+    <td>Annual Report</td><td>size</td></tr>
+</table></body></html>
+"""
+
+_EX13_HTML = """\
+<html><body>
+<p>1996 Annual Report to Shareholders</p>
+<p>Letter to Shareholders</p>
+<p>Dear Shareholders, this is the letter content for 1996.</p>
+<p>We had an outstanding year.</p>
+<p>Sincerely, Peter Lewis</p>
+<p>Financial Review</p>
+<p>Financial data follows.</p>
+</body></html>
+"""
+
+
+@pytest.fixture
+def fake_env(tmp_path, monkeypatch):
+    letters_dir = tmp_path / "data" / "letters"
+    letters_dir.mkdir(parents=True)
+
+    ledger_data = {
+        "meta": {"last_updated": None, "total_letters": 0, "total_audio": 0},
+        "filings": [{
+            "id":               "PGR_1996_Q4",
+            "year":             1996,
+            "quarter":          "Q4",
+            "form_type":        "10-K",
+            "accession_number": "0000950152-97-002528",
+            "report_date":      "1996-12-31",
+            "letter_file":      None,
+            "audio_file":       None,
+            "letter_scraped":   False,
+            "audio_generated":  False,
+            "audio_compressed": False,
+            "skip_reason":      "no_exhibit_99",
+        }],
+    }
+    ledger_file = tmp_path / "docs" / "ledger.json"
+    ledger_file.parent.mkdir(parents=True)
+    ledger_file.write_text(json.dumps(ledger_data, indent=2), encoding="utf-8")
+
+    def fake_get(url):
+        class R:
+            headers = {"Content-Type": "text/html"}
+            def raise_for_status(self): pass
+        r = R()
+        r.text = _INDEX_HTML if "index.htm" in url else _EX13_HTML
+        return r
+
+    monkeypatch.setattr(backfill_ex13, "get",        fake_get)
+    monkeypatch.setattr(scraper,       "get",        fake_get)
+    monkeypatch.setattr(backfill_ex13, "LETTERS_DIR", letters_dir)
+    monkeypatch.setattr(scraper,       "LEDGER_PATH", ledger_file)
+
+    return tmp_path, ledger_file, letters_dir
+
+
+def test_main_updates_ledger_in_place(fake_env):
+    _, ledger_file, letters_dir = fake_env
+    backfill_ex13.main(dry_run=False)
+
+    updated = json.loads(ledger_file.read_text())
+    assert len(updated["filings"]) == 1          # no duplicate added
+    filing = updated["filings"][0]
+    assert filing["letter_scraped"] is True
+    assert filing["skip_reason"] is None
+    assert filing["extraction_method"] in ("letter_section", "full_ex13_fallback")
+    assert filing["letter_file"] == "data/letters/PGR_1996_Q4_Letter.txt"
+    assert (letters_dir / "PGR_1996_Q4_Letter.txt").exists()
+
+
+def test_main_dry_run_writes_nothing(fake_env):
+    _, ledger_file, letters_dir = fake_env
+    original = ledger_file.read_text()
+
+    backfill_ex13.main(dry_run=True)
+
+    assert ledger_file.read_text() == original
+    assert not any(letters_dir.glob("*.txt"))

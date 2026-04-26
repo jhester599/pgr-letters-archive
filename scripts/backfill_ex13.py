@@ -270,12 +270,12 @@ def main(dry_run: bool = False) -> None:
 
     targets = [
         f for f in ledger["filings"]
-        if f.get("form_type") == "10-K"
+        if f.get("form_type") in ("10-K", "10-K405")
         and f.get("year", 9999) < 2005
     ]
 
     if not targets:
-        log.info("No eligible pre-2005 10-K filings found — nothing to do.")
+        log.info("No eligible pre-2005 10-K/10-K405 filings found — nothing to do.")
         return
 
     log.info("Found %d eligible pre-2005 10-K filing(s).", len(targets))

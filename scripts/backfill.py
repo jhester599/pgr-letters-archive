@@ -76,7 +76,7 @@ def iter_all_filings(from_year: Optional[int]) -> Iterator[tuple[str, str, str]]
     Covers both filings.recent (~40 most recent) and all older pages listed
     in filings.files[].
     """
-    target_forms = {"10-Q", "10-K"}
+    target_forms = {"10-Q", "10-K", "10-K405"}
 
     log.info("Fetching root submissions JSON for CIK %s…", PGR_CIK)
     resp = get(f"{EDGAR_SUBMISSIONS}/CIK{PGR_CIK}.json")

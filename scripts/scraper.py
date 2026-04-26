@@ -201,7 +201,7 @@ def fetch_and_clean(accession_number: str, filename: str) -> Optional[str]:
 def period_to_quarter(report_date: str, form_type: str) -> tuple[int, str]:
     """Map a filing's period-of-report date to (year, 'QN')."""
     dt = datetime.strptime(report_date, "%Y-%m-%d")
-    if form_type == "10-K":
+    if form_type in ("10-K", "10-K405"):
         return dt.year, "Q4"
     # 10-Q: derive quarter from fiscal period-end month
     if dt.month <= 3:
@@ -224,7 +224,7 @@ def main() -> None:
     acc_nums  = recent.get("accessionNumber", [])
     rep_dates = recent.get("reportDate", [])
 
-    target_forms = {"10-Q", "10-K"}
+    target_forms = {"10-Q", "10-K", "10-K405"}
     new_count = 0
 
     for form, acc, date in zip(forms, acc_nums, rep_dates):

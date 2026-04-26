@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PGR 2004 Q3 — Shareholder Letter</title>
+  <link rel="stylesheet" href="../assets/reading.css" />
+</head>
+<body>
+  <div id="progress-bar"></div>
+
+  <header class="reading-header">
+    <nav class="reading-nav">
+      <a href="../index.html" class="nav-back">← Archive</a>
+      <div class="nav-episodes">
+        <a href="PGR_2004_Q2.html" class="nav-ep-link">← 2004 Q2</a>
+        <a href="PGR_2004_Q4.html" class="nav-ep-link">2004 Q4 →</a>
+      </div>
+      <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    </nav>
+  </header>
+
+  <main class="reading-main">
+    <article class="letter-article">
+      <header class="letter-header">
+        <div class="letter-meta">
+          <span class="meta-quarter">2004 Q3</span>
+          <span class="meta-form">10-Q</span>
+          <span class="meta-date">Period ending 2004-09-30</span>
+        </div>
+        <h1>CEO Shareholder Letter</h1>
+        
+      </header>
+      <div class="letter-body">
+        <p>Our year-over-year percentage growth rate is down significantly from similar measures at the same time for the past three years, reflecting soft market conditions. We see this continuing for some time. When discussing growth, it is insightful to focus on our three sources of premium growth and comment separately on them.</p>
+<p>New business policies Overall, new business growth is on pace with last year and stronger under our Direct brand than in Agency, but not expected to produce significant year-over-year gains in a competitive environment of rate stability or decreases.</p>
+<p>Average premium per policy After a period of increase, average premium per policy is now essentially flat on a year-to-date basis. Market conditions and the actions of many competitors suggest no immediate outlook for increases.</p>
+<p>Customer retention An increased percentage of our premium and growth has come from renewal business and our efforts are focused on increasing the average retention period per customer. With rate stability, we had expected our retention measures to increase, and have struggled to understand fully why our observed retention measures have fallen during this quarter.</p>
+<p>Strong year-over-year growth, we expect, will remain a challenge for the immediate horizon. Based on year-to-date written premiums through the second quarter 2004 (as reported by National Underwriters), the auto insurance segment of the industry grew an estimated 4%.  Of the top 15 private passenger auto insurers, Progressive&#x27;s Direct brand was the fastest growing player at 17% with Progressive&#x27;s Agency brand sixth at 11%.</p>
+<p>While the hurricanes produced the biggest stories for the industry, Progressive had at least two other very notable events during the quarter.</p>
+<p>With the release of our August results, we announced a &quot;Dutch auction&quot; tender offer to purchase up to 17.1 million of our outstanding Common Shares. The tender period closed on October 15th and 16.9 million shares were tendered and all such shares were purchased at $88 per share. As a result, the outstanding shares of Progressive will be reduced by approximately 7.8% from the 217.0 million shares outstanding at the end of the third quarter.</p>
+<p>On September 21st, we announced &quot;Drive Insurance from Progressive,&quot; a brand to be used by our independent agents and insurance brokers.  Having both an agent-distributed product (now sold through Drive Insurance) and a direct-to-the-consumer offering (Progressive Direct) is strategically important positioning for Progressive and provides clarity between our consumer offerings.  We continue to have high hopes for both brands.</p>
+<p>Why separate brands? The specifics of product design within each distribution channel are different and warrant separate identities and our agents have wanted increased participation and recognition in our advertising, but this was difficult to do with a single brand largely promoting the attributes of our Direct business.  For some years, we have been taking organizational and reporting steps to create a more distinct identity for each distribution channel and to allow us to serve both groups of customers better.</p>
+<p>With &quot;Drive,&quot; which will formally launch on December 10th, we expect to enhance our positioning with agents who serve customers who value their counsel.  More than 80% of all auto insurance sold in the U. S. is currently written through captive and independent agents.</p>
+<p>The economic effects of the hurricanes are the most reported, but I think the real story is in our response and our ability to do what we do best - help people get back to normal. In 1992, Progressive was in the early stages of implementing our Immediate Response® claims strategy when Hurricane Andrew hit South Florida. Ironically, it was after a disaster that we got to see the benefits of our emerging strategy. Now a dozen years later, our claims strategies have evolved, but speed and accuracy remain two critical elements. Once again, the customers we serve have been generous with their praise at such a trying time. For our part, we have closed 94% of all reported claims related to the hurricane damage and approached the 80th percent closed mark in about 20 to 25 days after each incident. Testing emergency procedures can often expose opportunities for improvement, and while we were very happy that our procedures worked as planned, we will be conducting a thorough after-action review to define ways we can provide an even greater level of customer service when our customers need our help the most.</p>
+<p>During the quarter, we achieved performance standards necessary to satisfy the expansion criteria of our concierge claims strategy and will shortly announce multiple new locations for development and planned openings in 2005.</p>
+<p>Many of you may be following the news about various ongoing investigations of certain brokers and insurers concerning alleged antitrust violations such as bid-rigging and other improper conduct. Many companies in the insurance industry, including Progressive, have received subpoenas seeking information related to those investigations. However, no regulator has suggested to us that we are the target of any investigation, nor do we believe we should be, given our business model. Nevertheless, we will cooperate fully with any investigators who seek information from us.</p>
+<p>In short, this has been a busy and rewarding quarter. Our attention remains focused on smart positioning for growth in a soft market and increasing our understanding of behaviors and actions related to increasing customer retention.</p>
+<div class="signature-block">
+  <p class="signature-name">Glenn M. Renwick</p>
+  <p class="signature-title">President and Chief Executive Officer</p>
+</div>
+<p>continue to</p>
+<h2>THIRD QUARTER 2004 FINANCIAL REVIEW</h2>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    // Dark mode — restore saved preference before first paint
+    (function () {
+      const saved = localStorage.getItem("pgr-theme");
+      if (saved) document.documentElement.setAttribute("data-theme", saved);
+    })();
+
+    document.getElementById("theme-toggle").addEventListener("click", function () {
+      const current = document.documentElement.getAttribute("data-theme") || "light";
+      const next = current === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("pgr-theme", next);
+      this.textContent = next === "dark" ? "☀️" : "🌙";
+    });
+
+    // Scroll progress bar
+    const bar = document.getElementById("progress-bar");
+    window.addEventListener("scroll", function () {
+      const doc = document.documentElement;
+      const scrolled = doc.scrollTop || document.body.scrollTop;
+      const total = doc.scrollHeight - doc.clientHeight;
+      bar.style.width = total > 0 ? (scrolled / total * 100) + "%" : "0%";
+    }, { passive: true });
+
+    // Audio toggle (only wired up if audio section exists)
+    const audioToggle = document.getElementById("audio-toggle");
+    if (audioToggle) {
+      audioToggle.addEventListener("click", function () {
+        const wrap = document.getElementById("audio-player-wrap");
+        wrap.classList.toggle("open");
+        this.textContent = wrap.classList.contains("open")
+          ? "▲ Hide AI Audio Overview"
+          : "🎙 AI Audio Overview";
+      });
+    }
+  </script>
+</body>
+</html>

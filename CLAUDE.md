@@ -252,6 +252,140 @@ python scripts/build_pages.py
 Place a `cover.png` (3000×3000 px recommended) in `docs/`. The RSS feed references it at
 `{base_url}/cover.png`.
 
+## Recovering letters not filed on EDGAR
+
+Some quarters — particularly 2004–2006 — have no `EX-99` attached to their 10-Q. Progressive
+published those letters directly on their investor relations site instead of filing them with the SEC.
+
+### Background: why some quarters are missing
+
+`backfill_ex99.py` marks 10-Q filings as `skip_reason: no_exhibit_99` when the SEC filing index
+has no EX-99 document. This is correct: the letters genuinely were not filed. For affected quarters,
+the Wayback Machine (web.archive.org) is the source of truth.
+
+### How to find the letters using the Wayback Machine
+
+**Step 1 — CDX API: discover archived files**
+
+The CDX API lets you query what the Wayback Machine has crawled without fetching full pages:
+
+```python
+import requests, json
+
+HEADERS = {'User-Agent': 'PGR-Letters-Archive jeffrey.r.hester@gmail.com'}
+
+# List all archived files under a quarterly directory
+quarter = '06Q1_quarterly'   # format: YYQ#_quarterly
+url = (f'http://web.archive.org/cdx/search/cdx'
+       f'?url=investors.progressive.com/{quarter}/*'
+       f'&output=json&fl=timestamp,original,statuscode,mimetype'
+       f'&filter=statuscode:200&collapse=original&limit=50')
+rows = requests.get(url, headers=HEADERS, timeout=30).json()
+for ts, orig, sc, mt in rows[1:]:
+    print(ts, orig.split(quarter + '/')[-1])
+```
+
+Progressive's quarterly report directories were named `YYQ#_quarterly`
+(e.g., `05Q1_quarterly`, `06Q2_quarterly`) at `investors.progressive.com`.
+Each directory held:
+- `letter.html` — the standalone CEO letter page (HTML, not Flash)
+- `pdf/NQYYqsr.pdf` — the full Quarterly Shareholders Report PDF (e.g., `1Q05QSR.pdf`)
+- `pdf/Progressive-letter.pdf` — a standalone letter PDF (seen in annual quarters)
+- `flash/` — interactive financial pages (Flash, unextractable)
+
+**Step 2 — Identify the right file**
+
+Priority order for letter content:
+1. `letter.html` — cleanest; fetch and strip HTML
+2. `pdf/<quarter>QSR.pdf` — full report; use `extract_letter()` from `backfill_ex13.py`
+3. `pdf/Progressive-letter.pdf` — annual letter (only in annual-report quarters)
+
+**Step 3 — Fetch the archived file**
+
+```python
+# Construct Wayback URL from CDX timestamp + original URL
+wb_url = f'http://web.archive.org/web/{timestamp}/{original_url}'
+resp = requests.get(wb_url, headers=HEADERS, timeout=90)
+```
+
+For HTML letters:
+```python
+from bs4 import BeautifulSoup
+import re
+soup = BeautifulSoup(resp.text, 'lxml')
+for tag in soup(['script', 'style', 'head', 'meta', 'link']):
+    tag.decompose()
+text = re.sub(r'\n{3,}', '\n\n', '\n'.join(
+    l.strip() for l in soup.get_text('\n').splitlines() if l.strip()
+)).strip()
+```
+
+For PDF letters:
+```python
+import io
+from pdfminer.high_level import extract_text as pdf_extract_text
+from backfill_ex13 import extract_letter
+
+raw = pdf_extract_text(io.BytesIO(resp.content))
+lines = [l.strip() for l in raw.splitlines() if l.strip()]
+cleaned = re.sub(r'\n{3,}', '\n\n', '\n'.join(lines)).strip()
+letter_text, method = extract_letter(cleaned)   # finds 'Letter to Shareholders' heading
+```
+
+**Step 4 — Update the ledger**
+
+After saving the `.txt` file to `data/letters/`, update the ledger entry:
+```python
+filing.update({
+    'letter_file':       f'data/letters/{filing_id}_Letter.txt',
+    'audio_file':        f'docs/audio/{filing_id}_Letter.mp3',
+    'letter_scraped':    True,
+    'audio_generated':   False,
+    'audio_compressed':  False,
+    'page_built':        False,
+    'page_url':          None,
+    'extraction_method': 'wayback_html',   # or 'pdf_letter_section'
+    'processed_date':    datetime.now(timezone.utc).isoformat(),
+    'skip_reason':       None,
+})
+save_ledger(ledger)
+```
+
+Then run `python scripts/build_pages.py` to generate the HTML reading page.
+
+### Known letter sources by era
+
+| Era | SEC filing | Letter location | Status |
+|-----|-----------|-----------------|--------|
+| 2006 Q2+ | EX-99 in 10-Q/10-K | `backfill_ex99.py` / `scraper.py` handle this | ✅ complete |
+| 2005 Q1–Q3 | No EX-99 | Wayback: `05Q#_quarterly/pdf/NQ05QSR.pdf` | ✅ recovered |
+| 2006 Q1 | No EX-99 | Wayback: `06Q1_quarterly/letter.html` | ✅ recovered |
+| 2004 Q1–Q3 | No EX-99 | Wayback: `04Q#_quarterly/noflash/letter.html` | ✅ recovered |
+| 2001–2004 annual | EX-13 (HTML) in 10-K | `backfill_ex13.py` handles this | ✅ complete |
+| 1993–2000 annual | EX-13 (SGML bundle) in 10-K | `backfill_ex13.py` handles this | ✅ complete |
+| 2002–2004 annual | EX-13 only had financials | `backfill_ex13.py` falls back to progressive.com PDF | ✅ complete |
+| Pre-2004 quarterly | **Did not exist** | Progressive only published annual letters before 2004 | n/a |
+| 2002–2003 Q1–Q3 | No EX-99 | Quarterly letters were not published in this era | confirmed absent |
+
+### Research conclusion: quarterly letters started in 2004
+
+The quarterly shareholder letter program began with Q1 2004. Evidence:
+- The `investors.progressive.com` reports archive (as of Dec 2004) explicitly lists `04Q1_quarterly`,
+  `04Q2_quarterly`, `04Q3_quarterly` quarterly reports — but only `03_annual`, `02_annual.asp`,
+  `01_annual.asp`, `00_annual.asp` for prior years.
+- Wayback Machine CDX shows `03Q1_quarterly`, `03Q2_quarterly`, `03Q3_quarterly` were
+  **never crawled** (not archived), consistent with those directories not existing.
+- 2002 and 2003 EDGAR 10-Q filings contain only the main form and ratio exhibits — no EX-99,
+  no shareholder letter of any kind.
+- Before 2004, Progressive issued one letter per year in the annual report to shareholders,
+  delivered as EX-13 with the 10-K filing (handled by `backfill_ex13.py`).
+
+The `no_exhibit_99` ledger entries for 2002–2003 Q1–Q3 are correct and final — no letters exist.
+
+**Add a podcast cover image:**
+Place a `cover.png` (3000×3000 px recommended) in `docs/`. The RSS feed references it at
+`{base_url}/cover.png`.
+
 ## GitHub Pages setup
 
 1. Repo Settings → Pages → Source: **Deploy from a branch**

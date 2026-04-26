@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PGR 2004 Q2 — Shareholder Letter</title>
+  <link rel="stylesheet" href="../assets/reading.css" />
+</head>
+<body>
+  <div id="progress-bar"></div>
+
+  <header class="reading-header">
+    <nav class="reading-nav">
+      <a href="../index.html" class="nav-back">← Archive</a>
+      <div class="nav-episodes">
+        <a href="PGR_2004_Q1.html" class="nav-ep-link">← 2004 Q1</a>
+        <a href="PGR_2004_Q3.html" class="nav-ep-link">2004 Q3 →</a>
+      </div>
+      <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    </nav>
+  </header>
+
+  <main class="reading-main">
+    <article class="letter-article">
+      <header class="letter-header">
+        <div class="letter-meta">
+          <span class="meta-quarter">2004 Q2</span>
+          <span class="meta-form">10-Q</span>
+          <span class="meta-date">Period ending 2004-06-30</span>
+        </div>
+        <h1>CEO Shareholder Letter</h1>
+        
+      </header>
+      <div class="letter-body">
+        <p>Contributing to profitability and rate stability are relatively modest trends in severity of losses. Our observed bodily injury severity trend for personal auto is within a 2-5% annualized range and our physical damage severity trend is closer to flat.</p>
+<p>As market conditions change, and the so-called insurance cycle goes from &quot;hard&quot; to &quot;soft,&quot; one thing remains constant — the best service at the lowest price is a winning formula. I have every expectation that we can outperform the market on growth, as well as profitability, in each phase of the cycle if we continue to improve and solidify our delivery of faster, fairer, better customer experiences at lower costs.</p>
+<p>We have made some meaningful progress in the first half of 2004 that we believe has kept us on course toward our goal of becoming Consumers&#x27; #1 Choice for Auto Insurance.</p>
+<p>Our intensity on claims management continues to produce meaningful improvements in the quality of claims handling. We are in control with staffing and training and will use this expected somewhat slower period of hiring to solidify our gains and expand our training in preparation for faster growth that we believe we will see in the future.</p>
+<p>Our initiative to change physical damage claims handling with our concierge level of claims service has had a very good first six months. The key operating specifications we established for expansion of the concept are now consistently being met.  We are ready for the next phase of expansion and are currently looking to establish four more service centers in Florida.  In addition, we are actively scouting locations in four other states.</p>
+<p>Our customer service group has completed a restructuring into three aligned groups:  agency customers, direct customers and independent agents and brokers. This restructuring will better serve the unique needs of each group and allow even more opportunity for targeted improvements and efficiencies. In addition, we are moving forward with creating a brand communication strategy for our independent agencies and their customers.</p>
+<p>On a note of interest, I&#x27;m excited to report that Progressive is now the #1 writer of auto insurance in Rhode Island and Vermont. (We are working hard to achieve the same results in other states). Also, we are in discussions with New Jersey about the regulatory environment that would be required for Progressive to show interest in doing business there. At this time, we have no sense whether or not the changes necessary to interest us in writing in that state will be embraced.</p>
+<p>Our overarching objectives going into the second half of 2004 are to maintain momentum by continuing to seek new business growth when it is smart to do so, increasing policy retention, intensifying the energy around our key strategies, focusing on training at all levels to take full advantage of new tools and processes, and constantly positioning ourselves for the next set of market conditions that will favor faster growth.</p>
+<p>While pleased with our results and accomplishments so far this year, I&#x27;m confident that we have only partially executed some of our most exciting strategies and that the best is still ahead of us.</p>
+<div class="signature-block">
+  <p class="signature-name">Glenn M. Renwick</p>
+  <p class="signature-title">President and Chief Executive Officer</p>
+</div>
+<p>continue to</p>
+<h2>SECOND QUARTER 2004 FINANCIAL REVIEW</h2>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    // Dark mode — restore saved preference before first paint
+    (function () {
+      const saved = localStorage.getItem("pgr-theme");
+      if (saved) document.documentElement.setAttribute("data-theme", saved);
+    })();
+
+    document.getElementById("theme-toggle").addEventListener("click", function () {
+      const current = document.documentElement.getAttribute("data-theme") || "light";
+      const next = current === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("pgr-theme", next);
+      this.textContent = next === "dark" ? "☀️" : "🌙";
+    });
+
+    // Scroll progress bar
+    const bar = document.getElementById("progress-bar");
+    window.addEventListener("scroll", function () {
+      const doc = document.documentElement;
+      const scrolled = doc.scrollTop || document.body.scrollTop;
+      const total = doc.scrollHeight - doc.clientHeight;
+      bar.style.width = total > 0 ? (scrolled / total * 100) + "%" : "0%";
+    }, { passive: true });
+
+    // Audio toggle (only wired up if audio section exists)
+    const audioToggle = document.getElementById("audio-toggle");
+    if (audioToggle) {
+      audioToggle.addEventListener("click", function () {
+        const wrap = document.getElementById("audio-player-wrap");
+        wrap.classList.toggle("open");
+        this.textContent = wrap.classList.contains("open")
+          ? "▲ Hide AI Audio Overview"
+          : "🎙 AI Audio Overview";
+      });
+    }
+  </script>
+</body>
+</html>

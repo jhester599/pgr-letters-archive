@@ -110,14 +110,80 @@
       max-height: 75vh;
       overflow-y: auto;
     }
-    #episodes li {
+    .year-group {
       border-bottom: 1px solid var(--border);
+    }
+    .year-group:last-child { border-bottom: none; }
+    .year-summary {
+      align-items: center;
       cursor: pointer;
+      display: flex;
+      gap: .65rem;
+      justify-content: space-between;
+      list-style: none;
+      padding: .75rem 1rem;
       transition: background .12s;
     }
-    #episodes li:last-child { border-bottom: none; }
-    #episodes li:hover  { background: var(--brand-light); }
-    #episodes li.active { background: var(--brand-light); border-left: 3px solid var(--brand-mid); }
+    .year-summary::-webkit-details-marker { display: none; }
+    .year-summary::before {
+      color: var(--brand-mid);
+      content: "▸";
+      font-size: .75rem;
+      transition: transform .12s;
+    }
+    details[open] > .year-summary::before { transform: rotate(90deg); }
+    .year-summary:hover { background: var(--brand-light); }
+    .year-label {
+      flex: 1;
+      font-size: .95rem;
+      font-weight: 700;
+    }
+    .year-count {
+      color: var(--text-muted);
+      font-size: .72rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .quarter-list {
+      background: #fbfcff;
+      border-top: 1px solid var(--border);
+      list-style: none;
+      padding: .25rem 0 .35rem;
+    }
+    .quarter-item {
+      border-left: 3px solid transparent;
+      transition: background .12s, border-color .12s;
+    }
+    .quarter-item:hover { background: var(--brand-light); }
+    .quarter-item.active {
+      background: var(--brand-light);
+      border-left-color: var(--brand-mid);
+    }
+    .quarter-link {
+      appearance: none;
+      background: transparent;
+      border: 0;
+      color: inherit;
+      cursor: pointer;
+      display: flex;
+      gap: .5rem;
+      justify-content: space-between;
+      padding: .65rem .9rem .65rem 1.7rem;
+      text-align: left;
+      width: 100%;
+    }
+    .quarter-main {
+      display: flex;
+      flex-direction: column;
+      gap: .15rem;
+    }
+    .quarter-badges {
+      align-items: flex-end;
+      display: flex;
+      flex-direction: column;
+      gap: .25rem;
+      min-width: 3.8rem;
+    }
     .ep-inner {
       padding: .7rem 1rem;
       display: flex;
@@ -134,8 +200,6 @@
       text-transform: uppercase;
       padding: .1rem .4rem;
       border-radius: 4px;
-      margin-top: .25rem;
-      margin-right: .3rem;
       width: fit-content;
     }
     .badge-audio  { background: #e3f6ec; color: #1a7a45; }
@@ -340,7 +404,6 @@
     const ul = document.getElementById("episodes");
     ul.innerHTML = "";
 
-    // Sort: newest first
     const sorted = [...ledger.filings]
       .filter(f => f.letter_scraped || f.audio_compressed)
       .sort((a, b) => (b.year * 10 + qNum(b.quarter)) - (a.year * 10 + qNum(a.quarter)));
@@ -350,39 +413,81 @@
       return;
     }
 
-    for (const filing of sorted) {
-      const li = document.createElement("li");
-      li.dataset.id = filing.id;
+    const filingsByYear = groupFilingsByYear(sorted);
+    const latestYear = Math.max(...Object.keys(filingsByYear).map(Number));
 
-      const audioBadge = filing.audio_compressed
-        ? '<span class="ep-badge badge-audio">Audio available</span>'
-        : filing.letter_scraped
-        ? '<span class="ep-badge badge-text">Text only</span>'
-        : '<span class="ep-badge badge-none">Pending</span>';
-      const readBadge = filing.page_url
-        ? '<span class="ep-badge badge-read">Read →</span>'
-        : '';
-      const badge = audioBadge + readBadge;
-
-      li.innerHTML = `
-        <div class="ep-inner">
-          <span class="ep-title">${filing.year} ${filing.quarter} — ${filing.form_type}</span>
-          <span class="ep-meta">Period ending ${filing.report_date || "unknown"}</span>
-          ${badge}
-        </div>`;
-
-      if (filing.page_url) {
-        li.addEventListener("click", () => {
-          const url = filing.page_url;
-          if (url && url.startsWith("letters/")) {
-            window.location.href = url;
-          }
-        });
-      } else {
-        li.addEventListener("click", () => selectEpisode(filing.id));
-      }
-      ul.appendChild(li);
+    for (const year of Object.keys(filingsByYear).sort((a, b) => Number(b) - Number(a))) {
+      ul.appendChild(renderYearGroup(year, filingsByYear[year], Number(year) === latestYear));
     }
+  }
+
+  function groupFilingsByYear(filings) {
+    return filings.reduce((groups, filing) => {
+      const year = String(filing.year);
+      groups[year] = groups[year] || [];
+      groups[year].push(filing);
+      return groups;
+    }, {});
+  }
+
+  function renderYearGroup(year, filings, openByDefault) {
+    const li = document.createElement("li");
+    li.className = "year-group";
+
+    const details = document.createElement("details");
+    details.open = openByDefault;
+
+    const summary = document.createElement("summary");
+    summary.className = "year-summary";
+    summary.innerHTML = `
+      <span class="year-label">${year}</span>
+      <span class="year-count">${filings.length} letters</span>`;
+    details.appendChild(summary);
+
+    const quarterList = document.createElement("ul");
+    quarterList.className = "quarter-list";
+
+    for (const filing of filings.sort((a, b) => qNum(b.quarter) - qNum(a.quarter))) {
+      quarterList.appendChild(renderQuarterItem(filing));
+    }
+
+    details.appendChild(quarterList);
+    li.appendChild(details);
+    return li;
+  }
+
+  function renderQuarterItem(filing) {
+    const li = document.createElement("li");
+    li.className = "quarter-item";
+    li.dataset.id = filing.id;
+
+    const audioBadge = filing.audio_compressed
+      ? '<span class="ep-badge badge-audio">Audio</span>'
+      : filing.letter_scraped
+      ? '<span class="ep-badge badge-text">Text</span>'
+      : '<span class="ep-badge badge-none">Pending</span>';
+    const readBadge = filing.page_url
+      ? '<span class="ep-badge badge-read">Read</span>'
+      : '';
+
+    li.innerHTML = `
+      <button class="quarter-link" type="button">
+        <span class="quarter-main">
+          <span class="ep-title">${filing.quarter} — ${filing.form_type}</span>
+          <span class="ep-meta">Period ending ${filing.report_date || "unknown"}</span>
+        </span>
+        <span class="quarter-badges">${audioBadge}${readBadge}</span>
+      </button>`;
+
+    li.querySelector(".quarter-link").addEventListener("click", () => {
+      if (filing.page_url && filing.page_url.startsWith("letters/")) {
+        window.location.href = filing.page_url;
+      } else {
+        selectEpisode(filing.id);
+      }
+    });
+
+    return li;
   }
 
   // ── Episode selection ──────────────────────────────────────────────────────
@@ -391,9 +496,12 @@
     activeId = id;
 
     // Update sidebar highlight
-    document.querySelectorAll("#episodes li").forEach(li => {
+    document.querySelectorAll(".quarter-item").forEach(li => {
       li.classList.toggle("active", li.dataset.id === id);
     });
+    const activeItem = document.querySelector(`.quarter-item[data-id="${id}"]`);
+    const activeYear = activeItem?.closest("details");
+    if (activeYear) activeYear.open = true;
 
     const filing = ledger.filings.find(f => f.id === id);
     if (!filing) return;

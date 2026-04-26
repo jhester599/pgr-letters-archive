@@ -40,6 +40,7 @@ from scraper import (
 )
 
 from bs4 import BeautifulSoup
+from pdfminer.high_level import extract_text as pdf_extract_text
 
 logging.basicConfig(
     level=logging.INFO,
@@ -47,6 +48,16 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 log = logging.getLogger(__name__)
+
+# ── progressive.com PDF source for 2002–2004 ─────────────────────────────────
+# The EX-13 filed with EDGAR for these years is the financial-statements appendix
+# only; the shareholder letter lives in the full annual report PDF on progressive.com.
+
+_PDF_URLS: dict[int, str] = {
+    2002: "https://www.progressive.com/content/pdf/art/2002-annual-report.pdf",
+    2003: "https://www.progressive.com/content/pdf/art/2003-annual-report.pdf",
+    2004: "https://www.progressive.com/content/pdf/art/2004-annual-report.pdf",
+}
 
 # ── Compiled patterns ─────────────────────────────────────────────────────────
 
@@ -109,6 +120,27 @@ def fetch_ex13_bundled(accession_number: str) -> str | None:
     return cleaned.strip()
 
 
+def fetch_ex13_pdf(year: int) -> str | None:
+    """Download and extract text from the progressive.com annual report PDF (2002–2004)."""
+    url = _PDF_URLS.get(year)
+    if not url:
+        return None
+    import io
+    resp = get(url)
+    if not resp:
+        return None
+    try:
+        pdf_bytes = io.BytesIO(resp.content)
+        text = pdf_extract_text(pdf_bytes)
+    except Exception as exc:
+        log.warning("  PDF extraction failed for %d: %s", year, exc)
+        return None
+    lines = [line.strip() for line in text.splitlines()]
+    cleaned = "\n".join(line for line in lines if line)
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
+    return cleaned.strip() or None
+
+
 _MIN_LETTER_CHARS = 50  # minimum chars to consider a match the real letter, not a TOC entry
 
 
@@ -118,10 +150,11 @@ def extract_letter(text: str) -> tuple[str, str]:
     Returns (letter_text, extraction_method).
     extraction_method is 'letter_section' or 'full_ex13_fallback'.
 
-    Iterates all start-heading matches so that table-of-contents entries (which
-    are immediately followed by an end-boundary like 'Financial Review') are
-    skipped in favour of the actual letter body further in the document.
+    Evaluates every start-heading match and returns the one that produces the
+    most content. This correctly handles PDFs where the table of contents
+    contains the heading before the actual letter section further in the document.
     """
+    best: str = ""
     for start_m in _START_RE.finditer(text):
         # Skip past the heading line itself
         line_end = text.find("\n", start_m.end())
@@ -137,9 +170,11 @@ def extract_letter(text: str) -> tuple[str, str]:
         else:
             letter = tail.strip()
 
-        if len(letter) >= _MIN_LETTER_CHARS:
-            return letter, "letter_section"
+        if len(letter) >= _MIN_LETTER_CHARS and len(letter) > len(best):
+            best = letter
 
+    if best:
+        return best, "letter_section"
     return text, "full_ex13_fallback"
 
 
@@ -178,8 +213,20 @@ def process_filing(filing: dict, ledger: dict, dry_run: bool) -> str:
         return "failed"
 
     letter_text, extraction_method = extract_letter(annual_report_text)
-    if extraction_method == "full_ex13_fallback":
-        log.info("  No letter heading found — saving full EX-13 as fallback for %s", filing_id)
+    if extraction_method == "full_ex13_fallback" and filing.get("year") in _PDF_URLS:
+        log.info("  No heading in EX-13 — trying progressive.com PDF for %s", filing_id)
+        pdf_text = fetch_ex13_pdf(filing["year"])
+        if pdf_text:
+            pdf_letter, pdf_method = extract_letter(pdf_text)
+            if pdf_method == "letter_section":
+                letter_text, extraction_method = pdf_letter, "pdf_letter_section"
+                log.info("  PDF extraction succeeded: %d chars", len(letter_text))
+            else:
+                # Full PDF text is still far better than the financial-appendix EX-13
+                letter_text, extraction_method = pdf_text, "pdf_full_fallback"
+                log.info("  PDF fallback: %d chars (full annual report)", len(letter_text))
+        else:
+            log.info("  No letter heading found — saving full EX-13 as fallback for %s", filing_id)
 
     letter_filename = f"{filing_id}_Letter.txt"
     (LETTERS_DIR / letter_filename).write_text(letter_text, encoding="utf-8")

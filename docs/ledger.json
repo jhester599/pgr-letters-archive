@@ -1,6 +1,6 @@
 {
   "meta": {
-    "last_updated": "2026-04-26T13:24:08.984069+00:00",
+    "last_updated": "2026-04-26T13:34:11.902049+00:00",
     "total_letters": 99,
     "total_audio": 0,
     "description": "State ledger for the PGR Letters Archive pipeline. Each entry tracks one SEC filing through the scrape \u2192 generate \u2192 compress lifecycle."
@@ -1532,11 +1532,11 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-26T13:18:40.779300+00:00",
+      "processed_date": "2026-04-26T13:34:03.914409+00:00",
       "skip_reason": null,
       "page_built": true,
       "page_url": "letters/PGR_2004_Q2.html",
-      "extraction_method": "wayback_html"
+      "extraction_method": "pdf_letter_section"
     },
     {
       "id": "PGR_2004_Q1",
@@ -1551,11 +1551,11 @@
       "letter_scraped": true,
       "audio_generated": false,
       "audio_compressed": false,
-      "processed_date": "2026-04-26T13:18:40.005735+00:00",
+      "processed_date": "2026-04-26T13:34:03.914142+00:00",
       "skip_reason": null,
       "page_built": true,
       "page_url": "letters/PGR_2004_Q1.html",
-      "extraction_method": "wayback_html"
+      "extraction_method": "pdf_letter_section"
     },
     {
       "id": "PGR_2003_Q4",

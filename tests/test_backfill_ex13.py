@@ -264,6 +264,8 @@ def test_main_updates_ledger_in_place(fake_env):
     assert filing["extraction_method"] in ("letter_section", "full_ex13_fallback")
     assert filing["letter_file"] == "data/letters/PGR_1996_Q4_Letter.txt"
     assert (letters_dir / "PGR_1996_Q4_Letter.txt").exists()
+    assert filing["audio_generated"] is False
+    assert filing["audio_compressed"] is False
 
 
 def test_main_dry_run_writes_nothing(fake_env):

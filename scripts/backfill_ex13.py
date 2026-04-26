@@ -204,7 +204,6 @@ def main(dry_run: bool = False) -> None:
         f for f in ledger["filings"]
         if f.get("form_type") == "10-K"
         and f.get("year", 9999) < 2005
-        and not f.get("letter_scraped")
     ]
 
     if not targets:

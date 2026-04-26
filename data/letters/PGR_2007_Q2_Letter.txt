@@ -1,13 +1,4 @@
-EX-99
-8
-l27204aexv99.htm
-EX-99
-EX-99
-Exhibit 99
-The Progressive Corporation and Subsidiaries
-Letter to Shareholders
-Second Quarter 2007
-A comparatively weak quarter  with some brighter signs emerging slowly.
+A comparatively weak quarter — with some brighter signs emerging slowly.
 The second quarter results are easily characterized by reduced written and earned premium on a
 year-over-year basis, and a significant decrease in operating margin of 5.7 points from a year
 earlier. Combined, these results contributed to a quarterly net income decline of 29% compared to
@@ -18,18 +9,18 @@ at our Investor Relations meeting in New York. Having concluded that the loss tr
 years driven largely by reduced frequency were more systemic than cyclical, we have been adjusting
 our pricing to reflect our consistently stated goal of growing as fast as possible at a 96 combined
 ratio. The second quarter results highlight many of the expected outcomes. Each of our three
-primary business groups  Agency and Direct Personal Lines and our Commercial Auto Business  are
+primary business groups — Agency and Direct Personal Lines and our Commercial Auto Business — are
 priced at lower average written premium per policy than at this time a year ago. At the investor
 meeting, we showed the personal auto earned premium per earned car year to be down about 4% in both
 our Agency and Direct businesses. Commercial Auto is down 5% on the same basis. Earned premium is
 a lagged measure to written premium and the decline on a unit basis for personal auto written
-premium is 1%  2% greater with significant variance by individual state and channel. Thus, we
+premium is 1% — 2% greater with significant variance by individual state and channel. Thus, we
 expect the earned premium per unit to follow written in coming months. Adjusting rates is a
 continuous process, but we believe the most significant downward adjustments are behind us and, as
 a general statement we are closer today to our targeted run-rate margins in most states and most
 products.
 These rating actions were consistent with our desire to grow as fast as possible, which we have
-clarified as grow our customer counts as fast as possible. At the beginning of the third quarter
+clarified as “grow our customer counts” as fast as possible. At the beginning of the third quarter
 last year, we were starting to experience sequential monthly declines in overall policy counts as
 the market provided more competitive options. The rating changes implemented over the last year
 have been an explicit trade-off of margin for longer-term customer growth. While we will never know
@@ -38,12 +29,12 @@ Nevertheless, our Agency auto policies in force counts are running slightly lowe
 and we have struggled to find any overall significant growth in these market conditions. Selected
 states are more attractive, and new business growth has now returned in 32 states. Our Direct
 personal auto business has seen more encouraging results from the rate changes and is ahead of last
-years policy counts by 5%. The trend to Internet sales continued during the quarter and Internet
+year’s policy counts by 5%. The trend to Internet sales continued during the quarter and Internet
 new business sales continue to grow faster than any other segment year over year. For the second
 quarter and first six months of 2007, new business applications increased 3% and 2%, respectively,
 in our Personal Lines businesses, compared to decreases of 8% for both periods last year. Our
 highly seasonal special lines business continues to grow policy counts acceptably at 7% over last
-years second quarter, and similarly our Commercial Auto policy counts are up 6%.
+year’s second quarter, and similarly our Commercial Auto policy counts are up 6%.
 While growth has been slower than we prefer, we did surpass the 10 million Personal Lines customers
 mark during the quarter.
 Loss results for the quarter largely reflect normal conditions, including some extreme weather
@@ -53,7 +44,7 @@ expect to be recurring and some additional unfavorable prior year loss developme
 related to reserve reviews of larger losses in our personal and commercial auto books. Our
 progression toward our 96 combined ratio is planned and an expected outcome consistent with our
 rate changes. The second quarter combined ratio for personal auto was 92.5, comparable but slightly
-lower than the first quarters 92.9, while the special lines combined ratio was significantly
+lower than the first quarter’s 92.9, while the special lines combined ratio was significantly
 higher, reflecting normal seasonality and the noted uninsured motorist issue.
 Our focus
 on customer satisfaction and retention produced some positive signs during the
@@ -69,7 +60,7 @@ Businesses during each of the last six months and seem to be directly attributab
 of our rating actions and customer experience actions in claims, as well as in online and phone
 servicing.
 Our branding and advertising initiatives continued to gain momentum during the quarter. Our
-research suggests that consumers are increasingly becoming aware of Progressives level of service
+research suggests that consumers are increasingly becoming aware of Progressive’s level of service
 and our competitive prices. Our advertising spend for both the quarter and year-to-date has
 increased over the same periods last year with a shift to more Internet and television advertising
 and less spending on direct mail. Much of this additional Internet and TV advertising is targeted

@@ -1,30 +1,21 @@
-EX-99
-6
-dex99.htm
-LETTER TO SHAREHOLDERS
-Letter to Shareholders
-Exhibit 99
-The Progressive Corporation
-Letter to Shareholders
-Third quarter 2008
-I described the second quarter as quite eventful, and having just about a little bit of everything thrown in and
+I described the second quarter as “quite eventful, and having just about a little bit of everything thrown in” and
 went on to note significant storm activity, dramatic changes in driving and claims frequency, positive retention and consumer attitude measures, along with a well-received entry into Massachusetts.
 With the passing of just three months, one could recalibrate the meaning of eventful.
-The third quarter of 2008 will be long remembered for the financial events that have changed the names and roles of some of our countrys biggest financial institutions, and for the secondary and tertiary effects
+The third quarter of 2008 will be long remembered for the financial events that have changed the names and roles of some of our country’s biggest financial institutions, and for the secondary and tertiary effects
 on many, if not most, other businesses.
 During the quarter we reported our first monthly loss since December 2000 and our first since adopting monthly
 reporting, followed by our first quarterly loss since the second quarter 2000. The market-related issues associated with the disruption in the mortgage and credit markets need no additional commentary here.
 In this letter I will cover why we were positioned as we were, the extent of the recognition in our reporting and the implications going forward. But appropriately,
-Ill start with a review of the insurance operations.
+I’ll start with a review of the insurance operations.
 Overall the operating results for the quarter were quite acceptable, with continued positives
 in retention, Direct auto growth and a solid special lines season. Our hurricane response was once again impressive, and our brand and advertising efforts are gaining greater market acceptance. In this economy, there are plenty of cautions and many
 moving parts that will affect consumer behavior. But, we feel that with rate changes starting to earn-in, leading to increasing average premiums, along with several approvals on rate and program filings in key states, we are well positioned for the
 fourth quarter.
 The third quarter netted a 95.1 combined ratio, understandably higher than the year-to-date 94.4 and includes the absorption of Hurricanes
-Gustav and Ike losses totaling approximately $62 millionabout 1.8 percentage points for the quarter. The quarterly results were otherwise straightforward without any significant actuarial adjustments, and prior accident year loss reserve
+Gustav and Ike losses totaling approximately $62 million—about 1.8 percentage points for the quarter. The quarterly results were otherwise straightforward without any significant actuarial adjustments, and prior accident year loss reserve
 development was relatively benign for the quarter.
 The reporting and closure rates on the 13,000 or so claims from these two storms were slower than what
-we experienced in some prior storms as power outages and the degree of destruction prevented people from returning home as quickly as they may have liked. In addition, a significant portion of the losses were boatssome we will never find. By
+we experienced in some prior storms as power outages and the degree of destruction prevented people from returning home as quickly as they may have liked. In addition, a significant portion of the losses were boats—some we will never find. By
 mid-October, we were substantially complete with all reported claims. As noted previously, these events must be part of our pricing game plan and the opportunity to provide customer service following such storms is one that works to our favor and
 provides meaningful contributions to our brand-building. This has been previously confirmed in many ways and was again this time based on consumer reactions we received.
 Volume for the quarter was notable as we experienced the first
@@ -45,13 +36,13 @@ long-term trend is still very uncertain. As I write this, the gas station across
 pricing agility.
 Our net loss for the quarter was anything but acceptable, and a year-to-date net loss of $229.3 million is frustrating and troubling
 beyond my ability to articulate. How did we get here? Is the loss disclosed in a straightforward and understandable manner? And much more importantly: What are the implications to our ability to continually write as much insurance as we can handle?
-To address these issues, Ill hit highlights only and briefly provide some insights into our thinking about capital which, while always ongoing, has
+To address these issues, I’ll hit highlights only and briefly provide some insights into our thinking about capital which, while always ongoing, has
 taken on even more importance of late.
 Our unrealized pre-tax gains of a year ago, totaling over $1 billion, have been eroded, mostly due to our exposure to
 preferred stocks issued by financial institutions. Notwithstanding the benefits of the asset class, there are important observations from the past year and many lessons regarding portfolio structure and concentration levels. The tuition has been
 expensive; the lessons will most assuredly be used well.
 Our periodic disclosures, and general view of financial transparency, around our investment
-operations have continually provided additional insight into our portfolio and its valuation. Consistent with our critical accounting policy, in the third quarter we recognized over $1 billion in other-than-temporary impairment losses in
+operations have continually provided additional insight into our portfolio and its valuation. Consistent with our critical accounting policy, in the third quarter we recognized over $1 billion in “other-than-temporary impairment” losses in
 the income statement rather than in the balance sheet as unrealized losses. We still hold the vast majority of these assets which continue to pay dividends or interest in a timely manner.
 Along with the diagnostic review of our portfolio composition and the accounting to recognize current valuations, the most important consideration to us is the
 assessment of capital adequacy to support our writings and the risk inherent in our business and the portfolio.
@@ -59,16 +50,16 @@ Long-term Progressive observers will note
 past capital management actions, including buying back stock when appropriate, substituting debt for equity as appropriate, and creating a variable dividend, were intended to demonstrate a very thoughtful approach to both the composition and amount
 of capital we retain. Given the current environment and the magnitude of our recent recognized loss, this is an appropriate time to provide shareholders more insight into how we think about capital adequacy and why we remain comfortable in our
 ability to execute our operating business game plan.
-For purposes of this letter and for explanation only, Ill describe a capital structure based on
+For purposes of this letter and for explanation only, I’ll describe a capital structure based on
 three tranches of capital, each with a specific size and purpose. The sole purpose is to provide additional insight into our thinking and capital considerations. Needless to say, this has received increased scrutiny internally and by rating agencies
 with whom we have shared our analysis.
-The first layer of capital we call regulatory capital and, while not perfect, we view a 3:1
+The first layer of capital we call “regulatory capital” and, while not perfect, we view a 3:1
 premium-to-surplus ratio as a benchmark for determining this capital need. Writing with an underwriting discipline of a 96 combined ratio has served us extremely well and in only 3 quarters in the last 29 years have we been cash negative from
-operations, and never 2 quarters in a row. In case youre curious, they were the first quarter of 1980 and the fourth quarters of both 1982 and 1983.
+operations, and never 2 quarters in a row. In case you’re curious, they were the first quarter of 1980 and the fourth quarters of both 1982 and 1983.
 From this, one could assess that the 3:1 is in fact conservative, but now is not the time for that discussion. In fact, we have stated that we seek to gradually raise our ratio above this mark and selected states have approved minor
 adjustments above this level. Interestingly, only five states have laws which address the premium-to-surplus ratio as it applies to automobile insurance and those ratios range from 3:1 to 5:1. For now, our evaluation is based on 3:1 and, with
 appropriate statutory accounting adjustments, at current premium levels our regulatory capital need stands at about $5 billion. This capital is held largely within our various insurance entities.
-The second layer of capital we call extreme contingency. While the regulatory capital is, by definition, a
+The second layer of capital we call “extreme contingency.” While the regulatory capital is, by definition, a
 cushion for absorbing financial consequences of adverse events such as loss reserve development, litigation, weather catastrophes or investment market corrections, we view that as a base and provide for additional capital capacity for even more
 extreme conditions.
 The modeling used to quantify capital needs for potential tail events is quite impressive, as is the adjustment for correlation of
@@ -80,19 +71,19 @@ the insurance entities potentially eligible for a dividend to the holding compan
 The third layer of capital is simply capital in excess of the sum of
 layers one and two that provides maximum flexibility to repurchase stock, consider acquisitions, pay dividends to shareholders, etc. This capital is largely held at the holding company.
 We perform tens of thousands of simulations to model the conditions which would put significant pressure on our extreme contingency load and, not surprisingly, we find the single biggest potential exposure is very
-rapid growth at unprofitable margins  a risk we feel well prepared to avoid. At no time in the quarter or subsequently in October was the market value of our capital ever less than the sum of our regulatory capital layer plus our
+rapid growth at unprofitable margins – a risk we feel well prepared to avoid. At no time in the quarter or subsequently in October was the market value of our capital ever less than the sum of our regulatory capital layer plus our
 self-constructed extreme contingency load, nor was it concerningly close. The excess layer, however, has been diminished along with the flexibility available with that capital. The speed by which the market valuations changed, and continue to
 change, is of great concern and a basis for our ongoing review of portfolio risk. As of late October, we held approximately $4 billion in cash and treasury bonds, double the amount we held at the start of the quarter as we have sought to reduce
 overall risk and volatility in the portfolio.
 One measure we have outlined to shareholders is that we would use 30% as an upper guide for our ratio of
-debt-to-total capital. This measure has been under pressure all year and the recent events have not helped. We will continue to report this measure openly and suggest it is still very much a statement of managements long-term intent regarding
+debt-to-total capital. This measure has been under pressure all year and the recent events have not helped. We will continue to report this measure openly and suggest it is still very much a statement of management’s long-term intent regarding
 financial leverage, but in balance with our assessment of capital adequacy, we do not see any reason to react immediately to the elevated ratio in the short term.
-As independent commentary, we appreciated, as Im sure customers, agents and shareholders do, that none of the
+As independent commentary, we appreciated, as I’m sure customers, agents and shareholders do, that none of the
 rating agencies changed their strong rating of Progressive after our announcements in both August and September. Some have, perhaps appropriately, increased concern as expressed through their outlook designation and look for continued strong
 operating results.
 The third quarter had plenty of downside with loss of capital and income. Not much can temper those results, but most importantly, the
 underwriting engine of the company has not incurred any constraints that would affect our ability to write business and grow to replace the losses from the quarter.
-Im an optimist at heart, and I look forward to the fourth quarter and incorporating lessons from the recent past in making Progressive an even stronger company and competitor. A strong fourth quarter
-underwriting result will start to erode the memories of the events of the third quarter, so thats our plan.
+I’m an optimist at heart, and I look forward to the fourth quarter and incorporating lessons from the recent past in making Progressive an even stronger company and competitor. A strong fourth quarter
+underwriting result will start to erode the memories of the events of the third quarter, so that’s our plan.
 Glenn M. Renwick
 President and Chief Executive Officer

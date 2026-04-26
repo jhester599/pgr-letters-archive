@@ -1,12 +1,3 @@
-EX-99
-7
-l32609aexv99.htm
-EX-99
-EX-99
-Exhibit 99
-The Progressive Corporation
-Letter to Shareholders
-Second Quarter 2008
 Reporting a respectable combined ratio of 93.6 for the quarter and a continuation of slower growth
 than we desire might suggest the second quarter was somewhat uneventful. However, a closer
 inspection suggests otherwise and, in fact, the quarter was quite eventful, having just about a
@@ -22,7 +13,7 @@ response team on 19 separate occasions, mostly in these same regions of the coun
 For perspective, this exceeded our prior annual record of 15 deployments in 2005. While these
 events are neither scheduled nor welcomed, they are expected to a degree and must be part of our
 pricing discipline. On the positive side, they provide additional opportunities to meet or exceed
-our customers expectation for service. During the quarter, we had more than 20,000 claim
+our customers’ expectation for service. During the quarter, we had more than 20,000 claim
 features related to these events reported and about 95% of them were closed within 30 days. We
 consistently see our highest customer satisfaction scores following a claims experience.
 Another notable observation on profitability is that, even though our targets are consistent, at
@@ -87,7 +78,7 @@ st
 , we have attracted
 a significant amount of interest in the state and now have over 12,000 new customers. We are very
 pleased with this response and expect to increase our product distribution options in the future.
-Our continuing efforts to extend customer tenure are paying off, as weve highlighted in prior
+Our continuing efforts to extend customer tenure are paying off, as we’ve highlighted in prior
 reports and at the Investor Relations meeting. We are seeing significant improvements in all
 Personal Lines retention measures; some are approaching all time highs since we adopted the
 measures.
@@ -100,7 +91,7 @@ Our Net Promoter
 ®
 Score measurement system for customer feedback continues to reflect
 the progress we believe we are making, and we hope it will continue to be a leading indicator of
-customers intent to stay with us.
+customers’ intent to stay with us.
 Our claims experience often provides validation of our commitment to customers, especially when
 they are able to use our concierge level of service, which consistently nets some of the highest
 levels of customer satisfaction scores.
@@ -117,7 +108,7 @@ price as an input to their insurance shopping process, which will be tested in t
 Both of these concepts have shown very real appeal to different market segments and we look forward
 to reporting on their progress in future updates.
 Our portfolio management has never been more important and we increased disclosure for interested
-readers in the year-end 10-K and in this years quarterly
+readers in the year-end 10-K and in this year’s quarterly
 10-Qs. The market fluctuations need no
 further commentary from me. Suffice it to say we will maintain our conservative portfolio
 management and accounting of any impairment that deserves to be classified as

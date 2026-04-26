@@ -1,18 +1,9 @@
-EX-99
-8
-l31243aexv99.htm
-EX-99
-EX-99
-Exhibit 99
-The Progressive Corporation
-Letter to Shareholders
-First Quarter 2008
 In the Letter to Shareholders in the 2007 Annual Report, we reaffirmed our commitment to profitable
 growth as the only growth we find acceptable. We also suggested that this commitment will almost
 certainly take on more relevance as margins in 2008 more closely approximate our 96 combined ratio
 goal than at any time in the past several years. The first quarter provided additional support for
 both the commitment and its relevance.
-The quarters combined ratio was 94.6, compared to 89.5 for the same period last year. The change
+The quarter’s combined ratio was 94.6, compared to 89.5 for the same period last year. The change
 is of some considerable importance. The first quarter 2007 marked the end of 17 consecutive
 quarters with a combined ratio below 90 (net of 2005 hurricane losses), as our rate reductions
 began to be reflected in earned premium.
@@ -28,10 +19,10 @@ tested during the more recent periods of strong margins.
 We deal with imperfect information and varying market conditions and expect some variance around
 our 96 goal at product and state levels. We even expect variance in the aggregate for shorter-time
 periods, but for the long term our most important goal remains an aggregate calendar year 96
-combined ratio. In fact, this quarters monthly reporting provided a trajectory leading to the
-94.6 quarterly result that was anything but smooth, with Februarys combined ratio topping 98. We
-tend not to comment on the specifics of each month as each seems to have some nuanceweather, leap
-year effect, early Easter, favorable or unfavorable motorcycle riding conditionsbut rather, we
+combined ratio. In fact, this quarter’s monthly reporting provided a trajectory leading to the
+94.6 quarterly result that was anything but smooth, with February’s combined ratio topping 98. We
+tend not to comment on the specifics of each month as each seems to have some nuance—weather, leap
+year effect, early Easter, favorable or unfavorable motorcycle riding conditions—but rather, we
 just provide the monthly information as it develops.
 1
 The key message internalized at Progressive is simple: We are now producing results that form a
@@ -45,10 +36,10 @@ product/state combination rate revisions.
 We ended the quarter with policy growth of 1% in Personal Auto, 8% in Special Lines and 6% in
 Commercial Auto as compared to the same period last year. Although not strong, we saw sequential
 monthly growth for all product lines during the quarter. Our primary growth metric has been
-policies in force and, while positive, it has fallen short of what wed want it to be.
+policies in force and, while positive, it has fallen short of what we’d want it to be.
 The
 aggregate slow growth in personal auto policies in force is contributed by a continuing and concerning trend
-in our Agency business  a decline of 2% for the quarter, while the Direct personal auto business
+in our Agency business — a decline of 2% for the quarter, while the Direct personal auto business
 produced a 7% gain. Our Agency business currently accounts for about 62% of our policies in force
 and our Direct business accounts for about 38%. The Internet-produced business continues to be the
 fastest growth area for our personal auto book.
@@ -58,7 +49,7 @@ written and earned premium for the quarter, respectively, reflect a Direct book 
 today, is essentially equal to written and earned premium for the same period a year ago. Our
 Agency book reflects both rate and unit declines, with written and earned premium lagging the prior
 year by 6% and 5%.
-Commercial Autos rate reductions were slightly deeper and current earned premium per vehicle
+Commercial Auto’s rate reductions were slightly deeper and current earned premium per vehicle
 reductions are closer to 9%, not fully offset by the unit increase.
 2
 For both Personal and Commercial Auto, our growth is less than balanced across the country as large
@@ -86,7 +77,7 @@ the most improved in customer satisfaction for the year over any other company s
 industries. The index score is not the objective, but it is an endorsement of the efforts of many.
 While conscious that an increasing rate environment may change the rate of progress, I am sure
 that a cultural shift toward customer retention is now a very real focus for us.
-In the category of, I thought it would never happen, during the quarter Progressive announced
+In the category of, “I thought it would never happen,” during the quarter Progressive announced
 that we will enter Massachusetts with a private passenger auto product in May. Recent developments
 in this $4 billion market have opened the regulatory framework sufficiently to encourage our
 participation. We will not have exactly the same rating structure as we enjoy in most states, but
@@ -105,7 +96,7 @@ In addition, we announced that we had formed a partnership with the X PRIZE Foun
 $10 million prize for the worldwide competition to build safe, low emissions vehicles capable of
 getting the equivalent of at least 100 miles per gallon. These vehicles must also be ones people
 want to buy and can be produced commercially. There are notable examples of prizes such as this
-influencing history: the British Parliaments Prize in the eighteenth century to determine
+influencing history: the British Parliament’s Prize in the eighteenth century to determine
 longitude at sea and the 1927 Orteig Prize won by Charles Lindbergh for a solo flight across the
 Atlantic. With 73 teams from 10 countries expressing interest in competing, there is little doubt
 the competition will provide a stage for some very innovative
@@ -124,7 +115,7 @@ rely on, at all times maintaining our ability to write as much profitable insura
 4
 In March, we recognized $50.2 million of unrealized losses into income on several securities that
 we believed had more fundamental impairment issues than the market in general and thus were
-determined to be other-than-temporarily impaired. This is a review process we will continue to
+determined to be “other-than-temporarily impaired.” This is a review process we will continue to
 be diligent about.
 Overall, this was a mixed quarter, with modest unit growth and margins about where we targeted.
 Premium growth was still negatively affected by our past rate actions, but declines in premium per

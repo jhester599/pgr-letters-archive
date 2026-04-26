@@ -5,10 +5,10 @@ EX-99(A) LETTER TO SHAREHOLDERS
 EX-99(A) LETTER TO SHAREHOLDERS
 Exhibit No. 99(A)
 LETTER TO SHAREHOLDERS
-MEASUREMENT IS CENTRAL TO PROGRESSIVES BUSINESS DISCIPLINE. We find ways to measure just about
+MEASUREMENT IS CENTRAL TO PROGRESSIVE’S BUSINESS DISCIPLINE. We find ways to measure just about
 everything. Crafting an accurate measure to summarize overall company performance is perhaps
 hardest of all, but we have such a measure.
-Gainshare is our way to calibrate the business gain made in any calendar year. Expressed as a
+“Gainshare” is our way to calibrate the business gain made in any calendar year. Expressed as a
 score between 0 and 2 with calculation details that belie the simplistic scale, Gainshare has for
 over 12 years provided an internal barometer of performance, as well as variable compensation for
 all Progressive people. In the bleak year of 2000, the score was 0 and no Gainsharing compensation
@@ -25,7 +25,7 @@ but not out of sync with our expectations or our forecast of industry-wide auto 
 Our calendar-year underwriting profit margin remained exceptionally strong at 11.9%, considerably
 above our target of 4%, but down from prior-year levels by about 3 points. Combined with investment
 returns for the year, net income for 2005 was $1.39 billion, yielding a return on average
-shareholders equity of 25%.
+shareholders’ equity of 25%.
 [
 Private Passenger Auto Combined Ratios 1976-2005 graphic intentionally omitted
 ]
@@ -46,12 +46,12 @@ For Progressive, understanding this cycle translates into playing the right hand
 About one full cycle ago, the industry was reporting peak underwriting profitability. In 1998,
 Progressive reported a healthy underwriting profit of 8.4%, but our growth was slowing. Our culture
 thrives on profitable growth, and slowing growth does not sit well at any level in the organization
- now or then. We responded with price reductions in the hope of additional profitable growth.
+— now or then. We responded with price reductions in the hope of additional profitable growth.
 These reductions, combined with an unanticipated increase in claim frequency and severity and a
 host of other contributing factors, decreased our underwriting profit to 1.7% in 1999 and led to an
 underwriting loss of 4.4% in 2000.
 - 1 -
-In our own small way we contributed to the cycle. As we review todays market conditions there are
+In our own small way we contributed to the cycle. As we review today’s market conditions there are
 reasons to respect the parallels to that time. We are more experienced, but imperfect, in valuing
 the benefit of rate reductions during market conditions in which consumers experience rate
 stability or decreases. As such, we have chosen to be more deliberate in using rate reductions in
@@ -66,12 +66,12 @@ the prior three-year average of 8%. For 2005, we estimate the year-over-year inc
 premiums written for the auto insurance industry will be about 1%. Our knowledge of the calculus
 combining price, growth and profit, while increasing, remains a challenge and something we want to
 be smart about.
-Reviewing Progressives and the industrys results through 2005 and noting the possible analogue to
+Reviewing Progressive’s and the industry’s results through 2005 and noting the possible analogue to
 past cycles, we would make a few important observations. Operating margins, while historically
 strong, are starting to deteriorate. Modestly increasing severity, notably in physical damage
 coverages, combined with price reductions, will likely reduce current margins. Prior period bodily
 injury severities, which have the highest sensitivity to carried reserves, have generally been
-overestimated resulting in favorable calendar-period adjustments. In Progressives case, the
+overestimated resulting in favorable calendar-period adjustments. In Progressive’s case, the
 overall favorable calendar-year adjustment was 2.6 points for 2005. Calendar-period reporting has a
 way of disguising the run rate and perhaps delaying appropriate reactions. We have for some time
 forecast that Progressive would slowly return to more normal operating margins by allowing expected
@@ -90,7 +90,7 @@ and expense management are all considerably tighter and our technology and opera
 are considerably improved.
 While accepting that current market conditions will likely continue to influence our growth during
 2006, and that growth will be less than we believe we are ready to handle, we have embraced this
-time and opportunity as one of maximum preparedness for the future we anticipate.
+time and opportunity as one of “maximum preparedness” for the future we anticipate.
 Maximum Preparedness
 Underwriting cycle aside, our future will largely be determined by how we craft it, and we have
 many important initiatives that continue to excite me. A slightly less glamorous way to describe
@@ -126,23 +126,23 @@ with body shops and leveraging scale advantages in meaningful ways. I am now mor
 ever and we have started to think more in terms of how not to deprive our customers of this level
 of service where we can offer it economically.
 A theme highlighted by this report is the significance and value of time in a service economy. More
-than anything else the concierge level of service respects our customers and claimants time and
+than anything else the concierge level of service respects our customers’ and claimants’ time and
 works effectively to minimize the cycle time of repairs, resulting in cost-management opportunities
 at every step of the process.
 Speaking of time, our claims responsiveness was once again put to the test in what appeared to be
 the never-ending storm season of 2005. We have reported at length on the storms and their economic
-toll, but the real story is that, when tested, our claims organizations ability to produce
+toll, but the real story is that, when tested, our claims organization’s ability to produce
 excellent closure rates and great customer service was, we believe, second to none. A by-product of
-a storm season of this years magnitude is that it is likely that more people than ever, in a
+a storm season of this year’s magnitude is that it is likely that more people than ever, in a
 concentrated period of time, have experienced an insurance claim of one type or another. We intend
 to confirm our understanding of our performance by conducting an independent survey of Gulf States
 claims handling. Determining where we have room for improvement will be the only assessment of
-long-term value. Timely response in this case is not just great customer service, its good
+long-term value. Timely response in this case is not just great customer service, it’s good
 business. Responding to customers quickly adds certainty to our external financial disclosures as
 well as to the internal data we use for pricing.
 [
 Storm
-Tracking  2005 Season graphic intentionally omitted
+Tracking — 2005 Season graphic intentionally omitted
 ]
 Marketing
 2005 was the first full year operating with two distinct brand offerings. Providing
@@ -174,10 +174,10 @@ challenged and that improving retention is a challenge we have accepted. During 
 price pressure appears to be a less significant reason for consumers to switch, our overall
 retention measures have not extended at a rate we might have expected. This has forced us to
 examine the customer experiences we provide at ever-increasing levels of granularity. We have not
-always liked what weve seen. Self diagnosis seems easy upon first blush, but to understand
+always liked what we’ve seen. Self diagnosis seems easy upon first blush, but to understand
 effectively the countless combinations of customer experiences makes the effort a significant
 commitment. In more cases than we would like, the cause of a less than perfect customer experience
-is what we have called friendly fire.
+is what we have called “friendly fire.”
 While we are proud of our overall service and experience delivery, we can do better. Friendly fire,
 as we have seen, can result from process breakdowns, poor quality control, actions that are
 generally applied that should be more targeted, failure to communicate as effectively as the
@@ -186,7 +186,7 @@ numerous cause analysis methods and a heightened attention to customer feedback 
 take our customer care focus to a level consistent with our expectations. To increase the speed,
 completeness and intensity of our self analysis of customer experiences we have created a
 participation benefit for our employees to be both customers and critics. Eating our own cooking,
-combined with the Progressive culture to be Virtually Perfect in all we do, will unquestionably
+combined with the Progressive culture to be “Virtually Perfect” in all we do, will unquestionably
 create some healthy tension, but I have little doubt having more Progressive people as Progressive
 customers will be an effective catalyst as we continue to improve our product offerings and
 consumer experiences.
@@ -202,9 +202,9 @@ ensure that not only is capacity not constrained but that a very high level of s
 and disaster preparedness is assured.
 Investments and Capital Management
 Solid growth in the economy and improving profits supported the equity markets in 2005 while
-measured interest rate increases from the Federal Reserve pushed short-term rates higher to
+“measured” interest rate increases from the Federal Reserve pushed short-term rates higher to
 essentially flat with steady longer maturity yields. We took advantage of interest rate volatility
-during the year to shorten our portfolios average maturity when rates were low and extend it when
+during the year to shorten our portfolio’s average maturity when rates were low and extend it when
 rates increased. We decreased our exposure to corporate and other non-government issued bonds early
 in the year, believing the incremental yield premium relative to U.S. treasury bonds was
 insufficient for the risk taken. Our portfolio produced a 4% total return in 2005 with equities
@@ -212,12 +212,12 @@ tracking their benchmark and fixed-income securities performing better than the 
 market.
 - 4 -
 Our long-standing and continuing position on capital management is to repurchase shares when our
-capital position, view of the future, and the stocks price make it attractive to do so. Growth
+capital position, view of the future, and the stock’s price make it attractive to do so. Growth
 rates and profitability levels during 2005 happily led to an assessment that we were accumulating
 capital in excess of that which we believed was needed and prudent to run the business. Committed
 to executing against our capital management strategy, we entered 2005 with regular monthly share
 repurchases. The average repurchase price per share in January was $83.46, below the $88 of the
-Dutch auction we had completed just three months earlier. By September our repurchase price was
+“Dutch auction” we had completed just three months earlier. By September our repurchase price was
 just under $100. October and November saw rapid escalation in the stock price peaking near $125;
 while delighted for shareholders, this level of volatility suggested we should pause for a while,
 which we did before repurchasing again in December at $118.92.
@@ -244,7 +244,7 @@ x
 underwriting income
 =
 payout
-Progressives business model is designed to produce profitable growth over any reasonable period
+Progressive’s business model is designed to produce profitable growth over any reasonable period
 and support that growth from underwriting results. Based on our current market share and
 competitive positioning, we see no significant constraints to this outlook. Internally, our
 Gainsharing measure, focused exclusively on underwriting performance, provides a significant degree
@@ -285,9 +285,9 @@ are now less sure that forecasting parameters of any future split is important t
 management philosophy. Therefore, we will remove that commitment from our Financial Policies going
 forward.
 Constancy of Purpose
-Just as measurement is central to Progressives business discipline, our Core Values, aspirations
+Just as measurement is central to Progressive’s business discipline, our Core Values, aspirations
 and people are central to our business culture.
-We are continuously motivated by our aspiration of becoming Consumers #1 Choice for Auto Insurance
+We are continuously motivated by our aspiration of becoming Consumers’ #1 Choice for Auto Insurance
 and in 2005 moved another step closer, ending the year with close to 10 million policies and
 enormous potential. Nothing we have achieved has been without the efforts of so many and our single
 most important initiative continues to be making Progressive a Great Place to Work. Creating an

@@ -228,6 +228,37 @@ def _has_terminal_punctuation(text: str) -> bool:
     return text.rstrip().endswith((".", "?", "!", "\u201d", '"', ":", ";"))
 
 
+def _is_direct_block_quote_start(line: str) -> bool:
+    """True when a line opens a real block quote from another person.
+
+    Distinguishes genuine testimonials from CEO sentences that merely begin
+    with a quoted term (e.g. '"Re-engineering" is what we have been doing\u2026').
+
+    Rules:
+      - Must start with an opening double-quote (straight or curly).
+      - Must be >= 80 chars (short lines are inline quoted terms, not stories).
+      - Reject if the first closing quote appears within the first 40 chars of
+        the inner text \u2014 that pattern is a CEO-quoting-a-concept construction
+        like '"Gainshare" is our way\u2026' or '"Move forward" means\u2026'.
+      - Reject if the closing quote is followed by a dash attribution marker
+        (' \u2014 is where', ' - is where') indicating CEO self-reference.
+    """
+    if not (line.startswith('"') or line.startswith("\u201c")):
+        return False
+    if len(line) < 80:
+        return False
+    inner = line[1:]
+    for q in ('"', "\u201d"):
+        pos = inner.find(q)
+        if 0 <= pos <= 40:
+            return False  # early-close \u2192 quoted term, not a block quote
+        if pos > 40:
+            after = inner[pos + 1 : pos + 20]
+            if re.match(r"\s*[-\u2013\u2014]\s*is where", after):
+                return False  # CEO self-attribution: "\u2026" - is where I left off
+    return True
+
+
 def _should_join_lines(previous: str, current: str) -> bool:
     if not previous:
         return False
@@ -300,9 +331,15 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
     quote_mode = False
 
     def flush_paragraph() -> None:
-        nonlocal paragraph, paragraph_kind
+        nonlocal paragraph, paragraph_kind, quote_mode
         if paragraph:
             stripped = paragraph.strip()
+            # Post-assembly upgrade: if the fully-joined block starts with a
+            # block-quote marker but wasn't caught at line-scan time (e.g. the
+            # opening " was on a very short line that got joined), promote it.
+            if paragraph_kind == "paragraph" and _is_direct_block_quote_start(stripped):
+                paragraph_kind = "quote"
+                quote_mode = True
             figure_key = _figure_key_from_note(stripped)
             if figure_key in _KNOWN_FIGURES:
                 blocks.append(("figure", figure_key))
@@ -412,6 +449,11 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
         line_starts_new_paragraph = not paragraph or not _should_join_lines(paragraph, line)
         if line_starts_new_paragraph and quote_mode and _is_story_quote_reset(line):
             quote_mode = False
+
+        # Direct block-quote detection: a long line starting with " that isn't
+        # a CEO-quoting-a-term construction activates quote_mode immediately.
+        if line_starts_new_paragraph and not quote_mode and _is_direct_block_quote_start(line):
+            quote_mode = True
 
         current_kind = "quote" if quote_mode else "paragraph"
         if paragraph and _should_join_lines(paragraph, line):

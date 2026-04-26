@@ -65,7 +65,7 @@ def find_ex13(documents: list[dict]) -> str | None:
     """Return EX-13 filename, '' if bundled (no filename), None if not found."""
     for doc in documents:
         dtype = doc.get("type", "").upper()
-        if "EX-13" in dtype:
+        if "EX-13" in dtype or "EXHIBIT 13" in dtype:
             return doc.get("filename", "")
     return None
 
@@ -109,31 +109,38 @@ def fetch_ex13_bundled(accession_number: str) -> str | None:
     return cleaned.strip()
 
 
+_MIN_LETTER_CHARS = 50  # minimum chars to consider a match the real letter, not a TOC entry
+
+
 def extract_letter(text: str) -> tuple[str, str]:
     """Extract the 'Letter to Shareholders' section from Annual Report text.
 
     Returns (letter_text, extraction_method).
     extraction_method is 'letter_section' or 'full_ex13_fallback'.
+
+    Iterates all start-heading matches so that table-of-contents entries (which
+    are immediately followed by an end-boundary like 'Financial Review') are
+    skipped in favour of the actual letter body further in the document.
     """
-    start_m = _START_RE.search(text)
-    if not start_m:
-        return text, "full_ex13_fallback"
+    for start_m in _START_RE.finditer(text):
+        # Skip past the heading line itself
+        line_end = text.find("\n", start_m.end())
+        body_start = line_end + 1 if line_end >= 0 else start_m.end()
+        tail = text[body_start:]
 
-    # Skip past the heading line itself
-    line_end = text.find("\n", start_m.end())
-    body_start = line_end + 1 if line_end >= 0 else start_m.end()
-    tail = text[body_start:]
+        # Find end boundary — back up to the start of the matched line
+        end_m = _END_RE.search(tail)
+        if end_m:
+            line_start = tail.rfind("\n", 0, end_m.start())
+            end_pos = line_start if line_start >= 0 else end_m.start()
+            letter = tail[:end_pos].strip()
+        else:
+            letter = tail.strip()
 
-    # Find end boundary — back up to the start of the matched line
-    end_m = _END_RE.search(tail)
-    if end_m:
-        line_start = tail.rfind("\n", 0, end_m.start())
-        end_pos = line_start if line_start >= 0 else end_m.start()
-        letter = tail[:end_pos].strip()
-    else:
-        letter = tail.strip()
+        if len(letter) >= _MIN_LETTER_CHARS:
+            return letter, "letter_section"
 
-    return letter, "letter_section"
+    return text, "full_ex13_fallback"
 
 
 def process_filing(filing: dict, ledger: dict, dry_run: bool) -> str:

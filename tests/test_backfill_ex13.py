@@ -180,6 +180,33 @@ def test_extract_letter_strips_header_line():
     assert "Letter to Shareholders" not in text
 
 
+def test_extract_letter_stops_after_ceo_signature_before_trailing_artwork():
+    annual_report = """\
+Letter to Shareholders
+
+Dear Shareholders,
+
+This is the actual annual letter.
+
+/s/ Joy Love and Peace
+Peter Lewis
+Peter B. Lewis, Chairman, President
+and Chief Executive Officer
+
+[ARTWORK]
+
+Financial statements follow.
+"""
+
+    text, method = extract_letter(annual_report)
+
+    assert method == "letter_section"
+    assert "This is the actual annual letter" in text
+    assert "and Chief Executive Officer" in text
+    assert "[ARTWORK]" not in text
+    assert "Financial statements" not in text
+
+
 # ── Integration tests ─────────────────────────────────────────────────────────
 
 import json

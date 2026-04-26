@@ -118,9 +118,82 @@ def test_render_letter_html_keeps_omitted_graphic_note_separate_from_heading():
 
     result = render_letter_html(text)
 
-    assert "<p>[ Private Passenger Auto Combined Ratios 1976-2005 graphic intentionally omitted ]</p>" in result
+    assert '<figure class="letter-figure">' in result
+    assert 'PGR_2005_Q4_private_passenger_auto_combined_ratios.png' in result
+    assert "graphic intentionally omitted" not in result
     assert "<h2>Market Conditions</h2>" in result
     assert "omitted ] Market Conditions" not in result
+
+
+def test_render_letter_html_suppresses_unknown_omitted_graphic_notes():
+    result = render_letter_html(
+        "[\nSome Unknown Chart graphic intentionally omitted\n]\nNext paragraph starts here."
+    )
+
+    assert "Some Unknown Chart" not in result
+    assert "graphic intentionally omitted" not in result
+    assert "<p>Next paragraph starts here.</p>" in result
+
+
+def test_render_letter_html_renders_known_storm_tracking_figure():
+    result = render_letter_html("[\nStorm Tracking — 2005 Season graphic intentionally omitted\n]")
+
+    assert '<figure class="letter-figure">' in result
+    assert 'PGR_2005_Q4_storm_tracking_2005_season.png' in result
+    assert "Storm Tracking — 2005 Season" in result
+    assert "graphic intentionally omitted" not in result
+
+
+def test_render_letter_html_formats_gainshare_equations():
+    text = (
+        "Gainshare (GS)\n"
+        "Employee GS\n"
+        "Employee paid\n"
+        "Employee GS\n"
+        "factor\n"
+        "x targets x eligible earnings = payout\n"
+        "Gainshare (GS)\n"
+        "Shareholder GS\n"
+        "Annual after-tax\n"
+        "Shareholder GS\n"
+        "factor\n"
+        "x target x underwriting income = payout"
+    )
+
+    result = render_letter_html(text)
+
+    assert '<div class="formula-block">' in result
+    assert "Employee GS factor" in result
+    assert "Employee paid targets" in result
+    assert "eligible earnings" in result
+    assert "Shareholder GS factor" in result
+    assert "Annual after-tax target" in result
+    assert "underwriting income" in result
+    assert "Gainshare (GS) Employee GS Employee paid" not in result
+
+
+def test_render_letter_html_stops_gainshare_equation_before_following_paragraph():
+    text = (
+        "Gainshare (GS)\n"
+        "Employee GS\n"
+        "Employee paid\n"
+        "Employee GS\n"
+        "factor\n"
+        "x targets x eligible earnings = payout\n"
+        "Gainshare (GS)\n"
+        "Shareholder GS\n"
+        "Annual after-tax\n"
+        "Shareholder GS\n"
+        "factor\n"
+        "x target x underwriting income = payout\n"
+        "Progressive’s business model is designed to produce profitable growth."
+    )
+
+    result = render_letter_html(text)
+
+    assert '<div class="formula-block">' in result
+    assert "<p>Progressive’s business model is designed to produce profitable growth.</p>" in result
+    assert "payout Progressive’s business model" not in result
 
 
 def test_render_letter_html_splits_initial_all_caps_heading_from_sentence():

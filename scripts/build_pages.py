@@ -87,6 +87,24 @@ _ORDINAL_SUFFIXES = {"st", "nd", "rd", "th"}
 _TRADEMARK_LINES = {"\u00ae", "\u2122"}
 _SIGNATURE_TITLE = "President and Chief Executive Officer"
 
+_KNOWN_FIGURES = {
+    "Private Passenger Auto Combined Ratios 1976-2005": {
+        "src": "../assets/figures/PGR_2005_Q4_private_passenger_auto_combined_ratios.png",
+        "caption": "Private Passenger Auto Combined Ratios, 1976-2005",
+        "alt": "Line chart of private passenger auto combined ratios from 1976 through 2005.",
+    },
+    "Storm Tracking \u2014 2005 Season": {
+        "src": "../assets/figures/PGR_2005_Q4_storm_tracking_2005_season.png",
+        "caption": "Storm Tracking \u2014 2005 Season",
+        "alt": "Map showing the 2005 storm season tracking graphic from Progressive's annual report.",
+    },
+}
+
+_GAINSHARE_FORMULA_TEXT = (
+    "Gainshare (GS) Employee GS Employee paid Employee GS factor x targets x eligible earnings = payout "
+    "Gainshare (GS) Shareholder GS Annual after-tax Shareholder GS factor x target x underwriting income = payout"
+)
+
 
 def _repair_text_encoding(text: str) -> str:
     """Repair common mojibake left behind by SEC HTML extraction."""
@@ -228,6 +246,31 @@ def _is_omitted_graphic_note(text: str) -> bool:
     return text.startswith("[") and text.endswith("]") and "graphic intentionally omitted" in text.lower()
 
 
+def _figure_key_from_note(text: str) -> str | None:
+    if not _is_omitted_graphic_note(text):
+        return None
+    return re.sub(r"\s+graphic intentionally omitted\s*", "", text.strip("[] "), flags=re.IGNORECASE)
+
+
+def _is_gainshare_formula(text: str) -> bool:
+    normalized = " ".join(text.split())
+    return normalized == _GAINSHARE_FORMULA_TEXT
+
+
+def _gainshare_formula_html() -> str:
+    return """\
+<div class="formula-block">
+  <div class="formula-row">
+    <span class="formula-label">Employee GS payout</span>
+    <span class="formula-expression">Employee GS factor &times; Employee paid targets &times; eligible earnings = payout</span>
+  </div>
+  <div class="formula-row">
+    <span class="formula-label">Shareholder GS payout</span>
+    <span class="formula-expression">Shareholder GS factor &times; Annual after-tax target &times; underwriting income = payout</span>
+  </div>
+</div>"""
+
+
 def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
     """Normalize extracted filing text into display-ready paragraph/heading blocks."""
     text = _repair_text_encoding(text)
@@ -255,7 +298,16 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
     def flush_paragraph() -> None:
         nonlocal paragraph, paragraph_kind
         if paragraph:
-            blocks.append((paragraph_kind, paragraph.strip()))
+            stripped = paragraph.strip()
+            figure_key = _figure_key_from_note(stripped)
+            if figure_key in _KNOWN_FIGURES:
+                blocks.append(("figure", figure_key))
+            elif figure_key:
+                pass
+            elif _is_gainshare_formula(stripped):
+                blocks.append(("formula", stripped))
+            else:
+                blocks.append((paragraph_kind, stripped))
             paragraph = ""
             paragraph_kind = "paragraph"
 
@@ -306,6 +358,13 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
         if paragraph and line[:1] in {".", ",", ";", ":", ")", "%"}:
             paragraph = f"{paragraph}{line}"
             continue
+
+        figure_key = _figure_key_from_note(paragraph)
+        if figure_key and (line is not None):
+            flush_paragraph()
+
+        if _is_gainshare_formula(paragraph):
+            flush_paragraph()
 
         if _is_omitted_graphic_note(paragraph) and _is_heading(line):
             flush_paragraph()
@@ -362,6 +421,16 @@ def render_letter_html(text: str) -> str:
             rendered.append(f"<h2>{html.escape(block_text)}</h2>")
         elif block_type == "quote":
             rendered.append(f'<p class="quoted-story"><em>{html.escape(block_text)}</em></p>')
+        elif block_type == "figure":
+            figure = _KNOWN_FIGURES[block_text]
+            rendered.append(
+                '<figure class="letter-figure">\n'
+                f'  <img src="{html.escape(figure["src"])}" alt="{html.escape(figure["alt"])}" loading="lazy" />\n'
+                f'  <figcaption>{html.escape(figure["caption"])}</figcaption>\n'
+                "</figure>"
+            )
+        elif block_type == "formula":
+            rendered.append(_gainshare_formula_html())
         else:
             rendered.append(f"<p>{html.escape(block_text)}</p>")
     return "\n".join(rendered)

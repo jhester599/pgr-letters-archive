@@ -223,6 +223,54 @@ audio { width: 100%; border-radius: 4px; margin-top: 0.25rem; }
   font-size: 0.9rem;
 }
 
+.letter-figure {
+  background: color-mix(in srgb, var(--surface) 88%, var(--brand-mid));
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin: 2rem 0;
+  padding: 1rem;
+}
+
+.letter-figure img {
+  display: block;
+  height: auto;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.letter-figure figcaption {
+  color: var(--text-muted);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.8rem;
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+.formula-block {
+  background: color-mix(in srgb, var(--surface) 92%, var(--brand-mid));
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin: 1.5rem 0 2rem;
+  padding: 1rem;
+}
+
+.formula-row {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: minmax(9rem, 0.8fr) 2fr;
+  padding: 0.45rem 0;
+}
+
+.formula-row + .formula-row { border-top: 1px solid var(--border); }
+
+.formula-label {
+  color: var(--brand-blue);
+  font-weight: 700;
+}
+
+.formula-expression { color: var(--text-primary); }
+
 /* ── Print styles ───────────────────────────────────────────────────────── */
 @media print {
   #progress-bar, .reading-header { display: none; }

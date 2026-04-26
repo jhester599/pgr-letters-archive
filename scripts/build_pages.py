@@ -87,6 +87,12 @@ _ORDINAL_SUFFIXES = {"st", "nd", "rd", "th"}
 _TRADEMARK_LINES = {"\u00ae", "\u2122"}
 _SIGNATURE_TITLE = "President and Chief Executive Officer"
 
+# Bullet list patterns
+# Pattern 1: standalone bullet character on its own line (modern letters)
+_BULLET_CHAR_RE = re.compile(r"^[\u2022\u25cf\u25aa]\s*$")
+# Pattern 2: "bullet HEADING -- body" from older SGML/PDF extracts
+_BULLET_WORD_RE = re.compile(r"^bullet\s+(.+?)\s*--\s*(.+)$", re.IGNORECASE | re.DOTALL)
+
 _KNOWN_FIGURES = {
     "Private Passenger Auto Combined Ratios 1976-2005": {
         "src": "../assets/figures/PGR_2005_Q4_private_passenger_auto_combined_ratios.png",
@@ -330,9 +336,12 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
     paragraph_kind = "paragraph"
     quote_mode = False
     quote_mode_direct = False  # True when quote_mode set by _is_direct_block_quote_start
+    next_is_list_item = False      # set when a standalone • precedes the next paragraph
+    next_list_item_strict = False  # whether that next list_item uses strict (•-style) joining
+    list_item_strict = False       # True for current paragraph if it's a •-style list item
 
     def flush_paragraph() -> None:
-        nonlocal paragraph, paragraph_kind, quote_mode, quote_mode_direct
+        nonlocal paragraph, paragraph_kind, quote_mode, quote_mode_direct, list_item_strict
         if paragraph:
             stripped = paragraph.strip()
             # Post-assembly upgrade: if the fully-joined block starts with a
@@ -359,6 +368,7 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
                     quote_mode_direct = False
             paragraph = ""
             paragraph_kind = "paragraph"
+            list_item_strict = False
 
     index = 0
     while index < len(filtered_lines):
@@ -367,6 +377,29 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
 
         if line is None:
             flush_paragraph()
+            continue
+
+        # ── Bullet list detection ─────────────────────────────────────────────
+        # Pattern 1: standalone bullet char (•) on its own line — flag the next
+        # paragraph as a list item.
+        if _BULLET_CHAR_RE.match(line):
+            flush_paragraph()
+            next_is_list_item = True
+            next_list_item_strict = True  # • items: uppercase = new paragraph
+            continue
+
+        # Pattern 2: "bullet HEADING -- body text" from SGML/PDF extracts.
+        # Strip the word "bullet", bold the heading, and start a list_item block.
+        m_bullet = _BULLET_WORD_RE.match(line)
+        if m_bullet:
+            flush_paragraph()
+            heading = m_bullet.group(1).strip()
+            body = m_bullet.group(2).strip()
+            paragraph_kind = "list_item"
+            list_item_strict = False  # PDF-wrapped text may have uppercase continuations
+            paragraph = f"{heading}\x00{body}"
+            next_is_list_item = False
+            next_list_item_strict = False
             continue
 
         if _is_artwork_placeholder(line):
@@ -443,6 +476,7 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
             blocks.append(("heading", line))
             quote_mode = False
             quote_mode_direct = False
+            next_is_list_item = False
             continue
 
         if _is_heading(line):
@@ -450,6 +484,7 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
             blocks.append(("heading", line))
             quote_mode = False
             quote_mode_direct = False
+            next_is_list_item = False
             continue
 
         split_heading = _split_leading_all_caps_heading(line)
@@ -472,12 +507,27 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
 
         current_kind = "quote" if quote_mode else "paragraph"
         if paragraph and _should_join_lines(paragraph, line):
-            paragraph = f"{paragraph} {line}"
+            # Pattern 1 (strict) list items: an uppercase-starting line is always
+            # a paragraph break, not a continuation of the bullet text.
+            if paragraph_kind == "list_item" and list_item_strict and line[:1].isupper():
+                flush_paragraph()
+                current_kind = "quote" if quote_mode else "paragraph"
+                next_is_list_item = False
+                next_list_item_strict = False
+                paragraph_kind = current_kind
+                paragraph = line
+            else:
+                paragraph = f"{paragraph} {line}"
         else:
             flush_paragraph()
             # Recompute after flush: flush_paragraph may have reset quote_mode
             # (e.g. a direct block quote that ended with a closing ").
             current_kind = "quote" if quote_mode else "paragraph"
+            if next_is_list_item:
+                current_kind = "list_item"
+                list_item_strict = next_list_item_strict
+                next_list_item_strict = False
+            next_is_list_item = False
             paragraph_kind = current_kind
             paragraph = line
 
@@ -492,8 +542,29 @@ def _normalized_letter_blocks(text: str) -> list[tuple[str, str]]:
 
 def render_letter_html(text: str) -> str:
     """Convert extracted plain letter text to polished, escaped HTML blocks."""
+    blocks = _normalized_letter_blocks(text)
     rendered = []
-    for block_type, block_text in _normalized_letter_blocks(text):
+    i = 0
+    while i < len(blocks):
+        block_type, block_text = blocks[i]
+
+        if block_type == "list_item":
+            # Collect all consecutive list_item blocks into one <ul>.
+            items: list[str] = []
+            while i < len(blocks) and blocks[i][0] == "list_item":
+                _, item_text = blocks[i]
+                if "\x00" in item_text:
+                    heading, body = item_text.split("\x00", 1)
+                    items.append(
+                        f'  <li><strong>{html.escape(heading)}</strong>'
+                        f' — {html.escape(body)}</li>'
+                    )
+                else:
+                    items.append(f"  <li>{html.escape(item_text)}</li>")
+                i += 1
+            rendered.append('<ul class="letter-list">\n' + "\n".join(items) + "\n</ul>")
+            continue
+
         if block_type == "signature":
             name, title = block_text.split("\n", 1)
             rendered.append(
@@ -518,6 +589,7 @@ def render_letter_html(text: str) -> str:
             rendered.append(_gainshare_formula_html())
         else:
             rendered.append(f"<p>{html.escape(block_text)}</p>")
+        i += 1
     return "\n".join(rendered)
 
 

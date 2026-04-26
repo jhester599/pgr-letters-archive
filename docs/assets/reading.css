@@ -198,6 +198,18 @@ audio { width: 100%; border-radius: 4px; margin-top: 0.25rem; }
 .letter-body h2 + p { margin-top: 0; }
 .letter-body p:last-child { margin-bottom: 0; }
 
+.letter-list {
+  margin: 0.5rem 0 1rem 1.75rem;
+  padding: 0;
+  line-height: 1.75;
+}
+.letter-list li {
+  margin-bottom: 0.4rem;
+}
+.letter-list li strong {
+  color: var(--text-primary);
+}
+
 .quoted-story {
   border-left: 3px solid var(--border);
   color: var(--text-muted);

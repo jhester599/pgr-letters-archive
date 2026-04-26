@@ -62,11 +62,29 @@ _END_RE = re.compile(
 
 
 def find_ex13(documents: list[dict]) -> str | None:
-    pass  # implemented in Task 2
+    """Return EX-13 filename, '' if bundled (no filename), None if not found."""
+    for doc in documents:
+        dtype = doc.get("type", "").upper()
+        if "EX-13" in dtype:
+            return doc.get("filename", "")
+    return None
 
 
 def fetch_ex13_html(accession_number: str, filename: str) -> str | None:
-    pass  # implemented in Task 2
+    """Fetch and clean an HTML EX-13 file (2001–2004 format)."""
+    acc = accession_number.replace("-", "")
+    url = f"{EDGAR_ARCHIVES}/{CIK_PLAIN}/{acc}/{filename}"
+    resp = get(url)
+    if not resp:
+        return None
+    soup = BeautifulSoup(resp.text, "lxml")
+    for tag in soup(["script", "style", "head", "meta", "link"]):
+        tag.decompose()
+    text = soup.get_text(separator="\n")
+    lines = [line.strip() for line in text.splitlines()]
+    cleaned = "\n".join(line for line in lines if line)
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
+    return cleaned.strip()
 
 
 def fetch_ex13_bundled(accession_number: str) -> str | None:

@@ -15,6 +15,7 @@ Environment variables:
 """
 import argparse
 import html
+import json
 import logging
 from pathlib import Path
 import re
@@ -614,6 +615,37 @@ def render_letter_html(text: str) -> str:
 
 
 
+SUMMARIES_DIR = BASE_DIR / "data" / "summaries"
+
+
+def _render_summary_html(filing_id: str) -> str:
+    """Return an HTML <section> for the letter summary, or '' if none exists."""
+    summary_path = SUMMARIES_DIR / f"{filing_id}_Summary.json"
+    if not summary_path.exists():
+        return ""
+    try:
+        with open(summary_path, encoding="utf-8") as fh:
+            data = json.load(fh)
+    except (json.JSONDecodeError, OSError):
+        return ""
+    bullets = data.get("bullets", [])
+    if not bullets:
+        return ""
+    items = "\n".join(
+        f'    <li><strong>{html.escape(b["topic"])}</strong>'
+        f' — {html.escape(b["text"])}</li>'
+        for b in bullets
+    )
+    return (
+        '<section class="letter-summary">\n'
+        '  <h2 class="summary-heading">Key Points</h2>\n'
+        '  <ol class="summary-list">\n'
+        f'{items}\n'
+        '  </ol>\n'
+        '</section>'
+    )
+
+
 _HTML_TEMPLATE = """\
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
@@ -648,6 +680,7 @@ _HTML_TEMPLATE = """\
         <h1>CEO Shareholder Letter</h1>
         {audio_section}
       </header>
+      {summary_section}
       <div class="letter-body">
         {letter_paragraphs}
       </div>
@@ -736,6 +769,7 @@ def build_page(
         prev_link=prev_link,
         next_link=next_link,
         audio_section=audio_section,
+        summary_section=_render_summary_html(filing["id"]),
         letter_paragraphs=render_letter_html(letter_text),
     )
 

@@ -68,6 +68,11 @@ jobs:
           PAGES_BASE_URL: "https://jhester599.github.io/pgr-letters-archive"
         run: python scripts/compressor.py
 
+      - name: Generate letter summaries
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/summarizer.py
+
       - name: Build reading pages
         run: python scripts/build_pages.py
 
@@ -79,6 +84,7 @@ jobs:
 
           git add \
             data/letters/ \
+            data/summaries/ \
             docs/audio/ \
             docs/ledger.json \
             docs/feed.xml \

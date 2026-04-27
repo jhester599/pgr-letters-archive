@@ -283,6 +283,45 @@ audio { width: 100%; border-radius: 4px; margin-top: 0.25rem; }
 
 .formula-expression { color: var(--text-primary); }
 
+/* ── Letter summary (key points above the fold) ────────────────────────── */
+.letter-summary {
+  background: color-mix(in srgb, var(--surface) 90%, var(--brand-mid));
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  padding: 1.25rem 1.5rem;
+}
+
+.summary-heading {
+  color: var(--text-muted);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.85rem;
+  text-transform: uppercase;
+}
+
+.summary-list {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+  padding-left: 1.35rem;
+}
+
+.summary-list li {
+  margin-bottom: 0.5rem;
+}
+
+.summary-list li:last-child {
+  margin-bottom: 0;
+}
+
+.summary-list strong {
+  color: var(--text-primary);
+}
+
 /* ── Print styles ───────────────────────────────────────────────────────── */
 @media print {
   #progress-bar, .reading-header { display: none; }

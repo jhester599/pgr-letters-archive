@@ -70,7 +70,8 @@ jobs:
 
       - name: Generate letter summaries
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # GITHUB_TOKEN is provided automatically — no secret setup required.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/summarizer.py
 
       - name: Build reading pages

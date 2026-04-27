@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """
-summarizer.py — Generate 10-bullet summaries for each PGR shareholder letter using Claude API.
+summarizer.py — Generate 10-bullet summaries for each PGR shareholder letter.
+
+Uses the GitHub Models API (OpenAI-compatible endpoint) so no separate API account
+is required — GitHub Actions already provides GITHUB_TOKEN automatically.
 
 For each filing in the ledger where letter_scraped=True and summary_generated=False,
 this script:
   1. Reads the letter text from data/letters/.
-  2. Calls the Claude API to generate a ranked JSON summary (up to 10 bullets).
+  2. Calls GitHub Models to generate a ranked JSON summary (up to 10 bullets).
   3. Saves the summary to data/summaries/{id}_Summary.json.
   4. Updates the ledger: summary_generated=True, page_built=False (triggers HTML rebuild).
 
@@ -14,7 +17,12 @@ Usage:
     python scripts/summarizer.py --rebuild    # regenerate all summaries
 
 Environment variables:
-    ANTHROPIC_API_KEY  — Claude API key (required)
+    GITHUB_TOKEN  — GitHub token used to authenticate with GitHub Models.
+                    In GitHub Actions this is provided automatically via
+                    secrets.GITHUB_TOKEN. For local use, create a free
+                    GitHub personal access token at:
+                    https://github.com/settings/tokens
+                    (no special scopes required for public models)
 """
 
 import argparse
@@ -27,12 +35,15 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-import anthropic
+from openai import OpenAI
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from scraper import load_ledger, save_ledger, BASE_DIR
 
 SUMMARIES_DIR = BASE_DIR / "data" / "summaries"
+
+GITHUB_MODELS_ENDPOINT = "https://models.inference.ai.azure.com"
+GITHUB_MODELS_MODEL    = "gpt-4o-mini"   # free via GitHub Models; change as desired
 
 # ── Logging ───────────────────────────────────────────────────────────────────
 
@@ -101,23 +112,22 @@ def _summary_path(filing_id: str) -> Path:
     return SUMMARIES_DIR / f"{filing_id}_Summary.json"
 
 
-def generate_summary(
-    client: anthropic.Anthropic,
-    filing: dict,
-    letter_text: str,
-) -> list[dict]:
-    """Call Claude API and return a list of {topic, text} bullet dicts."""
+def generate_summary(client: OpenAI, filing: dict, letter_text: str) -> list[dict]:
+    """Call GitHub Models and return a list of {topic, text} bullet dicts."""
     prompt = _USER_PROMPT_TEMPLATE.format(
         filing_id=filing["id"],
         letter_text=letter_text[:30_000],  # cap at ~30k chars; no letter is longer
     )
-    message = client.messages.create(
-        model="claude-3-5-haiku-20241022",
+    response = client.chat.completions.create(
+        model=GITHUB_MODELS_MODEL,
+        messages=[
+            {"role": "system", "content": _SYSTEM_PROMPT},
+            {"role": "user",   "content": prompt},
+        ],
         max_tokens=1024,
-        system=_SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": prompt}],
+        temperature=0.2,
     )
-    raw = message.content[0].text.strip()
+    raw = response.choices[0].message.content.strip()
     # Strip markdown code fences if the model adds them despite instructions.
     raw = re.sub(r"^```[a-z]*\n?", "", raw)
     raw = re.sub(r"\n?```$", "", raw).strip()
@@ -144,13 +154,18 @@ def save_summary(filing: dict, bullets: list[dict]) -> None:
 
 
 def main(rebuild: bool = False) -> None:
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
-    if not api_key:
-        log.error("ANTHROPIC_API_KEY environment variable is not set.")
+    token = os.environ.get("GITHUB_TOKEN")
+    if not token:
+        log.error(
+            "GITHUB_TOKEN environment variable is not set.\n"
+            "  • In GitHub Actions this is provided automatically.\n"
+            "  • Locally: create a free PAT at https://github.com/settings/tokens\n"
+            "    and set: $env:GITHUB_TOKEN = 'github_pat_...'"
+        )
         sys.exit(1)
 
     SUMMARIES_DIR.mkdir(parents=True, exist_ok=True)
-    client = anthropic.Anthropic(api_key=api_key)
+    client = OpenAI(base_url=GITHUB_MODELS_ENDPOINT, api_key=token)
     ledger = load_ledger()
 
     candidates = [
@@ -190,7 +205,7 @@ def main(rebuild: bool = False) -> None:
         success += 1
         log.info("  → %d bullets saved to %s_Summary.json", len(bullets), filing["id"])
 
-        time.sleep(0.5)   # polite pause to stay within API rate limits
+        time.sleep(0.3)   # polite pause to stay within rate limits
 
     log.info("Done. %d/%d summaries generated.", success, len(candidates))
 

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "last_updated": "2026-04-26T17:45:12.115056+00:00",
+    "last_updated": "2026-04-30T01:14:54.430646+00:00",
     "total_letters": 99,
     "total_audio": 0,
     "description": "State ledger for the PGR Letters Archive pipeline. Each entry tracks one SEC filing through the scrape \u2192 generate \u2192 compress lifecycle."
@@ -21,7 +21,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:00.021658+00:00",
       "page_url": "letters/PGR_2025_Q4.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2025_Q3",
@@ -38,7 +39,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:00.814119+00:00",
       "page_url": "letters/PGR_2025_Q3.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2025_Q2",
@@ -55,7 +57,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:01.703236+00:00",
       "page_url": "letters/PGR_2025_Q2.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2025_Q1",
@@ -72,7 +75,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:02.543765+00:00",
       "page_url": "letters/PGR_2025_Q1.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2024_Q4",
@@ -89,7 +93,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:03.412332+00:00",
       "page_url": "letters/PGR_2024_Q4.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2024_Q3",
@@ -106,7 +111,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:04.301543+00:00",
       "page_url": "letters/PGR_2024_Q3.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2024_Q2",
@@ -123,7 +129,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:05.242062+00:00",
       "page_url": "letters/PGR_2024_Q2.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2024_Q1",
@@ -140,7 +147,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:06.112448+00:00",
       "page_url": "letters/PGR_2024_Q1.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2023_Q4",
@@ -157,7 +165,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:07.189345+00:00",
       "page_url": "letters/PGR_2023_Q4.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2023_Q3",
@@ -174,7 +183,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:08.052717+00:00",
       "page_url": "letters/PGR_2023_Q3.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2023_Q2",
@@ -191,7 +201,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:08.932971+00:00",
       "page_url": "letters/PGR_2023_Q2.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2023_Q1",
@@ -208,7 +219,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:10.142128+00:00",
       "page_url": "letters/PGR_2023_Q1.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2022_Q4",
@@ -225,7 +237,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:11.116363+00:00",
       "page_url": "letters/PGR_2022_Q4.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2022_Q3",
@@ -242,7 +255,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:12.267126+00:00",
       "page_url": "letters/PGR_2022_Q3.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2022_Q2",
@@ -259,7 +273,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:13.512006+00:00",
       "page_url": "letters/PGR_2022_Q2.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2022_Q1",
@@ -276,7 +291,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:14.573852+00:00",
       "page_url": "letters/PGR_2022_Q1.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2021_Q4",
@@ -293,7 +309,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:15.488286+00:00",
       "page_url": "letters/PGR_2021_Q4.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2021_Q3",
@@ -310,7 +327,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:16.366329+00:00",
       "page_url": "letters/PGR_2021_Q3.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2021_Q2",
@@ -327,7 +345,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:17.367137+00:00",
       "page_url": "letters/PGR_2021_Q2.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2021_Q1",
@@ -344,7 +363,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:18.505102+00:00",
       "page_url": "letters/PGR_2021_Q1.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2020_Q4",
@@ -361,7 +381,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:19.416741+00:00",
       "page_url": "letters/PGR_2020_Q4.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2020_Q3",
@@ -378,7 +399,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:20.467522+00:00",
       "page_url": "letters/PGR_2020_Q3.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2020_Q2",
@@ -396,7 +418,8 @@
       "processed_date": "2026-04-26T02:56:51.569223+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2020_Q2.html"
+      "page_url": "letters/PGR_2020_Q2.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2020_Q1",
@@ -414,7 +437,8 @@
       "processed_date": "2026-04-26T02:56:50.758526+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2020_Q1.html"
+      "page_url": "letters/PGR_2020_Q1.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2019_Q4",
@@ -432,7 +456,8 @@
       "processed_date": "2026-04-26T02:56:49.843141+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2019_Q4.html"
+      "page_url": "letters/PGR_2019_Q4.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2019_Q3",
@@ -450,7 +475,8 @@
       "processed_date": "2026-04-26T02:56:49.050050+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2019_Q3.html"
+      "page_url": "letters/PGR_2019_Q3.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2019_Q2",
@@ -468,7 +494,8 @@
       "processed_date": "2026-04-26T02:56:48.123438+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2019_Q2.html"
+      "page_url": "letters/PGR_2019_Q2.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2019_Q1",
@@ -486,7 +513,8 @@
       "processed_date": "2026-04-26T02:56:47.064135+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2019_Q1.html"
+      "page_url": "letters/PGR_2019_Q1.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2018_Q4",
@@ -504,7 +532,8 @@
       "processed_date": "2026-04-26T02:56:46.169297+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2018_Q4.html"
+      "page_url": "letters/PGR_2018_Q4.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2018_Q3",
@@ -522,7 +551,8 @@
       "processed_date": "2026-04-26T02:56:45.171437+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2018_Q3.html"
+      "page_url": "letters/PGR_2018_Q3.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2018_Q2",
@@ -540,7 +570,8 @@
       "processed_date": "2026-04-26T02:56:44.330024+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2018_Q2.html"
+      "page_url": "letters/PGR_2018_Q2.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2018_Q1",
@@ -558,7 +589,8 @@
       "processed_date": "2026-04-26T02:56:43.562312+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2018_Q1.html"
+      "page_url": "letters/PGR_2018_Q1.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2017_Q4",
@@ -576,7 +608,8 @@
       "processed_date": "2026-04-26T02:56:42.751640+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2017_Q4.html"
+      "page_url": "letters/PGR_2017_Q4.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2017_Q3",
@@ -594,7 +627,8 @@
       "processed_date": "2026-04-26T02:56:41.951339+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2017_Q3.html"
+      "page_url": "letters/PGR_2017_Q3.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2017_Q2",
@@ -612,7 +646,8 @@
       "processed_date": "2026-04-26T02:56:41.014721+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2017_Q2.html"
+      "page_url": "letters/PGR_2017_Q2.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2017_Q1",
@@ -630,7 +665,8 @@
       "processed_date": "2026-04-26T02:56:40.221552+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2017_Q1.html"
+      "page_url": "letters/PGR_2017_Q1.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2016_Q4",
@@ -648,7 +684,8 @@
       "processed_date": "2026-04-26T02:56:39.291772+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2016_Q4.html"
+      "page_url": "letters/PGR_2016_Q4.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2016_Q3",
@@ -666,7 +703,8 @@
       "processed_date": "2026-04-26T02:56:38.482975+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2016_Q3.html"
+      "page_url": "letters/PGR_2016_Q3.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2016_Q2",
@@ -684,7 +722,8 @@
       "processed_date": "2026-04-26T02:56:37.593398+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2016_Q2.html"
+      "page_url": "letters/PGR_2016_Q2.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2016_Q1",
@@ -702,7 +741,8 @@
       "processed_date": "2026-04-26T02:56:36.630487+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2016_Q1.html"
+      "page_url": "letters/PGR_2016_Q1.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2015_Q4",
@@ -720,7 +760,8 @@
       "processed_date": "2026-04-26T02:56:35.771318+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2015_Q4.html"
+      "page_url": "letters/PGR_2015_Q4.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2015_Q3",
@@ -738,7 +779,8 @@
       "processed_date": "2026-04-26T02:56:34.944333+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2015_Q3.html"
+      "page_url": "letters/PGR_2015_Q3.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2015_Q2",
@@ -756,7 +798,8 @@
       "processed_date": "2026-04-26T02:56:34.024573+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2015_Q2.html"
+      "page_url": "letters/PGR_2015_Q2.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2015_Q1",
@@ -774,7 +817,8 @@
       "processed_date": "2026-04-26T02:56:33.165879+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2015_Q1.html"
+      "page_url": "letters/PGR_2015_Q1.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2014_Q4",
@@ -792,7 +836,8 @@
       "processed_date": "2026-04-26T02:56:32.302590+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2014_Q4.html"
+      "page_url": "letters/PGR_2014_Q4.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2014_Q3",
@@ -810,7 +855,8 @@
       "processed_date": "2026-04-26T02:56:31.385129+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2014_Q3.html"
+      "page_url": "letters/PGR_2014_Q3.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2014_Q2",
@@ -828,7 +874,8 @@
       "processed_date": "2026-04-26T02:56:30.477420+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2014_Q2.html"
+      "page_url": "letters/PGR_2014_Q2.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2014_Q1",
@@ -846,7 +893,8 @@
       "processed_date": "2026-04-26T02:56:29.677952+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2014_Q1.html"
+      "page_url": "letters/PGR_2014_Q1.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2013_Q4",
@@ -864,7 +912,8 @@
       "processed_date": "2026-04-26T02:56:28.724099+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2013_Q4.html"
+      "page_url": "letters/PGR_2013_Q4.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2013_Q3",
@@ -882,7 +931,8 @@
       "processed_date": "2026-04-26T02:56:27.897097+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2013_Q3.html"
+      "page_url": "letters/PGR_2013_Q3.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2013_Q2",
@@ -899,7 +949,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:35.172410+00:00",
       "page_url": "letters/PGR_2013_Q2.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2013_Q1",
@@ -916,7 +967,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:36.158574+00:00",
       "page_url": "letters/PGR_2013_Q1.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2012_Q4",
@@ -933,7 +985,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:37.155568+00:00",
       "page_url": "letters/PGR_2012_Q4.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2012_Q3",
@@ -950,7 +1003,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:38.164602+00:00",
       "page_url": "letters/PGR_2012_Q3.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2012_Q2",
@@ -967,7 +1021,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:39.030089+00:00",
       "page_url": "letters/PGR_2012_Q2.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2012_Q1",
@@ -984,7 +1039,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:40.111116+00:00",
       "page_url": "letters/PGR_2012_Q1.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2011_Q4",
@@ -1001,7 +1057,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:41.056080+00:00",
       "page_url": "letters/PGR_2011_Q4.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2011_Q3",
@@ -1018,7 +1075,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:41.923614+00:00",
       "page_url": "letters/PGR_2011_Q3.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2011_Q2",
@@ -1035,7 +1093,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:43.357351+00:00",
       "page_url": "letters/PGR_2011_Q2.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2011_Q1",
@@ -1053,7 +1112,8 @@
       "processed_date": "2026-04-26T02:56:27.028469+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2011_Q1.html"
+      "page_url": "letters/PGR_2011_Q1.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2010_Q4",
@@ -1071,7 +1131,8 @@
       "processed_date": "2026-04-26T02:56:26.176899+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2010_Q4.html"
+      "page_url": "letters/PGR_2010_Q4.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2010_Q3",
@@ -1089,7 +1150,8 @@
       "processed_date": "2026-04-26T02:56:25.237158+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2010_Q3.html"
+      "page_url": "letters/PGR_2010_Q3.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2010_Q2",
@@ -1107,7 +1169,8 @@
       "processed_date": "2026-04-26T02:56:24.323326+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2010_Q2.html"
+      "page_url": "letters/PGR_2010_Q2.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2010_Q1",
@@ -1125,7 +1188,8 @@
       "processed_date": "2026-04-26T02:56:23.412449+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2010_Q1.html"
+      "page_url": "letters/PGR_2010_Q1.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2009_Q4",
@@ -1143,7 +1207,8 @@
       "processed_date": "2026-04-26T02:56:22.564741+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2009_Q4.html"
+      "page_url": "letters/PGR_2009_Q4.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2009_Q3",
@@ -1161,7 +1226,8 @@
       "processed_date": "2026-04-26T02:56:21.719713+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2009_Q3.html"
+      "page_url": "letters/PGR_2009_Q3.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2009_Q2",
@@ -1179,7 +1245,8 @@
       "processed_date": "2026-04-26T02:56:20.903314+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2009_Q2.html"
+      "page_url": "letters/PGR_2009_Q2.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2009_Q1",
@@ -1197,7 +1264,8 @@
       "processed_date": "2026-04-26T02:56:20.012968+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2009_Q1.html"
+      "page_url": "letters/PGR_2009_Q1.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2008_Q4",
@@ -1215,7 +1283,8 @@
       "processed_date": "2026-04-26T02:56:19.251432+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2008_Q4.html"
+      "page_url": "letters/PGR_2008_Q4.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2008_Q3",
@@ -1233,7 +1302,8 @@
       "processed_date": "2026-04-26T02:56:18.350488+00:00",
       "skip_reason": null,
       "page_built": true,
-      "page_url": "letters/PGR_2008_Q3.html"
+      "page_url": "letters/PGR_2008_Q3.html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2008_Q2",
@@ -1250,7 +1320,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:49.404242+00:00",
       "page_url": "letters/PGR_2008_Q2.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2008_Q1",
@@ -1267,7 +1338,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:50.546856+00:00",
       "page_url": "letters/PGR_2008_Q1.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2007_Q4",
@@ -1284,7 +1356,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:51.401505+00:00",
       "page_url": "letters/PGR_2007_Q4.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2007_Q3",
@@ -1301,7 +1374,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:52.276286+00:00",
       "page_url": "letters/PGR_2007_Q3.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2007_Q2",
@@ -1318,7 +1392,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:53.204580+00:00",
       "page_url": "letters/PGR_2007_Q2.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2007_Q1",
@@ -1335,7 +1410,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:54.210729+00:00",
       "page_url": "letters/PGR_2007_Q1.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2006_Q4",
@@ -1352,7 +1428,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:55.100425+00:00",
       "page_url": "letters/PGR_2006_Q4.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2006_Q3",
@@ -1369,7 +1446,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:56.057037+00:00",
       "page_url": "letters/PGR_2006_Q3.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2006_Q2",
@@ -1386,7 +1464,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:56.910489+00:00",
       "page_url": "letters/PGR_2006_Q2.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2006_Q1",
@@ -1405,7 +1484,8 @@
       "skip_reason": null,
       "page_built": true,
       "page_url": "letters/PGR_2006_Q1.html",
-      "extraction_method": "wayback_html"
+      "extraction_method": "wayback_html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2005_Q4",
@@ -1422,7 +1502,8 @@
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:07:58.089569+00:00",
       "page_url": "letters/PGR_2005_Q4.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     },
     {
       "id": "PGR_2005_Q3",
@@ -1441,7 +1522,8 @@
       "skip_reason": null,
       "page_built": true,
       "page_url": "letters/PGR_2005_Q3.html",
-      "extraction_method": "pdf_letter_section"
+      "extraction_method": "pdf_letter_section",
+      "summary_generated": true
     },
     {
       "id": "PGR_2005_Q2",
@@ -1460,7 +1542,8 @@
       "skip_reason": null,
       "page_built": true,
       "page_url": "letters/PGR_2005_Q2.html",
-      "extraction_method": "pdf_letter_section"
+      "extraction_method": "pdf_letter_section",
+      "summary_generated": true
     },
     {
       "id": "PGR_2005_Q1",
@@ -1479,7 +1562,8 @@
       "skip_reason": null,
       "page_built": true,
       "page_url": "letters/PGR_2005_Q1.html",
-      "extraction_method": "pdf_letter_section"
+      "extraction_method": "pdf_letter_section",
+      "summary_generated": true
     },
     {
       "id": "PGR_2004_Q4",
@@ -1498,7 +1582,8 @@
       "page_built": true,
       "page_url": "letters/PGR_2004_Q4.html",
       "extraction_method": "pdf_letter_section",
-      "processed_date": "2026-04-26T02:09:32.429132+00:00"
+      "processed_date": "2026-04-26T02:09:32.429132+00:00",
+      "summary_generated": true
     },
     {
       "id": "PGR_2004_Q3",
@@ -1517,7 +1602,8 @@
       "skip_reason": null,
       "page_built": true,
       "page_url": "letters/PGR_2004_Q3.html",
-      "extraction_method": "wayback_html"
+      "extraction_method": "wayback_html",
+      "summary_generated": true
     },
     {
       "id": "PGR_2004_Q2",
@@ -1536,7 +1622,8 @@
       "skip_reason": null,
       "page_built": true,
       "page_url": "letters/PGR_2004_Q2.html",
-      "extraction_method": "pdf_letter_section"
+      "extraction_method": "pdf_letter_section",
+      "summary_generated": true
     },
     {
       "id": "PGR_2004_Q1",
@@ -1555,7 +1642,8 @@
       "skip_reason": null,
       "page_built": true,
       "page_url": "letters/PGR_2004_Q1.html",
-      "extraction_method": "pdf_letter_section"
+      "extraction_method": "pdf_letter_section",
+      "summary_generated": true
     },
     {
       "id": "PGR_2003_Q4",
@@ -1574,7 +1662,8 @@
       "page_built": true,
       "page_url": "letters/PGR_2003_Q4.html",
       "extraction_method": "pdf_letter_section",
-      "processed_date": "2026-04-26T02:07:57.519356+00:00"
+      "processed_date": "2026-04-26T02:07:57.519356+00:00",
+      "summary_generated": true
     },
     {
       "id": "PGR_2003_Q3",
@@ -1590,7 +1679,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:02.408350+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_2003_Q2",
@@ -1606,7 +1696,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:02.885291+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_2003_Q1",
@@ -1622,7 +1713,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:03.556523+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_2002_Q4",
@@ -1641,7 +1733,8 @@
       "page_built": true,
       "page_url": "letters/PGR_2002_Q4.html",
       "extraction_method": "pdf_letter_section",
-      "processed_date": "2026-04-26T02:07:54.756206+00:00"
+      "processed_date": "2026-04-26T02:07:54.756206+00:00",
+      "summary_generated": true
     },
     {
       "id": "PGR_2002_Q3",
@@ -1657,7 +1750,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:04.413164+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_2002_Q2",
@@ -1673,7 +1767,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:04.827406+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_2002_Q1",
@@ -1689,7 +1784,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:05.243142+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_2001_Q3",
@@ -1705,7 +1801,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:05.636771+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_2001_Q2",
@@ -1721,7 +1818,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:06.225952+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_2001_Q1",
@@ -1737,7 +1835,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:06.634467+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_2000_Q4",
@@ -1756,7 +1855,8 @@
       "page_built": true,
       "page_url": "letters/PGR_2000_Q4.html",
       "extraction_method": "letter_section",
-      "processed_date": "2026-04-26T01:56:55.169840+00:00"
+      "processed_date": "2026-04-26T01:56:55.169840+00:00",
+      "summary_generated": true
     },
     {
       "id": "PGR_2000_Q3",
@@ -1772,7 +1872,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:07.905296+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_2000_Q2",
@@ -1788,7 +1889,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:08.367672+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_2000_Q1",
@@ -1804,7 +1906,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:09.035458+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_1999_Q4",
@@ -1823,7 +1926,8 @@
       "page_built": true,
       "page_url": "letters/PGR_1999_Q4.html",
       "extraction_method": "letter_section",
-      "processed_date": "2026-04-26T01:56:54.360613+00:00"
+      "processed_date": "2026-04-26T01:56:54.360613+00:00",
+      "summary_generated": true
     },
     {
       "id": "PGR_1999_Q3",
@@ -1839,7 +1943,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:09.948576+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_1999_Q2",
@@ -1855,7 +1960,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:10.341244+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_1999_Q1",
@@ -1871,7 +1977,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:11.768109+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_1998_Q4",
@@ -1890,7 +1997,8 @@
       "page_built": true,
       "page_url": "letters/PGR_1998_Q4.html",
       "extraction_method": "letter_section",
-      "processed_date": "2026-04-26T01:56:53.587811+00:00"
+      "processed_date": "2026-04-26T01:56:53.587811+00:00",
+      "summary_generated": true
     },
     {
       "id": "PGR_1998_Q3",
@@ -1906,7 +2014,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:12.827276+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_1998_Q2",
@@ -1922,7 +2031,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:13.234231+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_1998_Q1",
@@ -1938,7 +2048,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:13.624887+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_1997_Q4",
@@ -1957,7 +2068,8 @@
       "page_built": true,
       "page_url": "letters/PGR_1997_Q4.html",
       "extraction_method": "letter_section",
-      "processed_date": "2026-04-26T01:56:52.810807+00:00"
+      "processed_date": "2026-04-26T01:56:52.810807+00:00",
+      "summary_generated": true
     },
     {
       "id": "PGR_1997_Q3",
@@ -1973,7 +2085,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:14.603297+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_1997_Q2",
@@ -1989,7 +2102,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:15.097716+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_1997_Q1",
@@ -2005,7 +2119,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:15.581410+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_1996_Q4",
@@ -2024,7 +2139,8 @@
       "page_built": true,
       "page_url": "letters/PGR_1996_Q4.html",
       "extraction_method": "letter_section",
-      "processed_date": "2026-04-26T01:56:52.030705+00:00"
+      "processed_date": "2026-04-26T01:56:52.030705+00:00",
+      "summary_generated": true
     },
     {
       "id": "PGR_1996_Q3",
@@ -2040,7 +2156,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:16.424696+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_1996_Q2",
@@ -2056,7 +2173,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:16.807790+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_1996_Q1",
@@ -2072,7 +2190,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:17.249330+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_1995_Q3",
@@ -2088,7 +2207,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:17.683255+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_1995_Q2",
@@ -2104,7 +2224,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:18.063116+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_1995_Q1",
@@ -2120,7 +2241,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:18.502490+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_1994_Q4",
@@ -2139,7 +2261,8 @@
       "page_built": true,
       "page_url": "letters/PGR_1994_Q4.html",
       "extraction_method": "letter_section",
-      "processed_date": "2026-04-26T01:56:51.218888+00:00"
+      "processed_date": "2026-04-26T01:56:51.218888+00:00",
+      "summary_generated": true
     },
     {
       "id": "PGR_1994_Q3",
@@ -2155,7 +2278,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:19.403787+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_1994_Q2",
@@ -2171,7 +2295,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:19.923541+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_1994_Q1",
@@ -2187,7 +2312,8 @@
       "audio_generated": false,
       "audio_compressed": false,
       "processed_date": "2026-04-25T20:08:20.516724+00:00",
-      "skip_reason": "no_exhibit_99"
+      "skip_reason": "no_exhibit_99",
+      "summary_generated": false
     },
     {
       "id": "PGR_1993_Q4",
@@ -2206,7 +2332,8 @@
       "page_built": true,
       "page_url": "letters/PGR_1993_Q4.html",
       "extraction_method": "letter_section",
-      "processed_date": "2026-04-26T01:56:50.445209+00:00"
+      "processed_date": "2026-04-26T01:56:50.445209+00:00",
+      "summary_generated": true
     },
     {
       "id": "PGR_2001_Q4",
@@ -2225,7 +2352,8 @@
       "skip_reason": null,
       "page_built": true,
       "page_url": "letters/PGR_2001_Q4.html",
-      "extraction_method": "letter_section"
+      "extraction_method": "letter_section",
+      "summary_generated": true
     },
     {
       "id": "PGR_1995_Q4",
@@ -2244,7 +2372,8 @@
       "skip_reason": null,
       "page_built": true,
       "page_url": "letters/PGR_1995_Q4.html",
-      "extraction_method": "letter_section"
+      "extraction_method": "letter_section",
+      "summary_generated": true
     }
   ]
 }

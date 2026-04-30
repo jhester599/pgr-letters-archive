@@ -38,12 +38,18 @@
  * 7. Run checkForFilingAlerts() once manually to grant Gmail permissions
  *    (Apps Script will prompt for authorization on first run).
  *
- * 8. Set up the time-driven trigger:
+ * 8. Set the script timezone to match Eastern Time so the active-hours
+ *    guard works correctly:
+ *      Project Settings (gear icon) → Time zone → America/New_York
+ *
+ * 9. Set up the time-driven trigger:
  *      Triggers (clock icon) → Add Trigger:
  *        Function:         checkForFilingAlerts
  *        Event source:     Time-driven
- *        Type:             Minutes timer
- *        Interval:         Every 15 minutes
+ *        Type:             Hour timer
+ *        Interval:         Every hour
+ *    The script itself limits execution to M–F 7 am–7 pm ET, so the
+ *    hourly trigger simply exits immediately outside that window.
  *
  * ── HOW IT WORKS ─────────────────────────────────────────────────────────────
  *
@@ -77,9 +83,26 @@ const GMAIL_SEARCH = buildSearchQuery();
 // Label applied to processed emails to prevent re-triggering.
 const PROCESSED_LABEL_NAME = "PGR-Processed";
 
-// ── Main function (called by time-driven trigger) ─────────────────────────────
+// ── Active-hours guard ────────────────────────────────────────────────────────
+// Script timezone must be set to America/New_York in Project Settings so
+// getDay() / getHours() reflect Eastern Time.
+
+function isWithinActiveHours() {
+  const now  = new Date();
+  const day  = now.getDay();    // 0 = Sun … 5 = Fri … 6 = Sat
+  const hour = now.getHours();  // 0–23 in script timezone (ET)
+  return day >= 1 && day <= 5   // Monday–Friday
+      && hour >= 7 && hour < 19; // 7 am up to (not including) 7 pm
+}
+
+// ── Main function (called by hourly time-driven trigger) ──────────────────────
 
 function checkForFilingAlerts() {
+  if (!isWithinActiveHours()) {
+    Logger.log("Outside active window (M–F 7 am–7 pm ET). Skipping.");
+    return;
+  }
+
   const threads = GmailApp.search(GMAIL_SEARCH);
 
   if (threads.length === 0) {

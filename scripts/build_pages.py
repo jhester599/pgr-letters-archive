@@ -618,7 +618,7 @@ def render_letter_html(text: str) -> str:
 SUMMARIES_DIR = BASE_DIR / "data" / "summaries"
 
 
-def _render_summary_html(filing_id: str) -> str:
+def _render_summary_html(filing_id: str, year: int, quarter: str) -> str:
     """Return an HTML <section> for the letter summary, or '' if none exists."""
     summary_path = SUMMARIES_DIR / f"{filing_id}_Summary.json"
     if not summary_path.exists():
@@ -636,9 +636,10 @@ def _render_summary_html(filing_id: str) -> str:
         f' — {html.escape(b["text"])}</li>'
         for b in bullets
     )
+    heading = html.escape(f"{year} {quarter} Letter — Key Points Summary")
     return (
         '<section class="letter-summary">\n'
-        '  <h2 class="summary-heading">Key Points</h2>\n'
+        f'  <h2 class="summary-heading">{heading}</h2>\n'
         '  <ol class="summary-list">\n'
         f'{items}\n'
         '  </ol>\n'
@@ -769,7 +770,7 @@ def build_page(
         prev_link=prev_link,
         next_link=next_link,
         audio_section=audio_section,
-        summary_section=_render_summary_html(filing["id"]),
+        summary_section=_render_summary_html(filing["id"], filing["year"], filing["quarter"]),
         letter_paragraphs=render_letter_html(letter_text),
     )
 

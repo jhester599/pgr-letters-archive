@@ -47,6 +47,110 @@ LETTERS_DIR    = BASE_DIR / "data" / "letters"
 AUDIO_RAW_DIR  = BASE_DIR / "data" / "audio_raw"
 LEDGER_PATH    = BASE_DIR / "docs" / "ledger.json"
 
+# ── NotebookLM context preamble ───────────────────────────────────────────────
+# Prepended to every letter before upload. Gives the AI hosts background
+# knowledge so they can speak fluently without stopping to define terms.
+# This text is NOT meant to be read aloud or discussed directly — it is
+# reference context only.
+
+_CONTEXT_PREAMBLE = """\
+=== BACKGROUND CONTEXT FOR HOSTS — NOT PART OF THE LETTER ===
+
+ABOUT PROGRESSIVE CORPORATION
+Progressive Corporation (ticker: PGR) is one of the largest auto insurers in the
+United States, founded in 1937 and publicly traded since its 1971 IPO. The company
+sells personal and commercial auto insurance through two channels: independent
+insurance agents (the Agency channel) and directly to consumers online and by phone
+(the Direct channel). Progressive is known for industry innovations including
+24/7 claims service, real-time online quoting, and usage-based insurance pricing.
+By the early 2020s it ranked as the #2 personal auto insurer in the U.S. by
+premiums written. Its subsidiary ARX / ASI provides homeowners and property insurance.
+
+ABOUT THESE LETTERS
+Progressive's CEO writes a letter to shareholders with every quarterly (10-Q) and
+annual (10-K) SEC filing. Quarterly letters began in Q1 2004; annual letters exist
+back to the early 1990s. The letters are unusually candid and analytical by corporate
+standards — the CEO discusses results honestly, including when targets are missed,
+and explains the reasoning behind strategic decisions. Glenn Renwick served as CEO
+and letter author from 2001 through mid-2016; Tricia Griffith has written the
+letters from Q3 2016 onward.
+
+PROGRESSIVE'S CORE FINANCIAL TARGET
+Progressive's most important stated goal is to achieve a combined ratio (CR) at or
+below 96 in every calendar year — equivalent to a 4% underwriting profit margin.
+This target has been in place since the 1971 IPO and is treated as a cultural
+constant, not a variable to optimize. A CR below 100 means underwriting is
+profitable; below 96 meets the company's own standard.
+
+ACRONYMS AND SHORTHAND — definitions for host context only, not for discussion:
+
+Financial metrics:
+  CR   — Combined Ratio: (losses + expenses) ÷ earned premiums. The primary
+          insurance profitability gauge. Below 96 = meets Progressive's target.
+          Below 100 = profitable. Above 100 = underwriting loss.
+  NPW  — Net Premiums Written: total new and renewal premium committed in a period.
+  NPE  — Net Premiums Earned: premium recognized as revenue (lags NPW by ~6 months).
+  PIF  — Policies in Force: count of active insurance policies; the unit-growth metric.
+  LAE  — Loss Adjustment Expense: cost to investigate and settle claims (inside CR).
+  ROE  — Return on Equity.
+  CAGR — Compound Annual Growth Rate.
+  YOY  — Year-over-Year comparison.
+  pts  — Percentage points (e.g., "CR improved 2 pts" = improved by 2 percentage points).
+
+Insurance / industry terms:
+  PIP  — Personal Injury Protection: mandatory no-fault medical coverage required
+          in certain states; a frequent source of loss cost volatility.
+  UBI  — Usage-Based Insurance: pricing based on actual driving behavior data
+          collected via a telematics device or smartphone app.
+  TNC  — Transportation Network Company: ride-share platforms such as Uber and Lyft.
+  BOP  — Business Owners Policy: a bundled commercial property + liability product.
+  NPS  — Net Promoter Score: customer loyalty metric based on likelihood to recommend.
+
+Progressive-specific programs and terms:
+  Snapshot    — Progressive's UBI telematics program; a plug-in device (later a
+                smartphone app) that monitors driving behavior for 30 days and
+                applies an individualized discount of 0–30% at renewal.
+  Gainshare   — Progressive's internal annual performance score on a 0–2 scale,
+                combining growth and profitability results. It determines the
+                size of the annual variable dividend paid to shareholders and
+                drives employee compensation. A score of 1.0 is baseline; 2.0
+                is exceptional.
+  Robinson    — Progressive's internal term for a customer who holds both an
+                auto policy and a home/renters policy with Progressive (a
+                bundled "home + auto" household). Growing the Robinson
+                segment is a long-running strategic priority.
+  Flo         — Progressive's fictional advertising spokesperson, introduced in
+                2008. She works in a stylized insurance "Superstore" and became
+                one of the most recognized ad characters in the U.S.
+  Platinum    — Progressive's integrated Agency-channel bundle: a single policy
+                combining Progressive auto and ASI home coverage, with unified
+                billing and policy periods. Launched in select markets ~2015.
+  HQX         — HomeQuote Explorer: Progressive's online tool that lets customers
+                compare home insurance quotes from multiple carriers alongside
+                their Progressive auto quote.
+  ASI / ARX   — American Strategic Insurance (ASI) is Progressive's property
+                insurance subsidiary, acquired in stages. ARX Holding is the
+                parent entity. Progressive acquired a non-controlling stake in
+                2012, controlling interest in April 2015, and 100% in April 2020.
+  Name Your Price — A quoting tool that lets consumers enter a desired monthly
+                budget and see coverage options that fit, rather than starting
+                from a coverage selection.
+
+Distribution and business segments:
+  Agency / Agent channel — policies sold through independent insurance agents.
+  Direct channel         — policies sold by Progressive directly to consumers
+                           online, by phone, or via app; no agent involved.
+  Personal Lines (PL)    — consumer insurance: auto, motorcycle, RV, boat,
+                           snowmobile, and property.
+  Commercial Lines (CL)  — commercial auto insurance for fleets, trucks,
+                           owner-operators, and business vehicles.
+  Special Lines           — Progressive's non-auto consumer segment: motorcycle,
+                           boat, RV, and snowmobile insurance.
+
+=== END OF BACKGROUND CONTEXT — THE SHAREHOLDER LETTER FOLLOWS ===
+
+"""
+
 # Pause between notebook submissions to respect NotebookLM's rate limits
 INTER_REQUEST_DELAY = 10   # seconds
 
@@ -109,7 +213,7 @@ async def generate_audio_for_letter(filing: dict) -> Optional[Path]:
         log.error("Letter file not found: %s", letter_path)
         return None
 
-    letter_text    = letter_path.read_text(encoding="utf-8")
+    letter_text    = _CONTEXT_PREAMBLE + letter_path.read_text(encoding="utf-8")
     notebook_title = f"PGR {filing['year']} {filing['quarter']} — CEO Shareholder Letter"
 
     # Output filename uses .mp4 because NotebookLM downloads in MP4/AAC container;

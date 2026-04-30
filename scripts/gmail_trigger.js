@@ -78,12 +78,13 @@ const DISPATCH_EVENT    = "sec-filing-alert";
 // it survives any display-name or subdomain changes on Progressive's end.
 const PROGRESSIVE_SENDER = "q4inc.com";
 
+// Label applied to processed emails to prevent re-triggering.
+// Must be declared before GMAIL_SEARCH since buildSearchQuery() references it.
+const PROCESSED_LABEL_NAME = "PGR-Processed";
+
 // Gmail search query — finds unread filing alerts not yet processed.
 // Apps Script's GmailApp.search() uses Gmail search syntax.
 const GMAIL_SEARCH = buildSearchQuery();
-
-// Label applied to processed emails to prevent re-triggering.
-const PROCESSED_LABEL_NAME = "PGR-Processed";
 
 // ── Active-hours guard ────────────────────────────────────────────────────────
 // Script timezone must be set to America/New_York in Project Settings so

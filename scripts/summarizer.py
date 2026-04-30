@@ -43,7 +43,7 @@ from scraper import load_ledger, save_ledger, BASE_DIR
 SUMMARIES_DIR = BASE_DIR / "data" / "summaries"
 
 GITHUB_MODELS_ENDPOINT = "https://models.inference.ai.azure.com"
-GITHUB_MODELS_MODEL    = "gpt-4o-mini"   # free via GitHub Models; change as desired
+GITHUB_MODELS_MODEL    = "gpt-4o"        # free via GitHub Models; better style adherence than mini
 
 # ── Logging ───────────────────────────────────────────────────────────────────
 
@@ -57,49 +57,77 @@ log = logging.getLogger(__name__)
 # ── Prompt ────────────────────────────────────────────────────────────────────
 
 _SYSTEM_PROMPT = (
-    "You generate concise, ranked bullet-point summaries of Progressive Corporation (PGR) "
-    "shareholder letters for an archival reference system. "
+    "You are an expert financial analyst generating concise, data-dense bullet-point "
+    "summaries of Progressive Corporation (PGR) quarterly and annual shareholder letters "
+    "for a long-run archival reference system. "
+    "Your summaries are read by investors who want the fastest possible orientation to "
+    "each letter before reading the full text. "
     "Output ONLY valid JSON — no markdown, no prose, no code fences."
 )
 
 _USER_PROMPT_TEMPLATE = """\
-Summarize the following PGR shareholder letter ({filing_id}) in up to 10 ranked bullet \
-points. Select the most relevant topics from the list below, rank them by importance in \
-this specific letter, and include specific numbers and metrics where the letter provides \
-them. Keep each bullet to 20–35 words. Do not quote the letter directly.
+Summarize the following PGR shareholder letter ({filing_id}) as exactly 10 ranked bullet \
+points (fewer only if the letter is very short or covers fewer than 10 distinct topics).
 
-TOPIC CATEGORIES (choose from these only):
- 1. Profitability & Underwriting Performance (combined ratio, underwriting margin, ROE)
- 2. Premium Growth (net premiums written / NPW growth)
- 3. Policies in Force & Customer Growth (PIF growth, retention, new applications)
- 4. Rate Adequacy & Pricing Strategy
- 5. Loss Costs & Severity Trends (frequency, severity, reserve adequacy)
- 6. Operating Efficiency & Expense Ratio
- 7. Capital Management & Financial Position (leverage, surplus, investments, share repurchases)
- 8. Distribution Channel Strategy
- 9. Claims Service & Innovation
-10. Technology & Digital Transformation
-11. Competitive Position & Market Share
-12. Product Innovation & Expansion
-13. Brand Building & Marketing Strategy
-14. Catastrophe Response & Disaster Management
-15. Industry Cycle & Market Conditions
+TOPIC CATEGORIES — choose from these only, using the exact label shown:
+ 1. Profitability & Underwriting Performance  (combined ratio, underwriting margin, net income, ROE)
+ 2. Premium Growth                            (NPW / net premiums written, YOY growth rate)
+ 3. Policies in Force & Customer Growth       (PIF counts, retention, new applications)
+ 4. Loss Costs & Severity Trends             (frequency, severity, reserve development)
+ 5. Rate Adequacy & Pricing Strategy
+ 6. Capital Management & Financial Position  (investments, leverage, dividends, buybacks)
+ 7. Operating Efficiency & Expense Ratio
+ 8. Technology & Digital Transformation
+ 9. Product Innovation & Expansion
+10. Brand Building & Marketing Strategy
+11. Distribution Channel Strategy
+12. Competitive Position & Market Share
+13. Employee Engagement & Culture
+14. Industry Cycle & Market Conditions
+15. Catastrophe Response & Disaster Management
 16. Financial Crisis & Macro Volatility Response
 17. Strategic Vision & Company Philosophy
 
-RULES:
-- Rank bullets from most to least important/prominent in this letter.
-- Topics 1–7 are core and likely present in most letters; topics 8–17 appear only when
-  meaningfully discussed.
-- Include specific metrics (percentages, dollar figures, ratios) whenever available.
-- Omit any topic not substantively covered in the letter.
-- Return fewer than 10 bullets if warranted.
+RANKING RULES:
+- Bullet 1 is the single most important / most-space-devoted topic in this letter.
+- Topics 1–7 are core; include them whenever substantively discussed.
+- Topics 8–17 float — include only when meaningfully covered; skip if barely mentioned.
+- Never pad with a topic that gets only one passing sentence in the letter.
 
-OUTPUT FORMAT — return ONLY a JSON array, nothing else:
+STYLE RULES (critical — match this style exactly):
+- Each bullet: 20–35 words. Hard limit. Count carefully.
+- Pack metrics densely using semicolons and em-dashes:
+    "CR 94.1; NPW +8% to $16B; net income $902M ($1.48/share); ROE 17.4%."
+- Use abbreviations freely: CR, NPW, PIF, YOY, ROE, LAE, UBI, CL, PL, pts.
+- Lead with the most specific number available; omit generic filler phrases like
+  "the letter discusses" or "management highlighted."
+- Do not quote the letter. Synthesize and compress.
+
+FEW-SHOT EXAMPLE (PGR_2024_Q4 annual letter):
 [
-  {{"topic": "Topic Name", "text": "Tight summary with numbers."}},
-  ...
+  {{"topic": "Profitability & Underwriting Performance",
+    "text": "Full-year CR 88.8 — best in company history; PL CR 88.6; CL CR 89.4; property CR 98.3 despite elevated cats; personal auto drove outsized underwriting profit."}},
+  {{"topic": "Premium Growth",
+    "text": "Companywide NPW grew 21% YOY to $74B; PL NPW +23%; personal auto PIF +22% — highest organic growth rate in company history."}},
+  {{"topic": "Policies in Force & Customer Growth",
+    "text": "Total PIFs grew 18% YOY, adding 5M+ new policyholders in 2024; personal auto PIF growth of 22% — strongest PIF expansion ever recorded."}},
+  {{"topic": "Capital Management & Financial Position",
+    "text": "$4.50/share annual-variable dividend declared; $500M preferred redeemed; debt-to-capital 21.2%; portfolio returned 4.6% (equity 22.9%, fixed income 3.0%)."}},
+  {{"topic": "Brand Building & Marketing Strategy",
+    "text": "Advertising spend up ~150% YOY as Progressive leaned into strong unit economics to fuel growth; brand investment was the primary strategic lever in 2024."}},
+  {{"topic": "Loss Costs & Severity Trends",
+    "text": "Sustained lower personal auto frequency drove profitability; catastrophe activity elevated but manageable; property CR 98.3 reflects cat weather pressure."}},
+  {{"topic": "Operating Efficiency & Expense Ratio",
+    "text": "PL vehicle non-acquisition expense ratio improved 0.4 pts YOY; LAE ratio down 0.5 pts from lower frequency, higher average premiums, and technology gains."}},
+  {{"topic": "Employee Engagement & Culture",
+    "text": "Gallup Exceptional Workplace designation for 4th consecutive year; culture cited as key differentiator enabling historic simultaneous growth and profitability."}},
+  {{"topic": "Industry Cycle & Market Conditions",
+    "text": "Personal auto industry broadly reached rate adequacy in 2024; Progressive's early return to profit in 2023 gave it a meaningful head start on growth."}},
+  {{"topic": "Product Innovation & Expansion",
+    "text": "Pricing model 8.9 rollout continued; AutoQuote Explorer and Progressive Vehicle Protection expanded; Snapshot telematics program growing alongside new commercial products."}}
 ]
+
+OUTPUT FORMAT — return ONLY a JSON array in exactly the same structure, nothing else.
 
 LETTER TEXT:
 {letter_text}
@@ -124,7 +152,7 @@ def generate_summary(client: OpenAI, filing: dict, letter_text: str) -> list[dic
             {"role": "system", "content": _SYSTEM_PROMPT},
             {"role": "user",   "content": prompt},
         ],
-        max_tokens=1024,
+        max_tokens=1500,
         temperature=0.2,
     )
     raw = response.choices[0].message.content.strip()

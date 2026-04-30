@@ -7,8 +7,8 @@
  *
  * ── SETUP (one-time) ──────────────────────────────────────────────────────────
  *
- * 1. Create a dedicated Gmail account for this project, e.g.:
- *      pgr-letters-archive@gmail.com
+ * 1. The dedicated Gmail account for this project is:
+ *      pgr.letters.archive@gmail.com
  *
  * 2. Subscribe that address to Progressive's investor email alerts at:
  *      https://investors.progressive.com/investor-resources/investor-email-alerts/default.aspx

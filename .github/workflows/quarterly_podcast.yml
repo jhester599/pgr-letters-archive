@@ -1,16 +1,24 @@
 name: Quarterly Podcast Pipeline
 
-# Runs every Friday at midnight UTC to catch the filing windows:
+# PRIMARY TRIGGER — repository_dispatch fired by the Gmail Apps Script
+# (scripts/gmail_trigger.js) when Progressive's investor alert service
+# sends a 10-Q or 10-K filing notification email.
+#
+# FALLBACK TRIGGER — weekly Friday cron catches any filing alert that
+# the email trigger missed (network hiccup, script gap, sender change, etc.).
+# Filing windows for reference:
 #   • Q1 (Jan–Mar): filed mid-April to mid-May
 #   • Q2 (Apr–Jun): filed mid-July to mid-August
 #   • Q3 (Jul–Sep): filed mid-October to mid-November
 #   • Q4 / Annual (10-K): filed mid-February to early-March
 #
-# Also supports manual triggering for testing or backfills.
+# Manual triggering is also available for testing or backfills.
 on:
+  repository_dispatch:
+    types: [sec-filing-alert]   # Fired by gmail_trigger.js via GitHub API
   schedule:
-    - cron: "0 0 * * 5"   # Every Friday at 00:00 UTC
-  workflow_dispatch:       # Allow manual runs from the Actions tab
+    - cron: "0 12 * * 5"        # Fallback: every Friday at 12:00 UTC
+  workflow_dispatch:             # Manual runs from the Actions tab
 
 jobs:
   run-pipeline:

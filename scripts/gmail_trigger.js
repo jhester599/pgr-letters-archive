@@ -69,12 +69,14 @@ const GITHUB_REPO_OWNER = "jhester599";
 const GITHUB_REPO_NAME  = "pgr-letters-archive";
 const DISPATCH_EVENT    = "sec-filing-alert";
 
-// The From address used by Progressive's investor alert service.
-// Verify this from the first real alert email and update accordingly.
-// Common patterns from IR platforms: alerts@progressive.com,
-// no-reply@shareholder.com, news@progressive.newscms.com
-// Set to "" to skip sender filtering and rely on subject matching only.
-const PROGRESSIVE_SENDER = "";
+// From address used by Progressive's investor alert service (via Q4 Inc / SendGrid).
+// Confirmed from the subscription confirmation email:
+//   From:      Progressive <investor_relations@progressive.com>
+//   Mailed-by: mail-sendgrid.q4inc.com
+//   Signed-by: q4inc.com
+// Matching on the envelope domain "q4inc.com" is the most durable filter —
+// it survives any display-name or subdomain changes on Progressive's end.
+const PROGRESSIVE_SENDER = "q4inc.com";
 
 // Gmail search query — finds unread filing alerts not yet processed.
 // Apps Script's GmailApp.search() uses Gmail search syntax.

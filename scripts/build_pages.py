@@ -767,7 +767,7 @@ def build_page(
   <div class="audio-item">
     <button class="audio-toggle" data-show="🔊 Read-Through Audio" data-hide="▲ Hide Read-Through">🔊 Read-Through Audio</button>
     <div class="audio-player-wrap">
-      <p class="audio-label">Full letter read aloud by AI voice (OpenAI TTS)</p>
+      <p class="audio-label">Full letter read aloud by AI voice (Kokoro TTS)</p>
       <audio controls preload="none">
         <source src="../audio_tts/{tts_filename}" type="audio/mpeg" />
         Your browser does not support the audio element.

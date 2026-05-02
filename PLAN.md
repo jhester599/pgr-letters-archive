@@ -3,8 +3,9 @@
 ## Overview
 
 An automated, serverless pipeline that transforms Progressive Corporation (NYSE: PGR)
-CEO Tricia Griffith's quarterly shareholder letters into a publicly accessible podcast
-archive, hosted on GitHub Pages.
+CEO Tricia Griffith's quarterly shareholder letters into a publicly accessible archive
+with two audio tracks per letter — a NotebookLM AI podcast and a Kokoro TTS read-through —
+hosted on GitHub Pages.
 
 ---
 
@@ -17,23 +18,31 @@ SEC EDGAR (public API)
   [scraper.py]
   Fetches 10-Q / 10-K filings, extracts Exhibit 99, saves cleaned .txt files
         │
-        ▼  data/letters/PGR_YYYY_QN_Letter.txt
-  [generator.py]
-  Uploads text to Google NotebookLM (via Playwright browser automation),
-  triggers Audio Overview generation, downloads raw MP3
-        │
-        ▼  data/audio_raw/PGR_YYYY_QN_Letter.mp3
+        ├─────────────────────────────────────────┐
+        ▼                                         ▼
+  [generator.py]                            [tts.py]
+  Uploads text to Google NotebookLM         Synthesizes full letter text locally
+  (via notebooklm-py Playwright client),    using Kokoro 82M model (CPU inference,
+  triggers Audio Overview generation,       no API key). Encodes to 64 kbps MP3
+  downloads raw MP4/AAC audio               via FFmpeg.
+        │                                         │
+        ▼  data/audio_raw/*.mp4                   ▼  docs/audio_tts/*.mp3
   [compressor.py]
-  FFmpeg re-encodes to 64 kbps, saves to docs/audio/, deletes raw file,
+  FFmpeg re-encodes NotebookLM MP4 to
+  64 kbps MP3, saves to docs/audio/,
   regenerates docs/feed.xml RSS feed
         │
-        ▼  docs/audio/ + docs/feed.xml + docs/ledger.json
+        ▼  docs/audio/*.mp3 + docs/feed.xml + docs/ledger.json
+  [build_pages.py]
+  Generates per-letter HTML reading pages with dual audio players
+        │
+        ▼  docs/letters/*.html
   [GitHub Pages]
-  Serves docs/ as a static web app (index.html + embedded audio player)
+  Serves docs/ as a static web app (index.html + audio players + reading pages)
         │
         ▼
   [GitHub Actions]
-  Cron job (every Friday) runs the full pipeline and commits new files to main
+  Triggered by Gmail alert or weekly cron; runs full pipeline, commits to main
 ```
 
 ---
@@ -52,32 +61,47 @@ SEC EDGAR (public API)
 - [x] `data/letters/.gitkeep`
 - [x] `data/audio_raw/.gitkeep`
 - [x] `docs/audio/.gitkeep`
+- [x] `docs/audio_tts/.gitkeep`
 - [x] `docs/ledger.json` (initial empty state)
 - [x] `scripts/__init__.py`
 
 ### Phase 3 — Python Pipeline ✅
-- [x] `scripts/scraper.py`
-- [x] `scripts/generator.py`
-- [x] `scripts/compressor.py`
+- [x] `scripts/scraper.py` — SEC EDGAR downloader
+- [x] `scripts/generator.py` — NotebookLM audio (notebooklm-py v0.3.4 async API)
+- [x] `scripts/compressor.py` — FFmpeg compression + RSS generation
+- [x] `scripts/tts.py` — Kokoro TTS verbatim read-through (with --sample-voices mode)
+- [x] `scripts/build_pages.py` — per-letter HTML pages with dual audio players
+- [x] `scripts/setup_notebooklm.ps1` — one-time Windows auth setup helper
 
 ### Phase 4 — Web Front-End ✅
 - [x] `docs/index.html` (self-contained SPA, no external CDN deps)
+- [x] `docs/letters/` — per-letter reading pages with dual audio players
+- [x] `docs/assets/reading.css`
 - [ ] `docs/cover.png` (podcast cover art for RSS feed — to be added manually)
 
 ### Phase 5 — Automation ✅
 - [x] `.github/workflows/quarterly_podcast.yml`
+- [x] Gmail Apps Script trigger (`scripts/gmail_trigger.js`)
 
 ### Phase 6 — Documentation ✅
 - [x] `PLAN.md` (this file)
 - [x] `CLAUDE.md` (developer reference)
 - [x] `README.md` (user-facing overview)
 
-### Phase 7 — First Run & Backfill ⬜
-- [ ] Configure GitHub repository secrets (see below)
-- [ ] Enable GitHub Pages (`Settings → Pages → Source: /docs on main`)
-- [ ] Run scraper manually to backfill historical letters
-- [ ] Run generator + compressor manually for historical backfill
-- [ ] Verify feed.xml validates against a podcast validator
+### Phase 7 — First Run & Validation ✅
+- [x] GitHub Pages enabled (`Settings → Pages → /docs on main`)
+- [x] `NOTEBOOKLM_AUTH_JSON` secret configured
+- [x] PGR_2025_Q4 NotebookLM podcast generated and live
+- [x] PGR_2025_Q4 reading page deployed with audio player
+- [ ] TTS voice selection: run `--sample-voices` and pick final voice for PGR_2025_Q4
+- [ ] TTS production run: `python scripts/tts.py --id PGR_2025_Q4 --voice <chosen>`
+- [ ] Verify `feed.xml` validates against a podcast validator
+
+### Phase 8 — Historical Audio Backfill ⬜
+- [ ] Manual text quality review of all 99 letters
+- [ ] NotebookLM batch: `python scripts/generator.py --max-new 0`
+- [ ] TTS batch: `python scripts/tts.py --max-new 0`
+- [ ] Rebuild all pages: `python scripts/build_pages.py --rebuild`
 
 ---
 
@@ -90,26 +114,32 @@ read by `index.html` at runtime for the episode list.
 {
   "meta": {
     "last_updated": "2025-04-24T00:00:00Z",
-    "total_letters": 12,
-    "total_audio": 10,
-    "description": "..."
+    "total_letters": 99,
+    "total_audio": 1
   },
   "filings": [
     {
-      "id":                  "PGR_2025_Q1",
-      "year":                2025,
-      "quarter":             "Q1",
-      "form_type":           "10-Q",
-      "accession_number":    "0000080661-25-000006",
-      "report_date":         "2025-03-31",
-      "letter_file":         "data/letters/PGR_2025_Q1_Letter.txt",
-      "audio_file":          "docs/audio/PGR_2025_Q1_Letter.mp3",
-      "letter_scraped":      true,
-      "audio_generated":     true,
-      "audio_compressed":    true,
-      "processed_date":      "2025-04-15T12:00:00Z",
-      "audio_generated_date":"2025-04-15T13:00:00Z",
-      "audio_compressed_date":"2025-04-15T13:30:00Z"
+      "id":                    "PGR_2025_Q4",
+      "year":                  2025,
+      "quarter":               "Q4",
+      "form_type":             "10-K",
+      "accession_number":      "0000080661-26-000086",
+      "report_date":           "2025-12-31",
+      "letter_file":           "data/letters/PGR_2025_Q4_Letter.txt",
+      "audio_raw_file":        "data/audio_raw/PGR_2025_Q4_Letter.mp4",
+      "audio_file":            "docs/audio/PGR_2025_Q4_Letter.mp3",
+      "tts_file":              "docs/audio_tts/PGR_2025_Q4_Letter.mp3",
+      "tts_voice":             "am_michael",
+      "page_url":              "letters/PGR_2025_Q4.html",
+      "letter_scraped":        true,
+      "audio_generated":       true,
+      "audio_compressed":      true,
+      "tts_generated":         true,
+      "page_built":            true,
+      "processed_date":        "2026-04-25T20:07:00Z",
+      "audio_generated_date":  "2026-05-02T13:14:48Z",
+      "audio_compressed_date": "2026-05-02T13:54:25Z",
+      "tts_generated_date":    "2026-05-02T15:00:00Z"
     }
   ]
 }
@@ -117,11 +147,13 @@ read by `index.html` at runtime for the episode list.
 
 **Lifecycle flags per filing:**
 
-| Flag                | Set by          | Meaning                                     |
-|---------------------|-----------------|---------------------------------------------|
-| `letter_scraped`    | scraper.py      | .txt file exists in data/letters/           |
-| `audio_generated`   | generator.py    | Raw MP3 exists in data/audio_raw/           |
-| `audio_compressed`  | compressor.py   | Compressed MP3 in docs/audio/; raw deleted  |
+| Flag                | Set by          | Meaning                                          |
+|---------------------|-----------------|--------------------------------------------------|
+| `letter_scraped`    | scraper.py      | `.txt` file exists in `data/letters/`            |
+| `audio_generated`   | generator.py    | Raw `.mp4` exists in `data/audio_raw/`           |
+| `audio_compressed`  | compressor.py   | Compressed `.mp3` in `docs/audio/`               |
+| `tts_generated`     | tts.py          | TTS `.mp3` in `docs/audio_tts/`                  |
+| `page_built`        | build_pages.py  | HTML reading page in `docs/letters/`             |
 
 ---
 
@@ -136,32 +168,51 @@ read by `index.html` at runtime for the episode list.
 - Quarter mapping: 10-Q with period end ≤ March = Q1, ≤ June = Q2, otherwise Q3; 10-K = Q4.
 
 ### NotebookLM Integration
-- Uses `notebooklm-py` library with Playwright for browser automation.
+- Uses `notebooklm-py` (v0.3.4+) with Playwright for browser automation.
+- Client requires async context manager: `async with await NotebookLMClient.from_storage() as client`.
+- Auth stored at `~/.notebooklm/storage_state.json` by `notebooklm login`.
+- Auth resolution order: `NOTEBOOKLM_AUTH_JSON` env var → `NOTEBOOKLM_AUTH_FILE` env var → default file.
 - Each letter gets its own fresh notebook (created + deleted per run) to avoid
   source accumulation in the Google account.
-- Audio generation timeout: 10 minutes per notebook. 
+- Audio generation timeout: 15 minutes per notebook.
 - Rate limit guard: 10-second pause between submissions.
 - Credentials never stored in the repo — always from env vars / GitHub Secrets.
+- Session cookies expire every few weeks; re-run `notebooklm login` to refresh.
+
+### Kokoro TTS Integration
+- Uses `kokoro` (v0.9.x) for local speech synthesis — no API key or cost.
+- **Python 3.12 required**: kokoro 0.9.x depends on spacy/misaki which have no Python 3.13+ wheels.
+- Model: Kokoro-82M (~350 MB), auto-downloaded from HuggingFace on first use.
+- Device: CPU (no GPU required). Synthesis speed: ~real-time on modern hardware.
+- Output: 24 kHz mono WAV → FFmpeg → 64 kbps MP3.
+- `--sample-voices` mode generates one MP3 per voice for audition without updating the ledger.
+- Default voice: `am_michael` (American English male).
+- Windows prerequisite: espeak-ng MSI installer for correct pronunciation of OOD words.
 
 ### Audio Compression
 - FFmpeg: `-codec:a libmp3lame -b:a 64k` (good voice quality at minimal file size).
 - At 64 kbps, a 20-minute overview ≈ 9.6 MB per episode.
-- Raw files in `data/audio_raw/` are deleted after successful compression.
+- Raw NotebookLM files in `data/audio_raw/` are deleted after successful compression.
 - `data/audio_raw/` contents are in `.gitignore` — never committed.
+- TTS files are encoded directly to MP3 by `tts.py` via FFmpeg; no intermediate raw files.
 
 ### GitHub Pages
 - Source: `/docs` folder on `main` branch.
 - `index.html` fetches `ledger.json` at runtime — no build step required.
 - `feed.xml` is regenerated on every pipeline run.
-- Letter `.txt` files live in `data/letters/` (repo root, not `docs/`).
-  The web front-end fetches them with `../data/letters/` relative paths,
-  which works when served from `docs/` under GitHub Pages.
+- Each letter has a reading page at `docs/letters/{id}.html` with two audio players:
+  - **AI Podcast Overview** — NotebookLM MP3 from `docs/audio/`
+  - **Read-Through Audio** — Kokoro TTS MP3 from `docs/audio_tts/`
 
 ### Repository Size
-- At 64 kbps × 20 min/episode × 40 quarters ≈ 380 MB — within GitHub's 1 GB repo
-  limit. If the archive grows significantly (20+ years of backfill), consider
-  GitHub LFS for MP3 files (add `*.mp3 filter=lfs diff=lfs merge=lfs -text` to
-  `.gitattributes`).
+- NotebookLM MP3 at 64 kbps × 20 min/episode × 99 letters ≈ 950 MB.
+- TTS MP3 at 64 kbps × 30 min/letter × 99 letters ≈ 1.4 GB.
+- Combined archive will exceed GitHub's 1 GB soft limit once both tracks are complete.
+- Plan: enable GitHub LFS for `*.mp3` files before the full backfill batch:
+  ```
+  git lfs track "*.mp3"
+  git add .gitattributes
+  ```
 
 ---
 
@@ -169,13 +220,12 @@ read by `index.html` at runtime for the episode list.
 
 Configure these in `Settings → Secrets and variables → Actions`:
 
-| Secret name            | Value                                               |
-|------------------------|-----------------------------------------------------|
-| `NOTEBOOKLM_EMAIL`     | Google account email (must have NotebookLM access)  |
-| `NOTEBOOKLM_PASSWORD`  | Google account password                             |
+| Secret name            | Value                                                              |
+|------------------------|--------------------------------------------------------------------|
+| `NOTEBOOKLM_AUTH_JSON` | Full contents of `~/.notebooklm/storage_state.json` from `notebooklm login` |
 
-The `GITHUB_TOKEN` secret is automatically provided by Actions — no setup needed.
-Ensure the workflow has `contents: write` permission (already set in the YAML).
+`GITHUB_TOKEN` is automatically provided by Actions — no setup needed.
+No `OPENAI_API_KEY` is required; TTS uses local Kokoro inference in CI.
 
 ---
 
@@ -184,40 +234,50 @@ Ensure the workflow has `contents: write` permission (already set in the YAML).
 | Risk | Mitigation |
 |------|-----------|
 | NotebookLM UI changes break Playwright automation | Pin `notebooklm-py` version; monitor library releases |
-| Google 2FA blocks headless login | Use an app password or a dedicated account with 2FA disabled |
-| EDGAR changes Exhibit 99 labeling | The scraper falls back gracefully and logs a skip; manual review triggered |
-| GitHub Pages 1 GB limit reached | Switch to GitHub LFS for MP3 files |
-| Audio generation timeout (>10 min) | Increase `AUDIO_TIMEOUT` in generator.py; re-run handles gracefully |
-| Rate limiting from EDGAR | Exponential backoff already implemented; further increase `REQUEST_DELAY` if needed |
+| notebooklm-py API changes between versions | Use async context manager pattern; read library source before upgrading |
+| Google session expiry blocks CI | Refresh `notebooklm login` locally and update `NOTEBOOKLM_AUTH_JSON` secret |
+| EDGAR changes Exhibit 99 labeling | Scraper falls back gracefully and logs a skip; manual review triggered |
+| kokoro Python version cap | Requires Python 3.12; 3.13/3.14 breaks spacy dependency chain |
+| Repository size limit (1 GB) | Enable GitHub LFS for `*.mp3` before running full 99-letter audio backfill |
+| TTS synthesis time in CI | Kokoro CPU synthesis ~30 min/letter; acceptable at `--max-new 1` per scheduled run |
+| Rate limiting from EDGAR | Exponential backoff already implemented |
 
 ---
 
 ## Manual Testing Checklist
 
-```bash
-# 1. Set up Python environment
-python -m venv .venv && source .venv/bin/activate
+```cmd
+# 1. Set up Python 3.12 environment (3.13/3.14 not compatible with kokoro)
+py -3.12 -m venv .venv
+.venv\Scripts\activate.bat
 pip install -r requirements.txt
 playwright install chromium
 
-# 2. Test the scraper (no credentials needed)
+# 2. Install system dependencies (Windows, one-time)
+# FFmpeg: add bin/ folder to System PATH
+# espeak-ng: run MSI installer
+
+# 3. Test the scraper (no credentials needed)
 python scripts/scraper.py
 
-# 3. Inspect the ledger
-cat docs/ledger.json | python -m json.tool
+# 4. Inspect the ledger
+python -m json.tool docs\ledger.json
 
-# 4. Check extracted letters
-ls -la data/letters/
+# 5. Test NotebookLM audio generation (requires notebooklm login)
+notebooklm login
+python scripts/generator.py --id PGR_2025_Q4
 
-# 5. Test audio generation (requires Google credentials)
-export NOTEBOOKLM_EMAIL="your@email.com"
-export NOTEBOOKLM_PASSWORD="yourpassword"
-python scripts/generator.py
+# 6. Test TTS audio (no credentials; downloads model ~350 MB on first run)
+python scripts/tts.py --id PGR_2025_Q4 --sample-voices am_michael bm_daniel
+python scripts/tts.py --id PGR_2025_Q4 --voice am_michael
 
-# 6. Test compression (requires ffmpeg)
+# 7. Test compression
 python scripts/compressor.py
 
-# 7. Serve the web front-end locally
+# 8. Build reading pages
+python scripts/build_pages.py --rebuild
+
+# 9. Serve the web front-end locally
 cd docs && python -m http.server 8000
-# Open http://localhost:8000 in a browser
+# Open http://localhost:8000
 ```

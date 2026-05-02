@@ -5,14 +5,16 @@ See `PLAN.md` for the full implementation plan and architecture decisions.
 
 ## What this project does
 
-Automated pipeline: SEC EDGAR → text extraction → Google NotebookLM audio → GitHub Pages.
+Automated pipeline: SEC EDGAR → text extraction → Google NotebookLM podcast audio +
+Kokoro TTS read-through audio → GitHub Pages.
 
 Every Friday a GitHub Actions job:
 1. Queries SEC EDGAR for new PGR (Progressive Corporation) 10-Q / 10-K filings
 2. Extracts and cleans the CEO's shareholder letter (Exhibit 99)
 3. Generates a podcast-style audio overview via NotebookLM
-4. Compresses audio to 64 kbps MP3 with FFmpeg
-5. Commits everything to `main`, which auto-deploys to GitHub Pages
+4. Generates a verbatim read-through MP3 via Kokoro TTS (local inference, no API key)
+5. Compresses NotebookLM audio to 64 kbps MP3 with FFmpeg
+6. Commits everything to `main`, which auto-deploys to GitHub Pages
 
 ## Directory structure
 
@@ -24,7 +26,8 @@ data/
 docs/               — GitHub Pages root (served at /pgr-letters-archive/)
   index.html        — Single-page front-end; reads ledger.json at runtime
   ledger.json       — State ledger; also the front-end's data source
-  audio/            — Compressed 64 kbps MP3s (committed)
+  audio/            — Compressed 64 kbps MP3s from NotebookLM (committed)
+  audio_tts/        — Kokoro TTS read-through MP3s (committed)
   feed.xml          — Podcast RSS feed (regenerated each run)
   letters/          — Standalone HTML reading pages (one per letter)
   assets/
@@ -33,7 +36,9 @@ scripts/
   scraper.py        — SEC EDGAR downloader
   generator.py      — NotebookLM audio generation
   compressor.py     — FFmpeg compression + RSS generation
+  tts.py            — Kokoro TTS verbatim read-through generation
   build_pages.py    — Per-letter HTML reading page generator
+  setup_notebooklm.ps1  — One-time Windows NotebookLM auth setup
 requirements.txt
 PLAN.md             — Architecture, phases, technical decisions
 CLAUDE.md           — This file
@@ -41,58 +46,122 @@ CLAUDE.md           — This file
 
 ## Local development setup
 
-```bash
-python -m venv .venv && source .venv/bin/activate
+### Python version requirement
+
+**Python 3.12 is required.** Kokoro 0.9.x (the TTS engine) requires Python <3.13.
+Python 3.13 and 3.14 are not compatible with kokoro's dependency chain (spacy/misaki).
+
+Install Python 3.12 from the Microsoft Store (search "Python 3.12") or from
+[python.org/downloads/release/python-31210](https://www.python.org/downloads/release/python-31210/).
+Python 3.12 can coexist alongside newer versions on Windows.
+
+Verify available versions with `py --list` and create the venv explicitly:
+```cmd
+py -3.12 -m venv .venv
+```
+
+### Windows system dependencies (one-time installs)
+
+**FFmpeg** (required for audio compression and TTS MP3 encoding):
+1. Download from [ffmpeg.org/download.html](https://ffmpeg.org/download.html) → Windows → gyan.dev → essentials build (`.zip`)
+2. Extract and note the `bin/` folder path (e.g. `C:\Program Files\ffmpeg-8.1-essentials_build\bin`)
+3. Add that path to **System variables → Path** in Windows environment variables
+4. Open a new cmd window and verify: `ffmpeg -version`
+
+**espeak-ng** (required for Kokoro TTS pronunciation of unusual words):
+1. Download the `.msi` installer from [github.com/espeak-ng/espeak-ng/releases/latest](https://github.com/espeak-ng/espeak-ng/releases/latest)
+2. Run the installer (all defaults are fine)
+
+### Python environment
+
+```cmd
+py -3.12 -m venv .venv
+.venv\Scripts\activate.bat
 pip install -r requirements.txt
 playwright install chromium
+```
 
-# SEC EDGAR scraper (no credentials needed)
+### SEC EDGAR scraper (no credentials needed)
+
+```cmd
 python scripts/scraper.py
-
-# Inspect output
 cat docs/ledger.json | python -m json.tool
-ls data/letters/
+dir data\letters\
+```
 
-# NotebookLM auth (one-time per machine)
-notebooklm login                    # opens a real browser; sign in to Google
-export NOTEBOOKLM_AUTH_JSON="$(cat ~/.notebooklm/profiles/default/storage_state.json)"
+### NotebookLM auth (one-time per machine)
 
-# Audio generation (credentials required)
+Run the setup script (requires PowerShell execution policy allowing scripts):
+```powershell
+.\scripts\setup_notebooklm.ps1
+```
+
+Or manually in cmd.exe:
+```cmd
+notebooklm login
+```
+This opens a real browser. Sign in to Google, then close the browser.
+Auth is saved automatically to `%USERPROFILE%\.notebooklm\storage_state.json`.
+
+For CI/GitHub Actions, copy the auth JSON to a repository secret:
+```powershell
+Get-Content "$env:USERPROFILE\.notebooklm\storage_state.json" -Raw | Set-Clipboard
+```
+Add as secret `NOTEBOOKLM_AUTH_JSON` in GitHub → Settings → Secrets → Actions.
+
+Session cookies expire every few weeks. When `generator.py` fails with an auth
+error, re-run `notebooklm login` and update the GitHub secret.
+
+### Audio generation
+
+```cmd
+# NotebookLM podcast (requires valid auth session)
 python scripts/generator.py --max-new 1
 
-# Compression + RSS update (requires ffmpeg)
-sudo apt-get install -y ffmpeg     # or: brew install ffmpeg
-python scripts/compressor.py
+# TTS read-through (no credentials; downloads ~350 MB model on first run)
+python scripts/tts.py --max-new 1
 
-# Serve the web front-end
-cd docs && python -m http.server 8000    # → http://localhost:8000
+# Audition multiple voices on one letter (does not update ledger)
+python scripts/tts.py --id PGR_2025_Q4 --sample-voices am_michael am_liam bm_daniel af_heart
+
+# Production run with chosen voice (updates ledger)
+python scripts/tts.py --id PGR_2025_Q4 --voice am_michael
+```
+
+Kokoro model weights (~350 MB) are downloaded automatically from HuggingFace on
+first use and cached at `%USERPROFILE%\.cache\huggingface\hub\`. Synthesis runs at
+roughly real-time speed on CPU (~25–35 min for a typical letter).
+
+### Compression + RSS
+
+```cmd
+python scripts/compressor.py
+```
+
+### Build reading pages
+
+```cmd
+python scripts/build_pages.py          # build only new pages
+python scripts/build_pages.py --rebuild  # rebuild all (after template/CSS changes)
+```
+
+### Serve the web front-end
+
+```cmd
+cd docs && python -m http.server 8000
+# Open http://localhost:8000
 ```
 
 ## GitHub Secrets required
 
 | Secret | Description |
 |--------|-------------|
-| `NOTEBOOKLM_AUTH_JSON` | Playwright storage_state.json (see below) |
+| `NOTEBOOKLM_AUTH_JSON` | Full contents of `storage_state.json` from `notebooklm login` |
 
 `GITHUB_TOKEN` is provided automatically by Actions — no setup needed.
 Enable `contents: write` in repo Settings → Actions → General.
 
-### Capturing NOTEBOOKLM_AUTH_JSON
-
-```bash
-# Run locally once (opens a real browser):
-notebooklm login
-
-# Copy the output to your clipboard:
-cat ~/.notebooklm/profiles/default/storage_state.json | pbcopy   # macOS
-cat ~/.notebooklm/profiles/default/storage_state.json | xclip    # Linux
-
-# In GitHub: Settings → Secrets → New secret → NOTEBOOKLM_AUTH_JSON
-# Paste the full JSON as the value.
-```
-
-Session cookies expire every few weeks. When `generator.py` fails with an auth
-error, re-run `notebooklm login` and update the secret.
+No `OPENAI_API_KEY` is required — TTS uses local Kokoro inference.
 
 ## SEC EDGAR details
 
@@ -113,28 +182,32 @@ error, re-run `notebooklm login` and update the secret.
 {
   "meta": { "last_updated": "...", "total_letters": 0, "total_audio": 0 },
   "filings": [{
-    "id":                    "PGR_2025_Q1",
+    "id":                    "PGR_2025_Q4",
     "year":                  2025,
-    "quarter":               "Q1",
-    "form_type":             "10-Q",
-    "accession_number":      "0000080661-25-000006",
-    "report_date":           "2025-03-31",
-    "letter_file":           "data/letters/PGR_2025_Q1_Letter.txt",
-    "audio_raw_file":        "data/audio_raw/PGR_2025_Q1_Letter.mp4",
-    "audio_file":            "docs/audio/PGR_2025_Q1_Letter.mp3",
-    "page_url":              "letters/PGR_2025_Q1.html",
+    "quarter":               "Q4",
+    "form_type":             "10-K",
+    "accession_number":      "0000080661-25-000086",
+    "report_date":           "2025-12-31",
+    "letter_file":           "data/letters/PGR_2025_Q4_Letter.txt",
+    "audio_raw_file":        "data/audio_raw/PGR_2025_Q4_Letter.mp4",
+    "audio_file":            "docs/audio/PGR_2025_Q4_Letter.mp3",
+    "tts_file":              "docs/audio_tts/PGR_2025_Q4_Letter.mp3",
+    "tts_voice":             "am_michael",
+    "page_url":              "letters/PGR_2025_Q4.html",
     "letter_scraped":        true,
     "audio_generated":       true,
     "audio_compressed":      true,
+    "tts_generated":         true,
     "page_built":            true,
     "processed_date":        "2025-04-15T12:00:00Z",
     "audio_generated_date":  "2025-04-15T13:00:00Z",
-    "audio_compressed_date": "2025-04-15T13:30:00Z"
+    "audio_compressed_date": "2025-04-15T13:30:00Z",
+    "tts_generated_date":    "2025-04-15T14:00:00Z"
   }]
 }
 ```
 
-Flag lifecycle: `letter_scraped` → `audio_generated` → `audio_compressed` → `page_built`
+Flag lifecycle: `letter_scraped` → `audio_generated` → `audio_compressed` → `tts_generated` → `page_built`
 
 ## Proving the concept — initial run checklist
 
@@ -143,66 +216,71 @@ verify the full cycle works end-to-end, and then run the historical backfill.
 
 ### Step 1 — Scrape recent filings
 
-```bash
+```cmd
 python scripts/scraper.py
 ```
 
-Expect 8–12 quarterly letters covering roughly the last 3 years (the EDGAR
-`filings.recent` window holds ~40 entries across all form types).
+Expect 8–12 quarterly letters covering roughly the last 3 years.
 
 **Verify:**
 - `data/letters/` contains `.txt` files with readable, clean letter text
 - `docs/ledger.json` has entries with `"letter_scraped": true`
-- Any entries with `"skip_reason": "no_exhibit_99"` are expected — some filings
+- Entries with `"skip_reason": "no_exhibit_99"` are expected — some filings
   don't include the CEO letter as a standalone exhibit
 
-### Step 2 — Generate one audio overview
+### Step 2 — Generate NotebookLM podcast audio
 
-```bash
+```cmd
 python scripts/generator.py --max-new 1
 ```
 
-This processes a single letter to confirm the NotebookLM flow works without
-committing to a long batch run.
-
 **Verify:**
 - `data/audio_raw/` contains a `.mp4` file
-- The ledger entry for that quarter now has `"audio_generated": true`
+- The ledger entry has `"audio_generated": true`
 
-### Step 3 — Compress and publish
+### Step 3 — Generate TTS read-through audio
 
-```bash
+```cmd
+# Audition voices first (files named {id}_{voice}.mp3, no ledger update)
+python scripts/tts.py --id PGR_2025_Q4 --sample-voices am_michael am_liam bm_daniel af_heart
+
+# Production run with chosen voice (updates ledger)
+python scripts/tts.py --id PGR_2025_Q4 --voice am_michael
+```
+
+**Verify:**
+- `docs/audio_tts/PGR_2025_Q4_Letter.mp3` exists
+- The ledger entry has `"tts_generated": true`
+
+### Step 4 — Compress NotebookLM audio and update RSS
+
+```cmd
 python scripts/compressor.py
 ```
 
 **Verify:**
 - `docs/audio/` contains a `.mp3` file (~4–10 MB at 64 kbps)
 - `docs/feed.xml` has been created with one episode entry
-- The ledger entry now has `"audio_compressed": true`
+- The ledger entry has `"audio_compressed": true`
 
-### Step 4 — Check the web front-end
+### Step 5 — Check the web front-end
 
-```bash
+```cmd
 cd docs && python -m http.server 8000
-# Open http://localhost:8000 in a browser
 ```
 
 **Verify:**
 - The episode appears in the sidebar list
-- The audio player loads and plays the compressed MP3
+- Both audio players load (NotebookLM podcast + TTS read-through)
 - The letter text loads in the content panel
 
-### Step 5 — Historical backfill (once concept is proven)
+### Step 6 — Historical backfill (once concept is proven)
 
-```bash
-# Preview everything EDGAR has, without downloading
-python scripts/backfill.py --dry-run
-
-# Download the full archive
-python scripts/backfill.py
-
-# Generate audio for all backfilled letters
-python scripts/generator.py --max-new 0
+```cmd
+python scripts/backfill.py --dry-run    # preview what EDGAR has
+python scripts/backfill.py              # download full archive
+python scripts/generator.py --max-new 0  # generate all NotebookLM audio
+python scripts/tts.py --max-new 0        # generate all TTS audio
 ```
 
 ---
@@ -210,47 +288,46 @@ python scripts/generator.py --max-new 0
 ## Common tasks
 
 **Re-run scraper without re-downloading existing letters:**
-The scraper checks `already_processed()` by accession number, so it's safe to re-run at any time.
+Safe to re-run at any time — checks `already_processed()` by accession number.
 
-**Force re-generation of audio for a specific quarter:**
-Set `audio_generated: false` on the filing in `ledger.json` and re-run `generator.py`.
+**Force re-generation of NotebookLM audio for a specific quarter:**
+Set `audio_generated: false` in `ledger.json` and re-run `generator.py`.
 
-**Backfill all historical letters (one-time):**
-```bash
-# Preview everything EDGAR has, without downloading
-python scripts/backfill.py --dry-run
+**Force re-generation of TTS audio for a specific quarter:**
+Set `tts_generated: false` in `ledger.json` and re-run `tts.py`.
 
-# Download all available filings (may take several minutes)
-python scripts/backfill.py
-
-# Limit to a specific year range
-python scripts/backfill.py --from-year 2010
-
-# After backfill, generate audio for everything (no per-run limit)
-python scripts/generator.py --max-new 0
+**Audition TTS voices without affecting the ledger:**
+```cmd
+python scripts/tts.py --id PGR_2025_Q4 --sample-voices am_michael bm_daniel af_heart
 ```
-`backfill.py` paginates through all of EDGAR's historical pages for PGR, not just
-the most-recent ~40 filings that `scraper.py` covers. It shares the same ledger and
-letter directory, and is fully idempotent — safe to re-run at any time.
+Sample files are named `{id}_{voice}.mp3` in `docs/audio_tts/`.
 
 **Regenerate the RSS feed without a new audio run:**
-```bash
-python scripts/compressor.py   # no pending audio → skips compression, still writes feed.xml
+```cmd
+python scripts/compressor.py
 ```
 
 **Rebuild all reading pages (after CSS or template changes):**
-```bash
+```cmd
 python scripts/build_pages.py --rebuild
-```
-
-**Build only new reading pages (standard run):**
-```bash
-python scripts/build_pages.py
 ```
 
 **Add a podcast cover image:**
 Place a `cover.png` (3000×3000 px recommended) in `docs/`. The RSS feed references it at
 `{base_url}/cover.png`.
+
+## Kokoro TTS voices
+
+Default voice: `am_michael` (American English male). Available English voices:
+
+| Prefix | Language | Gender | Example voices |
+|--------|----------|--------|----------------|
+| `am_` | American | Male | `am_michael`, `am_liam`, `am_fenrir`, `am_adam`, `am_echo` |
+| `af_` | American | Female | `af_heart`, `af_bella`, `af_nova`, `af_sarah`, `af_jessica` |
+| `bm_` | British | Male | `bm_daniel`, `bm_george`, `bm_lewis`, `bm_fable` |
+| `bf_` | British | Female | `bf_alice`, `bf_emma`, `bf_isabella`, `bf_lily` |
+
+Voice blending: pass a comma-separated list, e.g. `--voice af_heart,af_bella`.
 
 ## Recovering letters not filed on EDGAR
 
@@ -267,14 +344,11 @@ the Wayback Machine (web.archive.org) is the source of truth.
 
 **Step 1 — CDX API: discover archived files**
 
-The CDX API lets you query what the Wayback Machine has crawled without fetching full pages:
-
 ```python
 import requests, json
 
 HEADERS = {'User-Agent': 'PGR-Letters-Archive jeffrey.r.hester@gmail.com'}
 
-# List all archived files under a quarterly directory
 quarter = '06Q1_quarterly'   # format: YYQ#_quarterly
 url = (f'http://web.archive.org/cdx/search/cdx'
        f'?url=investors.progressive.com/{quarter}/*'
@@ -295,15 +369,14 @@ Each directory held:
 
 **Step 2 — Identify the right file**
 
-Priority order for letter content:
+Priority order:
 1. `letter.html` — cleanest; fetch and strip HTML
 2. `pdf/<quarter>QSR.pdf` — full report; use `extract_letter()` from `backfill_ex13.py`
-3. `pdf/Progressive-letter.pdf` — annual letter (only in annual-report quarters)
+3. `pdf/Progressive-letter.pdf` — annual letter only
 
 **Step 3 — Fetch the archived file**
 
 ```python
-# Construct Wayback URL from CDX timestamp + original URL
 wb_url = f'http://web.archive.org/web/{timestamp}/{original_url}'
 resp = requests.get(wb_url, headers=HEADERS, timeout=90)
 ```
@@ -329,12 +402,11 @@ from backfill_ex13 import extract_letter
 raw = pdf_extract_text(io.BytesIO(resp.content))
 lines = [l.strip() for l in raw.splitlines() if l.strip()]
 cleaned = re.sub(r'\n{3,}', '\n\n', '\n'.join(lines)).strip()
-letter_text, method = extract_letter(cleaned)   # finds 'Letter to Shareholders' heading
+letter_text, method = extract_letter(cleaned)
 ```
 
 **Step 4 — Update the ledger**
 
-After saving the `.txt` file to `data/letters/`, update the ledger entry:
 ```python
 filing.update({
     'letter_file':       f'data/letters/{filing_id}_Letter.txt',
@@ -342,16 +414,15 @@ filing.update({
     'letter_scraped':    True,
     'audio_generated':   False,
     'audio_compressed':  False,
+    'tts_generated':     False,
     'page_built':        False,
     'page_url':          None,
-    'extraction_method': 'wayback_html',   # or 'pdf_letter_section'
+    'extraction_method': 'wayback_html',
     'processed_date':    datetime.now(timezone.utc).isoformat(),
     'skip_reason':       None,
 })
 save_ledger(ledger)
 ```
-
-Then run `python scripts/build_pages.py` to generate the HTML reading page.
 
 ### Known letter sources by era
 
@@ -369,22 +440,8 @@ Then run `python scripts/build_pages.py` to generate the HTML reading page.
 
 ### Research conclusion: quarterly letters started in 2004
 
-The quarterly shareholder letter program began with Q1 2004. Evidence:
-- The `investors.progressive.com` reports archive (as of Dec 2004) explicitly lists `04Q1_quarterly`,
-  `04Q2_quarterly`, `04Q3_quarterly` quarterly reports — but only `03_annual`, `02_annual.asp`,
-  `01_annual.asp`, `00_annual.asp` for prior years.
-- Wayback Machine CDX shows `03Q1_quarterly`, `03Q2_quarterly`, `03Q3_quarterly` were
-  **never crawled** (not archived), consistent with those directories not existing.
-- 2002 and 2003 EDGAR 10-Q filings contain only the main form and ratio exhibits — no EX-99,
-  no shareholder letter of any kind.
-- Before 2004, Progressive issued one letter per year in the annual report to shareholders,
-  delivered as EX-13 with the 10-K filing (handled by `backfill_ex13.py`).
-
-The `no_exhibit_99` ledger entries for 2002–2003 Q1–Q3 are correct and final — no letters exist.
-
-**Add a podcast cover image:**
-Place a `cover.png` (3000×3000 px recommended) in `docs/`. The RSS feed references it at
-`{base_url}/cover.png`.
+The quarterly shareholder letter program began with Q1 2004. The `no_exhibit_99` ledger entries
+for 2002–2003 Q1–Q3 are correct and final — no letters exist for those quarters.
 
 ## GitHub Pages setup
 

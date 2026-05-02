@@ -126,17 +126,16 @@
       bar.style.width = total > 0 ? (scrolled / total * 100) + "%" : "0%";
     }, { passive: true });
 
-    // Audio toggle (only wired up if audio section exists)
-    const audioToggle = document.getElementById("audio-toggle");
-    if (audioToggle) {
-      audioToggle.addEventListener("click", function () {
-        const wrap = document.getElementById("audio-player-wrap");
+    // Audio toggles — one handler covers both NotebookLM and TTS players
+    document.querySelectorAll(".audio-toggle").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        const wrap = this.nextElementSibling;
         wrap.classList.toggle("open");
         this.textContent = wrap.classList.contains("open")
-          ? "▲ Hide AI Audio Overview"
-          : "🎙 AI Audio Overview";
+          ? this.dataset.hide
+          : this.dataset.show;
       });
-    }
+    });
   </script>
 </body>
 </html>

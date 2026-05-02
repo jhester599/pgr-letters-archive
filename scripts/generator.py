@@ -180,8 +180,13 @@ def save_ledger(ledger: dict) -> None:
         json.dump(ledger, fh, indent=2, default=str)
 
 
-def pending_letters(ledger: dict) -> list[dict]:
+def pending_letters(ledger: dict, filing_id: str | None = None) -> list[dict]:
     """Return filings that have a scraped letter but no generated audio yet."""
+    if filing_id:
+        matches = [f for f in ledger["filings"] if f["id"] == filing_id]
+        if not matches:
+            log.error("Filing ID not found in ledger: %s", filing_id)
+        return matches
     return [
         f for f in ledger["filings"]
         if f.get("letter_scraped") and not f.get("audio_generated")
@@ -197,8 +202,6 @@ async def generate_audio_for_letter(filing: dict) -> Optional[Path]:
 
     Returns the local Path of the downloaded raw audio file (.mp4) on success,
     or None on any failure. Deletes the notebook after downloading.
-
-    Requires notebooklm-py and NOTEBOOKLM_AUTH_JSON to be set in the environment.
     """
     try:
         from notebooklm import NotebookLMClient  # type: ignore[import]
@@ -222,54 +225,61 @@ async def generate_audio_for_letter(filing: dict) -> Optional[Path]:
     raw_path     = AUDIO_RAW_DIR / raw_filename
 
     log.info("Starting NotebookLM session for %s…", filing["id"])
-    notebook_id = None
 
     try:
-        # NotebookLMClient.from_storage() reads NOTEBOOKLM_AUTH_JSON from env automatically
-        client = await NotebookLMClient.from_storage()
+        async with await NotebookLMClient.from_storage() as client:
+            # Create a fresh notebook for this letter
+            notebook = await client.notebooks.create(title=notebook_title)
+            log.info("  Created notebook '%s' (id: %s)", notebook_title, notebook.id)
 
-        # Create a fresh notebook for this letter
-        notebook_id = await client.notebooks.create(title=notebook_title)
-        log.info("  Created notebook '%s' (id: %s)", notebook_title, notebook_id)
+            try:
+                # Add the letter text; wait=True ensures processing is done before audio request
+                await client.sources.add_text(
+                    notebook_id=notebook.id,
+                    title=notebook_title,
+                    content=letter_text,
+                    wait=True,
+                )
+                log.info("  Uploaded letter text (%d chars)", len(letter_text))
 
-        # Add the letter text as the sole source (use add_text to avoid known
-        # issues with add_file returning None for plain text uploads)
-        await client.sources.add_text(
-            notebook_id=notebook_id,
-            title=notebook_title,
-            content=letter_text,
-        )
-        log.info("  Uploaded letter text (%d chars)", len(letter_text))
+                # Request audio overview generation
+                log.info("  Requesting Audio Overview (timeout: %ds)…", AUDIO_TIMEOUT)
+                status = await client.artifacts.generate_audio(
+                    notebook_id=notebook.id,
+                    instructions=(
+                        "Create an engaging, podcast-style audio overview of this CEO shareholder "
+                        "letter. Explain the key business results, strategic priorities, and outlook "
+                        "in a conversational tone accessible to a general investor audience."
+                    ),
+                )
 
-        # Brief pause to let NotebookLM process the source before requesting audio
-        await asyncio.sleep(3)
+                # Poll until generation completes
+                final_status = await client.artifacts.wait_for_completion(
+                    notebook_id=notebook.id,
+                    task_id=status.task_id,
+                    timeout=AUDIO_TIMEOUT,
+                )
 
-        # Request audio overview generation
-        log.info("  Requesting Audio Overview (timeout: %ds)…", AUDIO_TIMEOUT)
-        task_id = await client.artifacts.generate_audio(
-            notebook_id=notebook_id,
-            instructions=(
-                "Create an engaging, podcast-style audio overview of this CEO shareholder "
-                "letter. Explain the key business results, strategic priorities, and outlook "
-                "in a conversational tone accessible to a general investor audience."
-            ),
-        )
+                if final_status.is_failed:
+                    log.error("  Audio generation failed: %s", final_status.error)
+                    return None
 
-        # Poll until the generation completes
-        await client.artifacts.wait_for_completion(
-            notebook_id=notebook_id,
-            task_id=task_id,
-            timeout=AUDIO_TIMEOUT,
-            poll_interval=POLL_INTERVAL,
-        )
-        log.info("  Audio generation complete.")
+                log.info("  Audio generation complete.")
 
-        # Download the raw audio to data/audio_raw/
-        await client.artifacts.download_audio(
-            notebook_id=notebook_id,
-            path=str(raw_path),
-        )
-        log.info("  Downloaded raw audio → %s", raw_path.name)
+                # Download the raw audio to data/audio_raw/
+                await client.artifacts.download_audio(
+                    notebook_id=notebook.id,
+                    output_path=str(raw_path),
+                )
+                log.info("  Downloaded raw audio → %s", raw_path.name)
+
+            finally:
+                # Always delete the notebook to keep the Google account clean
+                try:
+                    await client.notebooks.delete(notebook.id)
+                    log.info("  Deleted notebook %s", notebook.id)
+                except Exception as cleanup_exc:
+                    log.warning("  Failed to delete notebook %s: %s", notebook.id, cleanup_exc)
 
     except asyncio.TimeoutError:
         log.error("  Audio generation timed out after %ds for %s", AUDIO_TIMEOUT, filing["id"])
@@ -277,39 +287,55 @@ async def generate_audio_for_letter(filing: dict) -> Optional[Path]:
     except Exception as exc:
         log.error("  NotebookLM error for %s: %s — %s", filing["id"], type(exc).__name__, exc)
         return None
-    finally:
-        # Always clean up the notebook to avoid cluttering the Google account
-        if notebook_id:
-            try:
-                await client.notebooks.delete(notebook_id)
-                log.info("  Deleted notebook %s", notebook_id)
-            except Exception as cleanup_exc:
-                log.warning("  Failed to delete notebook %s: %s", notebook_id, cleanup_exc)
 
     return raw_path if raw_path.exists() else None
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
-async def main(max_new: int) -> None:
+async def main(max_new: int, filing_id: str | None = None) -> None:
     AUDIO_RAW_DIR.mkdir(parents=True, exist_ok=True)
 
+    # Auth resolution (mirrors notebooklm-py's own precedence):
+    #   1. NOTEBOOKLM_AUTH_JSON env var — inline JSON string (used in CI/GitHub Actions)
+    #   2. NOTEBOOKLM_AUTH_FILE env var — path to storage_state.json (Windows-friendly)
+    #   3. ~/.notebooklm/storage_state.json — written automatically by `notebooklm login`
+    #
+    # For local runs after `notebooklm login`, option 3 works with no env vars at all.
+    # For GitHub Actions, set NOTEBOOKLM_AUTH_JSON as a repository secret.
+
     auth_json = os.environ.get("NOTEBOOKLM_AUTH_JSON", "").strip()
-    if not auth_json:
+    auth_file = os.environ.get("NOTEBOOKLM_AUTH_FILE", "").strip()
+    default_storage = Path.home() / ".notebooklm" / "storage_state.json"
+
+    if not auth_json and auth_file:
+        try:
+            auth_json = Path(auth_file).read_text(encoding="utf-8").strip()
+            os.environ["NOTEBOOKLM_AUTH_JSON"] = auth_json
+            log.info("Loaded auth from NOTEBOOKLM_AUTH_FILE: %s", auth_file)
+        except OSError as exc:
+            log.error("Could not read NOTEBOOKLM_AUTH_FILE %s: %s", auth_file, exc)
+            raise SystemExit(1)
+
+    if not auth_json and default_storage.exists():
+        # Let notebooklm-py read the file directly — no env var needed.
+        log.info("Using auth from %s", default_storage)
+    elif not auth_json:
         log.error(
-            "NOTEBOOKLM_AUTH_JSON is not set.\n"
-            "Run 'notebooklm login' locally, then:\n"
-            "  export NOTEBOOKLM_AUTH_JSON=\"$(cat ~/.notebooklm/profiles/default/storage_state.json)\""
+            "No NotebookLM auth found. Options:\n"
+            "  Local:  run 'notebooklm login' (writes ~/.notebooklm/storage_state.json)\n"
+            "  CI:     set NOTEBOOKLM_AUTH_JSON repository secret\n"
+            "  Windows workaround: set NOTEBOOKLM_AUTH_FILE=%%USERPROFILE%%\\.notebooklm\\storage_state.json"
         )
         raise SystemExit(1)
 
     ledger  = load_ledger()
-    pending = pending_letters(ledger)
+    pending = pending_letters(ledger, filing_id)
 
     if not pending:
         log.info("No letters pending audio generation.")
         return
 
-    if max_new > 0:
+    if max_new > 0 and not filing_id:
         pending = pending[:max_new]
 
     log.info("%d letter(s) queued for audio generation (max-new=%d).", len(pending), max_new)
@@ -349,5 +375,9 @@ if __name__ == "__main__":
         default=1,
         help="Maximum number of new letters to process per run (default: 1; 0 = unlimited).",
     )
+    parser.add_argument(
+        "--id", dest="filing_id", metavar="FILING_ID",
+        help="Process a specific filing by ID (e.g. PGR_2025_Q4). Overrides --max-new.",
+    )
     args = parser.parse_args()
-    asyncio.run(main(max_new=args.max_new))
+    asyncio.run(main(max_new=args.max_new, filing_id=args.filing_id))

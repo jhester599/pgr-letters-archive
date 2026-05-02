@@ -48,8 +48,8 @@ jobs:
           cache: "pip"
 
       # ── 3. System dependencies ────────────────────────────────────────────
-      - name: Install FFmpeg
-        run: sudo apt-get install -y ffmpeg
+      - name: Install system dependencies
+        run: sudo apt-get install -y ffmpeg espeak-ng
 
       # ── 4. Python dependencies ────────────────────────────────────────────
       - name: Install Python packages
@@ -70,6 +70,9 @@ jobs:
           # Store the full JSON as the NOTEBOOKLM_AUTH_JSON repository secret.
           NOTEBOOKLM_AUTH_JSON: ${{ secrets.NOTEBOOKLM_AUTH_JSON }}
         run: python scripts/generator.py --max-new 1
+
+      - name: Generate TTS read-through audio via Kokoro
+        run: python scripts/tts.py --max-new 1
 
       - name: Compress audio and regenerate RSS feed
         env:
@@ -95,6 +98,7 @@ jobs:
             data/letters/ \
             data/summaries/ \
             docs/audio/ \
+            docs/audio_tts/ \
             docs/ledger.json \
             docs/feed.xml \
             docs/letters/

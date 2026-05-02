@@ -712,17 +712,16 @@ _HTML_TEMPLATE = """\
       bar.style.width = total > 0 ? (scrolled / total * 100) + "%" : "0%";
     }}, {{ passive: true }});
 
-    // Audio toggle (only wired up if audio section exists)
-    const audioToggle = document.getElementById("audio-toggle");
-    if (audioToggle) {{
-      audioToggle.addEventListener("click", function () {{
-        const wrap = document.getElementById("audio-player-wrap");
+    // Audio toggles — one handler covers both NotebookLM and TTS players
+    document.querySelectorAll(".audio-toggle").forEach(function (btn) {{
+      btn.addEventListener("click", function () {{
+        const wrap = this.nextElementSibling;
         wrap.classList.toggle("open");
         this.textContent = wrap.classList.contains("open")
-          ? "▲ Hide AI Audio Overview"
-          : "\U0001f399 AI Audio Overview";
+          ? this.dataset.hide
+          : this.dataset.show;
       }});
-    }}
+    }});
   </script>
 </body>
 </html>"""
@@ -746,19 +745,38 @@ def build_page(
         if next_filing else ""
     )
 
+    audio_items: list[str] = []
+
     if filing.get("audio_compressed") and filing.get("audio_file"):
         audio_filename = filing["audio_file"].split("/")[-1]
-        audio_section = f"""\
-<div class="audio-section">
-  <button class="audio-toggle" id="audio-toggle">\U0001f399 AI Audio Overview</button>
-  <div class="audio-player-wrap" id="audio-player-wrap">
-    <p class="audio-label">AI-generated podcast overview via NotebookLM</p>
-    <audio controls preload="none">
-      <source src="../audio/{audio_filename}" type="audio/mpeg" />
-      Your browser does not support the audio element.
-    </audio>
-  </div>
-</div>"""
+        audio_items.append(f"""\
+  <div class="audio-item">
+    <button class="audio-toggle" data-show="\U0001f399 AI Podcast Overview" data-hide="▲ Hide Podcast">\U0001f399 AI Podcast Overview</button>
+    <div class="audio-player-wrap">
+      <p class="audio-label">AI-generated podcast discussion via NotebookLM</p>
+      <audio controls preload="none">
+        <source src="../audio/{audio_filename}" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+  </div>""")
+
+    if filing.get("tts_generated") and filing.get("tts_file"):
+        tts_filename = filing["tts_file"].split("/")[-1]
+        audio_items.append(f"""\
+  <div class="audio-item">
+    <button class="audio-toggle" data-show="🔊 Read-Through Audio" data-hide="▲ Hide Read-Through">🔊 Read-Through Audio</button>
+    <div class="audio-player-wrap">
+      <p class="audio-label">Full letter read aloud by AI voice (OpenAI TTS)</p>
+      <audio controls preload="none">
+        <source src="../audio_tts/{tts_filename}" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+  </div>""")
+
+    if audio_items:
+        audio_section = '<div class="audio-section">\n' + "\n".join(audio_items) + "\n</div>"
     else:
         audio_section = ""
 

@@ -39,9 +39,7 @@ developing robust measures to track progress.
 While rate is a big component of the retention solution, an equally important one will be how our
 customers perceive they are treated. As discussed at the 2006 Investor Relations Meeting, we have
 concluded that the best and most consistent measure of customer satisfaction is Net
-Promoter
-®
-Score
+Promoter Score
 (1)
 , a simple and effective measure of an organization’s
 performance through the eyes of its customers. Over the past year, we have laid the foundation for

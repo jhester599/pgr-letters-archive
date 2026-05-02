@@ -24,7 +24,6 @@ combined ratio. In fact, this quarter’s monthly reporting provided a trajector
 tend not to comment on the specifics of each month as each seems to have some nuance—weather, leap
 year effect, early Easter, favorable or unfavorable motorcycle riding conditions—but rather, we
 just provide the monthly information as it develops.
-1
 The key message internalized at Progressive is simple: We are now producing results that form a
 reasonable distribution around our expected target margin and estimating loss cost inflation and
 the flow of rate changes into earned premium become of critical importance for all products.
@@ -51,7 +50,6 @@ Agency book reflects both rate and unit declines, with written and earned premiu
 year by 6% and 5%.
 Commercial Auto’s rate reductions were slightly deeper and current earned premium per vehicle
 reductions are closer to 9%, not fully offset by the unit increase.
-2
 For both Personal and Commercial Auto, our growth is less than balanced across the country as large
 states contribute more dramatically to the decline. In Personal Auto, New York and California are
 two notable states where we have had to take actions in addition to rate to ensure long-term
@@ -68,9 +66,7 @@ encouraging. Our policy life expectancy measures for Agency and Direct auto have
 continuing upward trend and now are approximately 9% and 11% higher than the same measures a year
 ago and, in most tiers, are at their highest since mid-2006. The largest gains are in the most
 preferred tiers of business.
-Our focus on retention and use of the Net Promoter
-®
-Score (NPS) as a proxy for future
+Our focus on retention and use of the Net Promoter Score (NPS) as a proxy for future
 retention was perhaps validated again by an independent observation in February when the University
 of Michigan released their annual American Customer Satisfaction Index, which showed Progressive as
 the most improved in customer satisfaction for the year over any other company surveyed across all
@@ -83,7 +79,6 @@ in this $4 billion market have opened the regulatory framework sufficiently to 
 participation. We will not have exactly the same rating structure as we enjoy in most states, but
 feel sufficiently confident in our ability to compete and make a profit. Our initial entry will be
 in the Direct channel with an Agency product to follow.
-3
 Advertising that already reaches the marketplace has established a level of brand awareness that we
 will now capitalize upon.
 The first quarter was an active quarter for Brand and Marketing activities. Our search for a Chief
@@ -112,7 +107,6 @@ clearly are not immune from overall market conditions. Notwithstanding the benef
 we are comfortable with our allocation of investments in preferred stocks and mortgage-backed
 bonds. We will continue to invest in instruments we understand and in credits we believe we can
 rely on, at all times maintaining our ability to write as much profitable insurance as we can.
-4
 In March, we recognized $50.2 million of unrealized losses into income on several securities that
 we believed had more fundamental impairment issues than the market in general and thus were
 determined to be “other-than-temporarily impaired.” This is a review process we will continue to
@@ -133,4 +127,3 @@ the skills in claims and product management that have served us well and now com
 real focus on customer retention and our building expectation for our brand and marketing efforts.
 Glenn M. Renwick
 President and Chief Executive Officer
-5

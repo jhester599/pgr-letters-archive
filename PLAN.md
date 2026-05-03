@@ -88,20 +88,58 @@ SEC EDGAR (public API)
 - [x] `CLAUDE.md` (developer reference)
 - [x] `README.md` (user-facing overview)
 
-### Phase 7 — First Run & Validation ✅
+### Phase 7 — First Run & Validation 🔄
 - [x] GitHub Pages enabled (`Settings → Pages → /docs on main`)
 - [x] `NOTEBOOKLM_AUTH_JSON` secret configured
 - [x] PGR_2025_Q4 NotebookLM podcast generated and live
-- [x] PGR_2025_Q4 reading page deployed with audio player
-- [ ] TTS voice selection: run `--sample-voices` and pick final voice for PGR_2025_Q4
-- [ ] TTS production run: `python scripts/tts.py --id PGR_2025_Q4 --voice <chosen>`
+- [x] PGR_2025_Q4 reading page deployed with dual audio players (podcast + TTS)
+- [x] TTS voice selected for Tricia Griffith era (Q3 2016–present): `af_heart`
+- [x] TTS production run complete for PGR_2025_Q4 (`af_heart`)
+- [x] PDF artifact cleanup across all 99 letters (page numbers, ®/SM symbols, superscripts, hard-wrapped paragraphs)
+- [ ] Voice sampling in progress: Glenn Renwick era (2001–Q2 2016) — run `--sample-voices` on PGR_2010_Q4
+- [ ] Voice sampling in progress: Peter Lewis era (1993–2000) — run `--sample-voices` on PGR_1998_Q4
+- [ ] Select final voices for Glenn and Peter eras; update `tts.py` author-aware voice logic
 - [ ] Verify `feed.xml` validates against a podcast validator
 
 ### Phase 8 — Historical Audio Backfill ⬜
-- [ ] Manual text quality review of all 99 letters
-- [ ] NotebookLM batch: `python scripts/generator.py --max-new 0`
-- [ ] TTS batch: `python scripts/tts.py --max-new 0`
-- [ ] Rebuild all pages: `python scripts/build_pages.py --rebuild`
+
+Prerequisites must be completed in order before running the batch.
+
+#### Step 1 — Complete text review (manual)
+- [ ] Work through `audit_report.txt` (620 short orphan lines across 70 files, 1 repeated word, 1 duplicate line)
+- [ ] Report findings; apply programmatic fixes to affected `.txt` files
+- [ ] Manual spot-check of financial table data in PGR_2003_Q4 and PGR_2004_Q4 (table rows merged into prose will sound wrong in TTS)
+
+#### Step 2 — Finalize TTS voice configuration
+- [ ] Listen to Glenn Renwick sample voices (PGR_2010_Q4); choose preferred voice
+- [ ] Listen to Peter Lewis sample voices (PGR_1998_Q4); choose preferred voice
+- [ ] Update `tts.py` to auto-select voice by author era:
+  - Peter Lewis (1993–2000): `<chosen>`
+  - Glenn Renwick (2001–Q2 2016): `<chosen>`
+  - Tricia Griffith (Q3 2016–present): `af_heart`
+
+#### Step 3 — Consider GitHub LFS before batch run
+- [ ] Evaluate repo size: 99 NotebookLM MP3s (~950 MB) + 99 TTS MP3s (~1.4 GB) ≈ 2.2 GB total
+- [ ] Enable GitHub LFS for `*.mp3` if approaching 1 GB limit:
+  ```
+  git lfs track "*.mp3"
+  git add .gitattributes
+  ```
+
+#### Step 4 — NotebookLM batch
+- [ ] `python scripts/generator.py --max-new 0`  (processes all letters without `audio_generated: true`)
+
+#### Step 5 — TTS batch
+- [ ] `python scripts/tts.py --max-new 0`  (processes all letters without `tts_generated: true`, uses author-aware voice)
+
+#### Step 6 — Rebuild and deploy
+- [ ] `python scripts/build_pages.py --rebuild`
+- [ ] `python scripts/compressor.py`  (regenerates `feed.xml` with all episodes)
+- [ ] Commit and push; verify GitHub Pages deploys cleanly
+- [ ] Validate `feed.xml` at a podcast validator (e.g., podba.se/validate)
+
+#### Step 7 — Polish
+- [ ] Add `docs/cover.png` (3000×3000 px) for podcast cover art in RSS feed
 
 ---
 

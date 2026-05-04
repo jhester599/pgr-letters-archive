@@ -69,14 +69,17 @@ const GITHUB_REPO_OWNER = "jhester599";
 const GITHUB_REPO_NAME  = "pgr-letters-archive";
 const DISPATCH_EVENT    = "sec-filing-alert";
 
-// From address used by Progressive's investor alert service (via Q4 Inc / SendGrid).
-// Confirmed from the subscription confirmation email:
-//   From:      Progressive <investor_relations@progressive.com>
-//   Mailed-by: mail-sendgrid.q4inc.com
-//   Signed-by: q4inc.com
-// Matching on the envelope domain "q4inc.com" is the most durable filter —
-// it survives any display-name or subdomain changes on Progressive's end.
-const PROGRESSIVE_SENDER = "q4inc.com";
+// From address used by Progressive's investor alert service.
+// Confirmed from the first real filing alert (2026-05-04):
+//   Subject:   Progressive - 10-Q (Quarterly Report) SEC Filing
+//   From:      investor_relations@progressive.com
+//   Mailed-by: mail-sendgrid.q4inc.com  ← envelope only, not in getFrom()
+//
+// Apps Script's message.getFrom() returns the From: header, NOT the envelope
+// sender. Filtering on "q4inc.com" was wrong — that domain never appears in
+// getFrom(). Match on "progressive.com" instead, which is both correct and
+// more durable than an email-service-provider domain.
+const PROGRESSIVE_SENDER = "progressive.com";
 
 // Label applied to processed emails to prevent re-triggering.
 // Must be declared before GMAIL_SEARCH since buildSearchQuery() references it.
@@ -229,4 +232,91 @@ function isFilingAlert(subject, from) {
 function getOrCreateLabel(name) {
   const existing = GmailApp.getUserLabelByName(name);
   return existing || GmailApp.createLabel(name);
+}
+
+// ── Diagnostics ───────────────────────────────────────────────────────────────
+//
+// Run diagnose() manually from the Apps Script editor (▶ Run button) to
+// verify each piece of the pipeline without sending a dispatch or touching emails.
+// Results appear in View → Execution log.
+
+function diagnose() {
+  Logger.log("=== Gmail Trigger Diagnostics ===");
+  Logger.log(`Timestamp: ${new Date().toISOString()}`);
+  Logger.log(`Active hours now: ${isWithinActiveHours()}`);
+  Logger.log(`Gmail search query: ${GMAIL_SEARCH}`);
+  Logger.log("");
+
+  // 1. Check GITHUB_PAT is present and valid.
+  const pat = PropertiesService.getScriptProperties().getProperty("GITHUB_PAT");
+  if (!pat) {
+    Logger.log("FAIL [PAT] GITHUB_PAT is not set in Script Properties.");
+  } else {
+    Logger.log(`OK   [PAT] GITHUB_PAT is set (${pat.length} chars).`);
+    const url = `https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}`;
+    const resp = UrlFetchApp.fetch(url, {
+      method: "get",
+      headers: {
+        "Authorization":        `Bearer ${pat}`,
+        "Accept":               "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
+      muteHttpExceptions: true,
+    });
+    const status = resp.getResponseCode();
+    if (status === 200) {
+      Logger.log("OK   [PAT] GitHub API call succeeded — PAT is valid and has repo access.");
+    } else {
+      Logger.log(`FAIL [PAT] GitHub API returned HTTP ${status}: ${resp.getContentText()}`);
+    }
+  }
+
+  Logger.log("");
+
+  // 2. Run the Gmail search and report what it finds (read-only, no labels applied).
+  const threads = GmailApp.search(GMAIL_SEARCH);
+  if (threads.length === 0) {
+    Logger.log("INFO [GMAIL] No unprocessed filing alerts found (search returned 0 threads).");
+    Logger.log("     If an alert email arrived, check:");
+    Logger.log("     • Is it in the Inbox (not spam/archive)?");
+    Logger.log("     • Is it unread?");
+    Logger.log("     • Does it already have the PGR-Processed label?");
+    Logger.log(`     • Does 'from:${PROGRESSIVE_SENDER}' match the actual sender?`);
+  } else {
+    Logger.log(`OK   [GMAIL] Found ${threads.length} matching thread(s):`);
+    for (const thread of threads) {
+      for (const msg of thread.getMessages()) {
+        const subject = msg.getSubject();
+        const from    = msg.getFrom();
+        const date    = msg.getDate();
+        const qualifies = isFilingAlert(subject, from);
+        Logger.log(`     ${qualifies ? "MATCH" : "SKIP "} | ${date} | From: ${from} | Subject: "${subject}"`);
+        if (!qualifies) {
+          Logger.log(`           ^ Did not pass isFilingAlert() — check subject keywords and sender domain.`);
+        }
+      }
+    }
+  }
+
+  Logger.log("");
+
+  // 3. Simulate isFilingAlert() against the known real alert email.
+  const testSubject = "Progressive - 10-Q (Quarterly Report) SEC Filing";
+  const testFrom    = "investor_relations@progressive.com";
+  const wouldMatch  = isFilingAlert(testSubject, testFrom);
+  Logger.log(`INFO [FILTER] Smoke-test against known real alert email:`);
+  Logger.log(`     Subject: "${testSubject}"`);
+  Logger.log(`     From:    ${testFrom}`);
+  Logger.log(`     isFilingAlert() → ${wouldMatch ? "MATCH ✓" : "NO MATCH ✗"}`);
+
+  Logger.log("");
+  Logger.log("=== End of diagnostics ===");
+}
+
+// Run this only when you intentionally want to fire the GitHub Actions workflow.
+// Useful for verifying the dispatch end-to-end after confirming diagnose() passes.
+function testDispatch() {
+  Logger.log("Firing test dispatch to GitHub Actions...");
+  const success = triggerGitHubWorkflow("[MANUAL TEST] diagnose dispatch", "diagnose@test");
+  Logger.log(success ? "Dispatch succeeded. Check the Actions tab on GitHub." : "Dispatch failed. See error above.");
 }

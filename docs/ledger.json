@@ -1,7 +1,7 @@
 {
   "meta": {
-    "last_updated": "2026-05-02T18:58:56.334475+00:00",
-    "total_letters": 99,
+    "last_updated": "2026-05-04T21:14:48.579992+00:00",
+    "total_letters": 100,
     "total_audio": 1,
     "description": "State ledger for the PGR Letters Archive pipeline. Each entry tracks one SEC filing through the scrape \u2192 generate \u2192 compress lifecycle."
   },
@@ -2380,6 +2380,22 @@
       "page_url": "letters/PGR_1995_Q4.html",
       "extraction_method": "letter_section",
       "summary_generated": true
+    },
+    {
+      "id": "PGR_2026_Q1",
+      "year": 2026,
+      "quarter": "Q1",
+      "form_type": "10-Q",
+      "accession_number": "0000080661-26-000177",
+      "report_date": "2026-03-31",
+      "letter_file": "data/letters/PGR_2026_Q1_Letter.txt",
+      "audio_file": "docs/audio/PGR_2026_Q1_Letter.mp3",
+      "letter_scraped": true,
+      "audio_generated": false,
+      "audio_compressed": false,
+      "processed_date": "2026-05-04T21:14:46.526098+00:00",
+      "page_url": "letters/PGR_2026_Q1.html",
+      "page_built": true
     }
   ]
 }

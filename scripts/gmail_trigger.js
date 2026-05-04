@@ -69,14 +69,17 @@ const GITHUB_REPO_OWNER = "jhester599";
 const GITHUB_REPO_NAME  = "pgr-letters-archive";
 const DISPATCH_EVENT    = "sec-filing-alert";
 
-// From address used by Progressive's investor alert service (via Q4 Inc / SendGrid).
-// Confirmed from the subscription confirmation email:
-//   From:      Progressive <investor_relations@progressive.com>
-//   Mailed-by: mail-sendgrid.q4inc.com
-//   Signed-by: q4inc.com
-// Matching on the envelope domain "q4inc.com" is the most durable filter —
-// it survives any display-name or subdomain changes on Progressive's end.
-const PROGRESSIVE_SENDER = "q4inc.com";
+// From address used by Progressive's investor alert service.
+// Confirmed from the first real filing alert (2026-05-04):
+//   Subject:   Progressive - 10-Q (Quarterly Report) SEC Filing
+//   From:      investor_relations@progressive.com
+//   Mailed-by: mail-sendgrid.q4inc.com  ← envelope only, not in getFrom()
+//
+// Apps Script's message.getFrom() returns the From: header, NOT the envelope
+// sender. Filtering on "q4inc.com" was wrong — that domain never appears in
+// getFrom(). Match on "progressive.com" instead, which is both correct and
+// more durable than an email-service-provider domain.
+const PROGRESSIVE_SENDER = "progressive.com";
 
 // Label applied to processed emails to prevent re-triggering.
 // Must be declared before GMAIL_SEARCH since buildSearchQuery() references it.

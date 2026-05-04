@@ -6,3 +6,4 @@ notebooklm-py>=0.3.0
 playwright>=1.44.0
 kokoro>=0.7.0
 soundfile>=0.12.1
+openai>=1.0.0

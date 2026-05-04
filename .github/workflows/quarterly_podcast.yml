@@ -19,6 +19,11 @@ on:
   schedule:
     - cron: "0 12 * * 5"        # Fallback: every Friday at 12:00 UTC
   workflow_dispatch:             # Manual runs from the Actions tab
+    inputs:
+      skip_audio:
+        description: "Skip NotebookLM and TTS audio generation (text + summary only)"
+        type: boolean
+        default: false
 
 jobs:
   run-pipeline:
@@ -63,6 +68,7 @@ jobs:
         run: python scripts/scraper.py
 
       - name: Generate audio overviews via NotebookLM
+        if: ${{ !(inputs.skip_audio == true) }}
         env:
           # NOTEBOOKLM_AUTH_JSON: capture locally with:
           #   notebooklm login
@@ -72,6 +78,7 @@ jobs:
         run: python scripts/generator.py --max-new 1
 
       - name: Generate TTS read-through audio via Kokoro
+        if: ${{ !(inputs.skip_audio == true) }}
         run: python scripts/tts.py --max-new 1
 
       - name: Compress audio and regenerate RSS feed

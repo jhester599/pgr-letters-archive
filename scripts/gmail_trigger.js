@@ -200,7 +200,9 @@ function triggerGitHubWorkflow(subject, from) {
 
 function buildSearchQuery() {
   // Base: unread, in inbox, not yet labeled as processed, contains filing keywords.
-  let query = `is:unread in:inbox -label:${PROCESSED_LABEL_NAME} ` +
+  // -subject:11-K excludes Employee Stock Plans annual reports (form 11-K), which
+  // match "annual report" but are not shareholder letters we want to process.
+  let query = `is:unread in:inbox -label:${PROCESSED_LABEL_NAME} -subject:11-K ` +
               `subject:(10-Q OR 10-K OR "quarterly report" OR "annual report")`;
 
   // Narrow by sender if configured.
@@ -213,6 +215,11 @@ function buildSearchQuery() {
 
 function isFilingAlert(subject, from) {
   const subjectLower = subject.toLowerCase();
+
+  // 11-K is an Employee Stock Plans annual report, not a shareholder letter.
+  // Exclude it explicitly since its subject contains "annual report" and "sec filing".
+  if (subjectLower.includes("11-k")) return false;
+
   const hasFilingKeyword = (
     subjectLower.includes("10-q") ||
     subjectLower.includes("10-k") ||
@@ -300,14 +307,19 @@ function diagnose() {
 
   Logger.log("");
 
-  // 3. Simulate isFilingAlert() against the known real alert email.
-  const testSubject = "Progressive - 10-Q (Quarterly Report) SEC Filing";
-  const testFrom    = "investor_relations@progressive.com";
-  const wouldMatch  = isFilingAlert(testSubject, testFrom);
-  Logger.log(`INFO [FILTER] Smoke-test against known real alert email:`);
-  Logger.log(`     Subject: "${testSubject}"`);
-  Logger.log(`     From:    ${testFrom}`);
-  Logger.log(`     isFilingAlert() → ${wouldMatch ? "MATCH ✓" : "NO MATCH ✗"}`);
+  // 3. Simulate isFilingAlert() against known good and known bad emails.
+  const smokeTests = [
+    { subject: "Progressive - 10-Q (Quarterly Report) SEC Filing",                expect: true  },
+    { subject: "Progressive - 10-K (Annual Report) SEC Filing",                   expect: true  },
+    { subject: "Progressive - 11-K (Annual Report of Employee Stock Plans) SEC Filing", expect: false },
+  ];
+  const testFrom = "investor_relations@progressive.com";
+  Logger.log(`INFO [FILTER] Smoke-tests against known emails (from: ${testFrom}):`);
+  for (const t of smokeTests) {
+    const result = isFilingAlert(t.subject, testFrom);
+    const pass   = result === t.expect;
+    Logger.log(`     ${pass ? "PASS" : "FAIL"} expect=${t.expect} got=${result} | "${t.subject}"`);
+  }
 
   Logger.log("");
   Logger.log("=== End of diagnostics ===");

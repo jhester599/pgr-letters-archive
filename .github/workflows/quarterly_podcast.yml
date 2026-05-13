@@ -34,6 +34,7 @@ jobs:
       contents: write      # Required to push new files back to main
       pages: write         # Required if using GitHub Pages deployment API
       id-token: write      # Required for OIDC-based Pages deployment
+      models: read         # Required for GitHub Models API (summarizer.py)
 
     steps:
       # ── 1. Checkout ──────────────────────────────────────────────────────

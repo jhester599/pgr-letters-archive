@@ -248,8 +248,12 @@ async def generate_audio_for_letter(filing: dict) -> Optional[Path]:
                     notebook_id=notebook.id,
                     instructions=(
                         "Create an engaging, podcast-style audio overview of this CEO shareholder "
-                        "letter. Explain the key business results, strategic priorities, and outlook "
-                        "in a conversational tone accessible to a general investor audience."
+                        "letter for an audience of Progressive employees who know the company deeply — "
+                        "skip introductions to who Progressive is, what insurance is, or what standard "
+                        "metrics like combined ratio mean. Dive straight into what this specific letter "
+                        "says: the results, the reasoning, the strategic priorities, and any candid "
+                        "admissions or forward-looking signals. Treat the listener as a colleague who "
+                        "just wants the substance of what was said and why it matters."
                     ),
                 )
 

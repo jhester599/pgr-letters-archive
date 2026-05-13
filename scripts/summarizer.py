@@ -223,7 +223,7 @@ def main(rebuild: bool = False) -> None:
         try:
             bullets = generate_summary(client, filing, letter_text)
         except Exception as exc:
-            log.error("  Failed: %s", exc)
+            log.error("  Failed to summarize %s: %s", filing["id"], exc, exc_info=True)
             continue
 
         save_summary(filing, bullets)

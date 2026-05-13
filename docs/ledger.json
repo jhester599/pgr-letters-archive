@@ -1,6 +1,6 @@
 {
   "meta": {
-    "last_updated": "2026-05-04T21:14:48.579992+00:00",
+    "last_updated": "2026-05-13T00:15:01.837812+00:00",
     "total_letters": 100,
     "total_audio": 1,
     "description": "State ledger for the PGR Letters Archive pipeline. Each entry tracks one SEC filing through the scrape \u2192 generate \u2192 compress lifecycle."
@@ -2395,7 +2395,8 @@
       "audio_compressed": false,
       "processed_date": "2026-05-04T21:14:46.526098+00:00",
       "page_url": "letters/PGR_2026_Q1.html",
-      "page_built": true
+      "page_built": true,
+      "summary_generated": true
     }
   ]
 }

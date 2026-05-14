@@ -125,6 +125,12 @@ jobs:
           NOTEBOOKLM_AUTH_JSON: ${{ secrets.NOTEBOOKLM_AUTH_JSON }}
         run: python scripts/generator.py --max-new ${{ inputs.max_new || '3' }}
 
+      # ── Progress tracker ─────────────────────────────────────────────────
+      # Writes AUDIO_PROGRESS.md to the repo root so backfill status is
+      # visible on GitHub without opening the Actions log.
+      - name: Update audio progress tracker
+        run: python scripts/audio_progress.py
+
       # ── Compress ─────────────────────────────────────────────────────────
       # Converts raw .mp4 files in data/audio_raw/ to 64 kbps .mp3 in
       # docs/audio/ and regenerates docs/feed.xml.
@@ -147,7 +153,8 @@ jobs:
             docs/audio/ \
             docs/ledger.json \
             docs/feed.xml \
-            docs/letters/
+            docs/letters/ \
+            AUDIO_PROGRESS.md
 
           if git diff --staged --quiet; then
             echo "No new files to commit — nothing changed."

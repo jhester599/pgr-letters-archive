@@ -1,0 +1,159 @@
+name: Daily Audio Backfill
+
+# Runs every day to generate up to 3 NotebookLM podcast audio overviews,
+# compress them, and publish to GitHub Pages.
+#
+# ── QUOTA ────────────────────────────────────────────────────────────────────
+# NotebookLM free tier allows ~3 audio overviews per day per account.
+# At 3/day the 99-letter backlog clears in ~33 days. Once it's clear,
+# the daily "check" job exits in seconds with nothing to do — no need
+# to disable this workflow. New letters scraped by quarterly_podcast.yml
+# will automatically be picked up the following day.
+#
+# ── SECRETS REQUIRED ─────────────────────────────────────────────────────────
+# NOTEBOOKLM_AUTH_JSON  — Contents of storage_state.json from `notebooklm login`.
+#   Capture:  notebooklm login
+#             cat ~/.notebooklm/profiles/default/storage_state.json
+#   Store as: repo Settings → Secrets and variables → Actions → New repository secret
+#             Name: NOTEBOOKLM_AUTH_JSON
+#
+#   Session cookies expire every few weeks. When generator.py logs an auth
+#   error, re-run `notebooklm login` locally and update the secret.
+#
+# ── SCHEDULE ─────────────────────────────────────────────────────────────────
+# 10:00 UTC daily. NotebookLM's daily quota resets around midnight Pacific
+# (08:00 UTC), so 10:00 UTC gives a comfortable 2-hour buffer after reset.
+
+on:
+  schedule:
+    - cron: "0 10 * * *"    # Daily at 10:00 UTC
+  workflow_dispatch:
+    inputs:
+      max_new:
+        description: "Max NotebookLM overviews to generate (default: 3; free tier limit is ~3/day)"
+        default: "3"
+        type: string
+      skip_notebooklm:
+        description: "Skip NotebookLM generation — compress and publish existing audio only"
+        type: boolean
+        default: false
+
+jobs:
+
+  # ── Job 1: Fast pre-check ──────────────────────────────────────────────────
+  # Counts pending letters using only stdlib python3 (no pip install required).
+  # On scheduled runs where everything is already done, only this cheap job
+  # executes — no Playwright install, no Python setup, no wasted minutes.
+  check:
+    name: Count pending letters
+    runs-on: ubuntu-latest
+    outputs:
+      pending_count: ${{ steps.count.outputs.pending_count }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Count letters pending NotebookLM audio
+        id: count
+        run: |
+          COUNT=$(python3 -c "
+          import json
+          with open('docs/ledger.json') as f:
+              ledger = json.load(f)
+          pending = [
+              f for f in ledger['filings']
+              if f.get('letter_scraped') and not f.get('audio_generated')
+              and f.get('letter_file') and not f.get('skip_reason')
+          ]
+          print(len(pending))
+          ")
+          echo "pending_count=$COUNT" >> "$GITHUB_OUTPUT"
+          if [ "$COUNT" -eq 0 ]; then
+            echo "Backlog is clear — nothing to generate today."
+          else
+            echo "$COUNT letter(s) pending NotebookLM audio generation."
+          fi
+
+  # ── Job 2: Full pipeline ───────────────────────────────────────────────────
+  # Skipped entirely on scheduled runs when there is nothing pending,
+  # saving ~8 minutes of setup time per idle day.
+  backfill:
+    name: Generate → Compress → Publish
+    needs: check
+    if: needs.check.outputs.pending_count != '0' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write   # Required to push new audio files and ledger back to main
+
+    steps:
+      # ── Setup ───────────────────────────────────────────────────────────────
+      - name: Checkout repository (with LFS)
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          lfs: true     # Pull existing LFS-tracked MP3s so git status is clean
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install system dependencies
+        run: sudo apt-get install -y ffmpeg
+
+      - name: Install Python packages
+        run: pip install -r requirements.txt
+
+      - name: Install Playwright browser (Chromium)
+        run: playwright install chromium --with-deps
+
+      # ── Generate ─────────────────────────────────────────────────────────
+      # continue-on-error: true so that a quota failure or auth expiry does
+      # not block the compress + publish steps. Any audio generated in
+      # previous days (raw .mp4 already on disk) will still be compressed
+      # and published even if today's generation fails.
+      #
+      # The circuit breaker in generator.py aborts the batch after 2
+      # consecutive failures and logs a clear message with next steps.
+      - name: Generate audio overviews via NotebookLM
+        if: ${{ !(inputs.skip_notebooklm == true) }}
+        continue-on-error: true
+        env:
+          NOTEBOOKLM_AUTH_JSON: ${{ secrets.NOTEBOOKLM_AUTH_JSON }}
+        run: python scripts/generator.py --max-new ${{ inputs.max_new || '3' }}
+
+      # ── Compress ─────────────────────────────────────────────────────────
+      # Converts raw .mp4 files in data/audio_raw/ to 64 kbps .mp3 in
+      # docs/audio/ and regenerates docs/feed.xml.
+      - name: Compress audio and regenerate RSS feed
+        env:
+          PAGES_BASE_URL: "https://jhester599.github.io/pgr-letters-archive"
+        run: python scripts/compressor.py
+
+      # ── Publish ──────────────────────────────────────────────────────────
+      - name: Build reading pages
+        run: python scripts/build_pages.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git lfs install
+
+          git add \
+            docs/audio/ \
+            docs/ledger.json \
+            docs/feed.xml \
+            docs/letters/
+
+          if git diff --staged --quiet; then
+            echo "No new files to commit — nothing changed."
+          else
+            TIMESTAMP=$(date -u '+%Y-%m-%d')
+            git commit -m "chore: daily audio backfill [${TIMESTAMP}]"
+            git push origin main
+            echo "Changes pushed to main."
+          fi

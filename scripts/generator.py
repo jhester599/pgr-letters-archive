@@ -36,6 +36,7 @@ import asyncio
 import json
 import logging
 import os
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
@@ -155,8 +156,15 @@ Distribution and business segments:
 INTER_REQUEST_DELAY = 10   # seconds
 
 # How long to wait for audio generation (NotebookLM typically takes 3–8 minutes)
-AUDIO_TIMEOUT   = 900      # seconds (15 minutes; generous to handle slow runs)
+AUDIO_TIMEOUT   = 600      # seconds (10 minutes; generous but not wasteful)
 POLL_INTERVAL   = 15       # seconds between status checks
+
+# NotebookLM free-tier audio generation quota (~3 per day per account as of 2026).
+# When the quota is exhausted, generate_audio() submits successfully but
+# wait_for_completion() never sees a completed status and eventually times out.
+# After this many consecutive failures (timeout OR exception), abort the batch
+# early and tell the user to wait ~24 hours for the quota to reset.
+CONSECUTIVE_FAIL_ABORT = 2
 
 # ── Logging ───────────────────────────────────────────────────────────────────
 
@@ -196,12 +204,22 @@ def pending_letters(ledger: dict, filing_id: str | None = None) -> list[dict]:
 
 # ── NotebookLM audio generation ───────────────────────────────────────────────
 
-async def generate_audio_for_letter(filing: dict) -> Optional[Path]:
+_QUOTA_KEYWORDS = ("rpc create_artifact", "generation_failed", "quota", "rate limit", "rate_limit")
+
+
+def _looks_like_quota_error(exc: BaseException) -> bool:
+    msg = str(exc).lower()
+    return any(kw in msg for kw in _QUOTA_KEYWORDS)
+
+
+async def generate_audio_for_letter(filing: dict) -> tuple[Optional[Path], bool]:
     """
     Upload a letter to a new NotebookLM notebook, generate audio, download it.
 
-    Returns the local Path of the downloaded raw audio file (.mp4) on success,
-    or None on any failure. Deletes the notebook after downloading.
+    Returns (path, quota_failure):
+      • path  — local Path of the downloaded .mp4 on success, or None on failure
+      • quota_failure — True when the failure looks like a daily-quota exhaustion
+                        (caller should abort the batch rather than retrying)
     """
     try:
         from notebooklm import NotebookLMClient  # type: ignore[import]
@@ -209,12 +227,12 @@ async def generate_audio_for_letter(filing: dict) -> Optional[Path]:
         log.error(
             "notebooklm-py is not installed. Run: pip install notebooklm-py && playwright install chromium"
         )
-        return None
+        return None, False
 
     letter_path = BASE_DIR / filing["letter_file"]
     if not letter_path.exists():
         log.error("Letter file not found: %s", letter_path)
-        return None
+        return None, False
 
     letter_text    = _CONTEXT_PREAMBLE + letter_path.read_text(encoding="utf-8")
     notebook_title = f"PGR {filing['year']} {filing['quarter']} — CEO Shareholder Letter"
@@ -225,6 +243,7 @@ async def generate_audio_for_letter(filing: dict) -> Optional[Path]:
     raw_path     = AUDIO_RAW_DIR / raw_filename
 
     log.info("Starting NotebookLM session for %s…", filing["id"])
+    t_start = time.monotonic()
 
     try:
         async with await NotebookLMClient.from_storage() as client:
@@ -265,10 +284,14 @@ async def generate_audio_for_letter(filing: dict) -> Optional[Path]:
                 )
 
                 if final_status.is_failed:
-                    log.error("  Audio generation failed: %s", final_status.error)
-                    return None
+                    elapsed = time.monotonic() - t_start
+                    is_quota = _looks_like_quota_error(
+                        Exception(getattr(final_status, "error", "") or "")
+                    )
+                    log.error("  Audio generation failed (%.0fs): %s", elapsed, final_status.error)
+                    return None, is_quota
 
-                log.info("  Audio generation complete.")
+                log.info("  Audio generation complete (%.0fs).", time.monotonic() - t_start)
 
                 # Download the raw audio to data/audio_raw/
                 await client.artifacts.download_audio(
@@ -286,13 +309,20 @@ async def generate_audio_for_letter(filing: dict) -> Optional[Path]:
                     log.warning("  Failed to delete notebook %s: %s", notebook.id, cleanup_exc)
 
     except asyncio.TimeoutError:
-        log.error("  Audio generation timed out after %ds for %s", AUDIO_TIMEOUT, filing["id"])
-        return None
+        elapsed = time.monotonic() - t_start
+        log.error("  Audio generation timed out after %.0fs for %s", elapsed, filing["id"])
+        # A timeout on every letter is a strong signal that today's quota is exhausted.
+        return None, True
     except Exception as exc:
-        log.error("  NotebookLM error for %s: %s — %s", filing["id"], type(exc).__name__, exc)
-        return None
+        elapsed = time.monotonic() - t_start
+        is_quota = _looks_like_quota_error(exc)
+        log.error(
+            "  NotebookLM error for %s (%.0fs): %s — %s",
+            filing["id"], elapsed, type(exc).__name__, exc,
+        )
+        return None, is_quota
 
-    return raw_path if raw_path.exists() else None
+    return (raw_path if raw_path.exists() else None), False
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
@@ -343,12 +373,13 @@ async def main(max_new: int, filing_id: str | None = None) -> None:
         pending = pending[:max_new]
 
     log.info("%d letter(s) queued for audio generation (max-new=%d).", len(pending), max_new)
-    success_count = 0
+    success_count       = 0
+    consecutive_failures = 0
 
     for i, filing in enumerate(pending):
         log.info("[%d/%d] Generating audio for %s", i + 1, len(pending), filing["id"])
 
-        raw_path = await generate_audio_for_letter(filing)
+        raw_path, quota_failure = await generate_audio_for_letter(filing)
 
         if raw_path:
             # compressor.py expects .mp3 filenames in audio_file; store the raw .mp4 path
@@ -357,10 +388,30 @@ async def main(max_new: int, filing_id: str | None = None) -> None:
             filing["audio_raw_file"]       = f"data/audio_raw/{raw_path.name}"
             filing["audio_generated_date"] = datetime.now(timezone.utc).isoformat()
             save_ledger(ledger)
-            success_count += 1
+            success_count       += 1
+            consecutive_failures = 0
             log.info("  ✓  %s", filing["id"])
         else:
             log.warning("  ✗  %s — will retry on next run", filing["id"])
+            consecutive_failures += 1
+
+            # Circuit breaker: stop the batch early when every attempt is failing.
+            # The most common cause is the free-tier daily quota (~3 audio overviews/day).
+            if consecutive_failures >= CONSECUTIVE_FAIL_ABORT or quota_failure:
+                log.error(
+                    "\n"
+                    "  ┌─ Batch aborted after %d consecutive failure(s) ────────────────────┐\n"
+                    "  │  NotebookLM is rejecting audio generation requests.                │\n"
+                    "  │  Most likely cause: free-tier quota (~3 overviews/day) exhausted.  │\n"
+                    "  │                                                                    │\n"
+                    "  │  What to do:                                                       │\n"
+                    "  │    1. Wait ~24 hours for the daily quota to reset.                 │\n"
+                    "  │    2. Re-run:  python scripts/generator.py --max-new 3             │\n"
+                    "  │    3. Repeat daily until the backlog is cleared.                   │\n"
+                    "  └────────────────────────────────────────────────────────────────────┘",
+                    consecutive_failures,
+                )
+                break
 
         if i < len(pending) - 1:
             log.info("  Waiting %ds before next submission…", INTER_REQUEST_DELAY)
@@ -377,7 +428,11 @@ if __name__ == "__main__":
         "--max-new",
         type=int,
         default=1,
-        help="Maximum number of new letters to process per run (default: 1; 0 = unlimited).",
+        help=(
+            "Maximum number of new letters to process per run (default: 1; 0 = unlimited). "
+            "NotebookLM free tier allows ~3 audio overviews per day — keep this at 3 or below "
+            "to avoid hitting the daily quota."
+        ),
     )
     parser.add_argument(
         "--id", dest="filing_id", metavar="FILING_ID",

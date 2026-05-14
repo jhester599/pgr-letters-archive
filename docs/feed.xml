@@ -6,7 +6,7 @@
     <link>https://jhester599.github.io/pgr-letters-archive</link>
     <language>en-us</language>
     <author>Jeff Hester</author>
-    <lastBuildDate>Thu, 14 May 2026 01:02:34 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 14 May 2026 11:49:27 GMT</lastBuildDate>
     <itunes:author>Jeff Hester</itunes:author>
     <itunes:type>episodic</itunes:type>
     <itunes:category text="Business" />
@@ -19,6 +19,30 @@
       <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2025_Q4_Letter.mp3" length="11263758" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
       <itunes:duration>1407</itunes:duration>
+    </item>
+    <item>
+      <title>PGR 2025 Q3 — CEO Shareholder Letter Overview</title>
+      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q3 2025 shareholder letter.</description>
+      <pubDate>Tue, 30 Sep 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">PGR_2025_Q3</guid>
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2025_Q3_Letter.mp3" length="0" type="audio/mpeg" />
+      <itunes:author>Jeff Hester</itunes:author>
+    </item>
+    <item>
+      <title>PGR 2025 Q2 — CEO Shareholder Letter Overview</title>
+      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q2 2025 shareholder letter.</description>
+      <pubDate>Mon, 30 Jun 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">PGR_2025_Q2</guid>
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2025_Q2_Letter.mp3" length="0" type="audio/mpeg" />
+      <itunes:author>Jeff Hester</itunes:author>
+    </item>
+    <item>
+      <title>PGR 2025 Q1 — CEO Shareholder Letter Overview</title>
+      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q1 2025 shareholder letter.</description>
+      <pubDate>Mon, 31 Mar 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">PGR_2025_Q1</guid>
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2025_Q1_Letter.mp3" length="0" type="audio/mpeg" />
+      <itunes:author>Jeff Hester</itunes:author>
     </item>
   </channel>
 </rss>

@@ -156,7 +156,7 @@ Distribution and business segments:
 INTER_REQUEST_DELAY = 10   # seconds
 
 # How long to wait for audio generation (NotebookLM typically takes 3–8 minutes)
-AUDIO_TIMEOUT   = 600      # seconds (10 minutes; generous but not wasteful)
+AUDIO_TIMEOUT   = 900      # seconds (15 minutes; covers slow/long letters)
 POLL_INTERVAL   = 15       # seconds between status checks
 
 # NotebookLM free-tier audio generation quota (~3 per day per account as of 2026).

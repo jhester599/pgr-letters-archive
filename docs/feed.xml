@@ -6,7 +6,7 @@
     <link>https://jhester599.github.io/pgr-letters-archive</link>
     <language>en-us</language>
     <author>Jeff Hester</author>
-    <lastBuildDate>Fri, 15 May 2026 11:52:54 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 15 May 2026 14:02:39 GMT</lastBuildDate>
     <itunes:author>Jeff Hester</itunes:author>
     <itunes:type>episodic</itunes:type>
     <itunes:category text="Business" />
@@ -16,9 +16,8 @@
       <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q4 2025 shareholder letter.</description>
       <pubDate>Wed, 31 Dec 2025 00:00:00 GMT</pubDate>
       <guid isPermaLink="false">PGR_2025_Q4</guid>
-      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2025_Q4_Letter.mp3" length="11263758" type="audio/mpeg" />
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2025_Q4_Letter.mp3" length="133" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
-      <itunes:duration>1407</itunes:duration>
     </item>
     <item>
       <title>PGR 2025 Q3 — CEO Shareholder Letter Overview</title>
@@ -49,27 +48,24 @@
       <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q4 2024 shareholder letter.</description>
       <pubDate>Tue, 31 Dec 2024 00:00:00 GMT</pubDate>
       <guid isPermaLink="false">PGR_2024_Q4</guid>
-      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2024_Q4_Letter.mp3" length="10326484" type="audio/mpeg" />
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2024_Q4_Letter.mp3" length="133" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
-      <itunes:duration>1290</itunes:duration>
     </item>
     <item>
       <title>PGR 2024 Q3 — CEO Shareholder Letter Overview</title>
       <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q3 2024 shareholder letter.</description>
       <pubDate>Mon, 30 Sep 2024 00:00:00 GMT</pubDate>
       <guid isPermaLink="false">PGR_2024_Q3</guid>
-      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2024_Q3_Letter.mp3" length="9654406" type="audio/mpeg" />
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2024_Q3_Letter.mp3" length="132" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
-      <itunes:duration>1206</itunes:duration>
     </item>
     <item>
       <title>PGR 2024 Q2 — CEO Shareholder Letter Overview</title>
       <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q2 2024 shareholder letter.</description>
       <pubDate>Sun, 30 Jun 2024 00:00:00 GMT</pubDate>
       <guid isPermaLink="false">PGR_2024_Q2</guid>
-      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2024_Q2_Letter.mp3" length="8707519" type="audio/mpeg" />
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2024_Q2_Letter.mp3" length="132" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
-      <itunes:duration>1088</itunes:duration>
     </item>
   </channel>
 </rss>

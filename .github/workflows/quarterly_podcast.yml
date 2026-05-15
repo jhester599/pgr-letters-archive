@@ -116,6 +116,7 @@ jobs:
           else
             TIMESTAMP=$(date -u '+%Y-%m-%d')
             git commit -m "chore: auto-update quarterly podcast archive [${TIMESTAMP}]"
+            git pull --rebase origin main
             git push origin main
             echo "Changes pushed to main."
           fi

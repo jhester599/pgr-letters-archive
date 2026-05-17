@@ -235,6 +235,7 @@ def main() -> None:
 
         filing["audio_compressed"] = True
         filing["audio_compressed_date"] = datetime.now(timezone.utc).isoformat()
+        filing["page_built"] = False  # force reading page rebuild to add audio player
         save_ledger(ledger)
         success_count += 1
 

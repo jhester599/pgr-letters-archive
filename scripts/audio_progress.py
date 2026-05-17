@@ -39,7 +39,7 @@ def main() -> None:
     ]
     done    = sorted(
         [f for f in eligible if f.get("audio_generated")],
-        key=lambda f: f.get("audio_generated_date", ""),
+        key=lambda f: (f.get("audio_generated_date", "")[:10], f.get("id", "")),
         reverse=True,
     )
     pending = [f for f in eligible if not f.get("audio_generated")]

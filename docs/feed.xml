@@ -6,7 +6,7 @@
     <link>https://jhester599.github.io/pgr-letters-archive</link>
     <language>en-us</language>
     <author>Jeff Hester</author>
-    <lastBuildDate>Sun, 17 May 2026 11:02:53 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 17 May 2026 12:11:31 GMT</lastBuildDate>
     <itunes:author>Jeff Hester</itunes:author>
     <itunes:type>episodic</itunes:type>
     <itunes:category text="Business" />
@@ -304,6 +304,33 @@
       <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2017_Q4_Letter.mp3" length="9687842" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
       <itunes:duration>1210</itunes:duration>
+    </item>
+    <item>
+      <title>PGR 2017 Q3 — CEO Shareholder Letter Overview</title>
+      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q3 2017 shareholder letter.</description>
+      <pubDate>Sat, 30 Sep 2017 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">PGR_2017_Q3</guid>
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2017_Q3_Letter.mp3" length="10319379" type="audio/mpeg" />
+      <itunes:author>Jeff Hester</itunes:author>
+      <itunes:duration>1289</itunes:duration>
+    </item>
+    <item>
+      <title>PGR 2017 Q2 — CEO Shareholder Letter Overview</title>
+      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q2 2017 shareholder letter.</description>
+      <pubDate>Fri, 30 Jun 2017 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">PGR_2017_Q2</guid>
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2017_Q2_Letter.mp3" length="11307016" type="audio/mpeg" />
+      <itunes:author>Jeff Hester</itunes:author>
+      <itunes:duration>1413</itunes:duration>
+    </item>
+    <item>
+      <title>PGR 2017 Q1 — CEO Shareholder Letter Overview</title>
+      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q1 2017 shareholder letter.</description>
+      <pubDate>Fri, 31 Mar 2017 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">PGR_2017_Q1</guid>
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2017_Q1_Letter.mp3" length="9943007" type="audio/mpeg" />
+      <itunes:author>Jeff Hester</itunes:author>
+      <itunes:duration>1242</itunes:duration>
     </item>
   </channel>
 </rss>

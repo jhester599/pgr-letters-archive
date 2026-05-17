@@ -1,8 +1,8 @@
 {
   "meta": {
-    "last_updated": "2026-05-17T04:23:23.993881+00:00",
+    "last_updated": "2026-05-17T12:11:31.643803+00:00",
     "total_letters": 100,
-    "total_audio": 33,
+    "total_audio": 36,
     "description": "State ledger for the PGR Letters Archive pipeline. Each entry tracks one SEC filing through the scrape \u2192 generate \u2192 compress lifecycle."
   },
   "filings": [
@@ -693,16 +693,18 @@
       "accession_number": "0000080661-17-000066",
       "report_date": "2017-09-30",
       "letter_file": "data/letters/PGR_2017_Q3_Letter.txt",
-      "audio_raw_file": null,
+      "audio_raw_file": "data/audio_raw/PGR_2017_Q3_Letter.mp4",
       "audio_file": "docs/audio/PGR_2017_Q3_Letter.mp3",
       "letter_scraped": true,
-      "audio_generated": false,
-      "audio_compressed": false,
+      "audio_generated": true,
+      "audio_compressed": true,
       "processed_date": "2026-04-26T02:56:41.951339+00:00",
       "skip_reason": null,
       "page_built": true,
       "page_url": "letters/PGR_2017_Q3.html",
-      "summary_generated": true
+      "summary_generated": true,
+      "audio_generated_date": "2026-05-17T11:51:43.425793+00:00",
+      "audio_compressed_date": "2026-05-17T12:10:59.970078+00:00"
     },
     {
       "id": "PGR_2017_Q2",
@@ -712,16 +714,18 @@
       "accession_number": "0000080661-17-000052",
       "report_date": "2017-06-30",
       "letter_file": "data/letters/PGR_2017_Q2_Letter.txt",
-      "audio_raw_file": null,
+      "audio_raw_file": "data/audio_raw/PGR_2017_Q2_Letter.mp4",
       "audio_file": "docs/audio/PGR_2017_Q2_Letter.mp3",
       "letter_scraped": true,
-      "audio_generated": false,
-      "audio_compressed": false,
+      "audio_generated": true,
+      "audio_compressed": true,
       "processed_date": "2026-04-26T02:56:41.014721+00:00",
       "skip_reason": null,
       "page_built": true,
       "page_url": "letters/PGR_2017_Q2.html",
-      "summary_generated": true
+      "summary_generated": true,
+      "audio_generated_date": "2026-05-17T12:02:26.414284+00:00",
+      "audio_compressed_date": "2026-05-17T12:11:16.785380+00:00"
     },
     {
       "id": "PGR_2017_Q1",
@@ -731,16 +735,18 @@
       "accession_number": "0000080661-17-000025",
       "report_date": "2017-03-31",
       "letter_file": "data/letters/PGR_2017_Q1_Letter.txt",
-      "audio_raw_file": null,
+      "audio_raw_file": "data/audio_raw/PGR_2017_Q1_Letter.mp4",
       "audio_file": "docs/audio/PGR_2017_Q1_Letter.mp3",
       "letter_scraped": true,
-      "audio_generated": false,
-      "audio_compressed": false,
+      "audio_generated": true,
+      "audio_compressed": true,
       "processed_date": "2026-04-26T02:56:40.221552+00:00",
       "skip_reason": null,
       "page_built": true,
       "page_url": "letters/PGR_2017_Q1.html",
-      "summary_generated": true
+      "summary_generated": true,
+      "audio_generated_date": "2026-05-17T12:10:44.039312+00:00",
+      "audio_compressed_date": "2026-05-17T12:11:31.643789+00:00"
     },
     {
       "id": "PGR_2016_Q4",

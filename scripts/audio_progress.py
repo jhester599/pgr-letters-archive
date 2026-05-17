@@ -75,13 +75,14 @@ def main() -> None:
     lines += [
         f"## Completed ({n_done})",
         "",
-        "| # | Filing | Period | Generated |",
-        "|---|--------|--------|-----------|",
+        "| # | Filing | Period | Version | Generated |",
+        "|---|--------|--------|---------|-----------|",
     ]
     for i, f in enumerate(done, 1):
         gen_date = (f.get("audio_generated_date") or "")[:10] or "—"
         period   = f"{f.get('year', '')} {f.get('quarter', '')}".strip()
-        lines.append(f"| {i} | `{f['id']}` | {period} | {gen_date} |")
+        version  = f.get("audio_version") or "—"
+        lines.append(f"| {i} | `{f['id']}` | {period} | v{version} | {gen_date} |")
 
     lines.append("")
 

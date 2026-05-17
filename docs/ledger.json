@@ -28,7 +28,8 @@
       "tts_generated": true,
       "tts_file": "docs/audio_tts/PGR_2025_Q4_Letter.mp3",
       "tts_voice": "af_heart",
-      "tts_generated_date": "2026-05-02T18:54:29.332388+00:00"
+      "tts_generated_date": "2026-05-02T18:54:29.332388+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2025_Q3",
@@ -52,7 +53,8 @@
       "tts_generated": true,
       "tts_file": "docs/audio_tts/PGR_2025_Q3_Letter.mp3",
       "tts_voice": "am_michael",
-      "tts_generated_date": "2026-05-15T14:02:38.936675+00:00"
+      "tts_generated_date": "2026-05-15T14:02:38.936675+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2025_Q2",
@@ -72,7 +74,8 @@
       "page_built": true,
       "summary_generated": true,
       "audio_generated_date": "2026-05-13T01:25:52.484672+00:00",
-      "audio_compressed_date": "2026-05-14T02:18:04.351278+00:00"
+      "audio_compressed_date": "2026-05-14T02:18:04.351278+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2025_Q1",
@@ -92,7 +95,8 @@
       "page_built": true,
       "summary_generated": true,
       "audio_generated_date": "2026-05-13T01:36:32.787649+00:00",
-      "audio_compressed_date": "2026-05-14T02:18:10.604586+00:00"
+      "audio_compressed_date": "2026-05-14T02:18:10.604586+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2024_Q4",
@@ -112,7 +116,8 @@
       "page_built": true,
       "summary_generated": true,
       "audio_generated_date": "2026-05-14T23:45:26.716142+00:00",
-      "audio_compressed_date": "2026-05-14T23:45:42.495373+00:00"
+      "audio_compressed_date": "2026-05-14T23:45:42.495373+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2024_Q3",
@@ -132,7 +137,8 @@
       "page_built": true,
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T01:15:44.836444+00:00",
-      "audio_compressed_date": "2026-05-15T01:35:57.879633+00:00"
+      "audio_compressed_date": "2026-05-15T01:35:57.879633+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2024_Q2",
@@ -152,7 +158,8 @@
       "page_built": true,
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T01:25:28.024821+00:00",
-      "audio_compressed_date": "2026-05-15T01:36:10.893833+00:00"
+      "audio_compressed_date": "2026-05-15T01:36:10.893833+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2024_Q1",
@@ -172,7 +179,8 @@
       "page_built": true,
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T16:09:31.993529+00:00",
-      "audio_compressed_date": "2026-05-15T16:19:59.643264+00:00"
+      "audio_compressed_date": "2026-05-15T16:19:59.643264+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2023_Q4",
@@ -192,7 +200,8 @@
       "page_built": true,
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T17:00:53.747310+00:00",
-      "audio_compressed_date": "2026-05-15T18:12:35.613971+00:00"
+      "audio_compressed_date": "2026-05-15T18:12:35.613971+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2023_Q3",
@@ -212,7 +221,8 @@
       "page_built": true,
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T17:11:12.148919+00:00",
-      "audio_compressed_date": "2026-05-15T18:12:52.381689+00:00"
+      "audio_compressed_date": "2026-05-15T18:12:52.381689+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2023_Q2",
@@ -232,7 +242,8 @@
       "page_built": true,
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T17:19:33.230918+00:00",
-      "audio_compressed_date": "2026-05-15T18:13:09.250554+00:00"
+      "audio_compressed_date": "2026-05-15T18:13:09.250554+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2023_Q1",
@@ -252,7 +263,8 @@
       "page_built": true,
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T17:26:32.686197+00:00",
-      "audio_compressed_date": "2026-05-15T18:13:24.384417+00:00"
+      "audio_compressed_date": "2026-05-15T18:13:24.384417+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2022_Q4",
@@ -272,7 +284,8 @@
       "page_built": true,
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T17:34:24.385686+00:00",
-      "audio_compressed_date": "2026-05-15T18:13:38.835571+00:00"
+      "audio_compressed_date": "2026-05-15T18:13:38.835571+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2022_Q3",
@@ -292,7 +305,8 @@
       "page_built": true,
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T17:41:54.707063+00:00",
-      "audio_compressed_date": "2026-05-15T18:13:53.185738+00:00"
+      "audio_compressed_date": "2026-05-15T18:13:53.185738+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2022_Q2",
@@ -312,7 +326,8 @@
       "page_built": true,
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T17:49:54.078076+00:00",
-      "audio_compressed_date": "2026-05-15T18:14:09.429371+00:00"
+      "audio_compressed_date": "2026-05-15T18:14:09.429371+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2022_Q1",
@@ -332,7 +347,8 @@
       "page_built": true,
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T17:57:23.119973+00:00",
-      "audio_compressed_date": "2026-05-15T18:14:25.257298+00:00"
+      "audio_compressed_date": "2026-05-15T18:14:25.257298+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2021_Q4",
@@ -352,7 +368,8 @@
       "page_built": true,
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T18:06:03.160260+00:00",
-      "audio_compressed_date": "2026-05-15T18:14:38.574410+00:00"
+      "audio_compressed_date": "2026-05-15T18:14:38.574410+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2021_Q3",
@@ -372,7 +389,8 @@
       "page_built": true,
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T18:12:21.383310+00:00",
-      "audio_compressed_date": "2026-05-15T18:14:51.234661+00:00"
+      "audio_compressed_date": "2026-05-15T18:14:51.234661+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2021_Q2",
@@ -392,7 +410,8 @@
       "page_built": true,
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T22:20:30.974431+00:00",
-      "audio_compressed_date": "2026-05-15T22:21:23.200356+00:00"
+      "audio_compressed_date": "2026-05-15T22:21:23.200356+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2021_Q1",
@@ -412,7 +431,8 @@
       "page_built": true,
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T02:29:50.006887+00:00",
-      "audio_compressed_date": "2026-05-17T04:20:14.847348+00:00"
+      "audio_compressed_date": "2026-05-17T04:20:14.847348+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2020_Q4",
@@ -432,7 +452,8 @@
       "page_built": true,
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T02:36:58.588555+00:00",
-      "audio_compressed_date": "2026-05-17T04:20:28.800384+00:00"
+      "audio_compressed_date": "2026-05-17T04:20:28.800384+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2020_Q3",
@@ -452,7 +473,8 @@
       "page_built": true,
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T02:43:56.553996+00:00",
-      "audio_compressed_date": "2026-05-17T04:20:42.635401+00:00"
+      "audio_compressed_date": "2026-05-17T04:20:42.635401+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2020_Q2",
@@ -473,7 +495,8 @@
       "page_url": "letters/PGR_2020_Q2.html",
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T02:51:36.526212+00:00",
-      "audio_compressed_date": "2026-05-17T04:20:56.370940+00:00"
+      "audio_compressed_date": "2026-05-17T04:20:56.370940+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2020_Q1",
@@ -494,7 +517,8 @@
       "page_url": "letters/PGR_2020_Q1.html",
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T03:00:57.921436+00:00",
-      "audio_compressed_date": "2026-05-17T04:21:12.427761+00:00"
+      "audio_compressed_date": "2026-05-17T04:21:12.427761+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2019_Q4",
@@ -515,7 +539,8 @@
       "page_url": "letters/PGR_2019_Q4.html",
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T03:08:55.901669+00:00",
-      "audio_compressed_date": "2026-05-17T04:21:25.625515+00:00"
+      "audio_compressed_date": "2026-05-17T04:21:25.625515+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2019_Q3",
@@ -536,7 +561,8 @@
       "page_url": "letters/PGR_2019_Q3.html",
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T03:19:08.920349+00:00",
-      "audio_compressed_date": "2026-05-17T04:21:39.401944+00:00"
+      "audio_compressed_date": "2026-05-17T04:21:39.401944+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2019_Q2",
@@ -557,7 +583,8 @@
       "page_url": "letters/PGR_2019_Q2.html",
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T03:27:48.447399+00:00",
-      "audio_compressed_date": "2026-05-17T04:21:53.590699+00:00"
+      "audio_compressed_date": "2026-05-17T04:21:53.590699+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2019_Q1",
@@ -578,7 +605,8 @@
       "page_url": "letters/PGR_2019_Q1.html",
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T03:34:57.756753+00:00",
-      "audio_compressed_date": "2026-05-17T04:22:08.157248+00:00"
+      "audio_compressed_date": "2026-05-17T04:22:08.157248+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2018_Q4",
@@ -599,7 +627,8 @@
       "page_url": "letters/PGR_2018_Q4.html",
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T03:41:35.319243+00:00",
-      "audio_compressed_date": "2026-05-17T04:22:23.074661+00:00"
+      "audio_compressed_date": "2026-05-17T04:22:23.074661+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2018_Q3",
@@ -620,7 +649,8 @@
       "page_url": "letters/PGR_2018_Q3.html",
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T03:48:43.454484+00:00",
-      "audio_compressed_date": "2026-05-17T04:22:38.006970+00:00"
+      "audio_compressed_date": "2026-05-17T04:22:38.006970+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2018_Q2",
@@ -641,7 +671,8 @@
       "page_url": "letters/PGR_2018_Q2.html",
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T03:59:06.314519+00:00",
-      "audio_compressed_date": "2026-05-17T04:22:53.350436+00:00"
+      "audio_compressed_date": "2026-05-17T04:22:53.350436+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2018_Q1",
@@ -662,7 +693,8 @@
       "page_url": "letters/PGR_2018_Q1.html",
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T04:06:56.241164+00:00",
-      "audio_compressed_date": "2026-05-17T04:23:09.467329+00:00"
+      "audio_compressed_date": "2026-05-17T04:23:09.467329+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2017_Q4",
@@ -683,7 +715,8 @@
       "page_url": "letters/PGR_2017_Q4.html",
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T04:14:05.475514+00:00",
-      "audio_compressed_date": "2026-05-17T04:23:23.993864+00:00"
+      "audio_compressed_date": "2026-05-17T04:23:23.993864+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2017_Q3",
@@ -704,7 +737,8 @@
       "page_url": "letters/PGR_2017_Q3.html",
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T11:51:43.425793+00:00",
-      "audio_compressed_date": "2026-05-17T12:10:59.970078+00:00"
+      "audio_compressed_date": "2026-05-17T12:10:59.970078+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2017_Q2",
@@ -725,7 +759,8 @@
       "page_url": "letters/PGR_2017_Q2.html",
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T12:02:26.414284+00:00",
-      "audio_compressed_date": "2026-05-17T12:11:16.785380+00:00"
+      "audio_compressed_date": "2026-05-17T12:11:16.785380+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2017_Q1",
@@ -746,7 +781,8 @@
       "page_url": "letters/PGR_2017_Q1.html",
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T12:10:44.039312+00:00",
-      "audio_compressed_date": "2026-05-17T12:11:31.643789+00:00"
+      "audio_compressed_date": "2026-05-17T12:11:31.643789+00:00",
+      "audio_version": "1.0"
     },
     {
       "id": "PGR_2016_Q4",

@@ -68,6 +68,12 @@ jobs:
       - name: Scrape SEC EDGAR for new filings
         run: python scripts/scraper.py
 
+      - name: Generate letter summaries
+        env:
+          # GITHUB_TOKEN is provided automatically — no secret setup required.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/summarizer.py
+
       - name: Generate audio overviews via NotebookLM
         if: ${{ !(inputs.skip_audio == true) }}
         env:
@@ -86,12 +92,6 @@ jobs:
         env:
           PAGES_BASE_URL: "https://jhester599.github.io/pgr-letters-archive"
         run: python scripts/compressor.py
-
-      - name: Generate letter summaries
-        env:
-          # GITHUB_TOKEN is provided automatically — no secret setup required.
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python scripts/summarizer.py
 
       - name: Build reading pages
         run: python scripts/build_pages.py

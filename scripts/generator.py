@@ -43,10 +43,11 @@ from typing import Optional
 
 # ── Constants ─────────────────────────────────────────────────────────────────
 
-BASE_DIR       = Path(__file__).resolve().parent.parent
-LETTERS_DIR    = BASE_DIR / "data" / "letters"
-AUDIO_RAW_DIR  = BASE_DIR / "data" / "audio_raw"
-LEDGER_PATH    = BASE_DIR / "docs" / "ledger.json"
+BASE_DIR        = Path(__file__).resolve().parent.parent
+LETTERS_DIR     = BASE_DIR / "data" / "letters"
+AUDIO_RAW_DIR   = BASE_DIR / "data" / "audio_raw"
+SUMMARIES_DIR   = BASE_DIR / "data" / "summaries"
+LEDGER_PATH     = BASE_DIR / "docs" / "ledger.json"
 
 # ── NotebookLM context preamble ───────────────────────────────────────────────
 # Prepended to every letter before upload. Gives the AI hosts background
@@ -202,6 +203,41 @@ def pending_letters(ledger: dict, filing_id: str | None = None) -> list[dict]:
         and not f.get("skip_reason")
     ]
 
+# ── Summary helpers ───────────────────────────────────────────────────────────
+
+def load_summary_text(filing_id: str) -> Optional[str]:
+    """
+    Return a formatted text version of the analyst summary for a filing, or None
+    if no summary file exists yet. The text is uploaded as a second NotebookLM
+    source so the hosts can focus on the highest-priority metrics.
+    """
+    summary_path = SUMMARIES_DIR / f"{filing_id}_Summary.json"
+    if not summary_path.exists():
+        return None
+    try:
+        data = json.loads(summary_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return None
+
+    bullets = data.get("bullets", [])
+    if not bullets:
+        return None
+
+    lines = [
+        "=== KEY METRICS BRIEFING — USE THIS TO GUIDE THE DISCUSSION ===",
+        "",
+        "The following points are ranked by importance. Prioritize these topics",
+        "and make sure they are covered in the audio overview.",
+        "",
+    ]
+    for i, b in enumerate(bullets, 1):
+        lines.append(f"{i}. [{b['topic']}]")
+        lines.append(f"   {b['text']}")
+        lines.append("")
+    lines.append("=== END OF KEY METRICS BRIEFING ===")
+    return "\n".join(lines)
+
+
 # ── NotebookLM audio generation ───────────────────────────────────────────────
 
 _QUOTA_KEYWORDS = ("rpc create_artifact", "generation_failed", "quota", "rate limit", "rate_limit")
@@ -260,6 +296,20 @@ async def generate_audio_for_letter(filing: dict) -> tuple[Optional[Path], bool]
                     wait=True,
                 )
                 log.info("  Uploaded letter text (%d chars)", len(letter_text))
+
+                # Add the analyst summary as a second source if available so the
+                # hosts have ranked key metrics to anchor the discussion around.
+                summary_text = load_summary_text(filing["id"])
+                if summary_text:
+                    await client.sources.add_text(
+                        notebook_id=notebook.id,
+                        title=f"Key Metrics Briefing — {filing['id']}",
+                        content=summary_text,
+                        wait=True,
+                    )
+                    log.info("  Uploaded key metrics briefing (%d chars)", len(summary_text))
+                else:
+                    log.info("  No summary found for %s — skipping briefing doc", filing["id"])
 
                 # Request audio overview generation
                 log.info("  Requesting Audio Overview (timeout: %ds)…", AUDIO_TIMEOUT)

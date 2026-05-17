@@ -233,6 +233,7 @@ def main(
             filing["tts_file"]           = f"docs/audio_tts/{out_mp3.name}"
             filing["tts_voice"]          = voice
             filing["tts_generated_date"] = datetime.now(timezone.utc).isoformat()
+            filing["page_built"]         = False  # force reading page rebuild to add TTS player
             save_ledger(ledger)
             success_count += 1
             log.info("  ✓  %s  (ledger updated)", filing["id"])

@@ -5,9 +5,10 @@ Griffith's quarterly shareholder letters into an accessible podcast archive host
 GitHub Pages.
 
 The pipeline polls SEC EDGAR, extracts "Exhibit 99" (the CEO's letter) from 10-Q and
-10-K filings, generates a podcast-style audio overview via Google NotebookLM, compresses
-it to a lean 64 kbps MP3, and publishes everything to a static web front-end with an
-embedded audio player and RSS feed — fully automated via GitHub Actions every Friday.
+10-K filings, generates a ranked analyst summary, produces a podcast-style audio overview
+via Google NotebookLM (using the letter and summary as sources), generates a verbatim
+read-through via Kokoro TTS, and publishes everything to a static web front-end with an
+embedded audio player and RSS feed — fully automated via GitHub Actions.
 
 **Live site:** https://jhester599.github.io/pgr-letters-archive/
 
@@ -19,24 +20,41 @@ embedded audio player and RSS feed — fully automated via GitHub Actions every 
 SEC EDGAR (public API)
         │
         ▼
-  scraper.py / backfill.py
+  scraper.py / backfill scripts
   Fetches 10-Q & 10-K filings, extracts Exhibit 99, saves cleaned .txt files
         │
         ▼
+  summarizer.py
+  Calls GitHub Models API to generate a ranked 10-bullet summary JSON for each letter
+        │
+        ▼
   generator.py
-  Uploads letter text to Google NotebookLM, generates Audio Overview, downloads raw audio
+  Uploads letter + summary to Google NotebookLM, generates Audio Overview, downloads raw audio
+        │
+        ▼
+  tts.py
+  Synthesizes a verbatim read-through MP3 via Kokoro TTS (local inference, no API key)
         │
         ▼
   compressor.py
-  FFmpeg re-encodes to 64 kbps MP3, regenerates podcast RSS feed
+  FFmpeg re-encodes NotebookLM audio to 64 kbps MP3, regenerates podcast RSS feed
+        │
+        ▼
+  build_pages.py
+  Generates per-letter HTML reading pages under docs/letters/
         │
         ▼
   GitHub Pages
-  Serves docs/ as a static web app — episode list, audio player, letter text
+  Serves docs/ as a static web app — episode list, dual audio players, letter text, summaries
 ```
 
-GitHub Actions runs the full pipeline on a **cron schedule every Friday** to catch all
-four quarterly filing windows, then commits any new files back to `main`.
+Two GitHub Actions workflows drive the automation:
+
+- **`quarterly_podcast.yml`** — Fires on new SEC filings (email trigger or Friday cron).
+  Runs the full pipeline: scrape → summarize → NotebookLM → TTS → compress → build → publish.
+- **`daily_audio_backfill.yml`** — Runs daily at 10:00 UTC to burn down the historical
+  audio backlog at ~3 letters/day (NotebookLM free-tier quota). See `AUDIO_PROGRESS.md`
+  for current status.
 
 ---
 
@@ -45,25 +63,37 @@ four quarterly filing windows, then commits any new files back to `main`.
 ```
 .github/
   workflows/
-    quarterly_podcast.yml     — Weekly cron automation
+    quarterly_podcast.yml      — Full pipeline for new filings
+    daily_audio_backfill.yml   — Daily NotebookLM backlog runner
 data/
-  letters/                    — Cleaned .txt letter files (committed)
-  audio_raw/                  — Temporary raw audio from NotebookLM (gitignored)
-docs/                         — GitHub Pages web root
-  index.html                  — Single-page front-end
-  ledger.json                 — Pipeline state ledger (also read by the front-end)
-  audio/                      — Compressed 64 kbps MP3s
-  feed.xml                    — Podcast RSS feed (regenerated each run)
+  letters/                     — Cleaned .txt letter files (committed)
+  summaries/                   — 10-bullet JSON summaries (committed)
+  audio_raw/                   — Temporary raw audio from NotebookLM (gitignored)
+docs/                          — GitHub Pages web root
+  index.html                   — Single-page front-end
+  ledger.json                  — Pipeline state ledger (also read by the front-end)
+  audio/                       — Compressed 64 kbps NotebookLM MP3s (committed)
+  audio_tts/                   — Kokoro TTS verbatim read-through MP3s (committed)
+  feed.xml                     — Podcast RSS feed (regenerated each run)
+  letters/                     — Per-letter HTML reading pages
 scripts/
-  scraper.py                  — Recent filings scraper (last ~3 years)
-  backfill.py                 — Full historical scraper (all available EDGAR filings)
-  generator.py                — NotebookLM audio generation
-  compressor.py               — FFmpeg compression + RSS feed generation
+  scraper.py                   — Recent filings scraper (last ~3 years)
+  backfill.py                  — Full historical EDGAR scraper
+  backfill_ex13.py             — EX-13 backfill for pre-2004 annual letters
+  backfill_ex99.py             — EX-99 backfill for quarterly letters
+  summarizer.py                — GitHub Models API summary generator
+  generator.py                 — NotebookLM audio generation
+  tts.py                       — Kokoro TTS verbatim read-through generation
+  compressor.py                — FFmpeg compression + RSS feed generation
+  build_pages.py               — Per-letter HTML reading page generator
+  audio_progress.py            — Generates AUDIO_PROGRESS.md backfill tracker
+  gmail_trigger.js             — Apps Script that fires the Actions workflow on filing alerts
+  setup_notebooklm.ps1         — One-time Windows NotebookLM auth setup
 requirements.txt
-PLAN.md                       — Architecture, data model, risk register
-ROADMAP.md                    — Planned future features
-CLAUDE.md                     — Developer reference and run checklist
-NOTEBOOKLM_SETUP.md           — How to capture and store the auth secret
+AUDIO_PROGRESS.md              — Live backfill progress tracker (auto-updated by CI)
+PLAN.md                        — Architecture, data model, technical decisions
+CLAUDE.md                      — Developer reference and run checklist
+NOTEBOOKLM_SETUP.md            — How to capture and store the NotebookLM auth secret
 ```
 
 ---
@@ -73,13 +103,16 @@ NOTEBOOKLM_SETUP.md           — How to capture and store the auth secret
 ### Prerequisites
 
 ```bash
-python -m venv .venv && source .venv/bin/activate
+# Python 3.12 required (kokoro is not compatible with 3.13+)
+python3.12 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 playwright install chromium
-sudo apt-get install -y ffmpeg    # or: brew install ffmpeg
+sudo apt-get install -y ffmpeg espeak-ng   # or: brew install ffmpeg espeak-ng
 ```
 
-### 1. Scrape recent filings (no credentials needed)
+On Windows, use `py -3.12 -m venv .venv` and see `CLAUDE.md` for full setup.
+
+### 1. Scrape recent filings
 
 ```bash
 python scripts/scraper.py
@@ -88,25 +121,48 @@ python scripts/scraper.py
 Fetches the most recent ~40 EDGAR filings and extracts any 10-Q / 10-K Exhibit 99
 letters not already in the ledger. Expect 8–12 letters covering roughly the last 3 years.
 
-### 2. Generate one audio overview
+### 2. Generate summaries
 
 ```bash
-# Authenticate first (one-time — opens a real browser)
+# Requires a GitHub personal access token (free; no special scopes needed)
+export GITHUB_TOKEN="your_token_here"
+python scripts/summarizer.py
+```
+
+Produces `data/summaries/{id}_Summary.json` for each letter — a ranked 10-bullet JSON
+used as a second source document in NotebookLM to focus the hosts on key metrics.
+
+### 3. Generate NotebookLM podcast audio
+
+```bash
+# Authenticate first (one-time — opens a real browser for Google sign-in)
 notebooklm login
 export NOTEBOOKLM_AUTH_JSON="$(cat ~/.notebooklm/profiles/default/storage_state.json)"
 
 python scripts/generator.py --max-new 1
 ```
 
-### 3. Compress and publish
+### 4. Generate TTS read-through audio
 
 ```bash
-python scripts/compressor.py
+python scripts/tts.py --max-new 1
 ```
 
-Outputs a 64 kbps MP3 to `docs/audio/` and writes `docs/feed.xml`.
+Downloads the Kokoro model (~350 MB, cached after first run) and synthesizes a verbatim
+MP3. Default voice: `am_michael`. See `CLAUDE.md` for voice options and audition workflow.
 
-### 4. Preview locally
+### 5. Compress and publish
+
+```bash
+export PAGES_BASE_URL="https://jhester599.github.io/pgr-letters-archive"
+python scripts/compressor.py
+python scripts/build_pages.py
+```
+
+Outputs a 64 kbps MP3 to `docs/audio/`, a TTS MP3 to `docs/audio_tts/`, per-letter HTML
+pages to `docs/letters/`, and writes `docs/feed.xml`.
+
+### 6. Preview locally
 
 ```bash
 cd docs && python -m http.server 8000
@@ -116,36 +172,49 @@ cd docs && python -m http.server 8000
 ### Full historical backfill
 
 ```bash
-# Preview without downloading
-python scripts/backfill.py --dry-run
-
-# Download all available PGR filings from EDGAR
-python scripts/backfill.py
-
-# Generate audio for everything (no per-run limit)
-python scripts/generator.py --max-new 0
+python scripts/backfill.py --dry-run   # preview without downloading
+python scripts/backfill.py             # download all available PGR filings from EDGAR
+python scripts/summarizer.py           # summarize all letters
+python scripts/generator.py --max-new 0  # generate all NotebookLM audio (respects quota)
+python scripts/tts.py --max-new 0        # generate all TTS audio
 ```
+
+---
+
+## Podcast audio versions
+
+Each ledger entry records an `audio_version` field:
+
+| Version | Description |
+|---------|-------------|
+| `1.0` | Letter + background context preamble only |
+| `1.1` | Letter + background context preamble + ranked summary as a second NotebookLM source |
+
+All letters processed from mid-May 2026 onward are v1.1. See `AUDIO_PROGRESS.md` for
+per-letter version tracking.
 
 ---
 
 ## GitHub Actions setup
 
-The workflow runs automatically. Two things to configure in repo settings:
+### 1. Allow the workflow to push commits
 
-**1. Allow the workflow to push commits**
 `Settings → Actions → General → Workflow permissions → Read and write`
 
-**2. Add the NotebookLM auth secret**
+### 2. Add the NotebookLM auth secret
+
 `Settings → Secrets and variables → Actions → New repository secret`
 
 | Secret | Value |
 |--------|-------|
 | `NOTEBOOKLM_AUTH_JSON` | Full contents of `~/.notebooklm/profiles/default/storage_state.json` |
 
-See `NOTEBOOKLM_SETUP.md` for step-by-step instructions. The `GITHUB_TOKEN` secret
-is provided automatically — no setup needed.
+See `NOTEBOOKLM_SETUP.md` for step-by-step instructions. Session cookies expire every
+few weeks — re-run `notebooklm login` and update the secret when `generator.py` logs an
+auth error. `GITHUB_TOKEN` is provided automatically.
 
-**3. Enable GitHub Pages**
+### 3. Enable GitHub Pages
+
 `Settings → Pages → Source: Deploy from a branch → Branch: main, Folder: /docs`
 
 ---
@@ -154,18 +223,8 @@ is provided automatically — no setup needed.
 
 | File | Contents |
 |------|----------|
-| `PLAN.md` | Full architecture plan, data model, technical decisions, risk register |
-| `ROADMAP.md` | Planned features: per-letter reading pages, verbatim TTS audio |
-| `CLAUDE.md` | Developer reference: local setup, run checklist, common tasks |
+| `CLAUDE.md` | Developer reference: local setup, run checklist, ledger schema, common tasks |
+| `PLAN.md` | Full architecture plan, data model, technical decisions |
+| `AUDIO_PROGRESS.md` | Live backfill progress — letters done, pending, versions, ETA |
 | `NOTEBOOKLM_SETUP.md` | How to capture Google session credentials for CI |
-
----
-
-## Roadmap highlights
-
-- **Per-letter reading pages** — Stylized `docs/letters/PGR_YYYY_QN.html` pages with
-  long-form reading layout, dark mode, and print/PDF support
-- **Verbatim TTS audio** — A second MP3 per letter read word-for-word via a TTS API
-  (e.g. OpenAI `tts-1-hd`), published as a separate podcast feed
-
-See `ROADMAP.md` for full details and implementation checklists.
+| `ROADMAP.md` | Planned future features |

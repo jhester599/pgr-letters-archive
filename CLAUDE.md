@@ -11,10 +11,11 @@ Kokoro TTS read-through audio → GitHub Pages.
 Every Friday a GitHub Actions job:
 1. Queries SEC EDGAR for new PGR (Progressive Corporation) 10-Q / 10-K filings
 2. Extracts and cleans the CEO's shareholder letter (Exhibit 99)
-3. Generates a podcast-style audio overview via NotebookLM
-4. Generates a verbatim read-through MP3 via Kokoro TTS (local inference, no API key)
-5. Compresses NotebookLM audio to 64 kbps MP3 with FFmpeg
-6. Commits everything to `main`, which auto-deploys to GitHub Pages
+3. Generates a ranked 10-bullet summary via GitHub Models (used as a briefing doc)
+4. Generates a podcast-style audio overview via NotebookLM (letter + summary as sources)
+5. Generates a verbatim read-through MP3 via Kokoro TTS (local inference, no API key)
+6. Compresses NotebookLM audio to 64 kbps MP3 with FFmpeg
+7. Commits everything to `main`, which auto-deploys to GitHub Pages
 
 ## Directory structure
 
@@ -199,6 +200,7 @@ No `OPENAI_API_KEY` is required — TTS uses local Kokoro inference.
     "audio_compressed":      true,
     "tts_generated":         true,
     "page_built":            true,
+    "audio_version":         "1.1",
     "processed_date":        "2025-04-15T12:00:00Z",
     "audio_generated_date":  "2025-04-15T13:00:00Z",
     "audio_compressed_date": "2025-04-15T13:30:00Z",
@@ -208,6 +210,25 @@ No `OPENAI_API_KEY` is required — TTS uses local Kokoro inference.
 ```
 
 Flag lifecycle: `letter_scraped` → `audio_generated` → `audio_compressed` → `tts_generated` → `page_built`
+
+## Podcast audio versions
+
+`audio_version` is recorded in the ledger for every entry that has `audio_generated: true`.
+
+| Version | Description |
+|---------|-------------|
+| `1.0`   | Letter text + background context preamble only. No summary source. |
+| `1.1`   | Letter text + background context preamble + ranked 10-bullet summary as a second NotebookLM source. Hosts are briefed on priority metrics before generating audio. |
+
+**Which letters have which version:**
+- `1.0` — PGR_2024_Q1 through PGR_2025_Q4 (the first 8 letters processed during the May 2026 backfill)
+- `1.1` — All letters generated from mid-May 2026 onward
+
+**To regenerate a v1.0 letter as v1.1** (once its summary exists in `data/summaries/`):
+```cmd
+# Set audio_generated: false in ledger.json for that entry, then:
+python scripts/generator.py --id PGR_2024_Q1
+```
 
 ## Proving the concept — initial run checklist
 

@@ -437,6 +437,9 @@ async def main(max_new: int, filing_id: str | None = None) -> None:
             filing["audio_generated"]      = True
             filing["audio_raw_file"]       = f"data/audio_raw/{raw_path.name}"
             filing["audio_generated_date"] = datetime.now(timezone.utc).isoformat()
+            # v1.1 = letter + summary source; v1.0 = letter only (no summary available)
+            summary_exists = (SUMMARIES_DIR / f"{filing['id']}_Summary.json").exists()
+            filing["audio_version"]        = "1.1" if summary_exists else "1.0"
             save_ledger(ledger)
             success_count       += 1
             consecutive_failures = 0

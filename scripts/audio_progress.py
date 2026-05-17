@@ -37,11 +37,11 @@ def main() -> None:
         f for f in filings
         if f.get("letter_scraped") and f.get("letter_file") and not f.get("skip_reason")
     ]
-    done    = sorted(
-        [f for f in eligible if f.get("audio_generated")],
-        key=lambda f: (f.get("audio_generated_date", "")[:10], f.get("id", "")),
-        reverse=True,
-    )
+    # Two-pass stable sort: ID descending first, then date ascending.
+    # Same-date entries retain their ID-descending order after the second pass.
+    _done = [f for f in eligible if f.get("audio_generated")]
+    _done.sort(key=lambda f: f.get("id", ""), reverse=True)
+    done  = sorted(_done, key=lambda f: f.get("audio_generated_date", "")[:10])
     pending = [f for f in eligible if not f.get("audio_generated")]
 
     total     = len(eligible)

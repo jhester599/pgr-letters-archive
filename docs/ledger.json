@@ -1,6 +1,6 @@
 {
   "meta": {
-    "last_updated": "2026-05-22T13:43:20.190978+00:00",
+    "last_updated": "2026-05-22T14:36:04.212775+00:00",
     "total_letters": 100,
     "total_audio": 47,
     "description": "State ledger for the PGR Letters Archive pipeline. Each entry tracks one SEC filing through the scrape \u2192 generate \u2192 compress lifecycle."
@@ -75,7 +75,11 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-13T01:25:52.484672+00:00",
       "audio_compressed_date": "2026-05-14T02:18:04.351278+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "tts_generated": true,
+      "tts_file": "docs/audio_tts/PGR_2025_Q2_Letter.mp3",
+      "tts_voice": "am_michael",
+      "tts_generated_date": "2026-05-22T14:36:00.987955+00:00"
     },
     {
       "id": "PGR_2025_Q1",

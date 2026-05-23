@@ -144,10 +144,17 @@ jobs:
         run: python scripts/build_pages.py
 
       - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git lfs install
+
+          # Embed token directly in remote URL so the push survives
+          # credential-helper resets caused by git lfs install or token
+          # renewal failures during long-running jobs.
+          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
           git add \
             docs/audio/ \
@@ -161,7 +168,6 @@ jobs:
           else
             TIMESTAMP=$(date -u '+%Y-%m-%d')
             git commit -m "chore: daily audio backfill [${TIMESTAMP}]"
-            git pull --rebase origin main
             git push origin main
             echo "Changes pushed to main."
           fi

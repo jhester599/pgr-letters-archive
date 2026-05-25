@@ -1,8 +1,8 @@
 {
   "meta": {
-    "last_updated": "2026-05-24T00:11:13.499421+00:00",
+    "last_updated": "2026-05-25T05:18:00.394717+00:00",
     "total_letters": 100,
-    "total_audio": 50,
+    "total_audio": 53,
     "description": "State ledger for the PGR Letters Archive pipeline. Each entry tracks one SEC filing through the scrape \u2192 generate \u2192 compress lifecycle."
   },
   "filings": [
@@ -1104,15 +1104,18 @@
       "accession_number": "0001193125-13-320754",
       "report_date": "2013-06-30",
       "letter_file": "data/letters/PGR_2013_Q2_Letter.txt",
-      "audio_raw_file": null,
+      "audio_raw_file": "data/audio_raw/PGR_2013_Q2_Letter.mp4",
       "audio_file": "docs/audio/PGR_2013_Q2_Letter.mp3",
       "letter_scraped": true,
-      "audio_generated": false,
-      "audio_compressed": false,
+      "audio_generated": true,
+      "audio_compressed": true,
       "processed_date": "2026-04-25T20:07:35.172410+00:00",
       "page_url": "letters/PGR_2013_Q2.html",
       "page_built": true,
-      "summary_generated": true
+      "summary_generated": true,
+      "audio_generated_date": "2026-05-25T04:52:28.305922+00:00",
+      "audio_version": "1.1",
+      "audio_compressed_date": "2026-05-25T05:17:26.449195+00:00"
     },
     {
       "id": "PGR_2013_Q1",
@@ -1122,15 +1125,18 @@
       "accession_number": "0001193125-13-194648",
       "report_date": "2013-03-31",
       "letter_file": "data/letters/PGR_2013_Q1_Letter.txt",
-      "audio_raw_file": null,
+      "audio_raw_file": "data/audio_raw/PGR_2013_Q1_Letter.mp4",
       "audio_file": "docs/audio/PGR_2013_Q1_Letter.mp3",
       "letter_scraped": true,
-      "audio_generated": false,
-      "audio_compressed": false,
+      "audio_generated": true,
+      "audio_compressed": true,
       "processed_date": "2026-04-25T20:07:36.158574+00:00",
       "page_url": "letters/PGR_2013_Q1.html",
       "page_built": true,
-      "summary_generated": true
+      "summary_generated": true,
+      "audio_generated_date": "2026-05-25T05:06:23.515084+00:00",
+      "audio_version": "1.1",
+      "audio_compressed_date": "2026-05-25T05:17:40.859567+00:00"
     },
     {
       "id": "PGR_2012_Q4",
@@ -1140,15 +1146,18 @@
       "accession_number": "0001193125-13-075784",
       "report_date": "2012-12-31",
       "letter_file": "data/letters/PGR_2012_Q4_Letter.txt",
-      "audio_raw_file": null,
+      "audio_raw_file": "data/audio_raw/PGR_2012_Q4_Letter.mp4",
       "audio_file": "docs/audio/PGR_2012_Q4_Letter.mp3",
       "letter_scraped": true,
-      "audio_generated": false,
-      "audio_compressed": false,
+      "audio_generated": true,
+      "audio_compressed": true,
       "processed_date": "2026-04-25T20:07:37.155568+00:00",
       "page_url": "letters/PGR_2012_Q4.html",
       "page_built": true,
-      "summary_generated": true
+      "summary_generated": true,
+      "audio_generated_date": "2026-05-25T05:17:11.451009+00:00",
+      "audio_version": "1.1",
+      "audio_compressed_date": "2026-05-25T05:17:57.381066+00:00"
     },
     {
       "id": "PGR_2012_Q3",

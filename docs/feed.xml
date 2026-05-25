@@ -6,7 +6,7 @@
     <link>https://jhester599.github.io/pgr-letters-archive</link>
     <language>en-us</language>
     <author>Jeff Hester</author>
-    <lastBuildDate>Mon, 25 May 2026 12:57:53 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 25 May 2026 19:58:22 GMT</lastBuildDate>
     <itunes:author>Jeff Hester</itunes:author>
     <itunes:type>episodic</itunes:type>
     <itunes:category text="Business" />
@@ -487,6 +487,105 @@
       <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2012_Q4_Letter.mp3" length="10988531" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
       <itunes:duration>1373</itunes:duration>
+    </item>
+    <item>
+      <title>PGR 2012 Q3 — CEO Shareholder Letter Overview</title>
+      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q3 2012 shareholder letter.</description>
+      <pubDate>Sun, 30 Sep 2012 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">PGR_2012_Q3</guid>
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2012_Q3_Letter.mp3" length="9100819" type="audio/mpeg" />
+      <itunes:author>Jeff Hester</itunes:author>
+      <itunes:duration>1137</itunes:duration>
+    </item>
+    <item>
+      <title>PGR 2012 Q2 — CEO Shareholder Letter Overview</title>
+      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q2 2012 shareholder letter.</description>
+      <pubDate>Sat, 30 Jun 2012 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">PGR_2012_Q2</guid>
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2012_Q2_Letter.mp3" length="9563918" type="audio/mpeg" />
+      <itunes:author>Jeff Hester</itunes:author>
+      <itunes:duration>1195</itunes:duration>
+    </item>
+    <item>
+      <title>PGR 2012 Q1 — CEO Shareholder Letter Overview</title>
+      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q1 2012 shareholder letter.</description>
+      <pubDate>Sat, 31 Mar 2012 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">PGR_2012_Q1</guid>
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2012_Q1_Letter.mp3" length="10579349" type="audio/mpeg" />
+      <itunes:author>Jeff Hester</itunes:author>
+      <itunes:duration>1322</itunes:duration>
+    </item>
+    <item>
+      <title>PGR 2011 Q4 — CEO Shareholder Letter Overview</title>
+      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q4 2011 shareholder letter.</description>
+      <pubDate>Sat, 31 Dec 2011 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">PGR_2011_Q4</guid>
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2011_Q4_Letter.mp3" length="5795598" type="audio/mpeg" />
+      <itunes:author>Jeff Hester</itunes:author>
+      <itunes:duration>724</itunes:duration>
+    </item>
+    <item>
+      <title>PGR 2011 Q3 — CEO Shareholder Letter Overview</title>
+      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q3 2011 shareholder letter.</description>
+      <pubDate>Fri, 30 Sep 2011 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">PGR_2011_Q3</guid>
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2011_Q3_Letter.mp3" length="9098729" type="audio/mpeg" />
+      <itunes:author>Jeff Hester</itunes:author>
+      <itunes:duration>1137</itunes:duration>
+    </item>
+    <item>
+      <title>PGR 2011 Q2 — CEO Shareholder Letter Overview</title>
+      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q2 2011 shareholder letter.</description>
+      <pubDate>Thu, 30 Jun 2011 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">PGR_2011_Q2</guid>
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2011_Q2_Letter.mp3" length="7988629" type="audio/mpeg" />
+      <itunes:author>Jeff Hester</itunes:author>
+      <itunes:duration>998</itunes:duration>
+    </item>
+    <item>
+      <title>PGR 2011 Q1 — CEO Shareholder Letter Overview</title>
+      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q1 2011 shareholder letter.</description>
+      <pubDate>Thu, 31 Mar 2011 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">PGR_2011_Q1</guid>
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2011_Q1_Letter.mp3" length="8921723" type="audio/mpeg" />
+      <itunes:author>Jeff Hester</itunes:author>
+      <itunes:duration>1115</itunes:duration>
+    </item>
+    <item>
+      <title>PGR 2010 Q4 — CEO Shareholder Letter Overview</title>
+      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q4 2010 shareholder letter.</description>
+      <pubDate>Fri, 31 Dec 2010 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">PGR_2010_Q4</guid>
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2010_Q4_Letter.mp3" length="10530239" type="audio/mpeg" />
+      <itunes:author>Jeff Hester</itunes:author>
+      <itunes:duration>1316</itunes:duration>
+    </item>
+    <item>
+      <title>PGR 2010 Q3 — CEO Shareholder Letter Overview</title>
+      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q3 2010 shareholder letter.</description>
+      <pubDate>Thu, 30 Sep 2010 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">PGR_2010_Q3</guid>
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2010_Q3_Letter.mp3" length="9183575" type="audio/mpeg" />
+      <itunes:author>Jeff Hester</itunes:author>
+      <itunes:duration>1147</itunes:duration>
+    </item>
+    <item>
+      <title>PGR 2010 Q2 — CEO Shareholder Letter Overview</title>
+      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q2 2010 shareholder letter.</description>
+      <pubDate>Wed, 30 Jun 2010 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">PGR_2010_Q2</guid>
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2010_Q2_Letter.mp3" length="8692055" type="audio/mpeg" />
+      <itunes:author>Jeff Hester</itunes:author>
+      <itunes:duration>1086</itunes:duration>
+    </item>
+    <item>
+      <title>PGR 2010 Q1 — CEO Shareholder Letter Overview</title>
+      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q1 2010 shareholder letter.</description>
+      <pubDate>Wed, 31 Mar 2010 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">PGR_2010_Q1</guid>
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2010_Q1_Letter.mp3" length="9884910" type="audio/mpeg" />
+      <itunes:author>Jeff Hester</itunes:author>
+      <itunes:duration>1235</itunes:duration>
     </item>
   </channel>
 </rss>

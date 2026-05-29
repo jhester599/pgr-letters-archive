@@ -6,7 +6,7 @@
     <link>https://jhester599.github.io/pgr-letters-archive</link>
     <language>en-us</language>
     <author>Jeff Hester</author>
-    <lastBuildDate>Thu, 28 May 2026 13:03:45 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 29 May 2026 01:55:51 GMT</lastBuildDate>
     <itunes:author>Jeff Hester</itunes:author>
     <itunes:type>episodic</itunes:type>
     <itunes:category text="Business" />
@@ -775,6 +775,33 @@
       <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2004_Q4_Letter.mp3" length="9940917" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
       <itunes:duration>1242</itunes:duration>
+    </item>
+    <item>
+      <title>PGR 2004 Q3 — CEO Shareholder Letter Overview</title>
+      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q3 2004 shareholder letter.</description>
+      <pubDate>Thu, 30 Sep 2004 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">PGR_2004_Q3</guid>
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2004_Q3_Letter.mp3" length="10921240" type="audio/mpeg" />
+      <itunes:author>Jeff Hester</itunes:author>
+      <itunes:duration>1365</itunes:duration>
+    </item>
+    <item>
+      <title>PGR 2004 Q2 — CEO Shareholder Letter Overview</title>
+      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q2 2004 shareholder letter.</description>
+      <pubDate>Wed, 30 Jun 2004 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">PGR_2004_Q2</guid>
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2004_Q2_Letter.mp3" length="8943666" type="audio/mpeg" />
+      <itunes:author>Jeff Hester</itunes:author>
+      <itunes:duration>1117</itunes:duration>
+    </item>
+    <item>
+      <title>PGR 2004 Q1 — CEO Shareholder Letter Overview</title>
+      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q1 2004 shareholder letter.</description>
+      <pubDate>Wed, 31 Mar 2004 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">PGR_2004_Q1</guid>
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2004_Q1_Letter.mp3" length="8226239" type="audio/mpeg" />
+      <itunes:author>Jeff Hester</itunes:author>
+      <itunes:duration>1028</itunes:duration>
     </item>
   </channel>
 </rss>

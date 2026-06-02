@@ -16,8 +16,8 @@ name: Quarterly Podcast Pipeline
 on:
   repository_dispatch:
     types: [sec-filing-alert]   # Fired by gmail_trigger.js via GitHub API
-  schedule:
-    - cron: "0 12 * * 5"        # Fallback: every Friday at 12:00 UTC
+  # schedule:
+  #   - cron: "0 12 * * 5"      # Fallback: every Friday at 12:00 UTC (disabled)
   workflow_dispatch:             # Manual runs from the Actions tab
     inputs:
       skip_audio:
@@ -55,7 +55,7 @@ jobs:
 
       # ── 3. System dependencies ────────────────────────────────────────────
       - name: Install system dependencies
-        run: sudo apt-get install -y ffmpeg espeak-ng
+        run: sudo apt-get install -y --fix-missing ffmpeg espeak-ng
 
       # ── 4. Python dependencies ────────────────────────────────────────────
       - name: Install Python packages

@@ -28,13 +28,14 @@ on:
 jobs:
   run-pipeline:
     name: Scrape → Generate → Compress → Publish
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04   # Pinned to avoid unexpected breakage when ubuntu-latest advances
+    timeout-minutes: 180    # TTS + NotebookLM can each take ~35 min; cap runaway jobs at 3 h
 
     permissions:
       contents: write      # Required to push new files back to main
-      pages: write         # Required if using GitHub Pages deployment API
-      id-token: write      # Required for OIDC-based Pages deployment
       models: read         # Required for GitHub Models API (summarizer.py)
+      # pages: write and id-token: write are only needed for the Actions Pages API
+      # deployment flow (currently commented out). Pages deploys via push to main.
 
     steps:
       # ── 1. Checkout ──────────────────────────────────────────────────────
@@ -81,7 +82,7 @@ jobs:
         run: python scripts/summarizer.py
 
       - name: Generate audio overviews via NotebookLM
-        if: ${{ !(inputs.skip_audio == true) }}
+        if: ${{ inputs.skip_audio != true }}
         env:
           # NOTEBOOKLM_AUTH_JSON: capture locally with:
           #   notebooklm login
@@ -91,7 +92,7 @@ jobs:
         run: python scripts/generator.py --max-new 1
 
       - name: Generate TTS read-through audio via Kokoro
-        if: ${{ !(inputs.skip_audio == true) }}
+        if: ${{ inputs.skip_audio != true }}
         run: python scripts/tts.py --max-new 1
 
       - name: Compress audio and regenerate RSS feed

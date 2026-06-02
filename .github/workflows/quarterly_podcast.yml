@@ -58,17 +58,31 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          # libcaca0 0.99.beta20-4ubuntu0.1 was yanked from noble-updates on all
-          # Ubuntu mirrors. apt's dependency resolver requires that exact version
-          # and no hold/pin/--fix-missing can override a hard version requirement.
-          # Build a minimal stub .deb at the missing version so apt is satisfied
-          # without attempting a download.
-          mkdir -p /tmp/libcaca0-stub/DEBIAN
-          printf 'Package: libcaca0\nVersion: 0.99.beta20-4ubuntu0.1\nArchitecture: amd64\nMaintainer: ci\nDescription: stub for yanked noble-updates package\n' \
-            > /tmp/libcaca0-stub/DEBIAN/control
-          dpkg-deb --build /tmp/libcaca0-stub /tmp/libcaca0-stub.deb
-          sudo dpkg -i /tmp/libcaca0-stub.deb
-          sudo apt-get install -y espeak-ng
+          # libcaca0 0.99.beta20-4ubuntu0.1 was yanked from all Ubuntu noble-updates
+          # mirrors. Every apt workaround (--fix-missing, pinning, stubs, holds) fails
+          # because apt re-queues the package from its in-memory resolver cache.
+          # Surgical fix: remove the libcaca0 stanza from the noble-updates package
+          # list file on disk, then rebuild the apt binary cache — the resolver never
+          # sees the broken version and falls back to the base noble version instead.
+          cat > /tmp/fix_libcaca0.py << 'PYEOF'
+import os, re
+apt_lists = '/var/lib/apt/lists'
+for fn in sorted(os.listdir(apt_lists)):
+    if 'noble-updates' not in fn or not fn.endswith('Packages'):
+        continue
+    path = os.path.join(apt_lists, fn)
+    with open(path) as f:
+        content = f.read()
+    if 'Package: libcaca0' not in content:
+        continue
+    patched = re.sub(r'^Package: libcaca0\n(?:.+\n)*\n', '', content, flags=re.MULTILINE)
+    with open(path, 'w') as f:
+        f.write(patched)
+    print('Removed libcaca0 from', fn)
+PYEOF
+          sudo python3 /tmp/fix_libcaca0.py
+          sudo apt-cache gencaches
+          sudo apt-get install -y espeak-ng ffmpeg
           ffmpeg -version
 
       # ── 4. Python dependencies ────────────────────────────────────────────

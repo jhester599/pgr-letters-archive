@@ -102,11 +102,17 @@ jobs:
           python-version: "3.12"
           cache: "pip"
 
-      - name: Verify system dependencies
-        # ffmpeg is pre-installed on ubuntu-24.04 runners — do NOT install it
-        # via apt. Doing so pulls in libcaca0 0.99.beta20-4ubuntu0.1 which was
-        # yanked from all Ubuntu noble-updates mirrors and causes a 404 failure.
-        run: ffmpeg -version
+      - name: Install system dependencies
+        # apt install fails: libcaca0 0.99.beta20-4ubuntu0.1 was yanked from all
+        # Ubuntu noble-updates mirrors. Install a self-contained static build instead.
+        run: |
+          wget -q "https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz" \
+            -O /tmp/ffmpeg-static.tar.xz
+          mkdir /tmp/ffmpeg-static
+          tar -xf /tmp/ffmpeg-static.tar.xz -C /tmp/ffmpeg-static --strip-components=1
+          sudo install -m 755 /tmp/ffmpeg-static/ffmpeg /usr/local/bin/
+          sudo install -m 755 /tmp/ffmpeg-static/ffprobe /usr/local/bin/
+          ffmpeg -version
 
       - name: Install Python packages
         run: pip install -r requirements.txt

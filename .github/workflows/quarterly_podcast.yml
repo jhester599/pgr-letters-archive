@@ -56,12 +56,11 @@ jobs:
       # ── 3. System dependencies ────────────────────────────────────────────
       - name: Install system dependencies
         run: |
-          sudo apt-get update
-          # libcaca0 0.99.beta20-4ubuntu0.1 was yanked from noble-updates on all
-          # Ubuntu mirrors; pin it to the base noble version so ffmpeg can install.
-          printf 'Package: libcaca0\nPin: release a=noble\nPin-Priority: 1001\n' \
-            | sudo tee /etc/apt/preferences.d/pin-libcaca0
-          sudo apt-get install -y ffmpeg espeak-ng
+          # ffmpeg is pre-installed on ubuntu-latest runners; no apt install needed.
+          # libcaca0 (an ffmpeg dep) has been yanked from noble-updates mirrors,
+          # causing apt to fail — avoid the issue entirely by not touching ffmpeg.
+          ffmpeg -version
+          sudo apt-get install -y espeak-ng
 
       # ── 4. Python dependencies ────────────────────────────────────────────
       - name: Install Python packages

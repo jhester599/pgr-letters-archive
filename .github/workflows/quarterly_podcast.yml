@@ -39,7 +39,7 @@ jobs:
     steps:
       # ── 1. Checkout ──────────────────────────────────────────────────────
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           # Use a PAT (PIPELINE_TOKEN) if you need to push and trigger a
           # subsequent Pages deployment; the default GITHUB_TOKEN works fine
@@ -48,7 +48,7 @@ jobs:
 
       # ── 2. Python setup ───────────────────────────────────────────────────
       - name: Set up Python 3.12
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: "pip"

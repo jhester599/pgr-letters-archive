@@ -16,8 +16,8 @@ name: Quarterly Podcast Pipeline
 on:
   repository_dispatch:
     types: [sec-filing-alert]   # Fired by gmail_trigger.js via GitHub API
-  schedule:
-    - cron: "0 12 * * 5"        # Fallback: every Friday at 12:00 UTC
+  # schedule:
+  #   - cron: "0 12 * * 5"      # Fallback: every Friday at 12:00 UTC (disabled)
   workflow_dispatch:             # Manual runs from the Actions tab
     inputs:
       skip_audio:
@@ -39,7 +39,7 @@ jobs:
     steps:
       # ── 1. Checkout ──────────────────────────────────────────────────────
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           # Use a PAT (PIPELINE_TOKEN) if you need to push and trigger a
           # subsequent Pages deployment; the default GITHUB_TOKEN works fine
@@ -48,14 +48,14 @@ jobs:
 
       # ── 2. Python setup ───────────────────────────────────────────────────
       - name: Set up Python 3.12
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: "pip"
 
       # ── 3. System dependencies ────────────────────────────────────────────
       - name: Install system dependencies
-        run: sudo apt-get install -y ffmpeg espeak-ng
+        run: sudo apt-get install -y --fix-missing ffmpeg espeak-ng
 
       # ── 4. Python dependencies ────────────────────────────────────────────
       - name: Install Python packages

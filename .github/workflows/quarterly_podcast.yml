@@ -59,30 +59,36 @@ jobs:
         run: |
           sudo apt-get update
           # libcaca0 0.99.beta20-4ubuntu0.1 was yanked from all Ubuntu noble-updates
-          # mirrors. Every apt workaround (--fix-missing, pinning, stubs, holds) fails
-          # because apt re-queues the package from its in-memory resolver cache.
-          # Surgical fix: remove the libcaca0 stanza from the noble-updates package
-          # list file on disk, then rebuild the apt binary cache — the resolver never
-          # sees the broken version and falls back to the base noble version instead.
+          # mirrors. Remove the libcaca0 stanza from every apt Packages file on disk
+          # (covers standard mirror naming AND the mirror+file: transport naming),
+          # then rebuild the binary cache before apt resolves dependencies.
+          # Also omit ffmpeg from the apt install — it is pre-installed on ubuntu-24.04
+          # runners; explicitly installing it is what re-introduces the libcaca0 dep.
           cat > /tmp/fix_libcaca0.py << 'PYEOF'
 import os, re
 apt_lists = '/var/lib/apt/lists'
+removed = []
 for fn in sorted(os.listdir(apt_lists)):
-    if 'noble-updates' not in fn or not fn.endswith('Packages'):
+    if not fn.endswith('Packages'):
         continue
     path = os.path.join(apt_lists, fn)
-    with open(path) as f:
-        content = f.read()
+    try:
+        with open(path) as f:
+            content = f.read()
+    except Exception:
+        continue
     if 'Package: libcaca0' not in content:
         continue
     patched = re.sub(r'^Package: libcaca0\n(?:.+\n)*\n', '', content, flags=re.MULTILINE)
     with open(path, 'w') as f:
         f.write(patched)
+    removed.append(fn)
     print('Removed libcaca0 from', fn)
+print(f'Patched {len(removed)} file(s)' if removed else 'libcaca0 not found in any Packages file')
 PYEOF
           sudo python3 /tmp/fix_libcaca0.py
           sudo apt-cache gencaches
-          sudo apt-get install -y espeak-ng ffmpeg
+          sudo apt-get install -y --fix-missing espeak-ng
           ffmpeg -version
 
       # ── 4. Python dependencies ────────────────────────────────────────────

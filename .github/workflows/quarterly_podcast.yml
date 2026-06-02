@@ -58,9 +58,16 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          # Hold ffmpeg at its pre-installed version so apt doesn't try to upgrade
-          # it to noble-updates, which pulls in libcaca0 — yanked from all mirrors.
-          sudo apt-mark hold ffmpeg
+          # libcaca0 0.99.beta20-4ubuntu0.1 was yanked from noble-updates on all
+          # Ubuntu mirrors. apt's dependency resolver requires that exact version
+          # and no hold/pin/--fix-missing can override a hard version requirement.
+          # Build a minimal stub .deb at the missing version so apt is satisfied
+          # without attempting a download.
+          mkdir -p /tmp/libcaca0-stub/DEBIAN
+          printf 'Package: libcaca0\nVersion: 0.99.beta20-4ubuntu0.1\nArchitecture: amd64\nMaintainer: ci\nDescription: stub for yanked noble-updates package\n' \
+            > /tmp/libcaca0-stub/DEBIAN/control
+          dpkg-deb --build /tmp/libcaca0-stub /tmp/libcaca0-stub.deb
+          sudo dpkg -i /tmp/libcaca0-stub.deb
           sudo apt-get install -y espeak-ng
           ffmpeg -version
 

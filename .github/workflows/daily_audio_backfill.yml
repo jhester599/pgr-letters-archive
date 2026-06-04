@@ -120,40 +120,10 @@ jobs:
       - name: Install Playwright browser (Chromium)
         run: playwright install chromium --with-deps
 
-      # ── Generate ─────────────────────────────────────────────────────────
-      # continue-on-error: true so that a quota failure or auth expiry does
-      # not block the compress + publish steps. Any audio generated in
-      # previous days (raw .mp4 already on disk) will still be compressed
-      # and published even if today's generation fails.
-      #
-      # The circuit breaker in generator.py aborts the batch after 2
-      # consecutive failures and logs a clear message with next steps.
-      - name: Generate audio overviews via NotebookLM
-        if: ${{ inputs.skip_notebooklm != true }}
-        continue-on-error: true
-        env:
-          NOTEBOOKLM_AUTH_JSON: ${{ secrets.NOTEBOOKLM_AUTH_JSON }}
-        run: python scripts/generator.py --max-new ${{ inputs.max_new || '3' }}
-
-      # ── Progress tracker ─────────────────────────────────────────────────
-      # Writes AUDIO_PROGRESS.md to the repo root so backfill status is
-      # visible on GitHub without opening the Actions log.
-      - name: Update audio progress tracker
-        run: python scripts/audio_progress.py
-
-      # ── Compress ─────────────────────────────────────────────────────────
-      # Converts raw .mp4 files in data/audio_raw/ to 64 kbps .mp3 in
-      # docs/audio/ and regenerates docs/feed.xml.
-      - name: Compress audio and regenerate RSS feed
-        env:
-          PAGES_BASE_URL: "https://jhester599.github.io/pgr-letters-archive"
-        run: python scripts/compressor.py
-
-      # ── Publish ──────────────────────────────────────────────────────────
-      - name: Build reading pages
-        run: python scripts/build_pages.py
-
-      - name: Commit and push changes
+      # ── Git identity ─────────────────────────────────────────────────────
+      # Configured once, up front, so every per-letter commit in the loop
+      # below can push the moment a letter finishes.
+      - name: Configure git for pushing
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -166,6 +136,104 @@ jobs:
           # renewal failures during long-running jobs.
           git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
+      # ── Generate → Compress → Publish, ONE LETTER AT A TIME ──────────────
+      # Each letter is generated, compressed, and pushed to main individually.
+      # This makes the pipeline crash-safe: if the job is cancelled (e.g. the
+      # 120-minute timeout), every letter completed *before* the cancellation
+      # is already committed and pushed. Only the in-flight letter is lost,
+      # and re-running picks it up because its ledger flag was never set.
+      #
+      # generator.py is invoked with --max-new 1 per iteration so its own
+      # ledger update + our compress/commit happen as a single durable unit.
+      - name: Generate, compress, and publish (per-letter commits)
+        if: ${{ inputs.skip_notebooklm != true }}
+        env:
+          NOTEBOOKLM_AUTH_JSON: ${{ secrets.NOTEBOOKLM_AUTH_JSON }}
+          PAGES_BASE_URL: "https://jhester599.github.io/pgr-letters-archive"
+        run: |
+          set -uo pipefail
+
+          MAX_NEW="${{ inputs.max_new || '3' }}"
+
+          # Count letters scraped but not yet converted to audio (matches the
+          # pending_letters() filter in generator.py).
+          pending_count() {
+            python3 -c "
+          import json
+          with open('docs/ledger.json') as f:
+              led = json.load(f)
+          pend = [x for x in led['filings']
+                  if x.get('letter_scraped') and not x.get('audio_generated')
+                  and x.get('letter_file') and not x.get('skip_reason')]
+          print(len(pend))
+          "
+          }
+
+          for i in $(seq 1 "${MAX_NEW}"); do
+            BEFORE=$(pending_count)
+            if [ "${BEFORE}" -eq 0 ]; then
+              echo "Backlog clear — nothing left to generate."
+              break
+            fi
+
+            echo "──── Letter ${i}/${MAX_NEW} (pending before: ${BEFORE}) ────"
+
+            # Generate exactly one letter. A non-zero exit (auth failure, etc.)
+            # stops the loop without failing the job, preserving everything
+            # already pushed in earlier iterations.
+            if ! python scripts/generator.py --max-new 1; then
+              echo "Generator exited non-zero — stopping. Earlier letters are already pushed."
+              break
+            fi
+
+            # If the pending count did not drop, generation produced nothing
+            # (quota exhausted or a soft failure) — stop rather than spin.
+            AFTER=$(pending_count)
+            if [ "${AFTER}" -ge "${BEFORE}" ]; then
+              echo "No new audio this round (likely quota exhausted) — stopping."
+              break
+            fi
+
+            # Compress the freshly generated raw audio, refresh the feed,
+            # reading pages, and progress tracker.
+            python scripts/audio_progress.py
+            python scripts/compressor.py
+            python scripts/build_pages.py
+
+            # Commit + push immediately so a later timeout cannot discard this.
+            git add \
+              docs/audio/ \
+              docs/ledger.json \
+              docs/feed.xml \
+              docs/letters/ \
+              AUDIO_PROGRESS.md
+
+            if git diff --staged --quiet; then
+              echo "Nothing staged after letter ${i} — skipping commit."
+            else
+              git commit -m "chore: daily audio backfill $(date -u '+%Y-%m-%d') (letter ${i})"
+              # Rebase onto any concurrent pushes (e.g. quarterly_podcast.yml)
+              # before pushing to avoid non-fast-forward rejections.
+              git pull --rebase origin main || true
+              git push origin main
+              echo "Pushed letter ${i}."
+            fi
+          done
+
+      # ── Skip-NotebookLM mode: compress + publish existing audio only ─────
+      # Used when the workflow is dispatched with skip_notebooklm=true to
+      # re-compress / re-publish without consuming any NotebookLM quota.
+      - name: Compress and publish existing audio
+        if: ${{ inputs.skip_notebooklm == true }}
+        env:
+          PAGES_BASE_URL: "https://jhester599.github.io/pgr-letters-archive"
+        run: |
+          set -uo pipefail
+
+          python scripts/audio_progress.py
+          python scripts/compressor.py
+          python scripts/build_pages.py
+
           git add \
             docs/audio/ \
             docs/ledger.json \
@@ -176,8 +244,8 @@ jobs:
           if git diff --staged --quiet; then
             echo "No new files to commit — nothing changed."
           else
-            TIMESTAMP=$(date -u '+%Y-%m-%d')
-            git commit -m "chore: daily audio backfill [${TIMESTAMP}]"
+            git commit -m "chore: compress + publish existing audio [$(date -u '+%Y-%m-%d')]"
+            git pull --rebase origin main || true
             git push origin main
             echo "Changes pushed to main."
           fi

@@ -103,15 +103,38 @@ jobs:
           cache: "pip"
 
       - name: Install system dependencies
-        # apt install fails: libcaca0 0.99.beta20-4ubuntu0.1 was yanked from all
-        # Ubuntu noble-updates mirrors. Install a self-contained static build instead.
+        # ffmpeg + ffprobe are needed for audio compression. The johnvansickle.com
+        # static build is the preferred source (apt previously failed when libcaca0
+        # was yanked from noble-updates), but that single mirror occasionally
+        # returns HTTP errors (wget exit 8), which fails the whole job. Retry the
+        # download a few times, then fall back to apt so a flaky mirror can't
+        # block the run.
         run: |
-          wget -q "https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz" \
-            -O /tmp/ffmpeg-static.tar.xz
-          mkdir /tmp/ffmpeg-static
-          tar -xf /tmp/ffmpeg-static.tar.xz -C /tmp/ffmpeg-static --strip-components=1
-          sudo install -m 755 /tmp/ffmpeg-static/ffmpeg /usr/local/bin/
-          sudo install -m 755 /tmp/ffmpeg-static/ffprobe /usr/local/bin/
+          set -uo pipefail
+
+          install_via_static() {
+            for attempt in 1 2 3; do
+              if wget -q "https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz" \
+                   -O /tmp/ffmpeg-static.tar.xz; then
+                return 0
+              fi
+              echo "ffmpeg static download attempt ${attempt} failed; retrying in $((attempt * 5))s…"
+              sleep $((attempt * 5))
+            done
+            return 1
+          }
+
+          if install_via_static; then
+            mkdir -p /tmp/ffmpeg-static
+            tar -xf /tmp/ffmpeg-static.tar.xz -C /tmp/ffmpeg-static --strip-components=1
+            sudo install -m 755 /tmp/ffmpeg-static/ffmpeg  /usr/local/bin/
+            sudo install -m 755 /tmp/ffmpeg-static/ffprobe /usr/local/bin/
+          else
+            echo "Static build unavailable after retries — falling back to apt."
+            sudo apt-get update
+            sudo apt-get install -y ffmpeg
+          fi
+
           ffmpeg -version
 
       - name: Install Python packages

@@ -6,7 +6,7 @@
     <link>https://jhester599.github.io/pgr-letters-archive</link>
     <language>en-us</language>
     <author>Jeff Hester</author>
-    <lastBuildDate>Fri, 05 Jun 2026 03:19:47 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 05 Jun 2026 03:26:12 GMT</lastBuildDate>
     <itunes:author>Jeff Hester</itunes:author>
     <itunes:type>episodic</itunes:type>
     <itunes:category text="Business" />
@@ -820,6 +820,15 @@
       <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2002_Q4_Letter.mp3" length="10210499" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
       <itunes:duration>1276</itunes:duration>
+    </item>
+    <item>
+      <title>PGR 2001 Q4 — CEO Shareholder Letter Overview</title>
+      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q4 2001 shareholder letter.</description>
+      <pubDate>Mon, 31 Dec 2001 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">PGR_2001_Q4</guid>
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2001_Q4_Letter.mp3" length="8258212" type="audio/mpeg" />
+      <itunes:author>Jeff Hester</itunes:author>
+      <itunes:duration>1032</itunes:duration>
     </item>
     <item>
       <title>PGR 2000 Q4 — CEO Shareholder Letter Overview</title>

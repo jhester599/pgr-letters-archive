@@ -1,8 +1,8 @@
 {
   "meta": {
-    "last_updated": "2026-06-05T03:19:48.337670+00:00",
+    "last_updated": "2026-06-05T03:26:12.917438+00:00",
     "total_letters": 100,
-    "total_audio": 97,
+    "total_audio": 98,
     "description": "State ledger for the PGR Letters Archive pipeline. Each entry tracks one SEC filing through the scrape \u2192 generate \u2192 compress lifecycle."
   },
   "filings": [
@@ -2646,17 +2646,20 @@
       "accession_number": "0000950152-02-002479",
       "report_date": "2001-12-31",
       "letter_file": "data/letters/PGR_2001_Q4_Letter.txt",
-      "audio_raw_file": null,
+      "audio_raw_file": "data/audio_raw/PGR_2001_Q4_Letter.mp4",
       "audio_file": "docs/audio/PGR_2001_Q4_Letter.mp3",
       "letter_scraped": true,
-      "audio_generated": false,
-      "audio_compressed": false,
+      "audio_generated": true,
+      "audio_compressed": true,
       "processed_date": "2026-04-26T03:04:18.740275+00:00",
       "skip_reason": null,
       "page_built": true,
       "page_url": "letters/PGR_2001_Q4.html",
       "extraction_method": "letter_section",
-      "summary_generated": true
+      "summary_generated": true,
+      "audio_generated_date": "2026-06-05T03:26:01.438255+00:00",
+      "audio_version": "1.1",
+      "audio_compressed_date": "2026-06-05T03:26:12.478602+00:00"
     },
     {
       "id": "PGR_1995_Q4",

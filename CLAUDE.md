@@ -221,8 +221,8 @@ Flag lifecycle: `letter_scraped` → `audio_generated` → `audio_compressed` �
 | `1.1`   | Letter text + background context preamble + ranked 10-bullet summary as a second NotebookLM source. Hosts are briefed on priority metrics before generating audio. |
 
 **Which letters have which version:**
-- `1.0` — PGR_2024_Q1 through PGR_2025_Q4 (the first 8 letters processed during the May 2026 backfill)
-- `1.1` — All letters generated from mid-May 2026 onward
+- `1.0` — PGR_2017_Q1 through PGR_2025_Q4 (36 letters; generated in the early May 2026 backfill before summary integration was ready)
+- `1.1` — PGR_2016_Q4 and all older letters, plus PGR_2026_Q1 onward (generated from mid-May 2026 onward)
 
 **To regenerate a v1.0 letter as v1.1** (once its summary exists in `data/summaries/`):
 ```cmd

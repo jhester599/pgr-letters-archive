@@ -6,7 +6,7 @@
     <link>https://jhester599.github.io/pgr-letters-archive</link>
     <language>en-us</language>
     <author>Jeff Hester</author>
-    <lastBuildDate>Fri, 05 Jun 2026 03:04:02 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 05 Jun 2026 03:12:48 GMT</lastBuildDate>
     <itunes:author>Jeff Hester</itunes:author>
     <itunes:type>episodic</itunes:type>
     <itunes:category text="Business" />
@@ -865,6 +865,15 @@
       <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_1996_Q4_Letter.mp3" length="9822215" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
       <itunes:duration>1227</itunes:duration>
+    </item>
+    <item>
+      <title>PGR 1994 Q4 — CEO Shareholder Letter Overview</title>
+      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q4 1994 shareholder letter.</description>
+      <pubDate>Sat, 31 Dec 1994 00:00:00 GMT</pubDate>
+      <guid isPermaLink="false">PGR_1994_Q4</guid>
+      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_1994_Q4_Letter.mp3" length="9790659" type="audio/mpeg" />
+      <itunes:author>Jeff Hester</itunes:author>
+      <itunes:duration>1223</itunes:duration>
     </item>
   </channel>
 </rss>

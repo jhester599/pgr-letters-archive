@@ -88,22 +88,24 @@ SEC EDGAR (public API)
 - [x] `CLAUDE.md` (developer reference)
 - [x] `README.md` (user-facing overview)
 
-### Phase 7 — First Run & Validation 🔄
+### Phase 7 — First Run & Validation ✅
 - [x] GitHub Pages enabled (`Settings → Pages → /docs on main`)
 - [x] `NOTEBOOKLM_AUTH_JSON` secret configured
 - [x] PGR_2025_Q4 NotebookLM podcast generated and live
 - [x] PGR_2025_Q4 reading page deployed with dual audio players (podcast + TTS)
 - [x] TTS voice selected for Tricia Griffith era (Q3 2016–present): `af_heart`
 - [x] TTS production run complete for PGR_2025_Q4 (`af_heart`)
-- [x] PDF artifact cleanup across all 99 letters (page numbers, ®/SM symbols, superscripts, hard-wrapped paragraphs)
-- [ ] Voice sampling in progress: Glenn Renwick era (2001–Q2 2016) — run `--sample-voices` on PGR_2010_Q4
-- [ ] Voice sampling in progress: Peter Lewis era (1993–2000) — run `--sample-voices` on PGR_1998_Q4
+- [x] PDF artifact cleanup across all 100 letters (page numbers, ®/SM symbols, superscripts, hard-wrapped paragraphs)
+- [x] All 100 NotebookLM AI podcast episodes generated and compressed (batch complete as of June 2026)
+- [ ] Voice sampling: Glenn Renwick era (2001–Q2 2016) — run `--sample-voices` on PGR_2010_Q4, choose voice
+- [ ] Voice sampling: Peter Lewis era (1993–2000) — run `--sample-voices` on PGR_1998_Q4, choose voice
 - [ ] Select final voices for Glenn and Peter eras; update `tts.py` author-aware voice logic
 - [ ] Verify `feed.xml` validates against a podcast validator
 
-### Phase 8 — Historical Audio Backfill ⬜
+### Phase 8 — TTS Backfill 🔄
 
-Prerequisites must be completed in order before running the batch.
+NotebookLM batch (Step 4 below) is complete. Remaining work is TTS audio for 97 letters.
+Prerequisites must be completed in order before running the TTS batch.
 
 #### Step 1 — Complete text review (manual)
 - [ ] Work through `audit_report.txt` (620 short orphan lines across 70 files, 1 repeated word, 1 duplicate line)
@@ -119,15 +121,15 @@ Prerequisites must be completed in order before running the batch.
   - Tricia Griffith (Q3 2016–present): `af_heart`
 
 #### Step 3 — Consider GitHub LFS before batch run
-- [ ] Evaluate repo size: 99 NotebookLM MP3s (~950 MB) + 99 TTS MP3s (~1.4 GB) ≈ 2.2 GB total
+- [ ] Evaluate repo size: 100 NotebookLM MP3s (~950 MB already committed) + 100 TTS MP3s (~1.4 GB) ≈ 2.4 GB total
 - [ ] Enable GitHub LFS for `*.mp3` if approaching 1 GB limit:
   ```
   git lfs track "*.mp3"
   git add .gitattributes
   ```
 
-#### Step 4 — NotebookLM batch
-- [ ] `python scripts/generator.py --max-new 0`  (processes all letters without `audio_generated: true`)
+#### Step 4 — NotebookLM batch ✅
+- [x] `python scripts/generator.py --max-new 0`  — all 100 letters complete as of June 5, 2026
 
 #### Step 5 — TTS batch
 - [ ] `python scripts/tts.py --max-new 0`  (processes all letters without `tts_generated: true`, uses author-aware voice)

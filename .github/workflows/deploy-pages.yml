@@ -1,0 +1,45 @@
+name: Deploy to GitHub Pages
+
+# Triggered whenever the quarterly pipeline pushes docs/ changes to main,
+# or manually. Checks out with LFS so the real MP3 binaries are included
+# in the Pages artifact — GitHub Pages from-branch deployment does NOT
+# fetch LFS objects, which is why audio files must be deployed this way.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one Pages deployment at a time; don't cancel in-progress runs.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository with LFS audio files
+        uses: actions/checkout@v4
+        with:
+          lfs: true   # Fetches real MP3 binaries from LFS storage
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

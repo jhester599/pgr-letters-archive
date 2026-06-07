@@ -234,6 +234,17 @@ def main(
             filing["tts_voice"]          = voice
             filing["tts_generated_date"] = datetime.now(timezone.utc).isoformat()
             filing["page_built"]         = False  # force reading page rebuild to add TTS player
+
+            # Upload to GitHub Releases for CDN hosting (avoids LFS on GitHub Pages)
+            try:
+                import releases as _releases
+                url = _releases.upload_mp3(out_mp3)
+                if url:
+                    filing["tts_url"] = url
+                    log.info("  TTS URL stored in ledger: %s", url)
+            except Exception as exc:
+                log.warning("  releases.upload_mp3 failed (non-fatal): %s", exc)
+
             save_ledger(ledger)
             success_count += 1
             log.info("  ✓  %s  (ledger updated)", filing["id"])

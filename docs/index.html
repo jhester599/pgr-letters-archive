@@ -565,7 +565,7 @@
       const audioEl = document.getElementById("audio-player");
       // Derive the filename from the stored path
       const audioFilename = filing.audio_file.split("/").pop();
-      audioEl.src = `audio/${audioFilename}`;
+      audioEl.src = filing.audio_url || `audio/${audioFilename}`;
       audioEl.load();
       document.getElementById("player-title").textContent =
         `${filing.year} ${filing.quarter} — CEO Shareholder Letter`;

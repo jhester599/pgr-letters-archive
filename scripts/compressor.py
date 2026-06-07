@@ -163,7 +163,7 @@ def generate_rss(ledger: dict, base_url: str) -> None:
     SubElement(channel, "itunes:image", href=f"{base_url}/cover.png")
 
     for filing in published:
-        audio_url  = f"{base_url}/audio/{Path(filing['audio_file']).name}"
+        audio_url = filing.get("audio_url") or f"{base_url}/audio/{Path(filing['audio_file']).name}"
         audio_path = BASE_DIR / filing["audio_file"]
         file_size  = audio_path.stat().st_size if audio_path.exists() else 0
         duration   = get_audio_duration_seconds(audio_path) if audio_path.exists() else None
@@ -236,6 +236,17 @@ def main() -> None:
         filing["audio_compressed"] = True
         filing["audio_compressed_date"] = datetime.now(timezone.utc).isoformat()
         filing["page_built"] = False  # force reading page rebuild to add audio player
+
+        # Upload to GitHub Releases for CDN hosting (avoids LFS on GitHub Pages)
+        try:
+            import releases as _releases
+            url = _releases.upload_mp3(out_path)
+            if url:
+                filing["audio_url"] = url
+                log.info("  Audio URL stored in ledger: %s", url)
+        except Exception as exc:
+            log.warning("  releases.upload_mp3 failed (non-fatal): %s", exc)
+
         save_ledger(ledger)
         success_count += 1
 

@@ -117,11 +117,14 @@ PYEOF
 
       - name: Generate TTS read-through audio via Kokoro
         if: ${{ inputs.skip_audio != true }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/tts.py --max-new 1
 
       - name: Compress audio and regenerate RSS feed
         env:
           PAGES_BASE_URL: "https://jhester599.github.io/pgr-letters-archive"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/compressor.py
 
       - name: Build reading pages
@@ -136,8 +139,6 @@ PYEOF
           git add \
             data/letters/ \
             data/summaries/ \
-            docs/audio/ \
-            docs/audio_tts/ \
             docs/ledger.json \
             docs/feed.xml \
             docs/letters/

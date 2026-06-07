@@ -749,13 +749,14 @@ def build_page(
 
     if filing.get("audio_compressed") and filing.get("audio_file"):
         audio_filename = filing["audio_file"].split("/")[-1]
+        audio_src = filing.get("audio_url") or f"../audio/{audio_filename}"
         audio_items.append(f"""\
   <div class="audio-item">
     <button class="audio-toggle" data-show="\U0001f399 AI Podcast Overview" data-hide="▲ Hide Podcast">\U0001f399 AI Podcast Overview</button>
     <div class="audio-player-wrap">
       <p class="audio-label">AI-generated podcast discussion via NotebookLM</p>
       <audio controls preload="none">
-        <source src="../audio/{audio_filename}" type="audio/mpeg" />
+        <source src="{audio_src}" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
     </div>
@@ -763,13 +764,14 @@ def build_page(
 
     if filing.get("tts_generated") and filing.get("tts_file"):
         tts_filename = filing["tts_file"].split("/")[-1]
+        tts_src = filing.get("tts_url") or f"../audio_tts/{tts_filename}"
         audio_items.append(f"""\
   <div class="audio-item">
     <button class="audio-toggle" data-show="🔊 Read-Through Audio" data-hide="▲ Hide Read-Through">🔊 Read-Through Audio</button>
     <div class="audio-player-wrap">
       <p class="audio-label">Full letter read aloud by AI voice (Kokoro TTS)</p>
       <audio controls preload="none">
-        <source src="../audio_tts/{tts_filename}" type="audio/mpeg" />
+        <source src="{tts_src}" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
     </div>

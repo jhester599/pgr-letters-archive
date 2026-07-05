@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """
-migrate_audio_to_releases.py — One-time migration of MP3 files from Git LFS to
+migrate_audio_to_releases.py — One-time/recovery migration of local MP3 files to
 GitHub Releases.
 
-Run this script once LFS bandwidth resets. It pulls all LFS objects for the
-audio directories, uploads each MP3 to the 'audio-library' GitHub Release, and
-stores the CDN download URL in the ledger. It then rebuilds all reading pages
-and regenerates the RSS feed with the new URLs.
+Run this script when local MP3s need to be uploaded to the 'audio-library'
+GitHub Release and recorded in the ledger. It uses existing files in
+docs/audio/ and docs/audio_tts/ when present; otherwise it tries a best-effort
+git lfs pull for older checkouts that still have LFS pointer files. It then
+rebuilds all reading pages and regenerates the RSS feed with the release URLs.
 
 Usage:
     python scripts/migrate_audio_to_releases.py
@@ -42,9 +43,20 @@ log = logging.getLogger(__name__)
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 
-def _pull_lfs_objects() -> None:
-    """Pull LFS-tracked audio files so they are available on disk."""
-    log.info("Pulling LFS objects for docs/audio/ and docs/audio_tts/…")
+def _local_mp3_count() -> int:
+    """Return the number of locally available staged MP3 files."""
+    dirs = [BASE_DIR / "docs" / "audio", BASE_DIR / "docs" / "audio_tts"]
+    return sum(1 for d in dirs if d.exists() for _ in d.glob("*.mp3"))
+
+
+def _ensure_audio_files_available() -> None:
+    """Ensure staged MP3 files are available locally before upload."""
+    existing = _local_mp3_count()
+    if existing:
+        log.info("Found %d local MP3 file(s); skipping git lfs pull.", existing)
+        return
+
+    log.info("No local MP3s found; trying git lfs pull for older checkouts.")
     cmd = [
         "git", "lfs", "pull",
         "--",
@@ -53,9 +65,14 @@ def _pull_lfs_objects() -> None:
     ]
     result = subprocess.run(cmd, cwd=str(BASE_DIR), capture_output=True, text=True)
     if result.returncode != 0:
-        log.error("git lfs pull failed:\n%s", result.stderr)
+        log.error(
+            "git lfs pull failed and no local MP3 files are available:\n%s\n"
+            "Restore MP3s from the local/Google Drive backup documented in AUDIO_STORAGE.md, "
+            "then rerun this script.",
+            result.stderr,
+        )
         raise SystemExit(1)
-    log.info("LFS pull complete.")
+    log.info("git lfs pull complete; found %d local MP3 file(s).", _local_mp3_count())
 
 
 def _run_script(script: str, extra_args: list[str] | None = None) -> None:
@@ -82,11 +99,11 @@ def main(dry_run: bool) -> None:
         )
         raise SystemExit(1)
 
-    # ── Step 1: Pull LFS objects ───────────────────────────────────────────────
+    # ── Step 1: Ensure local audio files exist ─────────────────────────────────
     if dry_run:
-        log.info("[dry-run] Skipping git lfs pull.")
+        log.info("[dry-run] Skipping local audio availability check.")
     else:
-        _pull_lfs_objects()
+        _ensure_audio_files_available()
 
     # ── Step 2: Load ledger ────────────────────────────────────────────────────
     ledger = load_ledger()
@@ -150,7 +167,7 @@ def main(dry_run: bool) -> None:
         mp3_path = BASE_DIR / filing["tts_file"]
         log.info("[%s] Uploading TTS audio: %s", filing["id"], mp3_path.name)
         try:
-            url = _releases.upload_mp3(mp3_path)
+            url = _releases.upload_mp3(mp3_path, asset_name=f"tts_{mp3_path.name}")
             if url:
                 filing["tts_url"] = url
                 log.info("  Stored tts_url: %s", url)
@@ -183,7 +200,7 @@ def main(dry_run: bool) -> None:
     print("=" * 60)
     print("Migration complete. Next steps:")
     print()
-    print("  1. git rm docs/audio/*.mp3 docs/audio_tts/*.mp3")
+    print("  1. git rm --cached docs/audio/*.mp3 docs/audio_tts/*.mp3")
     print("  2. git add docs/ledger.json docs/feed.xml docs/letters/")
     print("  3. git commit -m \"chore: migrate audio to GitHub Releases\"")
     print("  4. git push")

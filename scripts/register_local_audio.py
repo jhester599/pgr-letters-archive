@@ -79,7 +79,7 @@ def main() -> None:
     print("  python scripts/compressor.py")
     print("  python scripts/build_pages.py")
     print("  python scripts/audio_progress.py")
-    print("  git add docs/audio/ docs/ledger.json docs/feed.xml docs/letters/ AUDIO_PROGRESS.md")
+    print("  git add docs/ledger.json docs/feed.xml docs/letters/ AUDIO_PROGRESS.md")
     print('  git commit -m "chore: add NotebookLM audio for ' + ", ".join(updated) + '"')
     print("  git push origin main")
 

@@ -2,6 +2,8 @@
 
 Developer reference for the PGR Letters Archive project.
 See `PLAN.md` for the full implementation plan and architecture decisions.
+See `AUDIO_STORAGE.md` before touching audio files, release assets, `.gitattributes`,
+or workflow `git add` paths.
 
 ## What this project does
 
@@ -12,7 +14,8 @@ Every Friday a GitHub Actions job:
 2. Extracts and cleans the CEO's shareholder letter (Exhibit 99)
 3. Generates a podcast-style audio overview via NotebookLM
 4. Compresses audio to 64 kbps MP3 with FFmpeg
-5. Commits everything to `main`, which auto-deploys to GitHub Pages
+5. Uploads MP3s to the `audio-library` GitHub Release and records release URLs
+6. Commits metadata/pages to `main`, which auto-deploys to GitHub Pages
 
 ## Directory structure
 
@@ -24,7 +27,8 @@ data/
 docs/               — GitHub Pages root (served at /pgr-letters-archive/)
   index.html        — Single-page front-end; reads ledger.json at runtime
   ledger.json       — State ledger; also the front-end's data source
-  audio/            — Compressed 64 kbps MP3s (committed)
+  audio/            — Local staging for compressed NotebookLM MP3s (gitignored)
+  audio_tts/        — Local staging for Kokoro TTS MP3s (gitignored)
   feed.xml          — Podcast RSS feed (regenerated each run)
   letters/          — Standalone HTML reading pages (one per letter)
   assets/
@@ -32,10 +36,13 @@ docs/               — GitHub Pages root (served at /pgr-letters-archive/)
 scripts/
   scraper.py        — SEC EDGAR downloader
   generator.py      — NotebookLM audio generation
-  compressor.py     — FFmpeg compression + RSS generation
+  compressor.py     — FFmpeg compression + release upload + RSS generation
+  releases.py       — GitHub Releases audio hosting helper
+  migrate_audio_to_releases.py — One-time/recovery release migration helper
   build_pages.py    — Per-letter HTML reading page generator
 requirements.txt
 PLAN.md             — Architecture, phases, technical decisions
+AUDIO_STORAGE.md    — Audio release hosting, backups, and recovery commands
 AGENTS.md           — This file
 ```
 
@@ -60,8 +67,9 @@ export NOTEBOOKLM_AUTH_JSON="$(cat ~/.notebooklm/profiles/default/storage_state.
 # Audio generation (credentials required)
 python scripts/generator.py --max-new 1
 
-# Compression + RSS update (requires ffmpeg)
+# Compression + release upload + RSS update (requires ffmpeg)
 sudo apt-get install -y ffmpeg     # or: brew install ffmpeg
+export GITHUB_TOKEN="$(gh auth token)"   # optional locally; provided automatically in Actions
 python scripts/compressor.py
 
 # Serve the web front-end
@@ -122,6 +130,7 @@ error, re-run `notebooklm login` and update the secret.
     "letter_file":           "data/letters/PGR_2025_Q1_Letter.txt",
     "audio_raw_file":        "data/audio_raw/PGR_2025_Q1_Letter.mp4",
     "audio_file":            "docs/audio/PGR_2025_Q1_Letter.mp3",
+    "audio_url":             "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2025_Q1_Letter.mp3",
     "page_url":              "letters/PGR_2025_Q1.html",
     "letter_scraped":        true,
     "audio_generated":       true,
@@ -176,7 +185,8 @@ python scripts/compressor.py
 ```
 
 **Verify:**
-- `docs/audio/` contains a `.mp3` file (~4–10 MB at 64 kbps)
+- `docs/audio/` contains a local staging `.mp3` file (~4–10 MB at 64 kbps)
+- `docs/ledger.json` has an `audio_url` pointing to the `audio-library` GitHub Release when `GITHUB_TOKEN` is available
 - `docs/feed.xml` has been created with one episode entry
 - The ledger entry now has `"audio_compressed": true`
 
@@ -189,7 +199,7 @@ cd docs && python -m http.server 8000
 
 **Verify:**
 - The episode appears in the sidebar list
-- The audio player loads and plays the compressed MP3
+- The audio player loads and plays the release-hosted MP3
 - The letter text loads in the content panel
 
 ### Step 5 — Historical backfill (once concept is proven)
@@ -236,6 +246,15 @@ letter directory, and is fully idempotent — safe to re-run at any time.
 **Regenerate the RSS feed without a new audio run:**
 ```bash
 python scripts/compressor.py   # no pending audio → skips compression, still writes feed.xml
+```
+
+**Audio storage rule:**
+Do not commit `docs/audio/*.mp3` or `docs/audio_tts/*.mp3`. They are ignored
+local staging files. Public playback should use `audio_url` / `tts_url` release
+assets from `docs/ledger.json`. If MP3s are accidentally tracked, use:
+
+```bash
+git rm --cached -- docs/audio/*.mp3 docs/audio_tts/*.mp3
 ```
 
 **Rebuild all reading pages (after CSS or template changes):**

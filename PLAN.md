@@ -7,6 +7,11 @@ CEO Tricia Griffith's quarterly shareholder letters into a publicly accessible a
 with two audio tracks per letter — a NotebookLM AI podcast and a Kokoro TTS read-through —
 hosted on GitHub Pages.
 
+Audio binaries are hosted outside git in the GitHub Release named
+`audio-library`. The repo stores ledger/feed/page metadata and uses release URLs
+for playback. See `AUDIO_STORAGE.md` for backup locations, recovery commands,
+and the Google Drive backup structure.
+
 ---
 
 ## Architecture
@@ -29,10 +34,11 @@ SEC EDGAR (public API)
         ▼  data/audio_raw/*.mp4                   ▼  docs/audio_tts/*.mp3
   [compressor.py]
   FFmpeg re-encodes NotebookLM MP4 to
-  64 kbps MP3, saves to docs/audio/,
+  64 kbps MP3, uploads to the
+  audio-library GitHub Release,
   regenerates docs/feed.xml RSS feed
         │
-        ▼  docs/audio/*.mp3 + docs/feed.xml + docs/ledger.json
+        ▼  release URLs + docs/feed.xml + docs/ledger.json
   [build_pages.py]
   Generates per-letter HTML reading pages with dual audio players
         │
@@ -120,13 +126,12 @@ Prerequisites must be completed in order before running the TTS batch.
   - Glenn Renwick (2001–Q2 2016): `<chosen>`
   - Tricia Griffith (Q3 2016–present): `af_heart`
 
-#### Step 3 — Consider GitHub LFS before batch run
-- [ ] Evaluate repo size: 100 NotebookLM MP3s (~950 MB already committed) + 100 TTS MP3s (~1.4 GB) ≈ 2.4 GB total
-- [ ] Enable GitHub LFS for `*.mp3` if approaching 1 GB limit:
-  ```
-  git lfs track "*.mp3"
-  git add .gitattributes
-  ```
+#### Step 3 — Audio storage guardrails
+- [x] Move completed NotebookLM MP3s out of git/LFS and into the `audio-library` GitHub Release
+- [x] Add `audio_url` / `tts_url` release URLs to `docs/ledger.json`
+- [x] Keep `docs/audio/*.mp3` and `docs/audio_tts/*.mp3` gitignored as local staging only
+- [x] Back up all current MP3s locally and to Google Drive before deleting them from git tracking
+- [ ] Before a full TTS batch, confirm enough local disk and Drive space for the additional MP3s
 
 #### Step 4 — NotebookLM batch ✅
 - [x] `python scripts/generator.py --max-new 0`  — all 100 letters complete as of June 5, 2026
@@ -168,7 +173,9 @@ read by `index.html` at runtime for the episode list.
       "letter_file":           "data/letters/PGR_2025_Q4_Letter.txt",
       "audio_raw_file":        "data/audio_raw/PGR_2025_Q4_Letter.mp4",
       "audio_file":            "docs/audio/PGR_2025_Q4_Letter.mp3",
+      "audio_url":             "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2025_Q4_Letter.mp3",
       "tts_file":              "docs/audio_tts/PGR_2025_Q4_Letter.mp3",
+      "tts_url":               "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/tts_PGR_2025_Q4_Letter.mp3",
       "tts_voice":             "am_michael",
       "page_url":              "letters/PGR_2025_Q4.html",
       "letter_scraped":        true,
@@ -191,8 +198,8 @@ read by `index.html` at runtime for the episode list.
 |---------------------|-----------------|--------------------------------------------------|
 | `letter_scraped`    | scraper.py      | `.txt` file exists in `data/letters/`            |
 | `audio_generated`   | generator.py    | Raw `.mp4` exists in `data/audio_raw/`           |
-| `audio_compressed`  | compressor.py   | Compressed `.mp3` in `docs/audio/`               |
-| `tts_generated`     | tts.py          | TTS `.mp3` in `docs/audio_tts/`                  |
+| `audio_compressed`  | compressor.py   | Compressed overview exists locally and, for published audio, `audio_url` points to the release asset |
+| `tts_generated`     | tts.py          | TTS MP3 exists locally and, for published audio, `tts_url` points to the release asset |
 | `page_built`        | build_pages.py  | HTML reading page in `docs/letters/`             |
 
 ---
@@ -236,23 +243,27 @@ read by `index.html` at runtime for the episode list.
 - `data/audio_raw/` contents are in `.gitignore` — never committed.
 - TTS files are encoded directly to MP3 by `tts.py` via FFmpeg; no intermediate raw files.
 
+### Audio Hosting and Backups
+- Public MP3 playback is served from the GitHub Release `audio-library`, not from committed files.
+- `compressor.py` uploads NotebookLM MP3s to the release when `GITHUB_TOKEN` is available and stores the URL in `audio_url`.
+- `tts.py` uploads TTS MP3s with a `tts_` filename prefix and stores the URL in `tts_url`.
+- `docs/audio/*.mp3` and `docs/audio_tts/*.mp3` are local staging files and are gitignored.
+- A complete 2026-07-04 backup exists locally at `C:\Users\Jeff\Documents\github\pgr-letters-archive-audio-backup-2026-07-04` and should also be kept in Google Drive.
+- See `AUDIO_STORAGE.md` before changing release assets, `.gitignore`, `.gitattributes`, or workflow `git add` paths.
+
 ### GitHub Pages
 - Source: `/docs` folder on `main` branch.
 - `index.html` fetches `ledger.json` at runtime — no build step required.
 - `feed.xml` is regenerated on every pipeline run.
 - Each letter has a reading page at `docs/letters/{id}.html` with two audio players:
-  - **AI Podcast Overview** — NotebookLM MP3 from `docs/audio/`
-  - **Read-Through Audio** — Kokoro TTS MP3 from `docs/audio_tts/`
+  - **AI Podcast Overview** — NotebookLM MP3 from `audio_url` when present, with `docs/audio/` as a local fallback
+  - **Read-Through Audio** — Kokoro TTS MP3 from `tts_url` when present, with `docs/audio_tts/` as a local fallback
 
 ### Repository Size
-- NotebookLM MP3 at 64 kbps × 20 min/episode × 99 letters ≈ 950 MB.
-- TTS MP3 at 64 kbps × 30 min/letter × 99 letters ≈ 1.4 GB.
-- Combined archive will exceed GitHub's 1 GB soft limit once both tracks are complete.
-- Plan: enable GitHub LFS for `*.mp3` files before the full backfill batch:
-  ```
-  git lfs track "*.mp3"
-  git add .gitattributes
-  ```
+- NotebookLM MP3 at 64 kbps × 20 min/episode × 100 letters is about 906 MB.
+- The initial TTS / voice-sample set adds about 107 MB.
+- A full TTS backfill would push binary storage well beyond the comfortable size for normal git and would risk recurring Git LFS quota issues.
+- Current policy: do not commit MP3s and do not rely on Git LFS for published audio. Use GitHub Releases for serving and Google Drive/local backups for preservation.
 
 ---
 
@@ -278,7 +289,7 @@ No `OPENAI_API_KEY` is required; TTS uses local Kokoro inference in CI.
 | Google session expiry blocks CI | Refresh `notebooklm login` locally and update `NOTEBOOKLM_AUTH_JSON` secret |
 | EDGAR changes Exhibit 99 labeling | Scraper falls back gracefully and logs a skip; manual review triggered |
 | kokoro Python version cap | Requires Python 3.12; 3.13/3.14 breaks spacy dependency chain |
-| Repository size limit (1 GB) | Enable GitHub LFS for `*.mp3` before running full 99-letter audio backfill |
+| Repository size / Git LFS quota pressure | Keep MP3s out of git; serve from the `audio-library` GitHub Release; maintain local and Google Drive backups |
 | TTS synthesis time in CI | Kokoro CPU synthesis ~30 min/letter; acceptable at `--max-new 1` per scheduled run |
 | Rate limiting from EDGAR | Exponential backoff already implemented |
 

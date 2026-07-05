@@ -125,6 +125,9 @@ def fetch_submissions() -> dict:
 
 def fetch_filing_documents(accession_number: str) -> Optional[list[dict]]:
     """Return the list of document dicts from the filing's HTML index page."""
+    def looks_like_doc_type(value: str) -> bool:
+        return bool(re.match(r"^(?:\d+-[A-Z0-9]+|EX[-\s]?\d+|EXHIBIT\s+\d+)", value.upper()))
+
     acc = accession_number.replace("-", "")
     url = f"{EDGAR_ARCHIVES}/{CIK_PLAIN}/{acc}/{accession_number}-index.htm"
     resp = get(url)
@@ -141,10 +144,13 @@ def fetch_filing_documents(accession_number: str) -> Optional[list[dict]]:
             # in modern ones. Always prefer cells[3] when present.
             if len(cells) < 3:
                 continue
-            doc_type = (
-                cells[3].get_text(strip=True)
-                if len(cells) >= 4 and cells[3].get_text(strip=True)
-                else cells[1].get_text(strip=True)
+            type_candidates = []
+            if len(cells) >= 4:
+                type_candidates.append(cells[3].get_text(strip=True))
+            type_candidates.append(cells[1].get_text(strip=True))
+            doc_type = next(
+                (candidate for candidate in type_candidates if looks_like_doc_type(candidate)),
+                next((candidate for candidate in type_candidates if candidate), ""),
             )
             link = cells[2].find("a")
             if link and doc_type:

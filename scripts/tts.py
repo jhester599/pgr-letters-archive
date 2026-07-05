@@ -238,7 +238,7 @@ def main(
             # Upload to GitHub Releases for CDN hosting (avoids LFS on GitHub Pages)
             try:
                 import releases as _releases
-                url = _releases.upload_mp3(out_mp3)
+                url = _releases.upload_mp3(out_mp3, asset_name=f"tts_{out_mp3.name}")
                 if url:
                     filing["tts_url"] = url
                     log.info("  TTS URL stored in ledger: %s", url)

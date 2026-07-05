@@ -86,15 +86,14 @@ jobs:
     timeout-minutes: 120    # NotebookLM generation can take ~30 min per letter × 3
 
     permissions:
-      contents: write   # Required to push new audio files and ledger back to main
+      contents: write   # Required to push ledger/feed/page updates back to main
 
     steps:
       # ── Setup ───────────────────────────────────────────────────────────────
-      - name: Checkout repository (with LFS)
+      - name: Checkout repository
         uses: actions/checkout@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          lfs: true     # Pull existing LFS-tracked MP3s so git status is clean
 
       - name: Set up Python 3.12
         uses: actions/setup-python@v6
@@ -225,7 +224,6 @@ jobs:
 
             # Commit + push immediately so a later timeout cannot discard this.
             git add \
-              docs/audio/ \
               docs/ledger.json \
               docs/feed.xml \
               docs/letters/ \
@@ -258,7 +256,6 @@ jobs:
           python scripts/build_pages.py
 
           git add \
-            docs/audio/ \
             docs/ledger.json \
             docs/feed.xml \
             docs/letters/ \

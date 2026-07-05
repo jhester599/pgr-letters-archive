@@ -3,7 +3,7 @@
 releases.py — GitHub Releases audio hosting helper.
 
 Uploads MP3 files to the 'audio-library' GitHub Release so they can be
-served via GitHub's CDN instead of Git LFS (which GitHub Pages cannot serve).
+served via GitHub-hosted release asset URLs instead of git or Git LFS.
 
 The release acts as a permanent, append-only audio store. Files that are
 already present are not re-uploaded.
@@ -70,7 +70,7 @@ def _get_or_create_release() -> tuple[int, str]:
         "body":             (
             "Permanent audio archive for the PGR Letters Archive project. "
             "MP3 files are uploaded here automatically by the pipeline so "
-            "GitHub Pages can serve them without Git LFS."
+            "GitHub Pages and the podcast feed can reference release-hosted audio."
         ),
         "draft":            False,
         "prerelease":       False,
@@ -105,7 +105,7 @@ def _list_existing_assets(release_id: int) -> dict[str, str]:
 # ── Public API ────────────────────────────────────────────────────────────────
 
 
-def upload_mp3(mp3_path: Path) -> str | None:
+def upload_mp3(mp3_path: Path, asset_name: str | None = None) -> str | None:
     """Upload an MP3 to the audio-library release if not already present.
 
     Returns the public download URL on success, or None if:
@@ -129,7 +129,7 @@ def upload_mp3(mp3_path: Path) -> str | None:
     release_id, upload_url_template = _get_or_create_release()
     existing = _list_existing_assets(release_id)
 
-    filename = mp3_path.name
+    filename = asset_name or mp3_path.name
     if filename in existing:
         log.info("  Already uploaded: %s → %s", filename, existing[filename])
         return existing[filename]

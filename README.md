@@ -37,7 +37,8 @@ SEC EDGAR (public API)
         │
         ▼
   compressor.py
-  FFmpeg re-encodes NotebookLM audio to 64 kbps MP3, regenerates podcast RSS feed
+  FFmpeg re-encodes NotebookLM audio to 64 kbps MP3, uploads it to GitHub Releases,
+  records the release URL in the ledger, and regenerates the podcast RSS feed
         │
         ▼
   build_pages.py
@@ -72,8 +73,8 @@ data/
 docs/                          — GitHub Pages web root
   index.html                   — Single-page front-end
   ledger.json                  — Pipeline state ledger (also read by the front-end)
-  audio/                       — Compressed 64 kbps NotebookLM MP3s (committed)
-  audio_tts/                   — Kokoro TTS verbatim read-through MP3s (committed)
+  audio/                       — Local staging for NotebookLM MP3s (gitignored)
+  audio_tts/                   — Local staging for Kokoro TTS MP3s (gitignored)
   feed.xml                     — Podcast RSS feed (regenerated each run)
   letters/                     — Per-letter HTML reading pages
 scripts/
@@ -91,6 +92,7 @@ scripts/
   setup_notebooklm.ps1         — One-time Windows NotebookLM auth setup
 requirements.txt
 AUDIO_PROGRESS.md              — Live backfill progress tracker (auto-updated by CI)
+AUDIO_STORAGE.md               — Audio release hosting, backups, and recovery steps
 PLAN.md                        — Architecture, data model, technical decisions
 CLAUDE.md                      — Developer reference and run checklist
 NOTEBOOKLM_SETUP.md            — How to capture and store the NotebookLM auth secret
@@ -155,12 +157,19 @@ MP3. Default voice: `am_michael`. See `CLAUDE.md` for voice options and audition
 
 ```bash
 export PAGES_BASE_URL="https://jhester599.github.io/pgr-letters-archive"
+export GITHUB_TOKEN="your_token_here"  # optional locally; provided automatically in Actions
 python scripts/compressor.py
 python scripts/build_pages.py
 ```
 
-Outputs a 64 kbps MP3 to `docs/audio/`, a TTS MP3 to `docs/audio_tts/`, per-letter HTML
-pages to `docs/letters/`, and writes `docs/feed.xml`.
+Outputs a local 64 kbps MP3 to `docs/audio/`, uploads public audio to the
+`audio-library` GitHub Release when `GITHUB_TOKEN` is available, writes release
+URLs into `docs/ledger.json`, builds per-letter HTML pages in `docs/letters/`,
+and writes `docs/feed.xml`.
+
+Do not commit MP3 files. `docs/audio/*.mp3` and `docs/audio_tts/*.mp3` are local
+staging files; public playback should come from release URLs in the ledger. See
+`AUDIO_STORAGE.md` for the storage policy and recovery commands.
 
 ### 6. Preview locally
 
@@ -226,5 +235,6 @@ auth error. `GITHUB_TOKEN` is provided automatically.
 | `CLAUDE.md` | Developer reference: local setup, run checklist, ledger schema, common tasks |
 | `PLAN.md` | Full architecture plan, data model, technical decisions |
 | `AUDIO_PROGRESS.md` | Live backfill progress — letters done, pending, versions, ETA |
+| `AUDIO_STORAGE.md` | GitHub Releases audio hosting, Google Drive/local backups, recovery commands |
 | `NOTEBOOKLM_SETUP.md` | How to capture Google session credentials for CI |
 | `ROADMAP.md` | Planned future features |

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "last_updated": "2026-06-05T11:59:43.184864+00:00",
+    "last_updated": "2026-07-05T02:14:09.938511+00:00",
     "total_letters": 100,
     "total_audio": 100,
     "description": "State ledger for the PGR Letters Archive pipeline. Each entry tracks one SEC filing through the scrape \u2192 generate \u2192 compress lifecycle."
@@ -29,7 +29,9 @@
       "tts_file": "docs/audio_tts/PGR_2025_Q4_Letter.mp3",
       "tts_voice": "af_heart",
       "tts_generated_date": "2026-05-02T18:54:29.332388+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2025_Q4_Letter.mp3",
+      "tts_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/tts_PGR_2025_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2025_Q3",
@@ -54,7 +56,9 @@
       "tts_file": "docs/audio_tts/PGR_2025_Q3_Letter.mp3",
       "tts_voice": "am_michael",
       "tts_generated_date": "2026-05-15T14:02:38.936675+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2025_Q3_Letter.mp3",
+      "tts_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/tts_PGR_2025_Q3_Letter.mp3"
     },
     {
       "id": "PGR_2025_Q2",
@@ -79,7 +83,9 @@
       "tts_generated": true,
       "tts_file": "docs/audio_tts/PGR_2025_Q2_Letter.mp3",
       "tts_voice": "am_michael",
-      "tts_generated_date": "2026-05-22T14:36:00.987955+00:00"
+      "tts_generated_date": "2026-05-22T14:36:00.987955+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2025_Q2_Letter.mp3",
+      "tts_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/tts_PGR_2025_Q2_Letter.mp3"
     },
     {
       "id": "PGR_2025_Q1",
@@ -100,7 +106,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-13T01:36:32.787649+00:00",
       "audio_compressed_date": "2026-05-14T02:18:10.604586+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2025_Q1_Letter.mp3"
     },
     {
       "id": "PGR_2024_Q4",
@@ -121,7 +128,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-14T23:45:26.716142+00:00",
       "audio_compressed_date": "2026-05-14T23:45:42.495373+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2024_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2024_Q3",
@@ -142,7 +150,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T01:15:44.836444+00:00",
       "audio_compressed_date": "2026-05-15T01:35:57.879633+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2024_Q3_Letter.mp3"
     },
     {
       "id": "PGR_2024_Q2",
@@ -163,7 +172,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T01:25:28.024821+00:00",
       "audio_compressed_date": "2026-05-15T01:36:10.893833+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2024_Q2_Letter.mp3"
     },
     {
       "id": "PGR_2024_Q1",
@@ -184,7 +194,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T16:09:31.993529+00:00",
       "audio_compressed_date": "2026-05-15T16:19:59.643264+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2024_Q1_Letter.mp3"
     },
     {
       "id": "PGR_2023_Q4",
@@ -205,7 +216,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T17:00:53.747310+00:00",
       "audio_compressed_date": "2026-05-15T18:12:35.613971+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2023_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2023_Q3",
@@ -226,7 +238,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T17:11:12.148919+00:00",
       "audio_compressed_date": "2026-05-15T18:12:52.381689+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2023_Q3_Letter.mp3"
     },
     {
       "id": "PGR_2023_Q2",
@@ -247,7 +260,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T17:19:33.230918+00:00",
       "audio_compressed_date": "2026-05-15T18:13:09.250554+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2023_Q2_Letter.mp3"
     },
     {
       "id": "PGR_2023_Q1",
@@ -268,7 +282,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T17:26:32.686197+00:00",
       "audio_compressed_date": "2026-05-15T18:13:24.384417+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2023_Q1_Letter.mp3"
     },
     {
       "id": "PGR_2022_Q4",
@@ -289,7 +304,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T17:34:24.385686+00:00",
       "audio_compressed_date": "2026-05-15T18:13:38.835571+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2022_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2022_Q3",
@@ -310,7 +326,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T17:41:54.707063+00:00",
       "audio_compressed_date": "2026-05-15T18:13:53.185738+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2022_Q3_Letter.mp3"
     },
     {
       "id": "PGR_2022_Q2",
@@ -331,7 +348,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T17:49:54.078076+00:00",
       "audio_compressed_date": "2026-05-15T18:14:09.429371+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2022_Q2_Letter.mp3"
     },
     {
       "id": "PGR_2022_Q1",
@@ -352,7 +370,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T17:57:23.119973+00:00",
       "audio_compressed_date": "2026-05-15T18:14:25.257298+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2022_Q1_Letter.mp3"
     },
     {
       "id": "PGR_2021_Q4",
@@ -373,7 +392,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T18:06:03.160260+00:00",
       "audio_compressed_date": "2026-05-15T18:14:38.574410+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2021_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2021_Q3",
@@ -394,7 +414,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T18:12:21.383310+00:00",
       "audio_compressed_date": "2026-05-15T18:14:51.234661+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2021_Q3_Letter.mp3"
     },
     {
       "id": "PGR_2021_Q2",
@@ -415,7 +436,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-15T22:20:30.974431+00:00",
       "audio_compressed_date": "2026-05-15T22:21:23.200356+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2021_Q2_Letter.mp3"
     },
     {
       "id": "PGR_2021_Q1",
@@ -436,7 +458,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T02:29:50.006887+00:00",
       "audio_compressed_date": "2026-05-17T04:20:14.847348+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2021_Q1_Letter.mp3"
     },
     {
       "id": "PGR_2020_Q4",
@@ -457,7 +480,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T02:36:58.588555+00:00",
       "audio_compressed_date": "2026-05-17T04:20:28.800384+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2020_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2020_Q3",
@@ -478,7 +502,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T02:43:56.553996+00:00",
       "audio_compressed_date": "2026-05-17T04:20:42.635401+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2020_Q3_Letter.mp3"
     },
     {
       "id": "PGR_2020_Q2",
@@ -500,7 +525,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T02:51:36.526212+00:00",
       "audio_compressed_date": "2026-05-17T04:20:56.370940+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2020_Q2_Letter.mp3"
     },
     {
       "id": "PGR_2020_Q1",
@@ -522,7 +548,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T03:00:57.921436+00:00",
       "audio_compressed_date": "2026-05-17T04:21:12.427761+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2020_Q1_Letter.mp3"
     },
     {
       "id": "PGR_2019_Q4",
@@ -544,7 +571,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T03:08:55.901669+00:00",
       "audio_compressed_date": "2026-05-17T04:21:25.625515+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2019_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2019_Q3",
@@ -566,7 +594,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T03:19:08.920349+00:00",
       "audio_compressed_date": "2026-05-17T04:21:39.401944+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2019_Q3_Letter.mp3"
     },
     {
       "id": "PGR_2019_Q2",
@@ -588,7 +617,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T03:27:48.447399+00:00",
       "audio_compressed_date": "2026-05-17T04:21:53.590699+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2019_Q2_Letter.mp3"
     },
     {
       "id": "PGR_2019_Q1",
@@ -610,7 +640,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T03:34:57.756753+00:00",
       "audio_compressed_date": "2026-05-17T04:22:08.157248+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2019_Q1_Letter.mp3"
     },
     {
       "id": "PGR_2018_Q4",
@@ -632,7 +663,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T03:41:35.319243+00:00",
       "audio_compressed_date": "2026-05-17T04:22:23.074661+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2018_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2018_Q3",
@@ -654,7 +686,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T03:48:43.454484+00:00",
       "audio_compressed_date": "2026-05-17T04:22:38.006970+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2018_Q3_Letter.mp3"
     },
     {
       "id": "PGR_2018_Q2",
@@ -676,7 +709,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T03:59:06.314519+00:00",
       "audio_compressed_date": "2026-05-17T04:22:53.350436+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2018_Q2_Letter.mp3"
     },
     {
       "id": "PGR_2018_Q1",
@@ -698,7 +732,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T04:06:56.241164+00:00",
       "audio_compressed_date": "2026-05-17T04:23:09.467329+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2018_Q1_Letter.mp3"
     },
     {
       "id": "PGR_2017_Q4",
@@ -720,7 +755,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T04:14:05.475514+00:00",
       "audio_compressed_date": "2026-05-17T04:23:23.993864+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2017_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2017_Q3",
@@ -742,7 +778,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T11:51:43.425793+00:00",
       "audio_compressed_date": "2026-05-17T12:10:59.970078+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2017_Q3_Letter.mp3"
     },
     {
       "id": "PGR_2017_Q2",
@@ -764,7 +801,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T12:02:26.414284+00:00",
       "audio_compressed_date": "2026-05-17T12:11:16.785380+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2017_Q2_Letter.mp3"
     },
     {
       "id": "PGR_2017_Q1",
@@ -786,7 +824,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-17T12:10:44.039312+00:00",
       "audio_compressed_date": "2026-05-17T12:11:31.643789+00:00",
-      "audio_version": "1.0"
+      "audio_version": "1.0",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2017_Q1_Letter.mp3"
     },
     {
       "id": "PGR_2016_Q4",
@@ -808,7 +847,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-22T11:54:35.355948+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-22T13:40:59.306014+00:00"
+      "audio_compressed_date": "2026-05-22T13:40:59.306014+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2016_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2016_Q3",
@@ -830,7 +870,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-22T12:01:36.567162+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-22T13:41:12.033283+00:00"
+      "audio_compressed_date": "2026-05-22T13:41:12.033283+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2016_Q3_Letter.mp3"
     },
     {
       "id": "PGR_2016_Q2",
@@ -852,7 +893,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-22T12:12:03.070666+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-22T13:41:27.416063+00:00"
+      "audio_compressed_date": "2026-05-22T13:41:27.416063+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2016_Q2_Letter.mp3"
     },
     {
       "id": "PGR_2016_Q1",
@@ -874,7 +916,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-22T12:19:33.855692+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-22T13:41:40.908899+00:00"
+      "audio_compressed_date": "2026-05-22T13:41:40.908899+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2016_Q1_Letter.mp3"
     },
     {
       "id": "PGR_2015_Q4",
@@ -896,7 +939,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-22T12:29:38.761592+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-22T13:41:53.777982+00:00"
+      "audio_compressed_date": "2026-05-22T13:41:53.777982+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2015_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2015_Q3",
@@ -918,7 +962,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-22T12:40:13.639836+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-22T13:42:07.521658+00:00"
+      "audio_compressed_date": "2026-05-22T13:42:07.521658+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2015_Q3_Letter.mp3"
     },
     {
       "id": "PGR_2015_Q2",
@@ -940,7 +985,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-22T12:51:11.069799+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-22T13:42:21.577467+00:00"
+      "audio_compressed_date": "2026-05-22T13:42:21.577467+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2015_Q2_Letter.mp3"
     },
     {
       "id": "PGR_2015_Q1",
@@ -962,7 +1008,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-22T13:01:25.979456+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-22T13:42:34.987665+00:00"
+      "audio_compressed_date": "2026-05-22T13:42:34.987665+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2015_Q1_Letter.mp3"
     },
     {
       "id": "PGR_2014_Q4",
@@ -984,7 +1031,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-22T13:13:03.435926+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-22T13:42:49.946316+00:00"
+      "audio_compressed_date": "2026-05-22T13:42:49.946316+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2014_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2014_Q3",
@@ -1006,7 +1054,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-22T13:22:57.863537+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-22T13:43:03.068939+00:00"
+      "audio_compressed_date": "2026-05-22T13:43:03.068939+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2014_Q3_Letter.mp3"
     },
     {
       "id": "PGR_2014_Q2",
@@ -1028,7 +1077,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-22T13:33:55.062548+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-22T13:43:17.192613+00:00"
+      "audio_compressed_date": "2026-05-22T13:43:17.192613+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2014_Q2_Letter.mp3"
     },
     {
       "id": "PGR_2014_Q1",
@@ -1050,7 +1100,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-23T23:53:19.237640+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-24T00:10:43.040282+00:00"
+      "audio_compressed_date": "2026-05-24T00:10:43.040282+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2014_Q1_Letter.mp3"
     },
     {
       "id": "PGR_2013_Q4",
@@ -1072,7 +1123,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-23T23:59:56.751870+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-24T00:10:56.603524+00:00"
+      "audio_compressed_date": "2026-05-24T00:10:56.603524+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2013_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2013_Q3",
@@ -1094,7 +1146,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-24T00:10:28.211293+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-24T00:11:10.252295+00:00"
+      "audio_compressed_date": "2026-05-24T00:11:10.252295+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2013_Q3_Letter.mp3"
     },
     {
       "id": "PGR_2013_Q2",
@@ -1115,7 +1168,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-25T04:52:28.305922+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-25T05:17:26.449195+00:00"
+      "audio_compressed_date": "2026-05-25T05:17:26.449195+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2013_Q2_Letter.mp3"
     },
     {
       "id": "PGR_2013_Q1",
@@ -1136,7 +1190,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-25T05:06:23.515084+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-25T05:17:40.859567+00:00"
+      "audio_compressed_date": "2026-05-25T05:17:40.859567+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2013_Q1_Letter.mp3"
     },
     {
       "id": "PGR_2012_Q4",
@@ -1157,7 +1212,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-25T05:17:11.451009+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-25T05:17:57.381066+00:00"
+      "audio_compressed_date": "2026-05-25T05:17:57.381066+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2012_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2012_Q3",
@@ -1178,7 +1234,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-25T18:12:16.662136+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-25T19:56:05.758085+00:00"
+      "audio_compressed_date": "2026-05-25T19:56:05.758085+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2012_Q3_Letter.mp3"
     },
     {
       "id": "PGR_2012_Q2",
@@ -1199,7 +1256,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-25T18:22:33.874680+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-25T19:56:20.198170+00:00"
+      "audio_compressed_date": "2026-05-25T19:56:20.198170+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2012_Q2_Letter.mp3"
     },
     {
       "id": "PGR_2012_Q1",
@@ -1220,7 +1278,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-25T18:33:39.410719+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-25T19:56:36.111793+00:00"
+      "audio_compressed_date": "2026-05-25T19:56:36.111793+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2012_Q1_Letter.mp3"
     },
     {
       "id": "PGR_2011_Q4",
@@ -1241,7 +1300,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-25T18:44:47.208125+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-25T19:56:44.864535+00:00"
+      "audio_compressed_date": "2026-05-25T19:56:44.864535+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2011_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2011_Q3",
@@ -1262,7 +1322,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-25T18:51:58.934174+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-25T19:56:58.649915+00:00"
+      "audio_compressed_date": "2026-05-25T19:56:58.649915+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2011_Q3_Letter.mp3"
     },
     {
       "id": "PGR_2011_Q2",
@@ -1283,7 +1344,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-25T19:01:53.722901+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-25T19:57:10.737808+00:00"
+      "audio_compressed_date": "2026-05-25T19:57:10.737808+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2011_Q2_Letter.mp3"
     },
     {
       "id": "PGR_2011_Q1",
@@ -1305,7 +1367,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-25T19:12:38.345360+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-25T19:57:24.224252+00:00"
+      "audio_compressed_date": "2026-05-25T19:57:24.224252+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2011_Q1_Letter.mp3"
     },
     {
       "id": "PGR_2010_Q4",
@@ -1327,7 +1390,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-25T19:24:16.915545+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-25T19:57:40.185907+00:00"
+      "audio_compressed_date": "2026-05-25T19:57:40.185907+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2010_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2010_Q3",
@@ -1349,7 +1413,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-25T19:33:40.905795+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-25T19:57:54.167428+00:00"
+      "audio_compressed_date": "2026-05-25T19:57:54.167428+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2010_Q3_Letter.mp3"
     },
     {
       "id": "PGR_2010_Q2",
@@ -1371,7 +1436,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-25T19:41:43.956041+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-25T19:58:07.292451+00:00"
+      "audio_compressed_date": "2026-05-25T19:58:07.292451+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2010_Q2_Letter.mp3"
     },
     {
       "id": "PGR_2010_Q1",
@@ -1393,7 +1459,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-25T19:51:47.237388+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-25T19:58:22.121351+00:00"
+      "audio_compressed_date": "2026-05-25T19:58:22.121351+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2010_Q1_Letter.mp3"
     },
     {
       "id": "PGR_2009_Q4",
@@ -1415,7 +1482,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-27T00:09:03.133443+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-27T01:39:35.939391+00:00"
+      "audio_compressed_date": "2026-05-27T01:39:35.939391+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2009_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2009_Q3",
@@ -1437,7 +1505,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-27T00:18:48.794891+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-27T01:39:50.301679+00:00"
+      "audio_compressed_date": "2026-05-27T01:39:50.301679+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2009_Q3_Letter.mp3"
     },
     {
       "id": "PGR_2009_Q2",
@@ -1459,7 +1528,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-27T00:29:37.961438+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-27T01:40:06.078253+00:00"
+      "audio_compressed_date": "2026-05-27T01:40:06.078253+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2009_Q2_Letter.mp3"
     },
     {
       "id": "PGR_2009_Q1",
@@ -1481,7 +1551,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-27T00:40:25.402812+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-27T01:40:18.971123+00:00"
+      "audio_compressed_date": "2026-05-27T01:40:18.971123+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2009_Q1_Letter.mp3"
     },
     {
       "id": "PGR_2008_Q4",
@@ -1503,7 +1574,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-27T00:50:09.502040+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-27T01:40:33.332044+00:00"
+      "audio_compressed_date": "2026-05-27T01:40:33.332044+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2008_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2008_Q3",
@@ -1525,7 +1597,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-27T00:56:56.796592+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-27T01:40:48.413807+00:00"
+      "audio_compressed_date": "2026-05-27T01:40:48.413807+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2008_Q3_Letter.mp3"
     },
     {
       "id": "PGR_2008_Q2",
@@ -1546,7 +1619,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-27T01:07:02.711967+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-27T01:41:01.993000+00:00"
+      "audio_compressed_date": "2026-05-27T01:41:01.993000+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2008_Q2_Letter.mp3"
     },
     {
       "id": "PGR_2008_Q1",
@@ -1567,7 +1641,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-27T01:16:38.852509+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-27T01:41:16.186568+00:00"
+      "audio_compressed_date": "2026-05-27T01:41:16.186568+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2008_Q1_Letter.mp3"
     },
     {
       "id": "PGR_2007_Q4",
@@ -1588,7 +1663,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-27T01:23:57.615898+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-27T01:41:30.745368+00:00"
+      "audio_compressed_date": "2026-05-27T01:41:30.745368+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2007_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2007_Q3",
@@ -1609,7 +1685,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-28T02:36:17.833929+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-28T04:13:50.154623+00:00"
+      "audio_compressed_date": "2026-05-28T04:13:50.154623+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2007_Q3_Letter.mp3"
     },
     {
       "id": "PGR_2007_Q2",
@@ -1630,7 +1707,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-28T02:49:23.990978+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-28T04:14:04.020496+00:00"
+      "audio_compressed_date": "2026-05-28T04:14:04.020496+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2007_Q2_Letter.mp3"
     },
     {
       "id": "PGR_2007_Q1",
@@ -1651,7 +1729,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-28T02:57:23.658192+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-28T04:14:17.578429+00:00"
+      "audio_compressed_date": "2026-05-28T04:14:17.578429+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2007_Q1_Letter.mp3"
     },
     {
       "id": "PGR_2006_Q4",
@@ -1672,7 +1751,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-28T03:03:49.579928+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-28T04:14:31.000144+00:00"
+      "audio_compressed_date": "2026-05-28T04:14:31.000144+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2006_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2006_Q3",
@@ -1693,7 +1773,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-28T03:10:36.550444+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-28T04:14:43.411588+00:00"
+      "audio_compressed_date": "2026-05-28T04:14:43.411588+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2006_Q3_Letter.mp3"
     },
     {
       "id": "PGR_2006_Q2",
@@ -1714,7 +1795,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-28T03:19:50.435554+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-28T04:14:57.404502+00:00"
+      "audio_compressed_date": "2026-05-28T04:14:57.404502+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2006_Q2_Letter.mp3"
     },
     {
       "id": "PGR_2006_Q1",
@@ -1737,7 +1819,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-28T03:29:13.281219+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-28T04:15:11.065993+00:00"
+      "audio_compressed_date": "2026-05-28T04:15:11.065993+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2006_Q1_Letter.mp3"
     },
     {
       "id": "PGR_2005_Q4",
@@ -1758,7 +1841,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-28T03:37:02.931038+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-28T04:15:25.765016+00:00"
+      "audio_compressed_date": "2026-05-28T04:15:25.765016+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2005_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2005_Q3",
@@ -1781,7 +1865,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-28T03:46:05.832112+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-28T04:15:35.159740+00:00"
+      "audio_compressed_date": "2026-05-28T04:15:35.159740+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2005_Q3_Letter.mp3"
     },
     {
       "id": "PGR_2005_Q2",
@@ -1804,7 +1889,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-28T03:56:11.042143+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-28T04:15:48.462646+00:00"
+      "audio_compressed_date": "2026-05-28T04:15:48.462646+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2005_Q2_Letter.mp3"
     },
     {
       "id": "PGR_2005_Q1",
@@ -1827,7 +1913,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-28T04:06:37.645514+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-28T04:16:02.922217+00:00"
+      "audio_compressed_date": "2026-05-28T04:16:02.922217+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2005_Q1_Letter.mp3"
     },
     {
       "id": "PGR_2004_Q4",
@@ -1850,7 +1937,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-28T04:13:35.577167+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-28T04:16:17.858427+00:00"
+      "audio_compressed_date": "2026-05-28T04:16:17.858427+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2004_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2004_Q3",
@@ -1873,7 +1961,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-29T01:37:24.640950+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-29T01:55:25.106199+00:00"
+      "audio_compressed_date": "2026-05-29T01:55:25.106199+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2004_Q3_Letter.mp3"
     },
     {
       "id": "PGR_2004_Q2",
@@ -1896,7 +1985,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-29T01:47:07.329693+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-29T01:55:38.726650+00:00"
+      "audio_compressed_date": "2026-05-29T01:55:38.726650+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2004_Q2_Letter.mp3"
     },
     {
       "id": "PGR_2004_Q1",
@@ -1919,7 +2009,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-05-29T01:55:07.983808+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-05-29T01:55:51.209097+00:00"
+      "audio_compressed_date": "2026-05-29T01:55:51.209097+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2004_Q1_Letter.mp3"
     },
     {
       "id": "PGR_2003_Q4",
@@ -1942,7 +2033,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-06-05T02:12:38.495588+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-06-05T02:12:51.348502+00:00"
+      "audio_compressed_date": "2026-06-05T02:12:51.348502+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2003_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2003_Q3",
@@ -2016,7 +2108,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-06-05T02:19:47.994425+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-06-05T02:20:01.845493+00:00"
+      "audio_compressed_date": "2026-06-05T02:20:01.845493+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2002_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2002_Q3",
@@ -2141,7 +2234,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-06-05T02:26:49.739333+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-06-05T02:27:02.089265+00:00"
+      "audio_compressed_date": "2026-06-05T02:27:02.089265+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2000_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2000_Q3",
@@ -2215,7 +2309,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-06-05T02:35:50.760976+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-06-05T02:36:03.547476+00:00"
+      "audio_compressed_date": "2026-06-05T02:36:03.547476+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_1999_Q4_Letter.mp3"
     },
     {
       "id": "PGR_1999_Q3",
@@ -2289,7 +2384,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-06-05T02:43:51.171569+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-06-05T02:44:03.103629+00:00"
+      "audio_compressed_date": "2026-06-05T02:44:03.103629+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_1998_Q4_Letter.mp3"
     },
     {
       "id": "PGR_1998_Q3",
@@ -2363,7 +2459,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-06-05T02:51:09.522471+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-06-05T02:51:21.332297+00:00"
+      "audio_compressed_date": "2026-06-05T02:51:21.332297+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_1997_Q4_Letter.mp3"
     },
     {
       "id": "PGR_1997_Q3",
@@ -2437,7 +2534,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-06-05T03:03:49.550181+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-06-05T03:04:02.661831+00:00"
+      "audio_compressed_date": "2026-06-05T03:04:02.661831+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_1996_Q4_Letter.mp3"
     },
     {
       "id": "PGR_1996_Q3",
@@ -2562,7 +2660,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-06-05T03:12:35.226128+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-06-05T03:12:48.345001+00:00"
+      "audio_compressed_date": "2026-06-05T03:12:48.345001+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_1994_Q4_Letter.mp3"
     },
     {
       "id": "PGR_1994_Q3",
@@ -2636,7 +2735,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-06-05T03:19:33.733465+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-06-05T03:19:47.889655+00:00"
+      "audio_compressed_date": "2026-06-05T03:19:47.889655+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_1993_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2001_Q4",
@@ -2659,7 +2759,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-06-05T03:26:01.438255+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-06-05T03:26:12.478602+00:00"
+      "audio_compressed_date": "2026-06-05T03:26:12.478602+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2001_Q4_Letter.mp3"
     },
     {
       "id": "PGR_1995_Q4",
@@ -2682,7 +2783,8 @@
       "summary_generated": true,
       "audio_generated_date": "2026-06-05T11:45:10.948389+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-06-05T11:45:24.245766+00:00"
+      "audio_compressed_date": "2026-06-05T11:45:24.245766+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_1995_Q4_Letter.mp3"
     },
     {
       "id": "PGR_2026_Q1",
@@ -2703,7 +2805,8 @@
       "audio_raw_file": "data/audio_raw/PGR_2026_Q1_Letter.mp4",
       "audio_generated_date": "2026-06-05T11:59:29.423128+00:00",
       "audio_version": "1.1",
-      "audio_compressed_date": "2026-06-05T11:59:42.726379+00:00"
+      "audio_compressed_date": "2026-06-05T11:59:42.726379+00:00",
+      "audio_url": "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2026_Q1_Letter.mp3"
     }
   ]
 }

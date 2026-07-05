@@ -12,6 +12,20 @@
 | Daily quota | ~3 per day (NotebookLM free tier) |
 | Est. days remaining | ~0 days |
 
+## Storage Status
+
+As of 2026-07-04, completed MP3s are hosted from the GitHub Release
+`audio-library`, not committed to git or served from Git LFS. The ledger contains
+release URLs for all 100 NotebookLM overview episodes, and `docs/feed.xml` uses
+those URLs for podcast enclosures.
+
+Local/backup copies are preserved outside git:
+
+- Local backup: `C:\Users\Jeff\Documents\github\pgr-letters-archive-audio-backup-2026-07-04`
+- Google Drive: `PGR Letters Archive/01_Audio_Backups/2026-07-04_full-audio-backup/`
+
+See `AUDIO_STORAGE.md` before moving, deleting, recommitting, or regenerating MP3s.
+
 `[████████████████████████████████████████]  100.0%`
 
 ## Completed (100)

@@ -79,8 +79,9 @@ A new script (`scripts/tts.py`) that:
 2. Splits long letters into chunks ≤ 4,096 characters (OpenAI TTS input limit)
 3. Calls the TTS API for each chunk, collecting raw audio segments
 4. Concatenates segments with FFmpeg (`concat` filter) into a single MP3
-5. Saves the output to `docs/audio/PGR_YYYY_QN_Letter_Reading.mp3`
-6. Updates the ledger with `tts_generated`, `tts_file`, and `tts_generated_date`
+5. Saves the output to `docs/audio_tts/PGR_YYYY_QN_Letter.mp3` as a local staging file
+6. Uploads the MP3 to the `audio-library` GitHub Release with a `tts_` filename prefix
+7. Updates the ledger with `tts_generated`, `tts_file`, `tts_url`, and `tts_generated_date`
 
 ### RSS feed extension
 
@@ -99,7 +100,8 @@ subscribers choose one or both.
 ```json
 {
   "tts_generated":      false,
-  "tts_file":           "docs/audio/PGR_2025_Q1_Letter_Reading.mp3",
+  "tts_file":           "docs/audio_tts/PGR_2025_Q1_Letter.mp3",
+  "tts_url":            null,
   "tts_generated_date": null
 }
 ```

@@ -5,10 +5,12 @@ compressor.py — FFmpeg audio compression and RSS feed publisher.
 For each filing in the ledger where audio has been generated but not yet
 compressed, this script:
   1. Re-encodes the raw MP3 from /data/audio_raw/ to 64 kbps using FFmpeg.
-  2. Saves the compressed file to /docs/audio/ (served by GitHub Pages).
-  3. Deletes the raw file to keep the repo lean.
-  4. Updates the ledger entry to mark audio_compressed=True.
-  5. Regenerates /docs/feed.xml (podcast RSS feed) from the full ledger.
+  2. Saves the compressed file to /docs/audio/ for local staging.
+  3. Uploads the compressed MP3 to the GitHub Releases audio-library asset store
+     when GITHUB_TOKEN is available, and records the release download URL.
+  4. Deletes the raw file to keep the repo lean.
+  5. Updates the ledger entry to mark audio_compressed=True.
+  6. Regenerates /docs/feed.xml (podcast RSS feed) from the full ledger.
 
 Usage:
     python scripts/compressor.py
@@ -19,6 +21,7 @@ Dependencies:
 
 Environment variables:
     PAGES_BASE_URL  — Base URL for GitHub Pages (default: https://jhester599.github.io/pgr-letters-archive)
+    GITHUB_TOKEN    — Optional token used to publish MP3s to the audio-library release.
 """
 
 import json

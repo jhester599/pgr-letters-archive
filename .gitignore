@@ -9,11 +9,15 @@ venv/
 dist/
 build/
 
-# Raw audio (temporary; only compressed output in docs/audio/ is committed)
+# Raw audio (temporary)
 data/audio_raw/*.mp3
 data/audio_raw/*.wav
 data/audio_raw/*.m4a
 data/audio_raw/*.aac
+
+# Published audio is hosted from the GitHub Releases audio-library release.
+docs/audio/*.mp3
+docs/audio_tts/*.mp3
 
 # NotebookLM Playwright browser session state
 .browser_state/

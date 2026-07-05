@@ -2,6 +2,8 @@
 
 Developer reference for the PGR Letters Archive project.
 See `PLAN.md` for the full implementation plan and architecture decisions.
+See `AUDIO_STORAGE.md` before changing audio storage, release assets, or workflow
+commit paths.
 
 ## What this project does
 
@@ -15,7 +17,8 @@ Every Friday a GitHub Actions job:
 4. Generates a podcast-style audio overview via NotebookLM (letter + summary as sources)
 5. Generates a verbatim read-through MP3 via Kokoro TTS (local inference, no API key)
 6. Compresses NotebookLM audio to 64 kbps MP3 with FFmpeg
-7. Commits everything to `main`, which auto-deploys to GitHub Pages
+7. Uploads MP3s to the `audio-library` GitHub Release and records release URLs
+8. Commits metadata/pages to `main`, which auto-deploys to GitHub Pages
 
 ## Directory structure
 
@@ -27,8 +30,8 @@ data/
 docs/               — GitHub Pages root (served at /pgr-letters-archive/)
   index.html        — Single-page front-end; reads ledger.json at runtime
   ledger.json       — State ledger; also the front-end's data source
-  audio/            — Compressed 64 kbps MP3s from NotebookLM (committed)
-  audio_tts/        — Kokoro TTS read-through MP3s (committed)
+  audio/            — Local staging for NotebookLM MP3s (gitignored)
+  audio_tts/        — Local staging for Kokoro TTS MP3s (gitignored)
   feed.xml          — Podcast RSS feed (regenerated each run)
   letters/          — Standalone HTML reading pages (one per letter)
   assets/
@@ -36,12 +39,15 @@ docs/               — GitHub Pages root (served at /pgr-letters-archive/)
 scripts/
   scraper.py        — SEC EDGAR downloader
   generator.py      — NotebookLM audio generation
-  compressor.py     — FFmpeg compression + RSS generation
+  compressor.py     — FFmpeg compression + release upload + RSS generation
+  releases.py       — GitHub Releases audio hosting helper
+  migrate_audio_to_releases.py — One-time/recovery release migration helper
   tts.py            — Kokoro TTS verbatim read-through generation
   build_pages.py    — Per-letter HTML reading page generator
   setup_notebooklm.ps1  — One-time Windows NotebookLM auth setup
 requirements.txt
 PLAN.md             — Architecture, phases, technical decisions
+AUDIO_STORAGE.md    — Audio release hosting, backups, and recovery commands
 CLAUDE.md           — This file
 ```
 
@@ -136,6 +142,7 @@ roughly real-time speed on CPU (~25–35 min for a typical letter).
 ### Compression + RSS
 
 ```cmd
+set GITHUB_TOKEN=<token>  # optional locally; provided automatically in Actions
 python scripts/compressor.py
 ```
 
@@ -192,7 +199,9 @@ No `OPENAI_API_KEY` is required — TTS uses local Kokoro inference.
     "letter_file":           "data/letters/PGR_2025_Q4_Letter.txt",
     "audio_raw_file":        "data/audio_raw/PGR_2025_Q4_Letter.mp4",
     "audio_file":            "docs/audio/PGR_2025_Q4_Letter.mp3",
+    "audio_url":             "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2025_Q4_Letter.mp3",
     "tts_file":              "docs/audio_tts/PGR_2025_Q4_Letter.mp3",
+    "tts_url":               "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/tts_PGR_2025_Q4_Letter.mp3",
     "tts_voice":             "am_michael",
     "page_url":              "letters/PGR_2025_Q4.html",
     "letter_scraped":        true,
@@ -270,7 +279,8 @@ python scripts/tts.py --id PGR_2025_Q4 --voice am_michael
 ```
 
 **Verify:**
-- `docs/audio_tts/PGR_2025_Q4_Letter.mp3` exists
+- `docs/audio_tts/PGR_2025_Q4_Letter.mp3` exists locally as a staging file
+- the ledger has a `tts_url` release URL when `GITHUB_TOKEN` is available
 - The ledger entry has `"tts_generated": true`
 
 ### Step 4 — Compress NotebookLM audio and update RSS
@@ -280,7 +290,8 @@ python scripts/compressor.py
 ```
 
 **Verify:**
-- `docs/audio/` contains a `.mp3` file (~4–10 MB at 64 kbps)
+- `docs/audio/` contains a local staging `.mp3` file (~4–10 MB at 64 kbps)
+- the ledger has an `audio_url` release URL when `GITHUB_TOKEN` is available
 - `docs/feed.xml` has been created with one episode entry
 - The ledger entry has `"audio_compressed": true`
 

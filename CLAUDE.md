@@ -1,24 +1,34 @@
 # CLAUDE.md — PGR Letters Archive
 
 Developer reference for the PGR Letters Archive project.
+See `NEXT_STEPS.md` for the current state of the project and what to do next.
 See `PLAN.md` for the full implementation plan and architecture decisions.
 See `AUDIO_STORAGE.md` before changing audio storage, release assets, or workflow
 commit paths.
+See `TTS.md` before touching anything under `tts_*` — Kokoro read-through audio is
+paused, and that document covers what still works and how to resume it.
 
 ## What this project does
 
-Automated pipeline: SEC EDGAR → text extraction → Google NotebookLM podcast audio +
-Kokoro TTS read-through audio → GitHub Pages.
+Automated pipeline: SEC EDGAR → text extraction → Google NotebookLM podcast audio
+→ GitHub Pages.
 
-Every Friday a GitHub Actions job:
+A GitHub Actions job:
 1. Queries SEC EDGAR for new PGR (Progressive Corporation) 10-Q / 10-K filings
 2. Extracts and cleans the CEO's shareholder letter (Exhibit 99)
 3. Generates a ranked 10-bullet summary via GitHub Models (used as a briefing doc)
 4. Generates a podcast-style audio overview via NotebookLM (letter + summary as sources)
-5. Generates a verbatim read-through MP3 via Kokoro TTS (local inference, no API key)
-6. Compresses NotebookLM audio to 64 kbps MP3 with FFmpeg
-7. Uploads MP3s to the `audio-library` GitHub Release and records release URLs
-8. Commits metadata/pages to `main`, which auto-deploys to GitHub Pages
+5. Compresses NotebookLM audio to 64 kbps MP3 with FFmpeg
+6. Uploads MP3s to the `audio-library` GitHub Release and records release URLs
+7. Commits metadata/pages to `main`, which auto-deploys to GitHub Pages
+
+Step 4 is `continue-on-error`: NotebookLM session cookies expire every few weeks
+and cannot be renewed unattended, so a stale cookie must not stop letters,
+summaries, reading pages, and the RSS feed from publishing. When it fails, the
+run summary carries the recovery commands.
+
+Kokoro TTS read-through generation used to sit between steps 4 and 5. It is
+paused — see `TTS.md`.
 
 ## Directory structure
 
@@ -31,9 +41,11 @@ docs/               — GitHub Pages root (served at /pgr-letters-archive/)
   index.html        — Single-page front-end; reads ledger.json at runtime
   ledger.json       — State ledger; also the front-end's data source
   audio/            — Local staging for NotebookLM MP3s (gitignored)
-  audio_tts/        — Local staging for Kokoro TTS MP3s (gitignored)
+  audio_tts/        — Local staging for Kokoro TTS MP3s (gitignored; paused)
   feed.xml          — Podcast RSS feed (regenerated each run)
   letters/          — Standalone HTML reading pages (one per letter)
+  letters_txt/      — Plain-text letters published for the index page
+  cover.png         — Podcast artwork referenced by feed.xml
   assets/
     reading.css     — Stylesheet for reading pages
 scripts/
@@ -42,21 +54,28 @@ scripts/
   compressor.py     — FFmpeg compression + release upload + RSS generation
   releases.py       — GitHub Releases audio hosting helper
   migrate_audio_to_releases.py — One-time/recovery release migration helper
-  tts.py            — Kokoro TTS verbatim read-through generation
+  tts.py            — Kokoro TTS read-through generation (PAUSED — see TTS.md)
   build_pages.py    — Per-letter HTML reading page generator
   setup_notebooklm.ps1  — One-time Windows NotebookLM auth setup
-requirements.txt
-PLAN.md             — Architecture, phases, technical decisions
-AUDIO_STORAGE.md    — Audio release hosting, backups, and recovery commands
-CLAUDE.md           — This file
+requirements.txt      — Core pipeline dependencies
+requirements-tts.txt  — Optional Kokoro TTS dependencies (paused)
+NEXT_STEPS.md         — Current state and prioritized to-do list
+PLAN.md               — Architecture, phases, technical decisions
+AUDIO_STORAGE.md      — Audio release hosting, backups, LFS cleanup, recovery
+TTS.md                — Why TTS is paused and how to resume it
+CLAUDE.md             — This file
 ```
 
 ## Local development setup
 
 ### Python version requirement
 
-**Python 3.12 is required.** Kokoro 0.9.x (the TTS engine) requires Python <3.13.
-Python 3.13 and 3.14 are not compatible with kokoro's dependency chain (spacy/misaki).
+**Python 3.12 is what CI runs and what the project targets.** The hard constraint
+comes from kokoro 0.9.x, which requires Python <3.13 (its spacy/misaki chain is
+incompatible with 3.13 and 3.14). Kokoro is now an optional dependency and TTS is
+paused, so the core pipeline itself is not pinned that tightly — but nothing has
+been validated on a newer interpreter, and resuming TTS would re-impose the
+ceiling. Stay on 3.12 unless you are deliberately retiring `scripts/tts.py`.
 
 Install Python 3.12 from the Microsoft Store (search "Python 3.12") or from
 [python.org/downloads/release/python-31210](https://www.python.org/downloads/release/python-31210/).
@@ -69,15 +88,14 @@ py -3.12 -m venv .venv
 
 ### Windows system dependencies (one-time installs)
 
-**FFmpeg** (required for audio compression and TTS MP3 encoding):
+**FFmpeg** (required — audio compression and duration probing):
 1. Download from [ffmpeg.org/download.html](https://ffmpeg.org/download.html) → Windows → gyan.dev → essentials build (`.zip`)
 2. Extract and note the `bin/` folder path (e.g. `C:\Program Files\ffmpeg-8.1-essentials_build\bin`)
 3. Add that path to **System variables → Path** in Windows environment variables
 4. Open a new cmd window and verify: `ffmpeg -version`
 
-**espeak-ng** (required for Kokoro TTS pronunciation of unusual words):
-1. Download the `.msi` installer from [github.com/espeak-ng/espeak-ng/releases/latest](https://github.com/espeak-ng/espeak-ng/releases/latest)
-2. Run the installer (all defaults are fine)
+**espeak-ng** — only needed for Kokoro TTS, which is paused. Skip it unless you
+are working on read-through audio; see `TTS.md`.
 
 ### Python environment
 
@@ -124,20 +142,11 @@ error, re-run `notebooklm login` and update the GitHub secret.
 ```cmd
 # NotebookLM podcast (requires valid auth session)
 python scripts/generator.py --max-new 1
-
-# TTS read-through (no credentials; downloads ~350 MB model on first run)
-python scripts/tts.py --max-new 1
-
-# Audition multiple voices on one letter (does not update ledger)
-python scripts/tts.py --id PGR_2025_Q4 --sample-voices am_michael am_liam bm_daniel af_heart
-
-# Production run with chosen voice (updates ledger)
-python scripts/tts.py --id PGR_2025_Q4 --voice am_michael
 ```
 
-Kokoro model weights (~350 MB) are downloaded automatically from HuggingFace on
-first use and cached at `%USERPROFILE%\.cache\huggingface\hub\`. Synthesis runs at
-roughly real-time speed on CPU (~25–35 min for a typical letter).
+TTS read-through generation is paused and its dependencies are no longer in
+`requirements.txt`. See `TTS.md` for the commands, voice list, and how to bring
+it back.
 
 ### Compression + RSS
 
@@ -169,7 +178,9 @@ cd docs && python -m http.server 8000
 `GITHUB_TOKEN` is provided automatically by Actions — no setup needed.
 Enable `contents: write` in repo Settings → Actions → General.
 
-No `OPENAI_API_KEY` is required — TTS uses local Kokoro inference.
+No `OPENAI_API_KEY` is required. The `openai` package is in `requirements.txt`
+because `summarizer.py` uses it as the client for the GitHub Models API, which
+authenticates with the automatically provided `GITHUB_TOKEN`.
 
 ## SEC EDGAR details
 
@@ -200,6 +211,8 @@ No `OPENAI_API_KEY` is required — TTS uses local Kokoro inference.
     "audio_raw_file":        "data/audio_raw/PGR_2025_Q4_Letter.mp4",
     "audio_file":            "docs/audio/PGR_2025_Q4_Letter.mp3",
     "audio_url":             "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2025_Q4_Letter.mp3",
+    "audio_bytes":           11263758,
+    "audio_duration":        1407,
     "tts_file":              "docs/audio_tts/PGR_2025_Q4_Letter.mp3",
     "tts_url":               "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/tts_PGR_2025_Q4_Letter.mp3",
     "tts_voice":             "am_michael",
@@ -218,7 +231,18 @@ No `OPENAI_API_KEY` is required — TTS uses local Kokoro inference.
 }
 ```
 
-Flag lifecycle: `letter_scraped` → `audio_generated` → `audio_compressed` → `tts_generated` → `page_built`
+Flag lifecycle: `letter_scraped` → `audio_generated` → `audio_compressed` → `page_built`
+
+The `tts_*` fields remain in the schema and are populated for the three letters
+that have read-through audio, but nothing in the pipeline sets them now — see
+`TTS.md`.
+
+`audio_bytes` and `audio_duration` back the RSS `<enclosure length>` and
+`<itunes:duration>` values. They must live in the ledger because `docs/audio/`
+is gitignored — a fresh CI checkout has no MP3 to stat or probe, so reading them
+off disk yields `length="0"` and no duration for every episode.
+`compressor.py` records them at compression time and backfills from a local
+staging file when one is present.
 
 ## Podcast audio versions
 
@@ -268,22 +292,7 @@ python scripts/generator.py --max-new 1
 - `data/audio_raw/` contains a `.mp4` file
 - The ledger entry has `"audio_generated": true`
 
-### Step 3 — Generate TTS read-through audio
-
-```cmd
-# Audition voices first (files named {id}_{voice}.mp3, no ledger update)
-python scripts/tts.py --id PGR_2025_Q4 --sample-voices am_michael am_liam bm_daniel af_heart
-
-# Production run with chosen voice (updates ledger)
-python scripts/tts.py --id PGR_2025_Q4 --voice am_michael
-```
-
-**Verify:**
-- `docs/audio_tts/PGR_2025_Q4_Letter.mp3` exists locally as a staging file
-- the ledger has a `tts_url` release URL when `GITHUB_TOKEN` is available
-- The ledger entry has `"tts_generated": true`
-
-### Step 4 — Compress NotebookLM audio and update RSS
+### Step 3 — Compress NotebookLM audio and update RSS
 
 ```cmd
 python scripts/compressor.py
@@ -303,7 +312,8 @@ cd docs && python -m http.server 8000
 
 **Verify:**
 - The episode appears in the sidebar list
-- Both audio players load (NotebookLM podcast + TTS read-through)
+- The NotebookLM podcast player loads (letters with read-through audio show a
+  second player on their reading page; only three do)
 - The letter text loads in the content panel
 
 ### Step 6 — Historical backfill (once concept is proven)
@@ -312,7 +322,6 @@ cd docs && python -m http.server 8000
 python scripts/backfill.py --dry-run    # preview what EDGAR has
 python scripts/backfill.py              # download full archive
 python scripts/generator.py --max-new 0  # generate all NotebookLM audio
-python scripts/tts.py --max-new 0        # generate all TTS audio
 ```
 
 ---
@@ -325,15 +334,6 @@ Safe to re-run at any time — checks `already_processed()` by accession number.
 **Force re-generation of NotebookLM audio for a specific quarter:**
 Set `audio_generated: false` in `ledger.json` and re-run `generator.py`.
 
-**Force re-generation of TTS audio for a specific quarter:**
-Set `tts_generated: false` in `ledger.json` and re-run `tts.py`.
-
-**Audition TTS voices without affecting the ledger:**
-```cmd
-python scripts/tts.py --id PGR_2025_Q4 --sample-voices am_michael bm_daniel af_heart
-```
-Sample files are named `{id}_{voice}.mp3` in `docs/audio_tts/`.
-
 **Regenerate the RSS feed without a new audio run:**
 ```cmd
 python scripts/compressor.py
@@ -344,22 +344,10 @@ python scripts/compressor.py
 python scripts/build_pages.py --rebuild
 ```
 
-**Add a podcast cover image:**
-Place a `cover.png` (3000×3000 px recommended) in `docs/`. The RSS feed references it at
-`{base_url}/cover.png`.
-
-## Kokoro TTS voices
-
-Default voice: `am_michael` (American English male). Available English voices:
-
-| Prefix | Language | Gender | Example voices |
-|--------|----------|--------|----------------|
-| `am_` | American | Male | `am_michael`, `am_liam`, `am_fenrir`, `am_adam`, `am_echo` |
-| `af_` | American | Female | `af_heart`, `af_bella`, `af_nova`, `af_sarah`, `af_jessica` |
-| `bm_` | British | Male | `bm_daniel`, `bm_george`, `bm_lewis`, `bm_fable` |
-| `bf_` | British | Female | `bf_alice`, `bf_emma`, `bf_isabella`, `bf_lily` |
-
-Voice blending: pass a comma-separated list, e.g. `--voice af_heart,af_bella`.
+**Replace the podcast cover image:**
+`docs/cover.png` (3000×3000) ships with the repo and the RSS feed references it at
+`{base_url}/cover.png`. Drop in a replacement at the same path — Apple requires
+1400×1400 to 3000×3000, RGB, PNG or JPEG, under 512 KB. No code change needed.
 
 ## Recovering letters not filed on EDGAR
 

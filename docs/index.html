@@ -578,10 +578,12 @@
       const textEl = document.getElementById("letter-text");
       textEl.textContent = "Loading letter…";
       try {
-        // letter_file is relative to repo root; on GitHub Pages
-        // we need to go up one level from docs/
+        // letter_file points at data/letters/ in the repo, which sits above
+        // the Pages root and is not part of the deployed artifact.
+        // build_pages.py mirrors each letter into docs/letters_txt/, so fetch
+        // the published copy by filename.
         const letterFilename = filing.letter_file.split("/").pop();
-        const resp = await fetch(`../data/letters/${letterFilename}`);
+        const resp = await fetch(`letters_txt/${letterFilename}`);
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         textEl.textContent = await resp.text();
       } catch (err) {

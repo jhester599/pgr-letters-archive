@@ -4,6 +4,9 @@ lxml>=4.9.0
 pdfminer.six>=20221105
 notebooklm-py>=0.3.0
 playwright>=1.44.0
-kokoro>=0.7.0
-soundfile>=0.12.1
+# openai is the client for the GitHub Models API used by summarizer.py.
+# It is not an OpenAI TTS dependency, and no OPENAI_API_KEY is required.
 openai>=1.0.0
+
+# Kokoro TTS dependencies live in requirements-tts.txt. TTS is paused and is not
+# part of the pipeline — see TTS.md.

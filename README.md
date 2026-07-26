@@ -6,11 +6,14 @@ GitHub Pages.
 
 The pipeline polls SEC EDGAR, extracts "Exhibit 99" (the CEO's letter) from 10-Q and
 10-K filings, generates a ranked analyst summary, produces a podcast-style audio overview
-via Google NotebookLM (using the letter and summary as sources), generates a verbatim
-read-through via Kokoro TTS, and publishes everything to a static web front-end with an
-embedded audio player and RSS feed — fully automated via GitHub Actions.
+via Google NotebookLM (using the letter and summary as sources), and publishes everything
+to a static web front-end with an embedded audio player and RSS feed — fully automated via
+GitHub Actions.
 
 **Live site:** https://jhester599.github.io/pgr-letters-archive/
+
+**Picking this up after a break?** `NEXT_STEPS.md` has the current state and the
+prioritized to-do list.
 
 ---
 
@@ -32,10 +35,6 @@ SEC EDGAR (public API)
   Uploads letter + summary to Google NotebookLM, generates Audio Overview, downloads raw audio
         │
         ▼
-  tts.py
-  Synthesizes a verbatim read-through MP3 via Kokoro TTS (local inference, no API key)
-        │
-        ▼
   compressor.py
   FFmpeg re-encodes NotebookLM audio to 64 kbps MP3, uploads it to GitHub Releases,
   records the release URL in the ledger, and regenerates the podcast RSS feed
@@ -52,7 +51,9 @@ SEC EDGAR (public API)
 Two GitHub Actions workflows drive the automation:
 
 - **`quarterly_podcast.yml`** — Fires on new SEC filings (email trigger or Friday cron).
-  Runs the full pipeline: scrape → summarize → NotebookLM → TTS → compress → build → publish.
+  Runs the full pipeline: scrape → summarize → NotebookLM → compress → build → publish.
+  NotebookLM generation is `continue-on-error`, so an expired session cookie cannot stop
+  the text side of the pipeline from publishing.
 - **`daily_audio_backfill.yml`** — Runs daily at 10:00 UTC to burn down the historical
   audio backlog at ~3 letters/day (NotebookLM free-tier quota). See `AUDIO_PROGRESS.md`
   for current status.
@@ -74,7 +75,7 @@ docs/                          — GitHub Pages web root
   index.html                   — Single-page front-end
   ledger.json                  — Pipeline state ledger (also read by the front-end)
   audio/                       — Local staging for NotebookLM MP3s (gitignored)
-  audio_tts/                   — Local staging for Kokoro TTS MP3s (gitignored)
+  audio_tts/                   — Local staging for Kokoro TTS MP3s (gitignored; paused)
   feed.xml                     — Podcast RSS feed (regenerated each run)
   letters/                     — Per-letter HTML reading pages
 scripts/
@@ -84,7 +85,7 @@ scripts/
   backfill_ex99.py             — EX-99 backfill for quarterly letters
   summarizer.py                — GitHub Models API summary generator
   generator.py                 — NotebookLM audio generation
-  tts.py                       — Kokoro TTS verbatim read-through generation
+  tts.py                       — Kokoro TTS read-through generation (paused — see TTS.md)
   compressor.py                — FFmpeg compression + RSS feed generation
   build_pages.py               — Per-letter HTML reading page generator
   audio_progress.py            — Generates AUDIO_PROGRESS.md backfill tracker
@@ -105,11 +106,11 @@ NOTEBOOKLM_SETUP.md            — How to capture and store the NotebookLM auth 
 ### Prerequisites
 
 ```bash
-# Python 3.12 required (kokoro is not compatible with 3.13+)
+# Python 3.12 — see CLAUDE.md for why the project stays on it
 python3.12 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 playwright install chromium
-sudo apt-get install -y ffmpeg espeak-ng   # or: brew install ffmpeg espeak-ng
+sudo apt-get install -y ffmpeg   # or: brew install ffmpeg
 ```
 
 On Windows, use `py -3.12 -m venv .venv` and see `CLAUDE.md` for full setup.
@@ -144,16 +145,7 @@ export NOTEBOOKLM_AUTH_JSON="$(cat ~/.notebooklm/profiles/default/storage_state.
 python scripts/generator.py --max-new 1
 ```
 
-### 4. Generate TTS read-through audio
-
-```bash
-python scripts/tts.py --max-new 1
-```
-
-Downloads the Kokoro model (~350 MB, cached after first run) and synthesizes a verbatim
-MP3. Default voice: `am_michael`. See `CLAUDE.md` for voice options and audition workflow.
-
-### 5. Compress and publish
+### 4. Compress and publish
 
 ```bash
 export PAGES_BASE_URL="https://jhester599.github.io/pgr-letters-archive"
@@ -165,13 +157,14 @@ python scripts/build_pages.py
 Outputs a local 64 kbps MP3 to `docs/audio/`, uploads public audio to the
 `audio-library` GitHub Release when `GITHUB_TOKEN` is available, writes release
 URLs into `docs/ledger.json`, builds per-letter HTML pages in `docs/letters/`,
-and writes `docs/feed.xml`.
+publishes plain-text letters to `docs/letters_txt/` for the index page, and writes
+`docs/feed.xml`.
 
 Do not commit MP3 files. `docs/audio/*.mp3` and `docs/audio_tts/*.mp3` are local
 staging files; public playback should come from release URLs in the ledger. See
 `AUDIO_STORAGE.md` for the storage policy and recovery commands.
 
-### 6. Preview locally
+### 5. Preview locally
 
 ```bash
 cd docs && python -m http.server 8000
@@ -185,7 +178,6 @@ python scripts/backfill.py --dry-run   # preview without downloading
 python scripts/backfill.py             # download all available PGR filings from EDGAR
 python scripts/summarizer.py           # summarize all letters
 python scripts/generator.py --max-new 0  # generate all NotebookLM audio (respects quota)
-python scripts/tts.py --max-new 0        # generate all TTS audio
 ```
 
 ---
@@ -232,9 +224,11 @@ auth error. `GITHUB_TOKEN` is provided automatically.
 
 | File | Contents |
 |------|----------|
+| `NEXT_STEPS.md` | **Start here** — prioritized list of what the project needs next |
 | `CLAUDE.md` | Developer reference: local setup, run checklist, ledger schema, common tasks |
 | `PLAN.md` | Full architecture plan, data model, technical decisions |
 | `AUDIO_PROGRESS.md` | Live backfill progress — letters done, pending, versions, ETA |
 | `AUDIO_STORAGE.md` | GitHub Releases audio hosting, Google Drive/local backups, recovery commands |
 | `NOTEBOOKLM_SETUP.md` | How to capture Google session credentials for CI |
-| `ROADMAP.md` | Planned future features |
+| `ROADMAP.md` | Long-range feature ideas (see `NEXT_STEPS.md` for the near-term list) |
+| `TTS.md` | Why Kokoro read-through audio is paused and how to resume it |

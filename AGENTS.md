@@ -1,9 +1,14 @@
 # AGENTS.md — PGR Letters Archive
 
 Developer reference for the PGR Letters Archive project.
+
+Read `NEXT_STEPS.md` first — it carries the verified current state of the project
+and the prioritized list of outstanding work.
 See `PLAN.md` for the full implementation plan and architecture decisions.
 See `AUDIO_STORAGE.md` before touching audio files, release assets, `.gitattributes`,
 or workflow `git add` paths.
+See `TTS.md` before touching anything under `tts_*` — Kokoro read-through audio is
+paused.
 
 ## What this project does
 
@@ -28,9 +33,11 @@ docs/               — GitHub Pages root (served at /pgr-letters-archive/)
   index.html        — Single-page front-end; reads ledger.json at runtime
   ledger.json       — State ledger; also the front-end's data source
   audio/            — Local staging for compressed NotebookLM MP3s (gitignored)
-  audio_tts/        — Local staging for Kokoro TTS MP3s (gitignored)
+  audio_tts/        — Local staging for Kokoro TTS MP3s (gitignored; TTS paused)
   feed.xml          — Podcast RSS feed (regenerated each run)
+  cover.png         — Podcast artwork referenced by feed.xml
   letters/          — Standalone HTML reading pages (one per letter)
+  letters_txt/      — Plain-text letters published for the index page
   assets/
     reading.css     — Stylesheet for reading pages
 scripts/
@@ -276,3 +283,14 @@ Place a `cover.png` (3000×3000 px recommended) in `docs/`. The RSS feed referen
 1. Repo Settings → Pages → Source: **Deploy from a branch**
 2. Branch: `main`, Folder: `/docs`
 3. Save. The site deploys at `https://jhester599.github.io/pgr-letters-archive/`
+
+## Kokoro TTS is paused
+
+`scripts/tts.py` is no longer part of any workflow. Its dependencies live in
+`requirements-tts.txt` rather than `requirements.txt`, and the `espeak-ng` install
+was removed from CI. The script, the ledger's `tts_*` fields, the reading-page
+player, and the published `tts_` release assets are all intact.
+
+Do not delete `scripts/tts.py`, strip `tts_*` fields from the ledger, or remove
+`tts_` assets from the `audio-library` release. Read `TTS.md` before changing
+anything in that area — it documents what was removed and exactly how to resume.

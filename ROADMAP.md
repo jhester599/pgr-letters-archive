@@ -1,11 +1,16 @@
 # Roadmap — PGR Letters Archive
 
-Future enhancements planned for the project. Items are grouped by feature area
-and roughly ordered by implementation priority within each section.
+Long-range feature ideas, grouped by area.
+
+For the near-term to-do list — what to actually work on next, with current
+state and commands — see `NEXT_STEPS.md`. This file is the idea backlog.
+
+Features 1 and 2 below are **already built**; their design notes are kept for
+reference. Everything under "Other Future Enhancements" is still unbuilt.
 
 ---
 
-## Feature 1 — Per-Letter Reading Pages
+## Feature 1 — Per-Letter Reading Pages ✅ SHIPPED
 
 **Goal:** Generate a stylized, standalone HTML page for each quarterly letter so
 readers can engage with the original text in a polished, distraction-free format
@@ -37,17 +42,26 @@ paths served by GitHub Pages.
 3. The ledger gains a `page_url` field (`letters/PGR_YYYY_QN.html`) for each entry.
 
 ### Implementation steps
-- [ ] Write `scripts/build_pages.py` with a Jinja2 (or string-template) HTML renderer
-- [ ] Create `docs/letters/` output directory
-- [ ] Design and extract a shared `docs/assets/reading.css` stylesheet
-- [ ] Add `page_built` flag to the ledger schema
-- [ ] Update `docs/index.html` sidebar links to point to per-letter pages
-- [ ] Add `build_pages.py` step to `.github/workflows/quarterly_podcast.yml`
-- [ ] Add `docs/letters/` to the git-committed output paths in the workflow commit step
+- [x] Write `scripts/build_pages.py` with a Jinja2 (or string-template) HTML renderer
+- [x] Create `docs/letters/` output directory
+- [x] Design and extract a shared `docs/assets/reading.css` stylesheet
+- [x] Add `page_built` flag to the ledger schema
+- [x] Update `docs/index.html` sidebar links to point to per-letter pages
+- [x] Add `build_pages.py` step to `.github/workflows/quarterly_podcast.yml`
+- [x] Add `docs/letters/` to the git-committed output paths in the workflow commit step
+
+All 100 letters have pages. `build_pages.py` also publishes plain-text copies to
+`docs/letters_txt/` so the index page can fetch them — `data/` is outside the
+Pages artifact and is not reachable from the deployed site.
 
 ---
 
-## Feature 2 — Text-to-Speech Letter Audio
+## Feature 2 — Text-to-Speech Letter Audio ⏸️ BUILT, THEN PAUSED
+
+> Built with Kokoro (local inference) rather than the hosted providers compared
+> below, then removed from the pipeline on 2026-07-26 at 3 of 100 letters.
+> **See `TTS.md`** for what still works and how to resume it. The provider
+> comparison and design notes below are retained for reference.
 
 **Goal:** Produce an MP3 of each letter read verbatim by a synthetic voice, giving
 listeners the full original text as audio — distinct from the NotebookLM podcast
@@ -107,13 +121,13 @@ subscribers choose one or both.
 ```
 
 ### Implementation steps
-- [ ] Write `scripts/tts.py` with chunk-splitting and FFmpeg concatenation
-- [ ] Add `OPENAI_API_KEY` (or chosen provider key) to GitHub Secrets
-- [ ] Add `tts_generated` / `tts_file` fields to the ledger schema
-- [ ] Generate `docs/feed_readings.xml` from `compressor.py` or a new publisher step
-- [ ] Add TTS audio player to per-letter reading pages (Feature 1 dependency)
-- [ ] Add `tts.py` step to the GitHub Actions workflow
-- [ ] Update `docs/index.html` to surface both audio options per episode
+- [x] Write `scripts/tts.py` with chunk-splitting and FFmpeg concatenation
+- [x] Add `tts_generated` / `tts_file` fields to the ledger schema
+- [x] Add TTS audio player to per-letter reading pages (Feature 1 dependency)
+- [~] Add `tts.py` step to the GitHub Actions workflow — added, then removed
+- [ ] Generate `docs/feed_readings.xml` — never built; there is no read-through feed
+- [ ] Update `docs/index.html` to surface both audio options per episode — never built
+- [n/a] `OPENAI_API_KEY` — not needed; Kokoro runs locally with no API key
 
 ---
 
@@ -137,5 +151,7 @@ subscribers choose one or both.
 - `.ics` calendar file listing approximate filing dates for the coming year
 
 ### Podcast cover art generation
-- Auto-generate a quarterly cover image (e.g. via DALL·E or a simple template)
-  rather than using a static `cover.png`
+- A static `docs/cover.png` (3000×3000) now ships with the repo and satisfies the
+  RSS feed's `itunes:image`. Auto-generating a *per-quarter* cover is still open,
+  though RSS channel artwork is per-show rather than per-episode, so this would
+  mean per-episode `itunes:image` tags.

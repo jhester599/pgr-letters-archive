@@ -1,6 +1,7 @@
 # CLAUDE.md — PGR Letters Archive
 
 Developer reference for the PGR Letters Archive project.
+See `NEXT_STEPS.md` for the current state of the project and what to do next.
 See `PLAN.md` for the full implementation plan and architecture decisions.
 See `AUDIO_STORAGE.md` before changing audio storage, release assets, or workflow
 commit paths.
@@ -56,12 +57,13 @@ scripts/
   tts.py            — Kokoro TTS read-through generation (PAUSED — see TTS.md)
   build_pages.py    — Per-letter HTML reading page generator
   setup_notebooklm.ps1  — One-time Windows NotebookLM auth setup
-requirements.txt          — Core pipeline dependencies
-requirements-tts.txt      — Optional Kokoro TTS dependencies (paused)
-PLAN.md             — Architecture, phases, technical decisions
-AUDIO_STORAGE.md    — Audio release hosting, backups, and recovery commands
-TTS.md              — Why TTS is paused and how to resume it
-CLAUDE.md           — This file
+requirements.txt      — Core pipeline dependencies
+requirements-tts.txt  — Optional Kokoro TTS dependencies (paused)
+NEXT_STEPS.md         — Current state and prioritized to-do list
+PLAN.md               — Architecture, phases, technical decisions
+AUDIO_STORAGE.md      — Audio release hosting, backups, LFS cleanup, recovery
+TTS.md                — Why TTS is paused and how to resume it
+CLAUDE.md             — This file
 ```
 
 ## Local development setup

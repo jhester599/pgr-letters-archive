@@ -12,6 +12,9 @@ GitHub Actions.
 
 **Live site:** https://jhester599.github.io/pgr-letters-archive/
 
+**Picking this up after a break?** `NEXT_STEPS.md` has the current state and the
+prioritized to-do list.
+
 ---
 
 ## Pipeline overview
@@ -221,9 +224,11 @@ auth error. `GITHUB_TOKEN` is provided automatically.
 
 | File | Contents |
 |------|----------|
+| `NEXT_STEPS.md` | **Start here** — prioritized list of what the project needs next |
 | `CLAUDE.md` | Developer reference: local setup, run checklist, ledger schema, common tasks |
 | `PLAN.md` | Full architecture plan, data model, technical decisions |
 | `AUDIO_PROGRESS.md` | Live backfill progress — letters done, pending, versions, ETA |
 | `AUDIO_STORAGE.md` | GitHub Releases audio hosting, Google Drive/local backups, recovery commands |
 | `NOTEBOOKLM_SETUP.md` | How to capture Google session credentials for CI |
-| `ROADMAP.md` | Planned future features |
+| `ROADMAP.md` | Long-range feature ideas (see `NEXT_STEPS.md` for the near-term list) |
+| `TTS.md` | Why Kokoro read-through audio is paused and how to resume it |

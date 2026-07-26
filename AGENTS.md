@@ -1,9 +1,14 @@
 # AGENTS.md — PGR Letters Archive
 
 Developer reference for the PGR Letters Archive project.
+
+Read `NEXT_STEPS.md` first — it carries the verified current state of the project
+and the prioritized list of outstanding work.
 See `PLAN.md` for the full implementation plan and architecture decisions.
 See `AUDIO_STORAGE.md` before touching audio files, release assets, `.gitattributes`,
 or workflow `git add` paths.
+See `TTS.md` before touching anything under `tts_*` — Kokoro read-through audio is
+paused.
 
 ## What this project does
 

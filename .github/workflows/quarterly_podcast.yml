@@ -21,7 +21,7 @@ on:
   workflow_dispatch:             # Manual runs from the Actions tab
     inputs:
       skip_audio:
-        description: "Skip NotebookLM and TTS audio generation (text + summary only)"
+        description: "Skip NotebookLM audio generation (text + summary only)"
         type: boolean
         default: false
 
@@ -29,7 +29,7 @@ jobs:
   run-pipeline:
     name: Scrape → Generate → Compress → Publish
     runs-on: ubuntu-24.04   # Pinned to avoid unexpected breakage when ubuntu-latest advances
-    timeout-minutes: 180    # TTS + NotebookLM can each take ~35 min; cap runaway jobs at 3 h
+    timeout-minutes: 120    # NotebookLM generation can take ~35 min; cap runaway jobs at 2 h
 
     permissions:
       contents: write      # Required to push new files back to main
@@ -55,13 +55,15 @@ jobs:
           cache: "pip"
 
       # ── 3. System dependencies ────────────────────────────────────────────
-      # ffmpeg/ffprobe come from the johnvansickle.com static build rather than
-      # apt: apt's ffmpeg pulls in the multimedia stack, which broke when
-      # libcaca0 was yanked from noble-updates. That single mirror occasionally
-      # returns HTTP errors, so retry a few times before falling back to apt.
-      # espeak-ng (needed by Kokoro for pronunciation) installs from apt with
-      # --no-install-recommends so it cannot drag the ffmpeg stack back in.
-      # Mirrors the proven install step in daily_audio_backfill.yml.
+      # ffmpeg/ffprobe are the only system dependency the pipeline needs, and
+      # they come from the johnvansickle.com static build rather than apt: apt's
+      # ffmpeg pulls in the multimedia stack, which broke when libcaca0 was
+      # yanked from noble-updates. That single mirror occasionally returns HTTP
+      # errors, so retry a few times before falling back to apt. Mirrors the
+      # proven install step in daily_audio_backfill.yml.
+      #
+      # espeak-ng used to be installed here for Kokoro TTS; it went away with
+      # the TTS step. Re-add it if you re-enable TTS — see TTS.md.
       - name: Install system dependencies
         run: |
           set -uo pipefail
@@ -89,11 +91,7 @@ jobs:
             sudo apt-get install -y ffmpeg
           fi
 
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends espeak-ng
-
           ffmpeg -version
-          espeak-ng --version
 
       # ── 4. Python dependencies ────────────────────────────────────────────
       - name: Install Python packages
@@ -131,40 +129,30 @@ jobs:
           NOTEBOOKLM_AUTH_JSON: ${{ secrets.NOTEBOOKLM_AUTH_JSON }}
         run: python scripts/generator.py --max-new 1
 
-      - name: Generate TTS read-through audio via Kokoro
-        id: tts
-        if: ${{ inputs.skip_audio != true }}
-        continue-on-error: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python scripts/tts.py --max-new 1
+      # NOTE: Kokoro TTS read-through generation used to run here. It is paused,
+      # not deleted — scripts/tts.py, the ledger's tts_* fields, the reading-page
+      # player, and the published tts_ release assets all still work. TTS.md has
+      # the rationale and the exact step to paste back to re-enable it.
 
       - name: Report skipped audio in the run summary
-        if: ${{ steps.notebooklm.outcome == 'failure' || steps.tts.outcome == 'failure' }}
+        if: ${{ steps.notebooklm.outcome == 'failure' }}
         run: |
           {
-            echo "### ⚠️ Audio generation did not complete"
+            echo "### ⚠️ NotebookLM audio generation did not complete"
             echo
             echo "The text pipeline still ran — letters, summaries, reading pages,"
-            echo "and the RSS feed are up to date. Only audio is missing."
+            echo "and the RSS feed are up to date. Only the audio overview is missing."
             echo
-            if [ "${{ steps.notebooklm.outcome }}" = "failure" ]; then
-              echo "**NotebookLM overview failed.** The \`NOTEBOOKLM_AUTH_JSON\` session"
-              echo "has most likely expired. Regenerate it locally:"
-              echo
-              echo '```'
-              echo "notebooklm login"
-              echo "python scripts/generator.py --max-new 1"
-              echo "python scripts/compressor.py"
-              echo '```'
-              echo
-              echo "Then update the \`NOTEBOOKLM_AUTH_JSON\` repository secret."
-              echo
-            fi
-            if [ "${{ steps.tts.outcome }}" = "failure" ]; then
-              echo "**Kokoro TTS failed.** Run \`python scripts/tts.py --max-new 1\` locally."
-              echo
-            fi
+            echo "The \`NOTEBOOKLM_AUTH_JSON\` session has most likely expired."
+            echo "Regenerate it locally:"
+            echo
+            echo '```'
+            echo "notebooklm login"
+            echo "python scripts/generator.py --max-new 1"
+            echo "python scripts/compressor.py"
+            echo '```'
+            echo
+            echo "Then update the \`NOTEBOOKLM_AUTH_JSON\` repository secret."
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Compress audio and regenerate RSS feed

@@ -1,0 +1,18 @@
+# Optional dependencies for scripts/tts.py (Kokoro verbatim read-through audio).
+#
+# TTS is currently paused and is NOT part of the CI pipeline — see TTS.md.
+# These are kept out of requirements.txt so Actions runs do not install the
+# ~1 GB torch stack for a step that no longer exists.
+#
+# Install alongside the core requirements when you want to generate TTS audio:
+#   pip install -r requirements.txt -r requirements-tts.txt
+#
+# kokoro pins Python <3.13 (via its spacy/misaki dependency chain), which is why
+# the project targets Python 3.12. Kokoro also shells out to espeak-ng for
+# pronunciation of unusual words — install that separately:
+#   Linux:   sudo apt-get install -y espeak-ng
+#   macOS:   brew install espeak-ng
+#   Windows: https://github.com/espeak-ng/espeak-ng/releases/latest
+
+kokoro>=0.7.0
+soundfile>=0.12.1

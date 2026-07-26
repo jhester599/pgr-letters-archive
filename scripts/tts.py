@@ -41,9 +41,6 @@ import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 
-import numpy as np
-import soundfile as sf
-
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from scraper import load_ledger, save_ledger, BASE_DIR
 
@@ -92,6 +89,12 @@ def _synthesize(pipeline, text: str, voice: str, out_mp3: Path) -> None:
     (splits at sentence/clause boundaries). Audio chunks are concatenated in
     memory before writing to disk.
     """
+    # Imported here rather than at module scope so the TTS stack stays an
+    # optional install (requirements-tts.txt) — see TTS.md. main() has already
+    # verified kokoro is importable before anything reaches this function.
+    import numpy as np
+    import soundfile as sf
+
     log.info("  Synthesizing with voice '%s'…", voice)
     chunks = []
     for gs, ps, audio in pipeline(text, voice=voice, speed=1.0):
@@ -154,10 +157,12 @@ def main(
         from kokoro import KPipeline
     except ImportError:
         log.error(
-            "kokoro is not installed. Run:\n"
-            "  pip install kokoro>=0.9.4 soundfile\n"
+            "kokoro is not installed. TTS dependencies are optional and are not\n"
+            "in requirements.txt — install them with:\n"
+            "  pip install -r requirements-tts.txt\n"
             "  # Windows: also install espeak-ng from\n"
-            "  # https://github.com/espeak-ng/espeak-ng/releases/latest"
+            "  # https://github.com/espeak-ng/espeak-ng/releases/latest\n"
+            "See TTS.md for why TTS is paused and how to re-enable it in CI."
         )
         raise SystemExit(1)
 

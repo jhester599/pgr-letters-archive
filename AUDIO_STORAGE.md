@@ -111,7 +111,8 @@ Normal pipeline behavior:
 6. `build_pages.py` writes reading pages that use the release URL.
 7. The workflow commits metadata and pages, not MP3s.
 
-For TTS:
+For TTS (paused — no workflow runs this today, see `TTS.md`; the behaviour below
+still applies when `tts.py` is run by hand):
 
 1. `tts.py` writes a local staging MP3 under `docs/audio_tts/`.
 2. If `GITHUB_TOKEN` is available, it uploads the release asset using the
@@ -120,6 +121,9 @@ For TTS:
 
 The `tts_` prefix is required because TTS files can otherwise have the same
 basename as NotebookLM overview files.
+
+The 7 `tts_` assets already in the release stay published. Do not delete them —
+3 are referenced by the ledger and 4 are `PGR_2025_Q4` voice auditions.
 
 ## Migration and Recovery Commands
 

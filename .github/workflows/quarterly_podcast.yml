@@ -112,8 +112,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/summarizer.py
 
+      # ── Audio generation is best-effort ───────────────────────────────────
+      # NotebookLM auth is a browser session cookie that expires every few weeks
+      # and cannot be renewed unattended. Before, an expired cookie aborted the
+      # whole job at this step, so scraping, summaries, reading pages, the RSS
+      # feed, and the commit never ran — a new filing would silently not appear
+      # on the site. Audio now fails soft: the text pipeline always completes,
+      # and the run summary explains how to produce the missing audio by hand.
       - name: Generate audio overviews via NotebookLM
+        id: notebooklm
         if: ${{ inputs.skip_audio != true }}
+        continue-on-error: true
         env:
           # NOTEBOOKLM_AUTH_JSON: capture locally with:
           #   notebooklm login
@@ -123,10 +132,40 @@ jobs:
         run: python scripts/generator.py --max-new 1
 
       - name: Generate TTS read-through audio via Kokoro
+        id: tts
         if: ${{ inputs.skip_audio != true }}
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/tts.py --max-new 1
+
+      - name: Report skipped audio in the run summary
+        if: ${{ steps.notebooklm.outcome == 'failure' || steps.tts.outcome == 'failure' }}
+        run: |
+          {
+            echo "### ⚠️ Audio generation did not complete"
+            echo
+            echo "The text pipeline still ran — letters, summaries, reading pages,"
+            echo "and the RSS feed are up to date. Only audio is missing."
+            echo
+            if [ "${{ steps.notebooklm.outcome }}" = "failure" ]; then
+              echo "**NotebookLM overview failed.** The \`NOTEBOOKLM_AUTH_JSON\` session"
+              echo "has most likely expired. Regenerate it locally:"
+              echo
+              echo '```'
+              echo "notebooklm login"
+              echo "python scripts/generator.py --max-new 1"
+              echo "python scripts/compressor.py"
+              echo '```'
+              echo
+              echo "Then update the \`NOTEBOOKLM_AUTH_JSON\` repository secret."
+              echo
+            fi
+            if [ "${{ steps.tts.outcome }}" = "failure" ]; then
+              echo "**Kokoro TTS failed.** Run \`python scripts/tts.py --max-new 1\` locally."
+              echo
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Compress audio and regenerate RSS feed
         env:

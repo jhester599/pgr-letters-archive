@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>PGR Shareholder Letters — Audio Archive</title>
     <description>AI-generated audio overviews of Progressive Corporation (NYSE: PGR) CEO Tricia Griffith's quarterly shareholder letters, powered by Google NotebookLM.</description>
     <link>https://jhester599.github.io/pgr-letters-archive</link>
     <language>en-us</language>
+    <copyright>Letter text is © The Progressive Corporation. Audio overviews are AI-generated and are not affiliated with or endorsed by Progressive.</copyright>
     <author>Jeff Hester</author>
-    <lastBuildDate>Sun, 05 Jul 2026 02:14:10 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 26 Jul 2026 13:18:35 GMT</lastBuildDate>
+    <atom:link href="https://jhester599.github.io/pgr-letters-archive/feed.xml" rel="self" type="application/rss+xml" />
     <itunes:author>Jeff Hester</itunes:author>
+    <itunes:summary>AI-generated audio overviews of Progressive Corporation (NYSE: PGR) CEO Tricia Griffith's quarterly shareholder letters, powered by Google NotebookLM.</itunes:summary>
     <itunes:type>episodic</itunes:type>
-    <itunes:category text="Business" />
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:owner>
+      <itunes:name>Jeff Hester</itunes:name>
+      <itunes:email>jeffrey.r.hester@gmail.com</itunes:email>
+    </itunes:owner>
+    <itunes:category text="Business">
+      <itunes:category text="Investing" />
+    </itunes:category>
     <itunes:image href="https://jhester599.github.io/pgr-letters-archive/cover.png" />
     <item>
       <title>PGR 2026 Q1 — CEO Shareholder Letter Overview</title>
@@ -18,6 +28,7 @@
       <guid isPermaLink="false">PGR_2026_Q1</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2026_Q1_Letter.mp3" length="9894731" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1236</itunes:duration>
     </item>
     <item>
@@ -27,6 +38,7 @@
       <guid isPermaLink="false">PGR_2025_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2025_Q4_Letter.mp3" length="11263758" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1407</itunes:duration>
     </item>
     <item>
@@ -36,6 +48,7 @@
       <guid isPermaLink="false">PGR_2025_Q3</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2025_Q3_Letter.mp3" length="9001762" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1125</itunes:duration>
     </item>
     <item>
@@ -45,6 +58,7 @@
       <guid isPermaLink="false">PGR_2025_Q2</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2025_Q2_Letter.mp3" length="9097057" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1137</itunes:duration>
     </item>
     <item>
@@ -54,6 +68,7 @@
       <guid isPermaLink="false">PGR_2025_Q1</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2025_Q1_Letter.mp3" length="10543196" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1317</itunes:duration>
     </item>
     <item>
@@ -63,6 +78,7 @@
       <guid isPermaLink="false">PGR_2024_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2024_Q4_Letter.mp3" length="10326484" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1290</itunes:duration>
     </item>
     <item>
@@ -72,6 +88,7 @@
       <guid isPermaLink="false">PGR_2024_Q3</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2024_Q3_Letter.mp3" length="9654406" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1206</itunes:duration>
     </item>
     <item>
@@ -81,6 +98,7 @@
       <guid isPermaLink="false">PGR_2024_Q2</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2024_Q2_Letter.mp3" length="8707519" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1088</itunes:duration>
     </item>
     <item>
@@ -90,6 +108,7 @@
       <guid isPermaLink="false">PGR_2024_Q1</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2024_Q1_Letter.mp3" length="7928652" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>991</itunes:duration>
     </item>
     <item>
@@ -99,6 +118,7 @@
       <guid isPermaLink="false">PGR_2023_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2023_Q4_Letter.mp3" length="9092042" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1136</itunes:duration>
     </item>
     <item>
@@ -108,6 +128,7 @@
       <guid isPermaLink="false">PGR_2023_Q3</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2023_Q3_Letter.mp3" length="11186853" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1398</itunes:duration>
     </item>
     <item>
@@ -117,6 +138,7 @@
       <guid isPermaLink="false">PGR_2023_Q2</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2023_Q2_Letter.mp3" length="11225723" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1403</itunes:duration>
     </item>
     <item>
@@ -126,6 +148,7 @@
       <guid isPermaLink="false">PGR_2023_Q1</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2023_Q1_Letter.mp3" length="10087829" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1260</itunes:duration>
     </item>
     <item>
@@ -135,6 +158,7 @@
       <guid isPermaLink="false">PGR_2022_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2022_Q4_Letter.mp3" length="9562664" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1195</itunes:duration>
     </item>
     <item>
@@ -144,6 +168,7 @@
       <guid isPermaLink="false">PGR_2022_Q3</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2022_Q3_Letter.mp3" length="9530272" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1191</itunes:duration>
     </item>
     <item>
@@ -153,6 +178,7 @@
       <guid isPermaLink="false">PGR_2022_Q2</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2022_Q2_Letter.mp3" length="10728143" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1340</itunes:duration>
     </item>
     <item>
@@ -162,6 +188,7 @@
       <guid isPermaLink="false">PGR_2022_Q1</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2022_Q1_Letter.mp3" length="10556780" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1319</itunes:duration>
     </item>
     <item>
@@ -171,6 +198,7 @@
       <guid isPermaLink="false">PGR_2021_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2021_Q4_Letter.mp3" length="8819323" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1102</itunes:duration>
     </item>
     <item>
@@ -180,6 +208,7 @@
       <guid isPermaLink="false">PGR_2021_Q3</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2021_Q3_Letter.mp3" length="10120600" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1264</itunes:duration>
     </item>
     <item>
@@ -189,6 +218,7 @@
       <guid isPermaLink="false">PGR_2021_Q2</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2021_Q2_Letter.mp3" length="9462145" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1182</itunes:duration>
     </item>
     <item>
@@ -198,6 +228,7 @@
       <guid isPermaLink="false">PGR_2021_Q1</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2021_Q1_Letter.mp3" length="10170376" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1271</itunes:duration>
     </item>
     <item>
@@ -207,6 +238,7 @@
       <guid isPermaLink="false">PGR_2020_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2020_Q4_Letter.mp3" length="9327980" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1165</itunes:duration>
     </item>
     <item>
@@ -216,6 +248,7 @@
       <guid isPermaLink="false">PGR_2020_Q3</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2020_Q3_Letter.mp3" length="9199875" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1149</itunes:duration>
     </item>
     <item>
@@ -225,6 +258,7 @@
       <guid isPermaLink="false">PGR_2020_Q2</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2020_Q2_Letter.mp3" length="10982223" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1372</itunes:duration>
     </item>
     <item>
@@ -234,6 +268,7 @@
       <guid isPermaLink="false">PGR_2020_Q1</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2020_Q1_Letter.mp3" length="10758654" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1344</itunes:duration>
     </item>
     <item>
@@ -243,6 +278,7 @@
       <guid isPermaLink="false">PGR_2019_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2019_Q4_Letter.mp3" length="8788185" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1098</itunes:duration>
     </item>
     <item>
@@ -252,6 +288,7 @@
       <guid isPermaLink="false">PGR_2019_Q3</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2019_Q3_Letter.mp3" length="9263196" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1157</itunes:duration>
     </item>
     <item>
@@ -261,6 +298,7 @@
       <guid isPermaLink="false">PGR_2019_Q2</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2019_Q2_Letter.mp3" length="9489103" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1186</itunes:duration>
     </item>
     <item>
@@ -270,6 +308,7 @@
       <guid isPermaLink="false">PGR_2019_Q1</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2019_Q1_Letter.mp3" length="9748238" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1218</itunes:duration>
     </item>
     <item>
@@ -279,6 +318,7 @@
       <guid isPermaLink="false">PGR_2018_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2018_Q4_Letter.mp3" length="9997132" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1249</itunes:duration>
     </item>
     <item>
@@ -288,6 +328,7 @@
       <guid isPermaLink="false">PGR_2018_Q3</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2018_Q3_Letter.mp3" length="9912913" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1239</itunes:duration>
     </item>
     <item>
@@ -297,6 +338,7 @@
       <guid isPermaLink="false">PGR_2018_Q2</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2018_Q2_Letter.mp3" length="10269015" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1283</itunes:duration>
     </item>
     <item>
@@ -306,6 +348,7 @@
       <guid isPermaLink="false">PGR_2018_Q1</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2018_Q1_Letter.mp3" length="10707245" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1338</itunes:duration>
     </item>
     <item>
@@ -315,6 +358,7 @@
       <guid isPermaLink="false">PGR_2017_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2017_Q4_Letter.mp3" length="9687842" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1210</itunes:duration>
     </item>
     <item>
@@ -324,6 +368,7 @@
       <guid isPermaLink="false">PGR_2017_Q3</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2017_Q3_Letter.mp3" length="10319379" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1289</itunes:duration>
     </item>
     <item>
@@ -333,6 +378,7 @@
       <guid isPermaLink="false">PGR_2017_Q2</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2017_Q2_Letter.mp3" length="11307016" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1413</itunes:duration>
     </item>
     <item>
@@ -342,6 +388,7 @@
       <guid isPermaLink="false">PGR_2017_Q1</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2017_Q1_Letter.mp3" length="9943007" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1242</itunes:duration>
     </item>
     <item>
@@ -351,6 +398,7 @@
       <guid isPermaLink="false">PGR_2016_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2016_Q4_Letter.mp3" length="10135268" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1266</itunes:duration>
     </item>
     <item>
@@ -360,6 +408,7 @@
       <guid isPermaLink="false">PGR_2016_Q3</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2016_Q3_Letter.mp3" length="8421008" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1052</itunes:duration>
     </item>
     <item>
@@ -369,6 +418,7 @@
       <guid isPermaLink="false">PGR_2016_Q2</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2016_Q2_Letter.mp3" length="10293883" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1286</itunes:duration>
     </item>
     <item>
@@ -378,6 +428,7 @@
       <guid isPermaLink="false">PGR_2016_Q1</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2016_Q1_Letter.mp3" length="8980656" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1122</itunes:duration>
     </item>
     <item>
@@ -387,6 +438,7 @@
       <guid isPermaLink="false">PGR_2015_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2015_Q4_Letter.mp3" length="8576071" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1071</itunes:duration>
     </item>
     <item>
@@ -396,6 +448,7 @@
       <guid isPermaLink="false">PGR_2015_Q3</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2015_Q3_Letter.mp3" length="9177723" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1147</itunes:duration>
     </item>
     <item>
@@ -405,6 +458,7 @@
       <guid isPermaLink="false">PGR_2015_Q2</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2015_Q2_Letter.mp3" length="9406347" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1175</itunes:duration>
     </item>
     <item>
@@ -414,6 +468,7 @@
       <guid isPermaLink="false">PGR_2015_Q1</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2015_Q1_Letter.mp3" length="8913573" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1114</itunes:duration>
     </item>
     <item>
@@ -423,6 +478,7 @@
       <guid isPermaLink="false">PGR_2014_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2014_Q4_Letter.mp3" length="10026598" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1253</itunes:duration>
     </item>
     <item>
@@ -432,6 +488,7 @@
       <guid isPermaLink="false">PGR_2014_Q3</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2014_Q3_Letter.mp3" length="8588401" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1073</itunes:duration>
     </item>
     <item>
@@ -441,6 +498,7 @@
       <guid isPermaLink="false">PGR_2014_Q2</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2014_Q2_Letter.mp3" length="9448979" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1181</itunes:duration>
     </item>
     <item>
@@ -450,6 +508,7 @@
       <guid isPermaLink="false">PGR_2014_Q1</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2014_Q1_Letter.mp3" length="9531944" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1191</itunes:duration>
     </item>
     <item>
@@ -459,6 +518,7 @@
       <guid isPermaLink="false">PGR_2013_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2013_Q4_Letter.mp3" length="9070308" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1133</itunes:duration>
     </item>
     <item>
@@ -468,6 +528,7 @@
       <guid isPermaLink="false">PGR_2013_Q3</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2013_Q3_Letter.mp3" length="9072816" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1134</itunes:duration>
     </item>
     <item>
@@ -477,6 +538,7 @@
       <guid isPermaLink="false">PGR_2013_Q2</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2013_Q2_Letter.mp3" length="9566216" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1195</itunes:duration>
     </item>
     <item>
@@ -486,6 +548,7 @@
       <guid isPermaLink="false">PGR_2013_Q1</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2013_Q1_Letter.mp3" length="9492238" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1186</itunes:duration>
     </item>
     <item>
@@ -495,6 +558,7 @@
       <guid isPermaLink="false">PGR_2012_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2012_Q4_Letter.mp3" length="10988531" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1373</itunes:duration>
     </item>
     <item>
@@ -504,6 +568,7 @@
       <guid isPermaLink="false">PGR_2012_Q3</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2012_Q3_Letter.mp3" length="9100819" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1137</itunes:duration>
     </item>
     <item>
@@ -513,6 +578,7 @@
       <guid isPermaLink="false">PGR_2012_Q2</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2012_Q2_Letter.mp3" length="9563918" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1195</itunes:duration>
     </item>
     <item>
@@ -522,6 +588,7 @@
       <guid isPermaLink="false">PGR_2012_Q1</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2012_Q1_Letter.mp3" length="10579349" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1322</itunes:duration>
     </item>
     <item>
@@ -531,6 +598,7 @@
       <guid isPermaLink="false">PGR_2011_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2011_Q4_Letter.mp3" length="5795598" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>724</itunes:duration>
     </item>
     <item>
@@ -540,6 +608,7 @@
       <guid isPermaLink="false">PGR_2011_Q3</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2011_Q3_Letter.mp3" length="9098729" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1137</itunes:duration>
     </item>
     <item>
@@ -549,6 +618,7 @@
       <guid isPermaLink="false">PGR_2011_Q2</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2011_Q2_Letter.mp3" length="7988629" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>998</itunes:duration>
     </item>
     <item>
@@ -558,6 +628,7 @@
       <guid isPermaLink="false">PGR_2011_Q1</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2011_Q1_Letter.mp3" length="8921723" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1115</itunes:duration>
     </item>
     <item>
@@ -567,6 +638,7 @@
       <guid isPermaLink="false">PGR_2010_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2010_Q4_Letter.mp3" length="10530239" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1316</itunes:duration>
     </item>
     <item>
@@ -576,6 +648,7 @@
       <guid isPermaLink="false">PGR_2010_Q3</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2010_Q3_Letter.mp3" length="9183575" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1147</itunes:duration>
     </item>
     <item>
@@ -585,6 +658,7 @@
       <guid isPermaLink="false">PGR_2010_Q2</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2010_Q2_Letter.mp3" length="8692055" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1086</itunes:duration>
     </item>
     <item>
@@ -594,6 +668,7 @@
       <guid isPermaLink="false">PGR_2010_Q1</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2010_Q1_Letter.mp3" length="9884910" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1235</itunes:duration>
     </item>
     <item>
@@ -603,6 +678,7 @@
       <guid isPermaLink="false">PGR_2009_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2009_Q4_Letter.mp3" length="9772897" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1221</itunes:duration>
     </item>
     <item>
@@ -612,6 +688,7 @@
       <guid isPermaLink="false">PGR_2009_Q3</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2009_Q3_Letter.mp3" length="9517106" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1189</itunes:duration>
     </item>
     <item>
@@ -621,6 +698,7 @@
       <guid isPermaLink="false">PGR_2009_Q2</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2009_Q2_Letter.mp3" length="10548629" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1318</itunes:duration>
     </item>
     <item>
@@ -630,6 +708,7 @@
       <guid isPermaLink="false">PGR_2009_Q1</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2009_Q1_Letter.mp3" length="8529469" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1066</itunes:duration>
     </item>
     <item>
@@ -639,6 +718,7 @@
       <guid isPermaLink="false">PGR_2008_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2008_Q4_Letter.mp3" length="9521913" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1190</itunes:duration>
     </item>
     <item>
@@ -648,6 +728,7 @@
       <guid isPermaLink="false">PGR_2008_Q3</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2008_Q3_Letter.mp3" length="9990445" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1248</itunes:duration>
     </item>
     <item>
@@ -657,6 +738,7 @@
       <guid isPermaLink="false">PGR_2008_Q2</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2008_Q2_Letter.mp3" length="8963310" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1120</itunes:duration>
     </item>
     <item>
@@ -666,6 +748,7 @@
       <guid isPermaLink="false">PGR_2008_Q1</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2008_Q1_Letter.mp3" length="9378971" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1172</itunes:duration>
     </item>
     <item>
@@ -675,6 +758,7 @@
       <guid isPermaLink="false">PGR_2007_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2007_Q4_Letter.mp3" length="9614491" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1201</itunes:duration>
     </item>
     <item>
@@ -684,6 +768,7 @@
       <guid isPermaLink="false">PGR_2007_Q3</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2007_Q3_Letter.mp3" length="9369567" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1171</itunes:duration>
     </item>
     <item>
@@ -693,6 +778,7 @@
       <guid isPermaLink="false">PGR_2007_Q2</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2007_Q2_Letter.mp3" length="9158288" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1144</itunes:duration>
     </item>
     <item>
@@ -702,6 +788,7 @@
       <guid isPermaLink="false">PGR_2007_Q1</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2007_Q1_Letter.mp3" length="8954951" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1119</itunes:duration>
     </item>
     <item>
@@ -711,6 +798,7 @@
       <guid isPermaLink="false">PGR_2006_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2006_Q4_Letter.mp3" length="8790484" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1098</itunes:duration>
     </item>
     <item>
@@ -720,6 +808,7 @@
       <guid isPermaLink="false">PGR_2006_Q3</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2006_Q3_Letter.mp3" length="8209939" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1026</itunes:duration>
     </item>
     <item>
@@ -729,6 +818,7 @@
       <guid isPermaLink="false">PGR_2006_Q2</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2006_Q2_Letter.mp3" length="9304156" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1162</itunes:duration>
     </item>
     <item>
@@ -738,6 +828,7 @@
       <guid isPermaLink="false">PGR_2006_Q1</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2006_Q1_Letter.mp3" length="9037080" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1129</itunes:duration>
     </item>
     <item>
@@ -747,6 +838,7 @@
       <guid isPermaLink="false">PGR_2005_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2005_Q4_Letter.mp3" length="9768091" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1220</itunes:duration>
     </item>
     <item>
@@ -756,6 +848,7 @@
       <guid isPermaLink="false">PGR_2005_Q3</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2005_Q3_Letter.mp3" length="6242605" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>780</itunes:duration>
     </item>
     <item>
@@ -765,6 +858,7 @@
       <guid isPermaLink="false">PGR_2005_Q2</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2005_Q2_Letter.mp3" length="8895810" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1111</itunes:duration>
     </item>
     <item>
@@ -774,6 +868,7 @@
       <guid isPermaLink="false">PGR_2005_Q1</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2005_Q1_Letter.mp3" length="9502060" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1187</itunes:duration>
     </item>
     <item>
@@ -783,6 +878,7 @@
       <guid isPermaLink="false">PGR_2004_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2004_Q4_Letter.mp3" length="9940917" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1242</itunes:duration>
     </item>
     <item>
@@ -792,6 +888,7 @@
       <guid isPermaLink="false">PGR_2004_Q3</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2004_Q3_Letter.mp3" length="10921240" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1365</itunes:duration>
     </item>
     <item>
@@ -801,6 +898,7 @@
       <guid isPermaLink="false">PGR_2004_Q2</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2004_Q2_Letter.mp3" length="8943666" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1117</itunes:duration>
     </item>
     <item>
@@ -810,6 +908,7 @@
       <guid isPermaLink="false">PGR_2004_Q1</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2004_Q1_Letter.mp3" length="8226239" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1028</itunes:duration>
     </item>
     <item>
@@ -819,6 +918,7 @@
       <guid isPermaLink="false">PGR_2003_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2003_Q4_Letter.mp3" length="9395688" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1174</itunes:duration>
     </item>
     <item>
@@ -828,6 +928,7 @@
       <guid isPermaLink="false">PGR_2002_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2002_Q4_Letter.mp3" length="10210499" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1276</itunes:duration>
     </item>
     <item>
@@ -837,6 +938,7 @@
       <guid isPermaLink="false">PGR_2001_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2001_Q4_Letter.mp3" length="8258212" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1032</itunes:duration>
     </item>
     <item>
@@ -846,6 +948,7 @@
       <guid isPermaLink="false">PGR_2000_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2000_Q4_Letter.mp3" length="9109804" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1138</itunes:duration>
     </item>
     <item>
@@ -855,6 +958,7 @@
       <guid isPermaLink="false">PGR_1999_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_1999_Q4_Letter.mp3" length="9429752" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1178</itunes:duration>
     </item>
     <item>
@@ -864,6 +968,7 @@
       <guid isPermaLink="false">PGR_1998_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_1998_Q4_Letter.mp3" length="8750986" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1093</itunes:duration>
     </item>
     <item>
@@ -873,6 +978,7 @@
       <guid isPermaLink="false">PGR_1997_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_1997_Q4_Letter.mp3" length="8794663" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1099</itunes:duration>
     </item>
     <item>
@@ -882,6 +988,7 @@
       <guid isPermaLink="false">PGR_1996_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_1996_Q4_Letter.mp3" length="9822215" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1227</itunes:duration>
     </item>
     <item>
@@ -891,6 +998,7 @@
       <guid isPermaLink="false">PGR_1995_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_1995_Q4_Letter.mp3" length="9601742" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1200</itunes:duration>
     </item>
     <item>
@@ -900,6 +1008,7 @@
       <guid isPermaLink="false">PGR_1994_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_1994_Q4_Letter.mp3" length="9790659" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1223</itunes:duration>
     </item>
     <item>
@@ -909,6 +1018,7 @@
       <guid isPermaLink="false">PGR_1993_Q4</guid>
       <enclosure url="https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_1993_Q4_Letter.mp3" length="10519162" type="audio/mpeg" />
       <itunes:author>Jeff Hester</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
       <itunes:duration>1314</itunes:duration>
     </item>
   </channel>

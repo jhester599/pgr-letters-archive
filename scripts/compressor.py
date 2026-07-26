@@ -52,6 +52,13 @@ PODCAST_DESC     = (
     "AI-generated audio overviews of Progressive Corporation (NYSE: PGR) "
     "CEO Tricia Griffith's quarterly shareholder letters, powered by Google NotebookLM."
 )
+PODCAST_COPYRIGHT = (
+    "Letter text is © The Progressive Corporation. Audio overviews are "
+    "AI-generated and are not affiliated with or endorsed by Progressive."
+)
+# Apple Podcasts requires a reachable owner email to verify feed ownership
+# before a show can be submitted. Override with PODCAST_OWNER_EMAIL.
+PODCAST_OWNER_EMAIL = os.environ.get("PODCAST_OWNER_EMAIL", "jeffrey.r.hester@gmail.com")
 
 # ── Logging ───────────────────────────────────────────────────────────────────
 
@@ -135,6 +142,40 @@ def _quarter_to_pub_date(year: int, quarter: str, report_date: Optional[str]) ->
     return formatdate(dt.timestamp(), usegmt=True)
 
 
+def _enclosure_metadata(filing: dict) -> tuple[int, Optional[int], bool]:
+    """Return (size_bytes, duration_seconds, ledger_was_updated) for a filing.
+
+    Audio is served from GitHub Releases and the docs/audio/ staging copies are
+    gitignored, so a fresh CI checkout has no MP3 to stat or probe. The ledger is
+    therefore the source of truth; the local file is only a fallback used to
+    populate the ledger on the machine that produced the audio. Without this,
+    regenerating the feed in Actions emits length="0" and no <itunes:duration>
+    for every episode.
+    """
+    size     = filing.get("audio_bytes") or 0
+    duration = filing.get("audio_duration")
+    if size and duration is not None:
+        return size, duration, False
+
+    audio_path = BASE_DIR / filing["audio_file"]
+    if not audio_path.exists():
+        if not size:
+            log.warning(
+                "No audio_bytes in ledger and no local file for %s — "
+                "enclosure length will be 0", filing["id"],
+            )
+        return size, duration, False
+
+    if not size:
+        size = audio_path.stat().st_size
+        filing["audio_bytes"] = size
+    if duration is None:
+        duration = get_audio_duration_seconds(audio_path)
+        if duration is not None:
+            filing["audio_duration"] = duration
+    return size, duration, True
+
+
 def generate_rss(ledger: dict, base_url: str) -> None:
     """Write /docs/feed.xml from the set of compressed audio filings."""
 
@@ -149,6 +190,7 @@ def generate_rss(ledger: dict, base_url: str) -> None:
         "version": "2.0",
         "xmlns:itunes": "http://www.itunes.com/dtds/podcast-1.0.dtd",
         "xmlns:content": "http://purl.org/rss/1.0/modules/content/",
+        "xmlns:atom": "http://www.w3.org/2005/Atom",
     })
     channel = SubElement(rss, "channel")
 
@@ -156,20 +198,34 @@ def generate_rss(ledger: dict, base_url: str) -> None:
     SubElement(channel, "description").text  = PODCAST_DESC
     SubElement(channel, "link").text         = base_url
     SubElement(channel, "language").text     = "en-us"
+    SubElement(channel, "copyright").text    = PODCAST_COPYRIGHT
     SubElement(channel, "author").text       = PODCAST_AUTHOR
     SubElement(channel, "lastBuildDate").text = formatdate(
         datetime.now(timezone.utc).timestamp(), usegmt=True
     )
+    # Podcast clients use rel="self" to know the feed's canonical location.
+    SubElement(channel, "atom:link", {
+        "href": f"{base_url}/feed.xml",
+        "rel":  "self",
+        "type": "application/rss+xml",
+    })
     SubElement(channel, "itunes:author").text    = PODCAST_AUTHOR
+    SubElement(channel, "itunes:summary").text   = PODCAST_DESC
     SubElement(channel, "itunes:type").text      = "episodic"
-    SubElement(channel, "itunes:category", text="Business")
+    # Apple rejects feeds without an explicit rating or a verifiable owner.
+    SubElement(channel, "itunes:explicit").text  = "false"
+    owner = SubElement(channel, "itunes:owner")
+    SubElement(owner, "itunes:name").text  = PODCAST_AUTHOR
+    SubElement(owner, "itunes:email").text = PODCAST_OWNER_EMAIL
+    category = SubElement(channel, "itunes:category", text="Business")
+    SubElement(category, "itunes:category", text="Investing")
     SubElement(channel, "itunes:image", href=f"{base_url}/cover.png")
 
+    ledger_updated = False
     for filing in published:
         audio_url = filing.get("audio_url") or f"{base_url}/audio/{Path(filing['audio_file']).name}"
-        audio_path = BASE_DIR / filing["audio_file"]
-        file_size  = audio_path.stat().st_size if audio_path.exists() else 0
-        duration   = get_audio_duration_seconds(audio_path) if audio_path.exists() else None
+        file_size, duration, touched = _enclosure_metadata(filing)
+        ledger_updated = ledger_updated or touched
 
         item = SubElement(channel, "item")
         SubElement(item, "title").text = (
@@ -188,9 +244,16 @@ def generate_rss(ledger: dict, base_url: str) -> None:
             "length": str(file_size),
             "type": "audio/mpeg",
         })
-        SubElement(item, "itunes:author").text  = PODCAST_AUTHOR
+        SubElement(item, "itunes:author").text   = PODCAST_AUTHOR
+        SubElement(item, "itunes:explicit").text = "false"
         if duration:
             SubElement(item, "itunes:duration").text = str(duration)
+
+    # Persist anything measured from local staging files so the next run —
+    # which may be a fresh CI checkout with no MP3s — still has the numbers.
+    if ledger_updated:
+        save_ledger(ledger)
+        log.info("Ledger updated with enclosure size/duration metadata.")
 
     tree = ElementTree(rss)
     indent(tree, space="  ")
@@ -239,6 +302,12 @@ def main() -> None:
         filing["audio_compressed"] = True
         filing["audio_compressed_date"] = datetime.now(timezone.utc).isoformat()
         filing["page_built"] = False  # force reading page rebuild to add audio player
+
+        # Capture enclosure metadata now, while the MP3 is still on disk. The
+        # staging copy is gitignored, so this is the only moment a CI run can
+        # measure it — see _enclosure_metadata().
+        filing["audio_bytes"] = out_path.stat().st_size
+        filing["audio_duration"] = get_audio_duration_seconds(out_path)
 
         # Upload to GitHub Releases for CDN hosting (avoids LFS on GitHub Pages)
         try:

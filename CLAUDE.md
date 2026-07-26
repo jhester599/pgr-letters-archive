@@ -200,6 +200,8 @@ No `OPENAI_API_KEY` is required — TTS uses local Kokoro inference.
     "audio_raw_file":        "data/audio_raw/PGR_2025_Q4_Letter.mp4",
     "audio_file":            "docs/audio/PGR_2025_Q4_Letter.mp3",
     "audio_url":             "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2025_Q4_Letter.mp3",
+    "audio_bytes":           11263758,
+    "audio_duration":        1407,
     "tts_file":              "docs/audio_tts/PGR_2025_Q4_Letter.mp3",
     "tts_url":               "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/tts_PGR_2025_Q4_Letter.mp3",
     "tts_voice":             "am_michael",
@@ -219,6 +221,13 @@ No `OPENAI_API_KEY` is required — TTS uses local Kokoro inference.
 ```
 
 Flag lifecycle: `letter_scraped` → `audio_generated` → `audio_compressed` → `tts_generated` → `page_built`
+
+`audio_bytes` and `audio_duration` back the RSS `<enclosure length>` and
+`<itunes:duration>` values. They must live in the ledger because `docs/audio/`
+is gitignored — a fresh CI checkout has no MP3 to stat or probe, so reading them
+off disk yields `length="0"` and no duration for every episode.
+`compressor.py` records them at compression time and backfills from a local
+staging file when one is present.
 
 ## Podcast audio versions
 

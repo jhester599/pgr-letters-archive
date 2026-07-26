@@ -267,4 +267,8 @@ import yaml, glob
 for p in glob.glob('.github/workflows/*.yml'):
     yaml.safe_load(open(p)); print('OK', p)
 "
+
+# Test suite — 50 tests, no ffmpeg/browser/credentials needed
+pip install -r requirements.txt -r requirements-dev.txt
+pytest -q
 ```

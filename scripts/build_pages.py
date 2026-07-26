@@ -26,10 +26,21 @@ from scraper import load_ledger, save_ledger, BASE_DIR
 
 DOCS_DIR  = BASE_DIR / "docs"
 PAGES_DIR = DOCS_DIR / "letters"
-# Plain-text copies of the letters, published *inside* the Pages root so
-# docs/index.html can fetch them. data/letters/ sits above docs/ and is not
-# part of the Pages artifact, so the front-end cannot reach it there.
-TEXT_DIR  = DOCS_DIR / "letters_txt"
+
+
+def _text_dir() -> Path:
+    """Directory for plain-text letter copies published inside the Pages root.
+
+    `data/letters/` sits above `docs/` and is not part of the Pages artifact, so
+    the front-end cannot fetch letters from there — they are mirrored here.
+
+    Resolved at call time rather than as a module-level constant: tests
+    monkeypatch `BASE_DIR` to redirect writes into a tmp directory, and a
+    constant computed at import time would ignore that and write into the real
+    repository. `PAGES_DIR` avoids this only because the fixture patches it
+    explicitly by name.
+    """
+    return BASE_DIR / "docs" / "letters_txt"
 
 logging.basicConfig(
     level=logging.INFO,
@@ -807,7 +818,8 @@ def sync_letter_text(scrapeable: list[dict]) -> int:
     gets published. Files are only rewritten when the content actually changes,
     keeping the workflow's `git add` a no-op on unchanged runs.
     """
-    TEXT_DIR.mkdir(parents=True, exist_ok=True)
+    text_dir = _text_dir()
+    text_dir.mkdir(parents=True, exist_ok=True)
 
     synced = 0
     for filing in scrapeable:
@@ -821,7 +833,7 @@ def sync_letter_text(scrapeable: list[dict]) -> int:
             continue
 
         text = _repair_text_encoding(source.read_text(encoding="utf-8"))
-        target = TEXT_DIR / source.name
+        target = text_dir / source.name
         if target.exists() and target.read_text(encoding="utf-8") == text:
             continue
 

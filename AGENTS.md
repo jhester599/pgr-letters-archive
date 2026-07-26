@@ -14,18 +14,28 @@ paused.
 
 Automated pipeline: SEC EDGAR → text extraction → Google NotebookLM audio → GitHub Pages.
 
-Every Friday a GitHub Actions job:
+A GitHub Actions job:
 1. Queries SEC EDGAR for new PGR (Progressive Corporation) 10-Q / 10-K filings
 2. Extracts and cleans the CEO's shareholder letter (Exhibit 99)
-3. Generates a podcast-style audio overview via NotebookLM
-4. Compresses audio to 64 kbps MP3 with FFmpeg
-5. Uploads MP3s to the `audio-library` GitHub Release and records release URLs
-6. Commits metadata/pages to `main`, which auto-deploys to GitHub Pages
+3. Generates a ranked 10-bullet summary via GitHub Models (a briefing doc for NotebookLM)
+4. Generates a podcast-style audio overview via NotebookLM (letter + summary as sources)
+5. Compresses audio to 64 kbps MP3 with FFmpeg
+6. Uploads MP3s to the `audio-library` GitHub Release and records release URLs
+7. Commits metadata/pages to `main`, which auto-deploys to GitHub Pages
+
+**Nothing runs on a schedule right now.** Both `schedule:` blocks are commented
+out; the pipeline fires on `repository_dispatch` from the Gmail Apps Script, or
+manually. Step 4 is `continue-on-error`, so an expired NotebookLM cookie leaves
+the text side of the pipeline working. See `NEXT_STEPS.md`.
 
 ## Directory structure
 
 ```
-.github/workflows/quarterly_podcast.yml  — GitHub Actions cron job
+.github/workflows/
+  quarterly_podcast.yml    — Main pipeline (dispatch-triggered; cron disabled)
+  daily_audio_backfill.yml — NotebookLM backlog burn-down (cron disabled; backlog clear)
+  deploy-pages.yml         — Publishes docs/ to GitHub Pages on push to main
+  tests.yml                — Runs the pytest suite
 data/
   letters/          — Cleaned .txt letter files (committed)
   audio_raw/        — Temporary raw audio from NotebookLM (gitignored)
@@ -42,14 +52,31 @@ docs/               — GitHub Pages root (served at /pgr-letters-archive/)
     reading.css     — Stylesheet for reading pages
 scripts/
   scraper.py        — SEC EDGAR downloader
+  summarizer.py     — Ranked 10-bullet summary via GitHub Models
   generator.py      — NotebookLM audio generation
   compressor.py     — FFmpeg compression + release upload + RSS generation
   releases.py       — GitHub Releases audio hosting helper
-  migrate_audio_to_releases.py — One-time/recovery release migration helper
-  build_pages.py    — Per-letter HTML reading page generator
-requirements.txt
+  build_pages.py    — Per-letter HTML pages + docs/letters_txt/ publication
+  audio_progress.py — Regenerates AUDIO_PROGRESS.md
+  tts.py            — Kokoro TTS read-through (PAUSED — see TTS.md)
+  gmail_trigger.js  — Apps Script that fires repository_dispatch on filing alerts
+  setup_notebooklm.ps1 — One-time Windows NotebookLM auth setup
+  — one-off / recovery helpers, not part of the pipeline:
+  backfill.py, backfill_ex13.py, backfill_ex99.py  — historical archive recovery
+  fix_letter_text.py            — bulk letter text cleanup
+  register_local_audio.py       — re-register locally generated audio in the ledger
+  migrate_audio_to_releases.py  — release migration / re-upload
+tests/                — pytest suite (50 tests); run with `pytest -q`
+requirements.txt      — Core pipeline dependencies
+requirements-dev.txt  — pytest
+requirements-tts.txt  — Optional Kokoro TTS dependencies (paused)
+NEXT_STEPS.md       — Current state and prioritized to-do list
 PLAN.md             — Architecture, phases, technical decisions
-AUDIO_STORAGE.md    — Audio release hosting, backups, and recovery commands
+AUDIO_STORAGE.md    — Audio release hosting, backups, LFS cleanup, recovery
+TTS.md              — Why TTS is paused and how to resume it
+CLAUDE.md           — Developer reference (largely mirrors this file)
+README.md           — Public-facing overview
+ROADMAP.md          — Long-range feature ideas
 AGENTS.md           — This file
 ```
 
@@ -59,6 +86,10 @@ AGENTS.md           — This file
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 playwright install chromium
+
+# Run the test suite (no ffmpeg, browser, or credentials needed)
+pip install -r requirements-dev.txt
+pytest -q
 
 # SEC EDGAR scraper (no credentials needed)
 python scripts/scraper.py
@@ -138,6 +169,9 @@ error, re-run `notebooklm login` and update the secret.
     "audio_raw_file":        "data/audio_raw/PGR_2025_Q1_Letter.mp4",
     "audio_file":            "docs/audio/PGR_2025_Q1_Letter.mp3",
     "audio_url":             "https://github.com/jhester599/pgr-letters-archive/releases/download/audio-library/PGR_2025_Q1_Letter.mp3",
+    "audio_bytes":           11263758,
+    "audio_duration":        1407,
+    "audio_version":         "1.1",
     "page_url":              "letters/PGR_2025_Q1.html",
     "letter_scraped":        true,
     "audio_generated":       true,
@@ -151,6 +185,11 @@ error, re-run `notebooklm login` and update the secret.
 ```
 
 Flag lifecycle: `letter_scraped` → `audio_generated` → `audio_compressed` → `page_built`
+
+`audio_bytes` and `audio_duration` must live in the ledger: `docs/audio/` is
+gitignored, so a fresh CI checkout has no MP3 to stat or probe and the RSS feed
+would regenerate with `length="0"` and no durations. Entries also carry `tts_*`
+fields for the three letters with read-through audio — see `TTS.md`.
 
 ## Proving the concept — initial run checklist
 

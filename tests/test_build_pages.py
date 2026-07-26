@@ -368,6 +368,7 @@ def test_build_page_reading_css_linked():
 
 import json
 import time
+from pathlib import Path
 import build_pages
 import scraper
 
@@ -453,3 +454,31 @@ def test_main_rebuild_forces_regeneration(fake_env):
     build_pages.main(rebuild=True)
     mtime2 = (pages_out / "PGR_2025_Q3.html").stat().st_mtime
     assert mtime2 > mtime1
+
+
+def test_sync_letter_text_writes_into_patched_base_dir(fake_env):
+    """Published text must land under the patched BASE_DIR, never the real repo.
+
+    Regression guard: the publish directory was originally a module-level
+    constant computed at import time, so it ignored the fixture's BASE_DIR
+    monkeypatch and overwrote a real letter in docs/letters_txt/ with fixture
+    text. It must be resolved at call time.
+    """
+    tmp_path, _, _ = fake_env
+    build_pages.main(rebuild=False)
+
+    published = tmp_path / "docs" / "letters_txt" / "PGR_2025_Q3_Letter.txt"
+    assert published.exists(), "letter text was not published under the patched BASE_DIR"
+    assert published.read_text(encoding="utf-8") == "Para one.\n\nPara two."
+
+
+def test_sync_letter_text_does_not_touch_the_real_repository(fake_env):
+    """The real docs/letters_txt/ must be untouched while BASE_DIR is patched."""
+    real_dir = Path(__file__).resolve().parent.parent / "docs" / "letters_txt"
+    target = real_dir / "PGR_2025_Q3_Letter.txt"
+    before = target.read_text(encoding="utf-8") if target.exists() else None
+
+    build_pages.main(rebuild=False)
+
+    after = target.read_text(encoding="utf-8") if target.exists() else None
+    assert after == before, "build_pages wrote into the real repository during tests"

@@ -33,7 +33,7 @@ paused — see `TTS.md`.
 ## Directory structure
 
 ```
-.github/workflows/quarterly_podcast.yml  — GitHub Actions cron job
+.github/workflows/quarterly_podcast.yml  — Main pipeline (dispatch-triggered; cron disabled)
 data/
   letters/          — Cleaned .txt letter files (committed)
   audio_raw/        — Temporary raw audio from NotebookLM (gitignored)
@@ -154,6 +154,16 @@ it back.
 set GITHUB_TOKEN=<token>  # optional locally; provided automatically in Actions
 python scripts/compressor.py
 ```
+
+### Run the tests
+
+```cmd
+pip install -r requirements-dev.txt
+pytest -q
+```
+
+50 tests over letter extraction, reading-page rendering, and letter completeness.
+No ffmpeg, browser, or credentials needed. `tests.yml` runs them in CI.
 
 ### Build reading pages
 

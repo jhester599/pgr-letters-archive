@@ -50,13 +50,19 @@ SEC EDGAR (public API)
 
 Two GitHub Actions workflows drive the automation:
 
-- **`quarterly_podcast.yml`** — Fires on new SEC filings (email trigger or Friday cron).
+> **Both cron schedules are currently commented out**, so nothing runs unattended.
+> `quarterly_podcast.yml` still fires on `repository_dispatch` from the Gmail script and
+> on manual dispatch. See `NEXT_STEPS.md` for what it would take to turn them back on.
+
+- **`quarterly_podcast.yml`** — Fires on new SEC filings (email trigger; Friday cron disabled).
   Runs the full pipeline: scrape → summarize → NotebookLM → compress → build → publish.
   NotebookLM generation is `continue-on-error`, so an expired session cookie cannot stop
   the text side of the pipeline from publishing.
-- **`daily_audio_backfill.yml`** — Runs daily at 10:00 UTC to burn down the historical
-  audio backlog at ~3 letters/day (NotebookLM free-tier quota). See `AUDIO_PROGRESS.md`
-  for current status.
+- **`daily_audio_backfill.yml`** — Burns down the historical audio backlog at ~3
+  letters/day (NotebookLM free-tier quota). **The backlog is clear (0 pending)** and its
+  daily cron is disabled. See `AUDIO_PROGRESS.md`.
+- **`deploy-pages.yml`** — Publishes `docs/` to GitHub Pages on every push to `main`.
+- **`tests.yml`** — Runs the pytest suite on pushes and pull requests.
 
 ---
 
@@ -219,6 +225,17 @@ auth error. `GITHUB_TOKEN` is provided automatically.
 `Settings → Pages → Source: Deploy from a branch → Branch: main, Folder: /docs`
 
 ---
+
+## Tests
+
+```bash
+pip install -r requirements.txt -r requirements-dev.txt
+pytest -q
+```
+
+50 tests covering letter extraction (`backfill_ex13`), reading-page rendering, and
+letter completeness. No ffmpeg, browser, or credentials required — they run against
+fixtures in well under a minute, and `tests.yml` runs them in CI.
 
 ## Documentation
 

@@ -48,7 +48,8 @@ SEC EDGAR (public API)
         │
         ▼
   [GitHub Actions]
-  Triggered by Gmail alert or weekly cron; runs full pipeline, commits to main
+  Triggered by Gmail alert or manual dispatch; runs full pipeline, commits to main
+  (the weekly fallback cron is currently commented out)
 ```
 
 ---
@@ -83,7 +84,7 @@ SEC EDGAR (public API)
 - [x] `docs/index.html` (self-contained SPA, no external CDN deps)
 - [x] `docs/letters/` — per-letter reading pages with dual audio players
 - [x] `docs/assets/reading.css`
-- [ ] `docs/cover.png` (podcast cover art for RSS feed — to be added manually)
+- [x] `docs/cover.png` (podcast cover art for RSS feed — added 2026-07-26)
 
 ### Phase 5 — Automation ✅
 - [x] `.github/workflows/quarterly_podcast.yml`
@@ -108,17 +109,22 @@ SEC EDGAR (public API)
 - [ ] Select final voices for Glenn and Peter eras; update `tts.py` author-aware voice logic
 - [ ] Verify `feed.xml` validates against a podcast validator
 
-### Phase 8 — TTS Backfill 🔄
+### Phase 8 — TTS Backfill ⏹️ ABANDONED
 
-NotebookLM batch (Step 4 below) is complete. Remaining work is TTS audio for 97 letters.
-Prerequisites must be completed in order before running the TTS batch.
+**This phase was dropped on 2026-07-26.** Kokoro TTS is paused and removed from
+the pipeline at 3 of 100 letters — see `TTS.md` for the rationale and the steps
+to resume. The storage guardrails under Step 3 were completed and still apply;
+everything else below is retained only as a record of what the plan had been.
 
-#### Step 1 — Complete text review (manual)
+Note that `audit_report.txt` referenced in Step 1 was never committed and does
+not exist in the repository's history.
+
+#### Step 1 — Complete text review (manual) — dropped
 - [ ] Work through `audit_report.txt` (620 short orphan lines across 70 files, 1 repeated word, 1 duplicate line)
 - [ ] Report findings; apply programmatic fixes to affected `.txt` files
 - [ ] Manual spot-check of financial table data in PGR_2003_Q4 and PGR_2004_Q4 (table rows merged into prose will sound wrong in TTS)
 
-#### Step 2 — Finalize TTS voice configuration
+#### Step 2 — Finalize TTS voice configuration — dropped
 - [ ] Listen to Glenn Renwick sample voices (PGR_2010_Q4); choose preferred voice
 - [ ] Listen to Peter Lewis sample voices (PGR_1998_Q4); choose preferred voice
 - [ ] Update `tts.py` to auto-select voice by author era:
@@ -126,7 +132,7 @@ Prerequisites must be completed in order before running the TTS batch.
   - Glenn Renwick (2001–Q2 2016): `<chosen>`
   - Tricia Griffith (Q3 2016–present): `af_heart`
 
-#### Step 3 — Audio storage guardrails
+#### Step 3 — Audio storage guardrails ✅ (kept — applies regardless of TTS)
 - [x] Move completed NotebookLM MP3s out of git/LFS and into the `audio-library` GitHub Release
 - [x] Add `audio_url` / `tts_url` release URLs to `docs/ledger.json`
 - [x] Keep `docs/audio/*.mp3` and `docs/audio_tts/*.mp3` gitignored as local staging only
@@ -136,17 +142,17 @@ Prerequisites must be completed in order before running the TTS batch.
 #### Step 4 — NotebookLM batch ✅
 - [x] `python scripts/generator.py --max-new 0`  — all 100 letters complete as of June 5, 2026
 
-#### Step 5 — TTS batch
+#### Step 5 — TTS batch — dropped
 - [ ] `python scripts/tts.py --max-new 0`  (processes all letters without `tts_generated: true`, uses author-aware voice)
 
-#### Step 6 — Rebuild and deploy
-- [ ] `python scripts/build_pages.py --rebuild`
-- [ ] `python scripts/compressor.py`  (regenerates `feed.xml` with all episodes)
-- [ ] Commit and push; verify GitHub Pages deploys cleanly
-- [ ] Validate `feed.xml` at a podcast validator (e.g., podba.se/validate)
+#### Step 6 — Rebuild and deploy — dropped as a TTS step
+- [x] `python scripts/build_pages.py --rebuild` — done for the NotebookLM archive
+- [x] `python scripts/compressor.py` — `feed.xml` carries all 100 episodes
+- [x] Commit and push; GitHub Pages deploys cleanly
+- [ ] Validate `feed.xml` at a podcast validator — still outstanding, see `NEXT_STEPS.md`
 
 #### Step 7 — Polish
-- [ ] Add `docs/cover.png` (3000×3000 px) for podcast cover art in RSS feed
+- [x] Add `docs/cover.png` (3000×3000 px) for podcast cover art in RSS feed — added 2026-07-26
 
 ---
 

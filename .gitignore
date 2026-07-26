@@ -32,4 +32,8 @@ Thumbs.db
 .idea/
 *.swp
 .worktrees/
+# Ignore Claude Code worktree/session artifacts, but keep the shared project
+# settings file — it is deliberately committed and was already tracked before
+# this rule was added, so without the negation the two contradict each other.
 .claude/
+!.claude/settings.json

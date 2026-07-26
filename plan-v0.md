@@ -1,3 +1,17 @@
+<!-- HISTORICAL ARTIFACT — do not treat as current documentation. -->
+
+# plan-v0.md — Original Bootstrap Prompt
+
+This is the verbatim prompt used to scaffold the project in May 2026, kept for
+provenance. It describes the design as originally imagined, much of which has
+since changed: audio is served from GitHub Releases rather than `docs/audio/`,
+TTS was added and then paused, and no cron schedule is currently enabled.
+
+For how the project actually works today see `PLAN.md`, `CLAUDE.md`, and
+`NEXT_STEPS.md`.
+
+---
+
 System Role: You are an expert Python developer, data engineer, and web architect.
 
 Objective: I need a complete Python-based automation pipeline that scrapes historical SEC filings for The Progressive Corporation (NYSE: PGR), extracts the CEO's quarterly letters, generates podcast-style audio overviews using NotebookLM, compresses the audio, and organizes everything into a GitHub repository with a web front-end. I also need a GitHub Actions workflow to fully automate this going forward.

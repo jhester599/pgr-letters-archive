@@ -1,0 +1,51 @@
+name: Tests
+
+# The repository has carried a working pytest suite for months with nothing
+# running it — no workflow invoked pytest and no requirements file listed it, so
+# a regression in the letter-extraction or page-building logic would have gone
+# unnoticed until someone read the output. This runs it on every push and PR.
+#
+# Deliberately lightweight: no ffmpeg, no Playwright browser, no NotebookLM
+# credentials. The suite is pure text/HTML logic over fixtures, so the core
+# requirements plus pytest are enough and the job finishes in well under a minute.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - "tests/**"
+      - "requirements*.txt"
+      - ".github/workflows/tests.yml"
+  pull_request:
+    paths:
+      - "scripts/**"
+      - "tests/**"
+      - "requirements*.txt"
+      - ".github/workflows/tests.yml"
+  workflow_dispatch:
+
+jobs:
+  pytest:
+    name: pytest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt -r requirements-dev.txt
+
+      - name: Run test suite
+        run: pytest -q

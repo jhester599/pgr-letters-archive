@@ -1,14 +1,19 @@
 name: Daily Audio Backfill
 
-# Runs every day to generate up to 3 NotebookLM podcast audio overviews,
-# compress them, and publish to GitHub Pages.
+# Generates up to 3 NotebookLM podcast audio overviews, compresses them, and
+# publishes to GitHub Pages.
+#
+# ── STATUS ───────────────────────────────────────────────────────────────────
+# The backfill is COMPLETE — all 100 letters have audio and 0 are pending — and
+# the daily cron below is commented out, so this workflow only runs on manual
+# dispatch. It stays in the repository because it is the cheapest way to burn
+# down a backlog if one reappears (a batch of newly scraped letters, or a
+# deliberate v1.0 -> v1.1 regeneration). See NEXT_STEPS.md.
 #
 # ── QUOTA ────────────────────────────────────────────────────────────────────
-# NotebookLM free tier allows ~3 audio overviews per day per account.
-# At 3/day the 99-letter backlog clears in ~33 days. Once it's clear,
-# the daily "check" job exits in seconds with nothing to do — no need
-# to disable this workflow. New letters scraped by quarterly_podcast.yml
-# will automatically be picked up the following day.
+# NotebookLM free tier allows ~3 audio overviews per day per account. The fast
+# pre-check job exits in seconds when nothing is pending, so re-enabling the
+# cron costs almost nothing on idle days.
 #
 # ── SECRETS REQUIRED ─────────────────────────────────────────────────────────
 # NOTEBOOKLM_AUTH_JSON  — Contents of storage_state.json from `notebooklm login`.

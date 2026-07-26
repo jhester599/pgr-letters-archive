@@ -55,38 +55,45 @@ jobs:
           cache: "pip"
 
       # ── 3. System dependencies ────────────────────────────────────────────
+      # ffmpeg/ffprobe come from the johnvansickle.com static build rather than
+      # apt: apt's ffmpeg pulls in the multimedia stack, which broke when
+      # libcaca0 was yanked from noble-updates. That single mirror occasionally
+      # returns HTTP errors, so retry a few times before falling back to apt.
+      # espeak-ng (needed by Kokoro for pronunciation) installs from apt with
+      # --no-install-recommends so it cannot drag the ffmpeg stack back in.
+      # Mirrors the proven install step in daily_audio_backfill.yml.
       - name: Install system dependencies
         run: |
+          set -uo pipefail
+
+          install_ffmpeg_static() {
+            for attempt in 1 2 3; do
+              if wget -q "https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz" \
+                   -O /tmp/ffmpeg-static.tar.xz; then
+                return 0
+              fi
+              echo "ffmpeg static download attempt ${attempt} failed; retrying in $((attempt * 5))s…"
+              sleep $((attempt * 5))
+            done
+            return 1
+          }
+
+          if install_ffmpeg_static; then
+            mkdir -p /tmp/ffmpeg-static
+            tar -xf /tmp/ffmpeg-static.tar.xz -C /tmp/ffmpeg-static --strip-components=1
+            sudo install -m 755 /tmp/ffmpeg-static/ffmpeg  /usr/local/bin/
+            sudo install -m 755 /tmp/ffmpeg-static/ffprobe /usr/local/bin/
+          else
+            echo "Static build unavailable after retries — falling back to apt."
+            sudo apt-get update
+            sudo apt-get install -y ffmpeg
+          fi
+
           sudo apt-get update
+          sudo apt-get install -y --no-install-recommends espeak-ng
 
-          # ── Diagnostic: expose what apt plans to install and what Packages
-          # files exist, so we can see exactly what's pulling in ffmpeg/libcaca0
-          echo "=== Packages files containing libcaca0 ==="
-          grep -rl 'Package: libcaca0' /var/lib/apt/lists/ 2>/dev/null || echo "(none found)"
-          echo "=== Planned installs for espeak-ng (no-recommends simulate) ==="
-          apt-get install --simulate --no-install-recommends espeak-ng 2>&1 \
-            | grep -E '^(Inst|Remv)' | head -60 || true
-          echo "==="
-
-          # ── Hold the entire ffmpeg/multimedia stack so apt can't upgrade it
-          # to a noble-updates version that requires the yanked libcaca0
-          for pkg in ffmpeg libavcodec60 libavformat60 libavfilter9 libavdevice60 \
-                     libswresample4 libswscale7 libpostproc57 libavutil58 \
-                     libpocketsphinx3 pocketsphinx-en-us libcaca0; do
-            sudo apt-mark hold "$pkg" 2>/dev/null || true
-          done
-
-          # ── Install only espeak-ng, skipping recommends and missing packages
-          sudo apt-get install -y --no-install-recommends --fix-missing espeak-ng
-
+          ffmpeg -version
           espeak-ng --version
-          ffmpeg -version
-print(f'Patched {len(removed)} file(s)' if removed else 'libcaca0 not found in any Packages file')
-PYEOF
-          sudo python3 /tmp/fix_libcaca0.py
-          sudo apt-cache gencaches
-          sudo apt-get install -y --fix-missing espeak-ng
-          ffmpeg -version
 
       # ── 4. Python dependencies ────────────────────────────────────────────
       - name: Install Python packages

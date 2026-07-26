@@ -151,7 +151,6 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git lfs install
 
           # Embed token directly in remote URL so the push survives
           # credential-helper resets caused by git lfs install or token

@@ -153,8 +153,8 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           # Embed token directly in remote URL so the push survives
-          # credential-helper resets caused by git lfs install or token
-          # renewal failures during long-running jobs.
+          # credential-helper resets or token renewal failures during
+          # long-running jobs.
           git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
       # ── Generate → Compress → Publish, ONE LETTER AT A TIME ──────────────
@@ -226,6 +226,7 @@ jobs:
               docs/ledger.json \
               docs/feed.xml \
               docs/letters/ \
+              docs/letters_txt/ \
               AUDIO_PROGRESS.md
 
             if git diff --staged --quiet; then
@@ -258,6 +259,7 @@ jobs:
             docs/ledger.json \
             docs/feed.xml \
             docs/letters/ \
+            docs/letters_txt/ \
             AUDIO_PROGRESS.md
 
           if git diff --staged --quiet; then

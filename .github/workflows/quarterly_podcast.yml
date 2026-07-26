@@ -148,7 +148,8 @@ jobs:
             data/summaries/ \
             docs/ledger.json \
             docs/feed.xml \
-            docs/letters/
+            docs/letters/ \
+            docs/letters_txt/
 
           if git diff --staged --quiet; then
             echo "No new files to commit — pipeline found nothing new."

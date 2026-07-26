@@ -26,6 +26,10 @@ from scraper import load_ledger, save_ledger, BASE_DIR
 
 DOCS_DIR  = BASE_DIR / "docs"
 PAGES_DIR = DOCS_DIR / "letters"
+# Plain-text copies of the letters, published *inside* the Pages root so
+# docs/index.html can fetch them. data/letters/ sits above docs/ and is not
+# part of the Pages artifact, so the front-end cannot reach it there.
+TEXT_DIR  = DOCS_DIR / "letters_txt"
 
 logging.basicConfig(
     level=logging.INFO,
@@ -795,12 +799,47 @@ def build_page(
     )
 
 
+def sync_letter_text(scrapeable: list[dict]) -> int:
+    """Mirror each scraped letter's plain text into docs/letters_txt/.
+
+    Runs over every scraped letter on each invocation — not just the ones whose
+    HTML page is rebuilt — so a letter added before this directory existed still
+    gets published. Files are only rewritten when the content actually changes,
+    keeping the workflow's `git add` a no-op on unchanged runs.
+    """
+    TEXT_DIR.mkdir(parents=True, exist_ok=True)
+
+    synced = 0
+    for filing in scrapeable:
+        letter_file = filing.get("letter_file")
+        if not letter_file:
+            continue
+        source = BASE_DIR / letter_file
+        if not source.exists():
+            log.warning("Letter file not found: %s — not publishing text for %s",
+                        source, filing["id"])
+            continue
+
+        text = _repair_text_encoding(source.read_text(encoding="utf-8"))
+        target = TEXT_DIR / source.name
+        if target.exists() and target.read_text(encoding="utf-8") == text:
+            continue
+
+        target.write_text(text, encoding="utf-8")
+        synced += 1
+        log.info("Published text for %s", filing["id"])
+
+    return synced
+
+
 def main(rebuild: bool = False) -> None:
     PAGES_DIR.mkdir(parents=True, exist_ok=True)
     ledger = load_ledger()
 
     scrapeable = [f for f in ledger["filings"] if f.get("letter_scraped")]
     scrapeable.sort(key=_quarter_sort_key)
+
+    synced = sync_letter_text(scrapeable)
 
     built = 0
     for i, filing in enumerate(scrapeable):
@@ -830,7 +869,7 @@ def main(rebuild: bool = False) -> None:
         built += 1
         log.info("Built %s", page_filename)
 
-    log.info("Done. %d page(s) built.", built)
+    log.info("Done. %d page(s) built, %d letter text file(s) published.", built, synced)
 
 
 if __name__ == "__main__":

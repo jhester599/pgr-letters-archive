@@ -43,8 +43,10 @@ from letter_text import clean_letter_text
 
 SUMMARIES_DIR = BASE_DIR / "data" / "summaries"
 
-GITHUB_MODELS_ENDPOINT = "https://models.inference.ai.azure.com"
-GITHUB_MODELS_MODEL    = "gpt-4o"        # free via GitHub Models; better style adherence than mini
+# The original endpoint, models.inference.ai.azure.com, was retired and answers
+# 401 to Actions tokens; models.github.ai takes publisher-prefixed model IDs.
+GITHUB_MODELS_ENDPOINT = "https://models.github.ai/inference"
+GITHUB_MODELS_MODEL    = "openai/gpt-4o"  # free via GitHub Models; better style adherence than mini
 
 # ── Logging ───────────────────────────────────────────────────────────────────
 
@@ -237,6 +239,11 @@ def main(rebuild: bool = False) -> None:
         time.sleep(0.3)   # polite pause to stay within rate limits
 
     log.info("Done. %d/%d summaries generated.", success, len(candidates))
+    if success < len(candidates):
+        # The step still succeeds so pages and the feed publish, but a failed
+        # summary must not pass unnoticed the way the Q2 2026 one did.
+        print(f"::warning title=Summaries failed::{len(candidates) - success} of "
+              f"{len(candidates)} letter summaries failed; see the summarizer log.")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,49 @@
+{
+  "id": "PGR_2026_Q2",
+  "year": 2026,
+  "quarter": "Q2",
+  "generated_date": "2026-10-02T01:01:02.282327+00:00",
+  "generated_by": "Claude, using summarizer.py's prompt and style rules (GitHub Models unavailable)",
+  "bullets": [
+    {
+      "topic": "Profitability & Underwriting Performance",
+      "text": "Q2 CR 87.3; PL CR 87.6 incl. 4.0 pts of cats; personal vehicle CR 88.0; property CR 78.0 despite 13.5 cat pts; CL CR 85.3 — profitable across every segment."
+    },
+    {
+      "topic": "Competitive Position & Market Share",
+      "text": "Progressive became the #1 U.S. private passenger auto writer by TTM NPW — a goal Peter Lewis set decades ago — and companywide PIFs surpassed 40M."
+    },
+    {
+      "topic": "Premium Growth",
+      "text": "Companywide NPW +5% YOY; PL NPW +5% in Q2 and +6% YTD; CL NPW +4%; property NPW +1%; slower growth reflects stable loss trends and a competitive market."
+    },
+    {
+      "topic": "Policies in Force & Customer Growth",
+      "text": "Companywide PIFs +7% YOY; personal auto added 2.2M PIFs (+9%) vs June 2025; special lines added ~0.5M; PL new applications +1%; boat program tops 2M watercraft."
+    },
+    {
+      "topic": "Capital Management & Financial Position",
+      "text": "$1B+ in buybacks in 1H26 — more than all of 2011; debt-to-capital below 20% even after $1.5B senior notes; portfolio return 1.2% (equity 15.3%); investment income $979M, +12%."
+    },
+    {
+      "topic": "Rate Adequacy & Pricing Strategy",
+      "text": "Rates judged adequate with margin room for weather losses; pricing tracks stable loss trends; targeted CL rate decreases where warranted; personal auto conversion +5% YOY signals strong competitiveness."
+    },
+    {
+      "topic": "Brand Building & Marketing Strategy",
+      "text": "Media spend +18% YTD and agent incentive spend more than doubled to drive growth and retention; PL vehicle non-acquisition expense ratio still improved 0.2 pts YTD."
+    },
+    {
+      "topic": "Industry Cycle & Market Conditions",
+      "text": "Commercial auto industry CR ~104 in Q1 2026 ex-Progressive; competitors taking mid-single-digit rate increases and underwriting actions; personal lines competition intensifying after a long hard market."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "Personal auto model 9.0 in 19 states (~half of TTM NPW); CL model 8.3 in 21 states (59% of core commercial auto NPW); model 8.4 launches Q3; property expanding new business availability."
+    },
+    {
+      "topic": "Employee Engagement & Culture",
+      "text": "Employee Field Day essays and customer letters praising claims reps show the purpose of helping people move forward; Griffith marks ten years as CEO alongside the milestones."
+    }
+  ]
+}

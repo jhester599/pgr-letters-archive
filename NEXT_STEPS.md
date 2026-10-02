@@ -15,7 +15,7 @@ This file is the short list of what to actually do next.
 |---|---|
 | Letters scraped | 101 of 101 (through Q2 2026) |
 | Letter text review | All 101 read; fixes and open questions in `LETTER_REVIEW.md` |
-| Summaries | 100 of 101 — **Q2 2026 missing** (`data/summaries/`) |
+| Summaries | 101 of 101 (`data/summaries/`) — **summarizer broken**, see Priority 1 |
 | NotebookLM audio | 100 of 101 — 64 at v1.1, **36 still at v1.0**, **Q2 2026 missing** |
 | Reading pages | 101 of 101 built |
 | RSS feed | 100 episodes, Apple-required tags present, artwork in place |
@@ -30,22 +30,29 @@ Everything below assumes you are working from `main` with a clean tree.
 
 ## Priority 1 — Finish Q2 2026
 
-`PGR_2026_Q2` was scraped on 2026-08-03 and has a reading page, but it has no
-summary and no audio. Q3 2026 (period 2026-09-30) files in late October or early
+`PGR_2026_Q2` was scraped on 2026-08-03 and now has its reading page and summary,
+but no audio. Q3 2026 (period 2026-09-30) files in late October or early
 November; run `python scripts/scraper.py` again after that.
 
-The summary is missing because the 2026-08-03 run's summarizer got `401
-Unauthorized` from the retired `models.inference.ai.azure.com` endpoint, and
-the step still reported success. `summarizer.py` now calls `models.github.ai`
-and flags failures as a run warning. Running the **Quarterly Podcast Pipeline**
-workflow from the Actions tab with **skip_audio** checked generates the summary
-and rebuilds the page with no NotebookLM login needed.
+**The summarizer does not work, and Q3 2026 will hit the same failure.**
+GitHub Models is unusable from the pipeline:
 
-Run the rest by hand. NotebookLM auth almost certainly needs refreshing first:
+- `models.inference.ai.azure.com` (used through mid-2026) returns `401
+  Unauthorized`.
+- `models.github.ai/inference` (tried 2026-10-02) returns HTTP 200 with a
+  plain-text body instead of a completion.
+
+The step still succeeds, but it now posts a "Summaries failed" warning on the
+run. The Q2 2026 summary was written by Claude using `summarizer.py`'s prompt and
+style rules; its JSON carries a `generated_by` field that says so. Before Q3,
+point `summarizer.py` at a working provider (for example the Anthropic API with
+an `ANTHROPIC_API_KEY` secret).
+
+Generate the audio by hand. NotebookLM auth almost certainly needs refreshing
+first:
 
 ```cmd
 notebooklm login
-python scripts/summarizer.py
 python scripts/generator.py --max-new 1
 python scripts/compressor.py
 python scripts/build_pages.py

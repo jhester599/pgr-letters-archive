@@ -26,8 +26,8 @@ million, less than last year, and also with less assistance from favorable prior
 further $441 million, for a total net income of $902 million, or $1.48 per share. That said, notwithstanding some very impressive results on the investment front in 2012, some yet unrealized, the current investment climate is not one that favors
 strong interest-rate-based returns and a valid strategic question could be to challenge the expected ratio of income from underwriting versus investments, or more simply put: is our 96 combined ratio objective the optimal calibration at this time?
 Our Business Model
-For us a
-96 combined ratio is not a “solve for” variable in our business model equation, but rather a constant that provides direction to each and every product and marketing decision and a cultural tipping point that ensures zero ambiguity as to
+-----
+For us a 96 combined ratio is not a “solve for” variable in our business model equation, but rather a constant that provides direction to each and every product and marketing decision and a cultural tipping point that ensures zero ambiguity as to
 how to act in certain situations. Set at a level, we believe, creates a fair balance between attractive profitability and consumer competitiveness, it’s deeply ingrained and central to our culture, and for me a primary reason our underwriting
 performance has consistently matched or exceeded any in the industry.
 With clarity as to our business constant, we seek to maximize all other
@@ -44,40 +44,8 @@ whereas, extraordinary claims response serves to enhance both. Progress sometime
 a major transformation in the last decade and much work remains, but equally much has been accomplished.
 The operations summaries included in
 this report for Personal Lines and Commercial Auto provide more commentary on our numerous activities to maximize these business drivers and Figure 1 provides them in tabular form for 2012 and over time.
-Figure 1
-1-Year
-3-Year
-5-Year
-Policies in Force
-Personal lines
-3.7
-%
-5.2
-%
-4.7
-%
-Commercial auto
-2.1
-%
-0.4
-%
-(0.7
-)%
-Policy Life Expectancy
-Personal auto
-(0.6
-)%
-2.1
-%
-3.7
-%
-Commercial auto
-0.3
-%
-6.3
-%
-10.7
-%
+Figure 1. Growth in policies in force over 1, 3, and 5 years: Personal Lines 3.7%, 5.2%, and 4.7%; Commercial Auto 2.1%, 0.4%, and (0.7)%. Growth in policy life expectancy over 1, 3, and 5 years: personal auto (0.6)%, 2.1%, and 3.7%; Commercial Auto 0.3%, 6.3%, and 10.7%.
+
 Clarity as to our objective means other elements of the business model must be appropriately
 designed to strongly support, but not necessarily amplify, the risk of maximizing all things at the same time. Our articulation of our most critical investment objective is a good example:
 Invest in a manner that does not constrain our ability to underwrite all the profitable insurance available to us at an efficient
@@ -87,8 +55,8 @@ but relative comparisons often lack similar context or constraints on liquidity 
 The importance of net income, earnings per share,
 and return on equity is never lost on us, but we view achieving strong, long-term performance of these measures as stemming from our consistent focus on the primary elements of our business model.
 A Snapshot of 2012
-The “closing
-speed” with which I characterized the end of 2011 in fact did carry over into 2012 and volume was strong in the early part of the year. Unseasonably warm weather in much of the country suppressed winter automobile claim frequency, while at the
+-----
+The “closing speed” with which I characterized the end of 2011 in fact did carry over into 2012 and volume was strong in the early part of the year. Unseasonably warm weather in much of the country suppressed winter automobile claim frequency, while at the
 same time advanced the motorcycle riding (and accident) season. Concurrently, we started to see claim severity increase faster than recent history – a combination I labeled as “dangerous.” By mid-year we had our answer and results had
 shown that the frequency change was not sustained but severity increases were. Our underwriting results had slipped to a “disappointing” quarterly result of 97.6 and thus our rate revision infrastructure was in full response mode. My more
 encouraging headline for the third quarter was “While better never to fumble, the next best thing is a recovery.” With the benefit of hindsight, our reaction time to the changing environment was too slow. That said, our reaction was well
@@ -139,8 +107,7 @@ customers who are multi-product customers today is in the low teens, something w
 commercial auto, motorcycle, RV, or boat, or the home or renters product of a business partner, these are the customers that are viewing Progressive as their insurance destination.
 Insurance operations for 2012 were very solid and singling out a couple of highlights leaves many more important contributions unheralded, at least in this letter.
 Claims in the Spotlight
-Our claims
-organization, in addition to responding to catastrophes, continued a long streak of extraordinary results in claim resolution quality and making it even more notable this year they did so notching our lowest ever run rate of loss adjustment expense.
+Our claims organization, in addition to responding to catastrophes, continued a long streak of extraordinary results in claim resolution quality and making it even more notable this year they did so notching our lowest ever run rate of loss adjustment expense.
 While an attractive combination, it would be completely unacceptable if declines in employee or customer satisfaction were the balancing items – and without doubt they were not. Our relentless focus on improving process efficiency and the
 customer experience is now realizing what is sometimes the illusive IRR of long-term efforts; and we’re not done yet. The spotlight has been, in part, directed on the delivery of our concierge level of claims service, at our 54 service centers,
 to see what stones have been left unturned that might yet take usage, of what all parties agree is our best customer option, to even higher levels. Early work suggests that manageable changes for us to be even more responsive to customer time
@@ -159,8 +126,7 @@ walked-off with a boatload of recognition awards, including Advertising Age’s 
 Our plans for 2013 are every bit as ambitious and we’ll keep pushing the boundaries to ensure our creative efforts maximize every dollar spent and
 even more importantly communicate a clear consumer mindset about who we are as a company and what you should expect as a customer.
 Investments and Capital Management
-Most
-readers can remember times when a 6.8% total return, for us, nearly $700 million post tax, on a heavily weighted fixed-income portfolio, would not be particularly notable; in 2012 it deserves that recognition. Very significant appreciation from our
+Most readers can remember times when a 6.8% total return, for us, nearly $700 million post tax, on a heavily weighted fixed-income portfolio, would not be particularly notable; in 2012 it deserves that recognition. Very significant appreciation from our
 holdings of preferred stocks, many of which were the focus of significant mark-to-market reductions in “crisis” years, helped fuel our overall strong fixed-income returns, along with attractive results from our common stocks; a healthy
 reminder of the value of an investment, capital, and reporting philosophy that focuses on total return over a reasonable time frame and never places us in a position of forced disposition at market lows before the quality we saw in our asset
 selection can distinguish itself from more global market forces.

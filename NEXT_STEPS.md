@@ -2,7 +2,7 @@
 
 Working guide to what the project needs, in priority order.
 
-Last verified: **2026-07-26**
+Last verified: **2026-10-02**
 
 For architecture see `PLAN.md`; for long-range feature ideas see `ROADMAP.md`.
 This file is the short list of what to actually do next.
@@ -13,10 +13,11 @@ This file is the short list of what to actually do next.
 
 | Area | State |
 |---|---|
-| Letters scraped | 100 of 100 |
-| Summaries | 100 of 100 (`data/summaries/`) |
-| NotebookLM audio | 100 of 100 — 64 at v1.1, **36 still at v1.0** |
-| Reading pages | 100 of 100 built |
+| Letters scraped | 101 of 101 (through Q2 2026) |
+| Letter text review | All 101 read; fixes and open questions in `LETTER_REVIEW.md` |
+| Summaries | 100 of 101 — **Q2 2026 missing** (`data/summaries/`) |
+| NotebookLM audio | 100 of 101 — 64 at v1.1, **36 still at v1.0**, **Q2 2026 missing** |
+| Reading pages | 101 of 101 built |
 | RSS feed | 100 episodes, Apple-required tags present, artwork in place |
 | Audio hosting | `audio-library` release, 107 assets, ~1.06 GB, all URLs verified live |
 | Git LFS | **1.062 GB of orphaned objects still billed** — see Priority 3 |
@@ -27,23 +28,13 @@ Everything below assumes you are working from `main` with a clean tree.
 
 ---
 
-## Priority 1 — Catch up on Q2 2026
+## Priority 1 — Finish Q2 2026
 
-The newest ledger entry is `PGR_2026_Q1` (period 2026-03-31). Progressive files
-its Q2 10-Q mid-July to mid-August, so a filing is likely already available and
-unprocessed. The pipeline could not have picked it up: `quarterly_podcast.yml`
-was invalid YAML from 2026-06-02 until it was repaired, so every run since June
-failed at parse time.
+`PGR_2026_Q2` was scraped on 2026-08-03 and has a reading page, but it has no
+summary and no audio. Q3 2026 (period 2026-09-30) files in late October or early
+November; run `python scripts/scraper.py` again after that.
 
-Check what EDGAR has:
-
-```cmd
-python scripts/scraper.py
-python -m json.tool docs\ledger.json > NUL
-```
-
-If a new filing appears, run the rest by hand — NotebookLM auth almost certainly
-needs refreshing first:
+Run the rest by hand. NotebookLM auth almost certainly needs refreshing first:
 
 ```cmd
 notebooklm login
@@ -215,6 +206,22 @@ noticeably improves the output on a sample of two or three.
 
 ---
 
+## Next phase — ElevenLabs letter readings, separate feed
+
+Decided: read-through audio of each letter will be generated with ElevenLabs
+(not Kokoro) and published as its own podcast feed (for example
+`docs/feed_readings.xml`), separate from the NotebookLM commentary feed.
+
+The input text is ready. `letter_text.clean_letter_text()` returns each letter
+as clean paragraphs with headings, quotes, lists, and signature normalized.
+`LETTER_REVIEW.md` lists the few passages still waiting on a check against the
+original filing. Not yet built: the ElevenLabs client and API-key secret,
+chunking for the API's per-request character limit, release-asset naming
+alongside `audio-library`, ledger fields for the reading audio, and the second
+feed.
+
+---
+
 ## Not planned
 
 **Kokoro TTS read-throughs.** Removed from the pipeline on 2026-07-26. The
@@ -268,7 +275,7 @@ for p in glob.glob('.github/workflows/*.yml'):
     yaml.safe_load(open(p)); print('OK', p)
 "
 
-# Test suite — 50 tests, no ffmpeg/browser/credentials needed
+# Test suite — no ffmpeg/browser/credentials needed
 pip install -r requirements.txt -r requirements-dev.txt
 pytest -q
 ```

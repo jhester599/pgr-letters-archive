@@ -250,8 +250,11 @@ def test_render_letter_html_consumes_legacy_multiline_signature_title():
         "and Chief Executive Officer"
     )
 
-    assert '<p class="signature-name">Peter Lewis</p>' in result
-    assert '<p class="signature-title">President and Chief Executive Officer</p>' in result
+    # Lewis signed as Chairman, President and CEO; the title is kept as written
+    # rather than normalized to the modern "President and Chief Executive Officer".
+    assert "<p>Joy Love and Peace</p>" in result
+    assert '<p class="signature-name">Peter B. Lewis</p>' in result
+    assert '<p class="signature-title">Chairman, President and Chief Executive Officer</p>' in result
     assert "Peter B. Lewis, Chairman" not in result
 
 
@@ -469,7 +472,8 @@ def test_sync_letter_text_writes_into_patched_base_dir(fake_env):
 
     published = tmp_path / "docs" / "letters_txt" / "PGR_2025_Q3_Letter.txt"
     assert published.exists(), "letter text was not published under the patched BASE_DIR"
-    assert published.read_text(encoding="utf-8") == "Para one.\n\nPara two."
+    # Published text is the normalized reading text, newline-terminated.
+    assert published.read_text(encoding="utf-8") == "Para one.\n\nPara two.\n"
 
 
 def test_sync_letter_text_does_not_touch_the_real_repository(fake_env):

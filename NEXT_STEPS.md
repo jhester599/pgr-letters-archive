@@ -34,6 +34,13 @@ Everything below assumes you are working from `main` with a clean tree.
 summary and no audio. Q3 2026 (period 2026-09-30) files in late October or early
 November; run `python scripts/scraper.py` again after that.
 
+The summary is missing because the 2026-08-03 run's summarizer got `401
+Unauthorized` from the retired `models.inference.ai.azure.com` endpoint, and
+the step still reported success. `summarizer.py` now calls `models.github.ai`
+and flags failures as a run warning. Running the **Quarterly Podcast Pipeline**
+workflow from the Actions tab with **skip_audio** checked generates the summary
+and rebuilds the page with no NotebookLM login needed.
+
 Run the rest by hand. NotebookLM auth almost certainly needs refreshing first:
 
 ```cmd

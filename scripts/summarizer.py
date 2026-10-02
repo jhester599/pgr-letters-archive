@@ -2,27 +2,30 @@
 """
 summarizer.py — Generate 10-bullet summaries for each PGR shareholder letter.
 
-Uses the GitHub Models API (OpenAI-compatible endpoint) so no separate API account
-is required — GitHub Actions already provides GITHUB_TOKEN automatically.
+Uses the Gemini API's free tier through its OpenAI-compatible endpoint, so the
+existing `openai` client is the only dependency. (GitHub Models was used until
+mid-2026; it stopped working for this pipeline — see NEXT_STEPS.md.)
 
 For each filing in the ledger where letter_scraped=True and summary_generated=False,
 this script:
   1. Reads the letter text from data/letters/.
-  2. Calls GitHub Models to generate a ranked JSON summary (up to 10 bullets).
+  2. Calls Gemini to generate a ranked JSON summary (up to 10 bullets).
   3. Saves the summary to data/summaries/{id}_Summary.json.
   4. Updates the ledger: summary_generated=True, page_built=False (triggers HTML rebuild).
 
 Usage:
     python scripts/summarizer.py              # process only new/missing summaries
     python scripts/summarizer.py --rebuild    # regenerate all summaries
+    python scripts/summarizer.py --id PGR_2026_Q1 --dry-run
+                                              # print one summary; write nothing
 
 Environment variables:
-    GITHUB_TOKEN  — GitHub token used to authenticate with GitHub Models.
-                    In GitHub Actions this is provided automatically via
-                    secrets.GITHUB_TOKEN. For local use, create a free
-                    GitHub personal access token at:
-                    https://github.com/settings/tokens
-                    (no special scopes required for public models)
+    GEMINI_API_KEY — Gemini API key from Google AI Studio
+                     (https://aistudio.google.com/apikey). Create it in a Google
+                     Cloud project with no billing account linked so it stays on
+                     the free tier: over-quota requests are then rejected rather
+                     than billed. In Actions it comes from the GEMINI_API_KEY
+                     repository secret.
 """
 
 import argparse
@@ -43,10 +46,15 @@ from letter_text import clean_letter_text
 
 SUMMARIES_DIR = BASE_DIR / "data" / "summaries"
 
-# The original endpoint, models.inference.ai.azure.com, was retired and answers
-# 401 to Actions tokens; models.github.ai takes publisher-prefixed model IDs.
-GITHUB_MODELS_ENDPOINT = "https://models.github.ai/inference"
-GITHUB_MODELS_MODEL    = "openai/gpt-4o"  # free via GitHub Models; better style adherence than mini
+GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/openai/"
+GEMINI_MODEL    = "gemini-3.8-flash"   # on the Gemini API free tier
+# Gemini 3 always thinks, and thinking tokens come out of the output budget; keep
+# the effort low and leave headroom so the JSON is never truncated.
+GEMINI_REASONING_EFFORT = "low"
+MAX_OUTPUT_TOKENS       = 8000
+# Free-tier requests-per-minute limits are low; this pause only matters for
+# --rebuild over the whole archive (a routine run summarizes one letter).
+REQUEST_PAUSE_SECONDS   = 7
 
 # ── Logging ───────────────────────────────────────────────────────────────────
 
@@ -143,29 +151,58 @@ def _summary_path(filing_id: str) -> Path:
     return SUMMARIES_DIR / f"{filing_id}_Summary.json"
 
 
+def parse_bullets(raw: str) -> list[dict]:
+    """Parse and validate the model's reply into a list of {topic, text} dicts.
+
+    Raises ValueError on anything that is not a summary, so a service that
+    answers with something else fails loudly instead of being saved.
+    """
+    raw = raw.strip()
+    # Strip markdown code fences if the model adds them despite instructions.
+    raw = re.sub(r"^```[a-z]*\n?", "", raw)
+    raw = re.sub(r"\n?```$", "", raw).strip()
+    try:
+        bullets = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"Reply is not JSON: {raw[:120]!r}") from exc
+    if not isinstance(bullets, list) or not bullets:
+        raise ValueError(f"Expected a non-empty JSON array, got {type(bullets).__name__}")
+    if len(bullets) > 10:
+        raise ValueError(f"Expected at most 10 bullets, got {len(bullets)}")
+    for item in bullets:
+        if not (
+            isinstance(item, dict)
+            and isinstance(item.get("topic"), str) and item["topic"].strip()
+            and isinstance(item.get("text"), str) and item["text"].strip()
+        ):
+            raise ValueError(f"Malformed bullet: {item!r}")
+    return [{"topic": b["topic"].strip(), "text": b["text"].strip()} for b in bullets]
+
+
 def generate_summary(client: OpenAI, filing: dict, letter_text: str) -> list[dict]:
-    """Call GitHub Models and return a list of {topic, text} bullet dicts."""
+    """Call Gemini and return a list of {topic, text} bullet dicts."""
     prompt = _USER_PROMPT_TEMPLATE.format(
         filing_id=filing["id"],
         letter_text=letter_text[:30_000],  # cap at ~30k chars; no letter is longer
     )
     response = client.chat.completions.create(
-        model=GITHUB_MODELS_MODEL,
+        model=GEMINI_MODEL,
         messages=[
             {"role": "system", "content": _SYSTEM_PROMPT},
             {"role": "user",   "content": prompt},
         ],
-        max_tokens=1500,
-        temperature=0.2,
+        max_tokens=MAX_OUTPUT_TOKENS,
+        reasoning_effort=GEMINI_REASONING_EFFORT,
     )
-    raw = response.choices[0].message.content.strip()
-    # Strip markdown code fences if the model adds them despite instructions.
-    raw = re.sub(r"^```[a-z]*\n?", "", raw)
-    raw = re.sub(r"\n?```$", "", raw).strip()
-    bullets = json.loads(raw)
-    if not isinstance(bullets, list):
-        raise ValueError(f"Expected JSON array, got {type(bullets).__name__}")
-    return bullets
+    # A proxy or retired endpoint can answer 200 with a bare string (GitHub
+    # Models did in 2026), which the client returns as-is.
+    choices = getattr(response, "choices", None)
+    if not choices:
+        raise ValueError(f"Not a chat completion: {str(response)[:120]!r}")
+    choice = choices[0]
+    if getattr(choice, "finish_reason", None) == "length":
+        raise ValueError("Reply was cut off at the output token limit")
+    return parse_bullets(choice.message.content or "")
 
 
 def save_summary(filing: dict, bullets: list[dict]) -> None:
@@ -174,6 +211,7 @@ def save_summary(filing: dict, bullets: list[dict]) -> None:
         "year":           filing["year"],
         "quarter":        filing["quarter"],
         "generated_date": datetime.now(timezone.utc).isoformat(),
+        "generated_by":   f"{GEMINI_MODEL} (Gemini API)",
         "bullets":        bullets,
     }
     path = _summary_path(filing["id"])
@@ -184,26 +222,39 @@ def save_summary(filing: dict, bullets: list[dict]) -> None:
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 
-def main(rebuild: bool = False) -> None:
-    token = os.environ.get("GITHUB_TOKEN")
-    if not token:
-        log.error(
-            "GITHUB_TOKEN environment variable is not set.\n"
-            "  • In GitHub Actions this is provided automatically.\n"
-            "  • Locally: create a free PAT at https://github.com/settings/tokens\n"
-            "    and set: $env:GITHUB_TOKEN = 'github_pat_...'"
+def _warn(title: str, message: str) -> None:
+    """Log a warning and surface it as an annotation on the Actions run."""
+    log.warning(message)
+    print(f"::warning title={title}::{message}")
+
+
+def main(rebuild: bool = False, filing_id: str | None = None, dry_run: bool = False) -> None:
+    api_key = os.environ.get("GEMINI_API_KEY")
+    if not api_key:
+        # Not fatal: letters, pages and the feed must still publish.
+        _warn(
+            "Summaries skipped",
+            "GEMINI_API_KEY is not set, so no summaries were generated. Create a "
+            "free-tier key at https://aistudio.google.com/apikey and add it as the "
+            "GEMINI_API_KEY repository secret.",
         )
-        sys.exit(1)
+        return
 
     SUMMARIES_DIR.mkdir(parents=True, exist_ok=True)
-    client = OpenAI(base_url=GITHUB_MODELS_ENDPOINT, api_key=token)
+    client = OpenAI(base_url=GEMINI_ENDPOINT, api_key=api_key)
     ledger = load_ledger()
 
     candidates = [
         f for f in ledger["filings"]
         if f.get("letter_scraped") and f.get("letter_file")
-        and (rebuild or not f.get("summary_generated"))
+        and (
+            f["id"] == filing_id if filing_id
+            else rebuild or not f.get("summary_generated")
+        )
     ]
+    if filing_id and not candidates:
+        log.error("No scraped letter with id %s in the ledger.", filing_id)
+        sys.exit(1)
 
     if not candidates:
         log.info("All letters already summarized — nothing to do.")
@@ -229,6 +280,11 @@ def main(rebuild: bool = False) -> None:
             log.error("  Failed to summarize %s: %s", filing["id"], exc, exc_info=True)
             continue
 
+        if dry_run:
+            print(json.dumps(bullets, indent=2, ensure_ascii=False))
+            success += 1
+            continue
+
         save_summary(filing, bullets)
         filing["summary_generated"] = True
         filing["page_built"] = False   # force HTML rebuild to include new summary
@@ -236,14 +292,14 @@ def main(rebuild: bool = False) -> None:
         success += 1
         log.info("  → %d bullets saved to %s_Summary.json", len(bullets), filing["id"])
 
-        time.sleep(0.3)   # polite pause to stay within rate limits
+        time.sleep(REQUEST_PAUSE_SECONDS)
 
     log.info("Done. %d/%d summaries generated.", success, len(candidates))
     if success < len(candidates):
         # The step still succeeds so pages and the feed publish, but a failed
         # summary must not pass unnoticed the way the Q2 2026 one did.
-        print(f"::warning title=Summaries failed::{len(candidates) - success} of "
-              f"{len(candidates)} letter summaries failed; see the summarizer log.")
+        _warn("Summaries failed", f"{len(candidates) - success} of {len(candidates)} "
+              "letter summaries failed; see the summarizer log.")
 
 
 if __name__ == "__main__":
@@ -254,5 +310,13 @@ if __name__ == "__main__":
         "--rebuild", action="store_true",
         help="Regenerate summaries for all letters, not just new/missing ones.",
     )
+    parser.add_argument(
+        "--id", dest="filing_id",
+        help="Summarize only this filing (e.g. PGR_2026_Q1), even if it already has one.",
+    )
+    parser.add_argument(
+        "--dry-run", action="store_true",
+        help="Print the bullets instead of saving them or touching the ledger.",
+    )
     args = parser.parse_args()
-    main(rebuild=args.rebuild)
+    main(rebuild=args.rebuild, filing_id=args.filing_id, dry_run=args.dry_run)

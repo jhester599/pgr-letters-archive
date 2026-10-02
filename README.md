@@ -28,7 +28,7 @@ SEC EDGAR (public API)
         │
         ▼
   summarizer.py
-  Calls GitHub Models API to generate a ranked 10-bullet summary JSON for each letter
+  Calls the Gemini API (free tier) to generate a ranked 10-bullet summary JSON for each letter
         │
         ▼
   generator.py
@@ -89,7 +89,7 @@ scripts/
   backfill.py                  — Full historical EDGAR scraper
   backfill_ex13.py             — EX-13 backfill for pre-2004 annual letters
   backfill_ex99.py             — EX-99 backfill for quarterly letters
-  summarizer.py                — GitHub Models API summary generator
+  summarizer.py                — Gemini API (free tier) summary generator
   generator.py                 — NotebookLM audio generation
   tts.py                       — Kokoro TTS read-through generation (paused — see TTS.md)
   compressor.py                — FFmpeg compression + RSS feed generation
@@ -133,9 +133,10 @@ letters not already in the ledger. Expect 8–12 letters covering roughly the la
 ### 2. Generate summaries
 
 ```bash
-# Requires a GitHub personal access token (free; no special scopes needed)
-export GITHUB_TOKEN="your_token_here"
+# Requires a free-tier Gemini API key: https://aistudio.google.com/apikey
+export GEMINI_API_KEY="your_key_here"
 python scripts/summarizer.py
+python scripts/summarizer.py --id PGR_2026_Q1 --dry-run   # print one; write nothing
 ```
 
 Produces `data/summaries/{id}_Summary.json` for each letter — a ranked 10-bullet JSON
@@ -215,10 +216,16 @@ per-letter version tracking.
 | Secret | Value |
 |--------|-------|
 | `NOTEBOOKLM_AUTH_JSON` | Full contents of `~/.notebooklm/profiles/default/storage_state.json` |
+| `GEMINI_API_KEY` | Free-tier Gemini API key for `summarizer.py` (see below) |
 
 See `NOTEBOOKLM_SETUP.md` for step-by-step instructions. Session cookies expire every
 few weeks — re-run `notebooklm login` and update the secret when `generator.py` logs an
 auth error. `GITHUB_TOKEN` is provided automatically.
+
+Create `GEMINI_API_KEY` in Google AI Studio in a Google Cloud project with **no
+billing account linked**. That keeps it on the free tier, where requests over
+the quota are rejected instead of billed. Without the secret, the pipeline
+still publishes and the summary step posts a warning.
 
 ### 3. Enable GitHub Pages
 

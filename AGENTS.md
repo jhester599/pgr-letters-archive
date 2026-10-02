@@ -17,7 +17,7 @@ Automated pipeline: SEC EDGAR → text extraction → Google NotebookLM audio �
 A GitHub Actions job:
 1. Queries SEC EDGAR for new PGR (Progressive Corporation) 10-Q / 10-K filings
 2. Extracts and cleans the CEO's shareholder letter (Exhibit 99)
-3. Generates a ranked 10-bullet summary via GitHub Models (a briefing doc for NotebookLM)
+3. Generates a ranked 10-bullet summary via the Gemini API free tier (a briefing doc for NotebookLM)
 4. Generates a podcast-style audio overview via NotebookLM (letter + summary as sources)
 5. Compresses audio to 64 kbps MP3 with FFmpeg
 6. Uploads MP3s to the `audio-library` GitHub Release and records release URLs
@@ -52,7 +52,7 @@ docs/               — GitHub Pages root (served at /pgr-letters-archive/)
     reading.css     — Stylesheet for reading pages
 scripts/
   scraper.py        — SEC EDGAR downloader
-  summarizer.py     — Ranked 10-bullet summary via GitHub Models
+  summarizer.py     — Ranked 10-bullet summary via the Gemini API (free tier)
   generator.py      — NotebookLM audio generation
   compressor.py     — FFmpeg compression + release upload + RSS generation
   releases.py       — GitHub Releases audio hosting helper
@@ -119,6 +119,7 @@ cd docs && python -m http.server 8000    # → http://localhost:8000
 | Secret | Description |
 |--------|-------------|
 | `NOTEBOOKLM_AUTH_JSON` | Playwright storage_state.json (see below) |
+| `GEMINI_API_KEY` | Free-tier Gemini API key for `summarizer.py`; create it in a Google Cloud project with no billing linked |
 
 `GITHUB_TOKEN` is provided automatically by Actions — no setup needed.
 Enable `contents: write` in repo Settings → Actions → General.

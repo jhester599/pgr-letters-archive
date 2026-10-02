@@ -15,7 +15,7 @@ This file is the short list of what to actually do next.
 |---|---|
 | Letters scraped | 101 of 101 (through Q2 2026) |
 | Letter text review | All 101 read; fixes and open questions in `LETTER_REVIEW.md` |
-| Summaries | 101 of 101 (`data/summaries/`) — **summarizer broken**, see Priority 1 |
+| Summaries | 101 of 101 (`data/summaries/`) — **needs `GEMINI_API_KEY`**, see Priority 1 |
 | NotebookLM audio | 100 of 101 — 64 at v1.1, **36 still at v1.0**, **Q2 2026 missing** |
 | Reading pages | 101 of 101 built |
 | RSS feed | 100 episodes, Apple-required tags present, artwork in place |
@@ -34,19 +34,22 @@ Everything below assumes you are working from `main` with a clean tree.
 but no audio. Q3 2026 (period 2026-09-30) files in late October or early
 November; run `python scripts/scraper.py` again after that.
 
-**The summarizer does not work, and Q3 2026 will hit the same failure.**
-GitHub Models is unusable from the pipeline:
+**Summaries now use the Gemini API free tier, and a key is needed.**
+GitHub Models stopped working for the pipeline in mid-2026. It returned `401`,
+and then a bare string instead of a completion. `summarizer.py` now calls
+`gemini-3.8-flash` and rejects any reply that is not a valid summary. Before
+Q3 2026 arrives:
 
-- `models.inference.ai.azure.com` (used through mid-2026) returns `401
-  Unauthorized`.
-- `models.github.ai/inference` (tried 2026-10-02) returns HTTP 200 with a
-  plain-text body instead of a completion.
+1. Create an API key at https://aistudio.google.com/apikey in a Google Cloud
+   project with **no billing account linked**, so it stays on the free tier.
+2. Add it as the `GEMINI_API_KEY` repository secret.
+3. Test it without writing anything:
+   `python scripts/summarizer.py --id PGR_2026_Q1 --dry-run` locally with the
+   key set. Compare the output against `data/summaries/PGR_2026_Q1_Summary.json`.
 
-The step still succeeds, but it now posts a "Summaries failed" warning on the
-run. The Q2 2026 summary was written by Claude using `summarizer.py`'s prompt and
-style rules; its JSON carries a `generated_by` field that says so. Before Q3,
-point `summarizer.py` at a working provider (for example the Anthropic API with
-an `ANTHROPIC_API_KEY` secret).
+Until the secret exists, the summary step warns and skips; everything else
+still publishes. The Q2 2026 summary was written by Claude using
+`summarizer.py`'s prompt and style rules; its `generated_by` field says so.
 
 Generate the audio by hand. NotebookLM auth almost certainly needs refreshing
 first:

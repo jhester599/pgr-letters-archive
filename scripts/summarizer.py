@@ -39,6 +39,7 @@ from openai import OpenAI
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from scraper import load_ledger, save_ledger, BASE_DIR
+from letter_text import clean_letter_text
 
 SUMMARIES_DIR = BASE_DIR / "data" / "summaries"
 
@@ -217,7 +218,7 @@ def main(rebuild: bool = False) -> None:
             )
             continue
 
-        letter_text = letter_path.read_text(encoding="utf-8")
+        letter_text = clean_letter_text(letter_path.read_text(encoding="utf-8"))
         log.info("Summarizing %s…", filing["id"])
 
         try:

@@ -36,10 +36,14 @@ import asyncio
 import json
 import logging
 import os
+import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from letter_text import clean_letter_text
 
 # ── Constants ─────────────────────────────────────────────────────────────────
 
@@ -270,7 +274,7 @@ async def generate_audio_for_letter(filing: dict) -> tuple[Optional[Path], bool]
         log.error("Letter file not found: %s", letter_path)
         return None, False
 
-    letter_text    = _CONTEXT_PREAMBLE + letter_path.read_text(encoding="utf-8")
+    letter_text    = _CONTEXT_PREAMBLE + clean_letter_text(letter_path.read_text(encoding="utf-8"))
     notebook_title = f"PGR {filing['year']} {filing['quarter']} — CEO Shareholder Letter"
 
     # Output filename uses .mp4 because NotebookLM downloads in MP4/AAC container;

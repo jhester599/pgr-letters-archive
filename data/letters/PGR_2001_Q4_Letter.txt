@@ -20,8 +20,11 @@ we ended 2001 with an underwriting margin of 4.8%, in line with our most
 important goal of a 4% underwriting profit. By year end, we were reporting
 stronger growth rates and if this trend continues, we look forward to, and feel
 prepared for, the second phase of the cycle--profitable growth.
+
+Focus
+-----
 The merit of Progressive's focused business vision became
-Focus             increasingly clearer to me since becoming CEO two years ago.
+increasingly clearer to me since becoming CEO two years ago.
 You can expect Progressive to maintain an almost fanatical
 focus on auto insurance. We systematically eliminated other
 than core businesses and business arrangements that were
@@ -36,10 +39,13 @@ operation of auto insurance extraordinarily well. We have an
 intense curiosity to probe for opportunities to improve
 customer service and reduce cost because consumers deserve and
 demand it.
+
+Customer Value Proposition
+--------------------------
 This year, we added a fourth element to the existing
-Customer          foundation of Vision, Values and Objectives--the Customer
-Value             Value Proposition. The Customer Value Proposition provides a
-Proposition       litmus test for customer interactions, relationships and
+foundation of Vision, Values and Objectives--the Customer
+Value Proposition. The Customer Value Proposition provides a
+litmus test for customer interactions, relationships and
 innovation.
 FAST, FAIR, BETTER That's what you can expect from Progressive. Everything we do
 recognizes the needs of busy consumers who are cost-conscious, increasingly
@@ -48,9 +54,12 @@ their policies, including claims service that respects their time and reduces
 the trauma and inconvenience of loss.
 I expect this proposition will give added meaning to our brand line of "Not what
 you'd expect from an insurance company--well, maybe you should."
+
+Open Disclosure
+---------------
 In May, we began public reporting of our monthly underwriting
-Open              results. We had some misgiving about becoming the first, and
-Disclosure        so far only, public company to report monthly. I'm happy with
+results. We had some misgiving about becoming the first, and
+so far only, public company to report monthly. I'm happy with
 the decision to go forward, and can report nothing but
 positive outcomes with our owners and interested parties, who
 now receive more information sooner about our results. We
@@ -62,10 +71,13 @@ adequacy. In June, we published a very open report on how
 Progressive establishes and evaluates claim reserves. These
 are but two actions that exemplify Progressive's Values and
 are consistent with our consumer brand to be open and candid.
+
+Our Evolving Business Model
+---------------------------
 art here
 Long-term observers of Progressive's business model will note
-Our Evolving      a dramatic change over the past ten years from a company with
-Business Model    a single distribution channel (independent agencies),
+a dramatic change over the past ten years from a company with
+a single distribution channel (independent agencies),
 primarily variable acquisition costs (agent commission),
 narrowly-focused product (nonstandard auto), poor customer
 retention, and low liability limits to a multi-channel company
@@ -84,9 +96,12 @@ underwriting profit goal. Attempts to change the goals to reflect the new
 business opportunities in 1998 led us to suboptimal decisions. In 2000, we
 decided the business model must fit our goals, and during 2001, we have become
 even clearer in the determination of individual product targets.
+
+Insurance Operations
+--------------------
 Progressive's Personal Lines earned premium increased 11% to
-Insurance         $6.5 billion for 2001, with a 4% increase in auto policies in
-Operations        force and a GAAP combined ratio of 95.5. In 2000, we made
+$6.5 billion for 2001, with a 4% increase in auto policies in
+force and a GAAP combined ratio of 95.5. In 2000, we made
 organizational changes that allow us to understand and advance
 each of our two distribution systems--independent agents and
 direct to the consumer; 2001 marks the first full year of
@@ -147,10 +162,13 @@ increasing usage for all insurance transactions. We are designing our newer
 innovations with the next generation of buyer in mind and it is clear the next
 generation is markedly different in their use and expectations of Web-delivered
 products. We are very pleased and see tremendous potential in this arena.
+
+Commitment to Service
+---------------------
 art here
 We aspire to be recognized as the preeminent consumer
-Commitment        franchise in auto insurance, and understand that this requires
-to Service        an extraordinary commitment to creating new levels of service
+franchise in auto insurance, and understand that this requires
+an extraordinary commitment to creating new levels of service
 expectations. During 2001, we made significant strides in
 defining and advancing the concept of making every consumer
 interaction Virtually Perfect. In a business that must manage
@@ -202,30 +220,62 @@ providing alternative solutions. We predict events that may result in policy
 cancellations in order to anticipate customer needs. The list of opportunities
 is long and detailed, reflecting a growing culture of customer preservation and
 detailed analysis of reasons for customer loss.
-Progressive's
-Financial Policies
-[CHART HERE]
-*UNDERWRITING Risk-Failure to grow earned premium and earn a 96 combined ratio
-Policies-A. Pursue short-tailed, high-frequency, low-severity opportunities B.
-Use multiple insurance companies to maintain flexibility C. Establish growth and
-profitability targets by term and channel D. Set rates that reflect claim costs,
-acquisition costs and retention E. Ensure loss reserves are adequate and develop
-with minimal variance
-*INVESTING Risk-Failure to maintain portfolio liquidity and build
-wealth Policies-A. Diversify portfolio with liquid asset classes B. Use fixed
-income to cover operating liabilities and contingencies C. Use risk assets to
-build wealth D. Manage interest rate, default, prepayment and concentration
-risk E. Recognize capital gains and losses to promote tax efficiency
-*FINANCING Risk-Failure to pay obligations and earn our cost of equity capital
-Policies-A. Keep premium-to-surplus below 3:1 for each insurance company B.
-Maintain debt between 20% and 30% of total capital at book value C. Pay modest,
-increasing cash dividends to shareholders D. Split stock to maintain target
-$50 share price if price exceeds $100 E. Neutralize dilution from stock options
-with periodic share repurchases
+Progressive's Financial Policies
+UNDERWRITING
+
+Risk: Failure to grow earned premium and earn a 96 combined ratio
+
+Policies:
+
+A. Pursue short-tailed, high-frequency, low-severity opportunities
+
+B. Use multiple insurance companies to maintain flexibility
+
+C. Establish growth and profitability targets by term and channel
+
+D. Set rates that reflect claim costs, acquisition costs and retention
+
+E. Ensure loss reserves are adequate and develop with minimal variance
+
+INVESTING
+
+Risk: Failure to maintain portfolio liquidity and build wealth
+
+Policies:
+
+A. Diversify portfolio with liquid asset classes
+
+B. Use fixed income to cover operating liabilities and contingencies
+
+C. Use risk assets to build wealth
+
+D. Manage interest rate, default, prepayment and concentration risk
+
+E. Recognize capital gains and losses to promote tax efficiency
+
+FINANCING
+
+Risk: Failure to pay obligations and earn our cost of equity capital
+
+Policies:
+
+A. Keep premium-to-surplus below 3:1 for each insurance company
+
+B. Maintain debt between 20% and 30% of total capital at book value
+
+C. Pay modest, increasing cash dividends to shareholders
+
+D. Split stock to maintain target $50 share price if price exceeds $100
+
+E. Neutralize dilution from stock options with periodic share repurchases
+
+
+Capital Management and Investments
+----------------------------------
 Progressive chooses to take risk in and expects commensurate
-Capital             returns from underwriting auto insurance. Thus, the primary
-Management and      objective of capital management is always to have sufficient
-Investments         capital to support all the insurance we can profitably
+returns from underwriting auto insurance. Thus, the primary
+objective of capital management is always to have sufficient
+capital to support all the insurance we can profitably
 underwrite and service. During 2001, we undertook a
 comprehensive review of all our capital and investing
 policies, essentially asking whether they are all congruent

@@ -56,6 +56,8 @@ scripts/
   migrate_audio_to_releases.py — One-time/recovery release migration helper
   tts.py            — Kokoro TTS read-through generation (PAUSED — see TTS.md)
   build_pages.py    — Per-letter HTML reading page generator
+  letter_text.py    — Shared letter normalizer (headers, page numbers, headings,
+                      signatures); feeds reading pages, letters_txt, summaries, audio
   setup_notebooklm.ps1  — One-time Windows NotebookLM auth setup
 requirements.txt      — Core pipeline dependencies
 requirements-tts.txt  — Optional Kokoro TTS dependencies (paused)
@@ -63,6 +65,7 @@ NEXT_STEPS.md         — Current state and prioritized to-do list
 PLAN.md               — Architecture, phases, technical decisions
 AUDIO_STORAGE.md      — Audio release hosting, backups, LFS cleanup, recovery
 TTS.md                — Why TTS is paused and how to resume it
+LETTER_REVIEW.md      — Letter-by-letter text review: fixes made, open questions
 CLAUDE.md             — This file
 ```
 
@@ -162,8 +165,12 @@ pip install -r requirements-dev.txt
 pytest -q
 ```
 
-50 tests over letter extraction, reading-page rendering, and letter completeness.
-No ffmpeg, browser, or credentials needed. `tests.yml` runs them in CI.
+Tests cover letter extraction, the shared normalizer (`letter_text.py`),
+reading-page rendering, and letter completeness. `tests/test_letter_text.py` also
+runs every stored letter through the normalizer and fails on known scrape
+artifacts: SEC header remnants, lost ordinal suffixes, stray spacing, missing
+or duplicate signatures. No ffmpeg, browser, or credentials needed. `tests.yml`
+runs them in CI.
 
 ### Build reading pages
 

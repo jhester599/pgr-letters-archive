@@ -2,48 +2,48 @@
   "id": "PGR_2026_Q2",
   "year": 2026,
   "quarter": "Q2",
-  "generated_date": "2026-10-03T01:44:00.139985+00:00",
+  "generated_date": "2026-10-03T01:49:19.583544+00:00",
   "generated_by": "gemini-3.8-flash (Gemini API)",
   "bullets": [
     {
       "topic": "Profitability & Underwriting Performance",
-      "text": "Q2 CR 87.3; Personal Lines CR 87.6 (including 4.0 cat pts); Commercial Lines CR 85.3; personal property CR 78.0 (13.5 cat pts); personal vehicles CR 88.0."
+      "text": "Q2 CR 87.3 companywide; Personal Lines CR 87.6 (including 4.0 pts CATs); personal vehicles CR 88.0; personal property CR 78.0 (13.5 pts CATs); Commercial Lines CR 85.3."
     },
     {
       "topic": "Premium Growth",
-      "text": "Companywide NPW +5% YOY; Personal Lines NPW +5% (+6% YTD); Commercial Lines NPW +4%; personal vehicles NPW +5%; personal property NPW +1% amid competitive post-hard-market conditions."
+      "text": "Companywide NPW +5% YOY; Personal Lines NPW +5% (+6% YTD); personal vehicles NPW +5%; personal property NPW +1%; Commercial Lines NPW +4% driven by core commercial auto."
     },
     {
       "topic": "Policies in Force & Customer Growth",
-      "text": "Total PIF +7% YOY, surpassing 40M milestone; personal auto PIF +9% (+2.2M); special lines added ~500K PIFs, boat program topping 2M; property PIF +1%."
+      "text": "Surpassed 40M total PIFs (+7% YOY); personal auto PIFs +9% (+2.2M); special lines added ~500k PIFs (exceeded 2M boat policies); personal property PIFs +1%."
     },
     {
       "topic": "Capital Management & Financial Position",
-      "text": "Repurchased >$1B shares in 1H 2026; debt-to-capital remained <20% despite $1.5B senior notes; portfolio returned 1.2% (equity 15.3%, fixed income 0.6%); investment income $979M (+12%)."
+      "text": "Repurchased $1B+ common shares in 1H 2026; debt-to-capital under 20% post-$1.5B senior notes; portfolio returned 1.2% (fixed income 0.6%, equity 15.3%); investment income +12% to $979M."
     },
     {
       "topic": "Competitive Position & Market Share",
-      "text": "Achieved #1 private passenger auto ranking based on trailing 12-month NPW; commercial auto industry Q1 CR ~104 ex-Progressive highlights significant competitive edge."
+      "text": "Attained #1 U.S. private passenger auto rank based on trailing 12-month NPW at Q1 2026; personal auto conversion gained +5% YOY amid post-hard market competition."
     },
     {
-      "topic": "Brand Building & Marketing Strategy",
-      "text": "Media spend grew 18% YTD through June; agent incentive spending more than doubled to fuel acquisition across core lines; personal auto conversion gained +5% YOY."
-    },
-    {
-      "topic": "Product Innovation & Expansion",
-      "text": "Personal auto model 9.0 deployed to 19 states (~50% auto PIF); commercial auto model 8.3 elevated to 21 states (59% NPW), with 8.4 launching Q3."
-    },
-    {
-      "topic": "Employee Engagement & Culture",
-      "text": "Headquarters tour and essay contest highlighted frontline claims and service representatives demonstrating core purpose; customer commendations reinforce high-touch culture driving retention."
-    },
-    {
-      "topic": "Operating Efficiency & Expense Ratio",
-      "text": "Personal Lines vehicle NAER improved 0.2 pts YTD through June via disciplined operational efficiencies and ongoing technology enhancements across claims and underwriting."
+      "topic": "Rate Adequacy & Pricing Strategy",
+      "text": "Pricing adequate with margin buffer for weather; personal auto model 9.0 in 19 states; commercial auto targeted rate cuts taken; commercial model 8.3 in 21 states (model 8.4 Q3)."
     },
     {
       "topic": "Industry Cycle & Market Conditions",
-      "text": "Commercial auto competitors continuing mid-single-digit rate hikes into Q2 amid industrywide underwriting losses; Progressive moderating rate actions and targeting selective reductions in trucking."
+      "text": "Commercial auto industry ex-Progressive recorded ~104 CR in Q1 2026; competitors continued mid-single-digit rate increases into Q2, improving Progressive's relative competitive position."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "Property strategy prioritized lower-risk properties, reduced catastrophe exposures, and emphasized bundled homeowners; pivoting to expand availability where confident of target returns."
+    },
+    {
+      "topic": "Brand Building & Marketing Strategy",
+      "text": "Investments scaled to drive growth; media spend +18% YTD through June YOY; agent incentive spend more than doubled to support conversion and quoting growth."
+    },
+    {
+      "topic": "Operating Efficiency & Expense Ratio",
+      "text": "Personal Lines vehicle non-acquisition expense ratio improved 0.2 pts YTD YOY, reflecting ongoing expense discipline and operational efficiencies amid expanding volumes."
     }
   ]
 }

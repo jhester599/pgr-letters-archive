@@ -1,0 +1,83 @@
+name: Readings Pilot (Gemini TTS)
+
+# Pilot for the planned letter-readings feed: narrates one letter in one or
+# more Gemini TTS voices and attaches the MP3s to the run as an artifact, so
+# voices and narration quality can be judged by ear. It commits nothing,
+# uploads no release assets and does not touch the ledger or feeds.
+
+on:
+  workflow_dispatch:
+    inputs:
+      filing_id:
+        description: "Letter to narrate (ledger id)"
+        default: "PGR_2026_Q2"
+        type: string
+      voices:
+        description: "Comma-separated Gemini prebuilt voices"
+        default: "Sulafat,Gacrux,Despina"
+        type: string
+      style:
+        description: "Narration style instruction (blank = script default)"
+        default: ""
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  narrate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      # Same ffmpeg install as quarterly_podcast.yml: the static build first,
+      # apt only as a fallback (apt's ffmpeg has broken on libcaca0 before).
+      - name: Install ffmpeg
+        run: |
+          set -uo pipefail
+          for attempt in 1 2 3; do
+            if wget -q "https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz" \
+                 -O /tmp/ffmpeg-static.tar.xz; then
+              mkdir -p /tmp/ffmpeg-static
+              tar -xf /tmp/ffmpeg-static.tar.xz -C /tmp/ffmpeg-static --strip-components=1
+              sudo install -m 755 /tmp/ffmpeg-static/ffmpeg /usr/local/bin/
+              break
+            fi
+            sleep $((attempt * 5))
+          done
+          command -v ffmpeg || { sudo apt-get update && sudo apt-get install -y ffmpeg; }
+          ffmpeg -version | head -1
+
+      - name: Install Python packages
+        run: pip install -r requirements.txt
+
+      # Inputs reach the script through env vars, never interpolated into the
+      # shell command, so a style string with quotes or $() is just text.
+      - name: Narrate the letter
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          FILING_ID: ${{ inputs.filing_id }}
+          VOICES: ${{ inputs.voices }}
+          STYLE: ${{ inputs.style }}
+        run: |
+          args=(--id "$FILING_ID" --voices "$VOICES" --out-dir readings_out)
+          if [ -n "$STYLE" ]; then args+=(--style "$STYLE"); fi
+          python scripts/readings.py "${args[@]}"
+
+      - name: Upload MP3s
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: readings-${{ inputs.filing_id }}
+          path: readings_out/*.mp3
+          if-no-files-found: warn
+          retention-days: 30

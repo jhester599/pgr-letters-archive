@@ -37,3 +37,6 @@ Thumbs.db
 # this rule was added, so without the negation the two contradict each other.
 .claude/
 !.claude/settings.json
+
+# Gemini TTS pilot output (scripts/readings.py)
+readings_out/

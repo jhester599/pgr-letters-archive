@@ -58,6 +58,8 @@ scripts/
   build_pages.py    — Per-letter HTML reading page generator
   letter_text.py    — Shared letter normalizer (headers, page numbers, headings,
                       signatures); feeds reading pages, letters_txt, summaries, audio
+  readings.py       — Gemini TTS read-through of one letter (PILOT; run via the
+                      Readings Pilot workflow, writes MP3s only — see NEXT_STEPS.md)
   setup_notebooklm.ps1  — One-time Windows NotebookLM auth setup
 requirements.txt      — Core pipeline dependencies
 requirements-tts.txt  — Optional Kokoro TTS dependencies (paused)

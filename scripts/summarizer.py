@@ -114,28 +114,37 @@ STYLE RULES (critical — match this style exactly):
   "the letter discusses" or "management highlighted."
 - Do not quote the letter. Synthesize and compress.
 
+FACTUAL RULES (critical — the summary is read as a record of what the letter says):
+- Use only facts and figures stated in this letter. Do not add outside knowledge,
+  industry context, or initiatives the letter does not mention.
+- Do not attribute a cause, driver or motive the letter does not give. If the
+  letter reports a change without a reason, report the change alone.
+- Do not add superlatives ("record", "best ever", "historic") unless the letter
+  uses them, and keep the letter's own hedges ("may have been", "approximately").
+- Do not merge separate statements into a claim the letter does not make.
+
 FEW-SHOT EXAMPLE (PGR_2024_Q4 annual letter):
 [
   {{"topic": "Profitability & Underwriting Performance",
-    "text": "Full-year CR 88.8 — best in company history; PL CR 88.6; CL CR 89.4; property CR 98.3 despite elevated cats; personal auto drove outsized underwriting profit."}},
+    "text": "Full-year CR 88.8 — possibly one of the best years in company history; PL CR 88.6; CL CR 89.4; property CR 98.3, profitable but short of its target margin."}},
   {{"topic": "Premium Growth",
-    "text": "Companywide NPW grew 21% YOY to $74B; PL NPW +23%; personal auto PIF +22% — highest organic growth rate in company history."}},
+    "text": "Companywide NPW +21% YOY to $74B, from an 18% PIF increase and higher average written premiums; PL NPW +23%; CL NPW +8%, influenced by the macroeconomic environment."}},
   {{"topic": "Policies in Force & Customer Growth",
-    "text": "Total PIFs grew 18% YOY, adding 5M+ new policyholders in 2024; personal auto PIF growth of 22% — strongest PIF expansion ever recorded."}},
+    "text": "Added 5M+ PIFs in 2024 (+18% YOY); personal auto PIFs +22% led growth; claims and call-center staff hired well in advance of need to support it."}},
   {{"topic": "Capital Management & Financial Position",
-    "text": "$4.50/share annual-variable dividend declared; $500M preferred redeemed; debt-to-capital 21.2%; portfolio returned 4.6% (equity 22.9%, fixed income 3.0%)."}},
+    "text": "$4.50/share annual-variable dividend; $500M preferred shares redeemed; debt-to-capital 21.2%, near the low end of its historical range; portfolio returned 4.6% (fixed income 3.8%, equity 22.9%)."}},
   {{"topic": "Brand Building & Marketing Strategy",
-    "text": "Advertising spend up ~150% YOY as Progressive leaned into strong unit economics to fuel growth; brand investment was the primary strategic lever in 2024."}},
-  {{"topic": "Loss Costs & Severity Trends",
-    "text": "Sustained lower personal auto frequency drove profitability; catastrophe activity elevated but manageable; property CR 98.3 reflects cat weather pressure."}},
+    "text": "Companywide media spend up 150% YOY to drive growth; #2 U.S. personal auto insurer for a third straight year; Superstore and Dr. Rick continued; new NFL 'Back Up' campaign launched."}},
   {{"topic": "Operating Efficiency & Expense Ratio",
-    "text": "PL vehicle non-acquisition expense ratio improved 0.4 pts YOY; LAE ratio down 0.5 pts from lower frequency, higher average premiums, and technology gains."}},
+    "text": "PL vehicle NAER -0.4 pts and LAE ratio -0.5 pts in 2024 (-2.8 and -2.1 pts over a decade); PL expense ratio +3.0 pts, mainly from higher advertising."}},
+  {{"topic": "Rate Adequacy & Pricing Strategy",
+    "text": "Adequate rates in most markets let 2023 underwriting restrictions be rolled back to fuel growth; nearly 40% of personal auto premium on the latest product model; next model mid-2025."}},
   {{"topic": "Employee Engagement & Culture",
-    "text": "Gallup Exceptional Workplace designation for 4th consecutive year; culture cited as key differentiator enabling historic simultaneous growth and profitability."}},
-  {{"topic": "Industry Cycle & Market Conditions",
-    "text": "Personal auto industry broadly reached rate adequacy in 2024; Progressive's early return to profit in 2023 gave it a meaningful head start on growth."}},
+    "text": "Gallup Exceptional Workplace for a fourth consecutive year; ERG event attendance rose to 26% of employees from 19%; pay equity maintained; nearly $10M in employee disaster relief."}},
   {{"topic": "Product Innovation & Expansion",
-    "text": "Pricing model 8.9 rollout continued; AutoQuote Explorer and Progressive Vehicle Protection expanded; Snapshot telematics program growing alongside new commercial products."}}
+    "text": "BOP available in 46 states (~80% of the commercial multi-peril market); HomeQuote Explorer offers online homeowners purchase in 46 states plus DC, with eight partner carriers integrated."}},
+  {{"topic": "Strategic Vision & Company Philosophy",
+    "text": "Annual theme of empathy frames the letter; customer and employee stories illustrate claims care, and customer obsession is named the core focus going forward."}}
 ]
 
 OUTPUT FORMAT — return ONLY a JSON array in exactly the same structure, nothing else.

@@ -89,3 +89,14 @@ def test_missing_key_warns_without_failing(monkeypatch, capsys):
     monkeypatch.setattr(summarizer, "load_ledger", lambda: pytest.fail("ledger was read"))
     summarizer.main()  # must return normally, not sys.exit
     assert "::warning title=Summaries skipped::" in capsys.readouterr().out
+
+
+def test_prompt_example_is_a_valid_summary():
+    """The few-shot example is what the model imitates; it must obey the rules it teaches."""
+    prompt = summarizer._USER_PROMPT_TEMPLATE.format(filing_id="PGR_X", letter_text="L")
+    example = prompt[prompt.index("FEW-SHOT EXAMPLE"):prompt.index("OUTPUT FORMAT")]
+    bullets = summarizer.parse_bullets(example[example.index("["):example.rindex("]") + 1])
+    assert len(bullets) == 10
+    for bullet in bullets:
+        assert 20 <= len(bullet["text"].split()) <= 35, bullet
+    assert "FACTUAL RULES" in prompt

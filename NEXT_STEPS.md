@@ -220,19 +220,31 @@ noticeably improves the output on a sample of two or three.
 
 ---
 
-## Next phase — ElevenLabs letter readings, separate feed
+## Next phase — letter readings feed (Gemini TTS pilot)
 
-Decided: read-through audio of each letter will be generated with ElevenLabs
-(not Kokoro) and published as its own podcast feed (for example
-`docs/feed_readings.xml`), separate from the NotebookLM commentary feed.
+Plan: verbatim read-through audio of each letter, published as its own
+podcast feed (for example `docs/feed_readings.xml`), separate from the
+NotebookLM commentary feed.
 
-The input text is ready. `letter_text.clean_letter_text()` returns each letter
-as clean paragraphs with headings, quotes, lists, and signature normalized.
-`LETTER_REVIEW.md` lists the few passages still waiting on a check against the
-original filing. Not yet built: the ElevenLabs client and API-key secret,
-chunking for the API's per-request character limit, release-asset naming
-alongside `audio-library`, ledger fields for the reading audio, and the second
-feed.
+**Engine: Gemini TTS, pending a listening test.** ElevenLabs was the first
+choice, but its free plan (10k characters a month) can't cover even one
+quarterly letter (~12k characters). The whole archive is ~1.5M characters, about
+27 hours of narration. Gemini 3.8 Flash TTS is free on the same `GEMINI_API_KEY`;
+reading the whole archive would cost about $22 even at paid rates.
+
+**Pilot (built):** `scripts/readings.py` narrates one letter, and the
+**Readings Pilot (Gemini TTS)** workflow runs it from the Actions tab
+(inputs: letter id, voices, optional style). It attaches the MP3s to the run as
+an artifact and commits nothing. Listen for voice quality, pacing, and whether
+the voice stays consistent across the ~2,500-character chunks the letter is
+split into.
+
+Still to decide or build once a voice is chosen:
+- the free-tier TTS rate limits (shown only in AI Studio), which set how fast
+  the 101-letter backlog can be worked through, probably a daily backfill job;
+- release-asset naming alongside `audio-library`;
+- ledger fields for the reading audio;
+- the second feed.
 
 ---
 

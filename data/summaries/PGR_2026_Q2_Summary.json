@@ -2,48 +2,48 @@
   "id": "PGR_2026_Q2",
   "year": 2026,
   "quarter": "Q2",
-  "generated_date": "2026-10-02T01:01:02.282327+00:00",
-  "generated_by": "Claude, using summarizer.py's prompt and style rules (GitHub Models unavailable)",
+  "generated_date": "2026-10-03T01:44:00.139985+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
   "bullets": [
     {
       "topic": "Profitability & Underwriting Performance",
-      "text": "Q2 CR 87.3; PL CR 87.6 incl. 4.0 pts of cats; personal vehicle CR 88.0; property CR 78.0 despite 13.5 cat pts; CL CR 85.3 — profitable across every segment."
-    },
-    {
-      "topic": "Competitive Position & Market Share",
-      "text": "Progressive became the #1 U.S. private passenger auto writer by TTM NPW — a goal Peter Lewis set decades ago — and companywide PIFs surpassed 40M."
+      "text": "Q2 CR 87.3; Personal Lines CR 87.6 (including 4.0 cat pts); Commercial Lines CR 85.3; personal property CR 78.0 (13.5 cat pts); personal vehicles CR 88.0."
     },
     {
       "topic": "Premium Growth",
-      "text": "Companywide NPW +5% YOY; PL NPW +5% in Q2 and +6% YTD; CL NPW +4%; property NPW +1%; slower growth reflects stable loss trends and a competitive market."
+      "text": "Companywide NPW +5% YOY; Personal Lines NPW +5% (+6% YTD); Commercial Lines NPW +4%; personal vehicles NPW +5%; personal property NPW +1% amid competitive post-hard-market conditions."
     },
     {
       "topic": "Policies in Force & Customer Growth",
-      "text": "Companywide PIFs +7% YOY; personal auto added 2.2M PIFs (+9%) vs June 2025; special lines added ~0.5M; PL new applications +1%; boat program tops 2M watercraft."
+      "text": "Total PIF +7% YOY, surpassing 40M milestone; personal auto PIF +9% (+2.2M); special lines added ~500K PIFs, boat program topping 2M; property PIF +1%."
     },
     {
       "topic": "Capital Management & Financial Position",
-      "text": "$1B+ in buybacks in 1H26 — more than all of 2011; debt-to-capital below 20% even after $1.5B senior notes; portfolio return 1.2% (equity 15.3%); investment income $979M, +12%."
+      "text": "Repurchased >$1B shares in 1H 2026; debt-to-capital remained <20% despite $1.5B senior notes; portfolio returned 1.2% (equity 15.3%, fixed income 0.6%); investment income $979M (+12%)."
     },
     {
-      "topic": "Rate Adequacy & Pricing Strategy",
-      "text": "Rates judged adequate with margin room for weather losses; pricing tracks stable loss trends; targeted CL rate decreases where warranted; personal auto conversion +5% YOY signals strong competitiveness."
+      "topic": "Competitive Position & Market Share",
+      "text": "Achieved #1 private passenger auto ranking based on trailing 12-month NPW; commercial auto industry Q1 CR ~104 ex-Progressive highlights significant competitive edge."
     },
     {
       "topic": "Brand Building & Marketing Strategy",
-      "text": "Media spend +18% YTD and agent incentive spend more than doubled to drive growth and retention; PL vehicle non-acquisition expense ratio still improved 0.2 pts YTD."
-    },
-    {
-      "topic": "Industry Cycle & Market Conditions",
-      "text": "Commercial auto industry CR ~104 in Q1 2026 ex-Progressive; competitors taking mid-single-digit rate increases and underwriting actions; personal lines competition intensifying after a long hard market."
+      "text": "Media spend grew 18% YTD through June; agent incentive spending more than doubled to fuel acquisition across core lines; personal auto conversion gained +5% YOY."
     },
     {
       "topic": "Product Innovation & Expansion",
-      "text": "Personal auto model 9.0 in 19 states (~half of TTM NPW); CL model 8.3 in 21 states (59% of core commercial auto NPW); model 8.4 launches Q3; property expanding new business availability."
+      "text": "Personal auto model 9.0 deployed to 19 states (~50% auto PIF); commercial auto model 8.3 elevated to 21 states (59% NPW), with 8.4 launching Q3."
     },
     {
       "topic": "Employee Engagement & Culture",
-      "text": "Employee Field Day essays and customer letters praising claims reps show the purpose of helping people move forward; Griffith marks ten years as CEO alongside the milestones."
+      "text": "Headquarters tour and essay contest highlighted frontline claims and service representatives demonstrating core purpose; customer commendations reinforce high-touch culture driving retention."
+    },
+    {
+      "topic": "Operating Efficiency & Expense Ratio",
+      "text": "Personal Lines vehicle NAER improved 0.2 pts YTD through June via disciplined operational efficiencies and ongoing technology enhancements across claims and underwriting."
+    },
+    {
+      "topic": "Industry Cycle & Market Conditions",
+      "text": "Commercial auto competitors continuing mid-single-digit rate hikes into Q2 amid industrywide underwriting losses; Progressive moderating rate actions and targeting selective reductions in trucking."
     }
   ]
 }

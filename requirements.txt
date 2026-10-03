@@ -6,7 +6,7 @@ notebooklm-py>=0.3.0
 playwright>=1.44.0
 # openai is the client for the GitHub Models API used by summarizer.py.
 # It is not an OpenAI TTS dependency, and no OPENAI_API_KEY is required.
-openai>=1.0.0
+openai>=1.58.0  # reasoning_effort (Gemini thinking level) in summarizer.py
 
 # Kokoro TTS dependencies live in requirements-tts.txt. TTS is paused and is not
 # part of the pipeline — see TTS.md.

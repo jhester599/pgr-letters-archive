@@ -16,7 +16,7 @@ Automated pipeline: SEC EDGAR → text extraction → Google NotebookLM podcast 
 A GitHub Actions job:
 1. Queries SEC EDGAR for new PGR (Progressive Corporation) 10-Q / 10-K filings
 2. Extracts and cleans the CEO's shareholder letter (Exhibit 99)
-3. Generates a ranked 10-bullet summary via GitHub Models (used as a briefing doc)
+3. Generates a ranked 10-bullet summary via the Gemini API free tier (used as a briefing doc)
 4. Generates a podcast-style audio overview via NotebookLM (letter + summary as sources)
 5. Compresses NotebookLM audio to 64 kbps MP3 with FFmpeg
 6. Uploads MP3s to the `audio-library` GitHub Release and records release URLs
@@ -191,13 +191,25 @@ cd docs && python -m http.server 8000
 | Secret | Description |
 |--------|-------------|
 | `NOTEBOOKLM_AUTH_JSON` | Full contents of `storage_state.json` from `notebooklm login` |
+| `GEMINI_API_KEY` | Free-tier Gemini API key used by `summarizer.py` |
 
 `GITHUB_TOKEN` is provided automatically by Actions — no setup needed.
 Enable `contents: write` in repo Settings → Actions → General.
 
-No `OPENAI_API_KEY` is required. The `openai` package is in `requirements.txt`
-because `summarizer.py` uses it as the client for the GitHub Models API, which
-authenticates with the automatically provided `GITHUB_TOKEN`.
+**Summaries use the Gemini API free tier.** `summarizer.py` calls Gemini through
+its OpenAI-compatible endpoint, so the `openai` package is the only client. No
+`OPENAI_API_KEY` is used. Create the key at https://aistudio.google.com/apikey
+in a Google Cloud project with no billing account linked, so requests over the
+quota are rejected rather than billed. Without the secret, the summary step
+warns and skips, and everything else still publishes.
+
+GitHub Models powered summaries until mid-2026. Its old endpoint now returns
+401, and its new one returned a bare string instead of a completion.
+`summarizer.py` now validates every reply and rejects anything that is not a
+summary.
+
+To try the summarizer without writing anything:
+`python scripts/summarizer.py --id PGR_2026_Q1 --dry-run`.
 
 ## SEC EDGAR details
 

@@ -33,7 +33,6 @@ jobs:
 
     permissions:
       contents: write      # Required to push new files back to main
-      models: read         # Required for GitHub Models API (summarizer.py)
       # pages: write and id-token: write are only needed for the Actions Pages API
       # deployment flow (currently commented out). Pages deploys via push to main.
 
@@ -106,8 +105,9 @@ jobs:
 
       - name: Generate letter summaries
         env:
-          # GITHUB_TOKEN is provided automatically — no secret setup required.
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Free-tier Gemini API key (see summarizer.py). If the secret is
+          # missing the step warns and skips summaries; it never blocks publishing.
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python scripts/summarizer.py
 
       # ── Audio generation is best-effort ───────────────────────────────────

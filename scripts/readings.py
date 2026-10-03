@@ -41,11 +41,13 @@ from letter_text import clean_letter_text
 
 TTS_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/interactions"
 TTS_MODEL = "gemini-3.8-flash-tts"   # on the Gemini API free tier
-DEFAULT_VOICES = ["Kore", "Charon", "Leda"]
+# Female-presenting candidates for the CEO's voice: Warm, Mature, Smooth.
+DEFAULT_VOICES = ["Sulafat", "Gacrux", "Despina"]
 DEFAULT_STYLE = (
-    "A calm, measured, warm narrator reading a company's letter to its "
-    "shareholders aloud: clear and unhurried, conversational rather than "
-    "theatrical, with natural pauses between paragraphs."
+    "A woman executive reading her own letter to shareholders aloud: "
+    "professional and composed, but kind and sincere; warm, clear and "
+    "unhurried, conversational rather than theatrical or salesy, with "
+    "natural pauses between paragraphs."
 )
 MAX_CHUNK_CHARS = 2500          # roughly three minutes of speech per request
 PARAGRAPH_GAP_SECONDS = 0.6     # silence inserted between chunks

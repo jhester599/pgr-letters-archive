@@ -14,7 +14,7 @@ on:
         type: string
       voices:
         description: "Comma-separated Gemini prebuilt voices"
-        default: "Kore,Charon,Leda"
+        default: "Sulafat,Gacrux,Despina"
         type: string
       style:
         description: "Narration style instruction (blank = script default)"

@@ -234,7 +234,10 @@ reading the whole archive would cost about $22 even at paid rates.
 
 **Pilot (built):** `scripts/readings.py` narrates one letter, and the
 **Readings Pilot (Gemini TTS)** workflow runs it from the Actions tab
-(inputs: letter id, voices, optional style). It attaches the MP3s to the run as
+(inputs: letter id, voices, optional style). The default voices are female
+candidates for Tricia Griffith's letters: Sulafat (Warm), Gacrux (Mature) and
+Despina (Smooth). Erinome (Clear), Vindemiatrix (Gentle) and Kore (Firm) are
+the alternates. It attaches the MP3s to the run as
 an artifact and commits nothing. Listen for voice quality, pacing, and whether
 the voice stays consistent across the ~2,500-character chunks the letter is
 split into.

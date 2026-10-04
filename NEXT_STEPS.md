@@ -15,12 +15,12 @@ This file is the short list of what to actually do next.
 |---|---|
 | Letters scraped | 101 of 101 (through Q2 2026) |
 | Letter text review | All 101 read; fixes and open questions in `LETTER_REVIEW.md` |
-| Summaries | 101 of 101 (`data/summaries/`) — Q2 2026 queued for a Gemini rerun, see Priority 1 |
+| Summaries | 101 of 101 (`data/summaries/`) — Gemini free tier from Q2 2026 on, see Priority 1 |
 | NotebookLM audio | 100 of 101 — 64 at v1.1, **36 still at v1.0**, **Q2 2026 missing** |
 | Reading pages | 101 of 101 built |
 | RSS feed | 100 episodes, Apple-required tags present, artwork in place |
 | Audio hosting | `audio-library` release, 107 assets, ~1.06 GB, all URLs verified live |
-| Git LFS | **1.062 GB of orphaned objects still billed** — see Priority 3 |
+| Git LFS | Clear — 100% of the free allowance available (checked 2026-10-03); nothing uses LFS |
 | Pipeline schedules | **Both crons disabled** — nothing runs automatically |
 | Kokoro TTS | Paused, 3 of 100 letters — see `TTS.md` |
 
@@ -41,12 +41,11 @@ completion. `summarizer.py` now calls `gemini-3.8-flash` with the
 is not a valid summary. If the secret is missing or revoked, the summary step
 warns and skips; everything else still publishes.
 
-The Q2 2026 summary was first written by hand (by Claude, following
-`summarizer.py`'s prompt) while no provider worked. Its ledger entry is flagged
-`summary_generated: false`, so the next pipeline run regenerates it with Gemini.
-That run is also the first live test of the key: check that
-`data/summaries/PGR_2026_Q2_Summary.json` now says
-`"generated_by": "gemini-3.8-flash (Gemini API)"`.
+The key worked on 2026-10-03, once its API restrictions allowed the
+Generative Language API (a restricted key fails with `403
+API_KEY_SERVICE_BLOCKED`). The Q2 2026 summary was regenerated with Gemini under
+the prompt's factual rules (only letter-stated facts, no unstated causes or
+superlatives) and checked against the letter.
 
 Generate the audio by hand. NotebookLM auth almost certainly needs refreshing
 first:
@@ -97,66 +96,7 @@ you expect new letters to need audio.
 
 ---
 
-## Priority 3 — File the GitHub Support request for the orphaned LFS objects
-
-**This is the item most likely to be misremembered as "already done."** Moving
-audio to GitHub Releases stopped *new* MP3s from entering Git LFS. It did not
-reclaim what was already there.
-
-Verified on 2026-07-26 by querying the LFS batch API directly, which still
-returns a working signed download URL for an object no commit references:
-
-| | |
-|---|---|
-| Orphaned LFS objects | 107 |
-| Total size | 1,062,337,219 bytes (1.062 GB) |
-| Free-tier allowance | 1 GB |
-| Referenced by `main` | none — `git ls-files '*.mp3'` returns nothing |
-
-**A history rewrite does not fix this.** `git filter-repo` and BFG remove the
-pointers from commits but leave the objects in GitHub's store, so the quota is
-unchanged. Per
-[GitHub's documentation](https://docs.github.com/en/repositories/working-with-files/managing-large-files/removing-files-from-git-large-file-storage),
-the only two ways to purge are deleting and recreating the repository, or asking
-GitHub Support.
-
-### What to do
-
-1. Check the real number first at **Settings → Billing → Git LFS Data**. If
-   GitHub reports well under 1 GB, there is nothing to do.
-2. Otherwise file at <https://support.github.com/request> (category: Git LFS or
-   billing). The **full request template is in `AUDIO_STORAGE.md`**, under
-   "Reclaiming the Leftover Git LFS Storage" — it states the repository, the
-   migration commit (`d411e48`), that nothing on the default branch references
-   LFS, and that all objects may be deleted permanently.
-3. Attach the OID manifest. Regenerate it with the command in the same
-   `AUDIO_STORAGE.md` section:
-
-   ```bash
-   git rev-list --objects --all \
-     | awk '$2 ~ /\.mp3$/ {print $1}' | sort -u \
-     | while read sha; do
-         git cat-file -p "$sha" \
-           | awk '/^oid/{o=$2} /^size/{s=$2} END{print o "," s}'
-       done
-   ```
-
-   It should print 107 rows summing to 1,062,337,219 bytes.
-
-### How urgent is this really
-
-Low. Being over the LFS **storage** allowance blocks *pushes* of new LFS
-objects, which this project will never do again. It does not block clones,
-Actions, GitHub Pages, or release-asset downloads — all verified working. Treat
-it as housekeeping, not an outage.
-
-Do **not** delete and recreate the repository to solve this. That would destroy
-the issues, pull requests, and the `audio-library` release that now hosts all
-107 MP3s, and would require re-uploading ~1 GB from the local backup.
-
----
-
-## Priority 4 — Submit the podcast to directories
+## Priority 3 — Submit the podcast to directories
 
 The feed could not have been accepted before 2026-07-26. Two independent
 blockers were fixed:
@@ -193,7 +133,7 @@ To replace the artwork, drop a new file at `docs/cover.png`. Apple requires
 
 ---
 
-## Priority 5 — Regenerate the 36 v1.0 episodes as v1.1
+## Priority 4 — Regenerate the 36 v1.0 episodes as v1.1
 
 36 episodes were generated before summary integration was ready, so NotebookLM
 only received the letter text and a background preamble — no ranked-metrics

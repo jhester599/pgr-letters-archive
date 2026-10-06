@@ -43,6 +43,8 @@ docs/               — GitHub Pages root (served at /pgr-letters-archive/)
   audio/            — Local staging for NotebookLM MP3s (gitignored)
   audio_tts/        — Local staging for Kokoro TTS MP3s (gitignored; paused)
   feed.xml          — Podcast RSS feed (regenerated each run)
+  feed_readings.xml — Separate feed of full-letter read-throughs (Gemini TTS)
+  audio_readings/   — Local staging for read-through MP3s (gitignored)
   letters/          — Standalone HTML reading pages (one per letter)
   letters_txt/      — Plain-text letters published for the index page
   cover.png         — Podcast artwork referenced by feed.xml
@@ -58,8 +60,9 @@ scripts/
   build_pages.py    — Per-letter HTML reading page generator
   letter_text.py    — Shared letter normalizer (headers, page numbers, headings,
                       signatures); feeds reading pages, letters_txt, summaries, audio
-  readings.py       — Gemini TTS read-through of one letter (PILOT; run via the
-                      Readings Pilot workflow, writes MP3s only — see NEXT_STEPS.md)
+  readings.py       — Gemini TTS letter read-throughs: --publish narrates pending
+                      letters, uploads them and writes feed_readings.xml; --id runs
+                      a voice pilot (see NEXT_STEPS.md)
   setup_notebooklm.ps1  — One-time Windows NotebookLM auth setup
 requirements.txt      — Core pipeline dependencies
 requirements-tts.txt  — Optional Kokoro TTS dependencies (paused)
@@ -193,7 +196,7 @@ cd docs && python -m http.server 8000
 | Secret | Description |
 |--------|-------------|
 | `NOTEBOOKLM_AUTH_JSON` | Full contents of `storage_state.json` from `notebooklm login` |
-| `GEMINI_API_KEY` | Free-tier Gemini API key used by `summarizer.py` |
+| `GEMINI_API_KEY` | Free-tier Gemini API key used by `summarizer.py` and `readings.py` |
 
 `GITHUB_TOKEN` is provided automatically by Actions — no setup needed.
 Enable `contents: write` in repo Settings → Actions → General.
@@ -263,6 +266,12 @@ To try the summarizer without writing anything:
 ```
 
 Flag lifecycle: `letter_scraped` → `audio_generated` → `audio_compressed` → `page_built`
+
+Letter read-throughs (Gemini TTS, `readings.py`) add `reading_url`,
+`reading_bytes`, `reading_duration`, `reading_voice`, `reading_model`,
+`reading_signer`, `reading_generated` and `reading_generated_date`. They back
+`docs/feed_readings.xml` and the "Letter Read Aloud" player on reading pages.
+Narrator voices are assigned per signer in `readings.VOICE_BY_SIGNER`.
 
 The `tts_*` fields remain in the schema and are populated for the three letters
 that have read-through audio, but nothing in the pipeline sets them now — see

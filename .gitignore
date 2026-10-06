@@ -40,3 +40,5 @@ Thumbs.db
 
 # Gemini TTS pilot output (scripts/readings.py)
 readings_out/
+# Letter readings staged before upload to the audio-library release
+docs/audio_readings/

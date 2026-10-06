@@ -16,6 +16,10 @@ As of the 2026-07-04 migration, the release contains:
 - 107 total MP3 assets
 - About 1.0 GB of audio
 
+Letter read-throughs (Gemini TTS, from October 2026) are added to the same
+release as `reading_<id>.mp3` (e.g. `reading_PGR_2026_Q2.mp3`) by
+`scripts/readings.py`, about 7–8 MB per quarterly letter at 64 kbps.
+
 The website and RSS feed should use `audio_url` and `tts_url` fields in
 `docs/ledger.json`. Those URLs point to release assets under:
 

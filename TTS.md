@@ -7,6 +7,10 @@ podcast-style overview, and a verbatim read-through synthesized with Kokoro TTS.
 The read-through has been removed from CI. Everything needed to resume it is
 still in the repository and still works.
 
+**Superseded for new work:** letter read-throughs are now produced with Gemini
+TTS by `scripts/readings.py` (`reading_*` ledger fields, `docs/feed_readings.xml`);
+see `NEXT_STEPS.md`. The three Kokoro read-throughs stay as they are.
+
 This document exists so picking it back up is a small, well-understood change
 rather than an archaeology exercise.
 

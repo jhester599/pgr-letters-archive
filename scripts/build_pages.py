@@ -276,7 +276,20 @@ def build_page(
     </div>
   </div>""")
 
-    if filing.get("tts_generated") and filing.get("tts_file"):
+    if filing.get("reading_generated") and filing.get("reading_url"):
+        voice = html.escape(filing.get("reading_voice") or "AI")
+        audio_items.append(f"""\
+  <div class="audio-item">
+    <button class="audio-toggle" data-show="📖 Letter Read Aloud" data-hide="▲ Hide Read-Aloud">📖 Letter Read Aloud</button>
+    <div class="audio-player-wrap">
+      <p class="audio-label">The full letter read aloud by an AI voice (Gemini TTS, voice {voice})</p>
+      <audio controls preload="none">
+        <source src="{html.escape(filing["reading_url"])}" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+  </div>""")
+    elif filing.get("tts_generated") and filing.get("tts_file"):
         tts_filename = filing["tts_file"].split("/")[-1]
         tts_src = filing.get("tts_url") or f"../audio_tts/{tts_filename}"
         audio_items.append(f"""\

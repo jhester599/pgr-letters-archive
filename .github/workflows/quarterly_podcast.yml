@@ -25,6 +25,12 @@ on:
         type: boolean
         default: false
 
+# Readings (readings.yml) also commits to main; one writer at a time keeps the
+# ledger rebases conflict-free. Queued, never cancelled.
+concurrency:
+  group: archive-writer
+  cancel-in-progress: false
+
 jobs:
   run-pipeline:
     name: Scrape → Generate → Compress → Publish
@@ -161,6 +167,18 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/compressor.py
 
+      # Gemini TTS read-through of new letters (Tricia Griffith's letters,
+      # voice Despina). Best-effort like NotebookLM: a quota or API failure
+      # warns and the rest of the pipeline still publishes. The daily
+      # readings.yml workflow works through any backlog.
+      - name: Generate letter readings (Gemini TTS)
+        continue-on-error: true
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PAGES_BASE_URL: "https://jhester599.github.io/pgr-letters-archive"
+        run: python scripts/readings.py --publish --max-letters 2
+
       - name: Build reading pages
         run: python scripts/build_pages.py
 
@@ -175,6 +193,7 @@ jobs:
             data/summaries/ \
             docs/ledger.json \
             docs/feed.xml \
+            docs/feed_readings.xml \
             docs/letters/ \
             docs/letters_txt/
 

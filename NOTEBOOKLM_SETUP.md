@@ -4,80 +4,124 @@ How to capture your Google session credentials and store them as the
 `NOTEBOOKLM_AUTH_JSON` GitHub Actions secret.
 
 This needs to be done once initially, then repeated every **2–4 weeks** when
-the session cookies expire.
+the session cookies expire. You'll know it's time when the
+**Generate podcast audio** step fails and the run summary says
+"NotebookLM audio generation did not complete".
 
 ---
 
-## Prerequisites
+## Quick refresh (Windows PowerShell)
 
-```bash
-pip install notebooklm-py
-playwright install chromium
+Run these from the repo root. Each block is one step.
+
+**1. Activate the venv**
+
+```powershell
+cd C:\path\to\pgr-letters-archive
+.venv\Scripts\Activate.ps1
 ```
 
----
+If PowerShell refuses to run the activation script, allow local scripts once:
 
-## Steps
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+```
 
-### 1. Run the login command
+**2. Sign in again** — a browser opens; sign in to Google (including 2FA) and
+wait until the NotebookLM home page loads.
 
-```bash
+```powershell
 notebooklm login
 ```
 
-A Chromium browser window will open. Sign in to your Google account normally,
-including any 2FA prompts. Once you land on the NotebookLM home page, the
-script saves your session cookies automatically and exits.
+If the bundled Chromium crashes or Google blocks the sign-in, use your
+installed Chrome or Edge instead:
 
-Cookies are saved to:
-```
-~/.notebooklm/profiles/default/storage_state.json
+```powershell
+notebooklm login --browser chrome
 ```
 
-### 2. Copy the JSON to your clipboard
+**3. Confirm the new session works**
 
-**macOS:**
-```bash
-cat ~/.notebooklm/profiles/default/storage_state.json | pbcopy
+```powershell
+notebooklm auth check --test
 ```
 
-**Linux:**
-```bash
-cat ~/.notebooklm/profiles/default/storage_state.json | xclip -selection clipboard
+**4. Copy the session JSON to the clipboard**
+
+```powershell
+$auth = "$env:USERPROFILE\.notebooklm\profiles\default\storage_state.json"
+if (-not (Test-Path $auth)) { $auth = "$env:USERPROFILE\.notebooklm\storage_state.json" }
+Get-Content $auth -Raw | Set-Clipboard
 ```
 
-Or print it to the terminal and copy manually:
-```bash
-cat ~/.notebooklm/profiles/default/storage_state.json
+Recent notebooklm-py versions save to `profiles\default\`; older ones saved to
+`~\.notebooklm\storage_state.json`. The two lines above pick whichever exists.
+
+**5. Update the GitHub secret**
+
+1. Open <https://github.com/jhester599/pgr-letters-archive/settings/secrets/actions>
+2. Click the pencil next to **`NOTEBOOKLM_AUTH_JSON`** (or **New repository
+   secret** if it doesn't exist yet)
+3. Paste the clipboard contents and click **Update secret**
+
+Or, if you have the GitHub CLI (`gh`) installed and signed in, skip the
+clipboard and set it directly:
+
+```powershell
+Get-Content $auth -Raw | gh secret set NOTEBOOKLM_AUTH_JSON --repo jhester599/pgr-letters-archive
 ```
 
-### 3. Add the secret to GitHub
+**6. Re-run the audio**
 
-1. Go to your repository on GitHub
-2. **Settings → Secrets and variables → Actions**
-3. Click **New repository secret**
-4. **Name:** `NOTEBOOKLM_AUTH_JSON`
-5. **Value:** paste the full JSON from step 2
-6. Click **Add secret**
+Either re-run the failed workflow from the Actions tab, or generate it locally
+right away (the local run reads the session file directly, no env var needed):
+
+```powershell
+python scripts/generator.py --max-new 1
+python scripts/compressor.py
+```
+
+`scripts/setup_notebooklm.ps1` does steps 2 and 4 for you (and installs the
+packages first) if you'd rather run one script.
 
 ---
 
-## When to repeat this
+## First-time setup
 
-Re-run steps 1–3 whenever `generator.py` fails with an authentication error
-(typically every 2–4 weeks as Google session cookies expire).
+### Prerequisites
+
+```bash
+pip install -r requirements.txt
+playwright install chromium
+```
+
+### macOS / Linux
+
+```bash
+notebooklm login
+notebooklm auth check --test
+cat ~/.notebooklm/profiles/default/storage_state.json | pbcopy                       # macOS
+cat ~/.notebooklm/profiles/default/storage_state.json | xclip -selection clipboard   # Linux
+```
+
+Then add the clipboard contents as the `NOTEBOOKLM_AUTH_JSON` repository secret
+(**Settings → Secrets and variables → Actions → New repository secret**).
+
+On Windows, follow the Quick refresh steps above. They are the same for a
+first-time setup.
 
 ---
 
 ## Notes
 
-- The JSON contains your Google session cookies — treat it like a password.
-  Never commit it to the repository.
+- The JSON contains your Google session cookies. Treat it like a password and
+  never commit it to the repository.
 - 2-Step Verification is fine: you complete it interactively during
   `notebooklm login`. The saved cookie persists for the rest of the session
   lifetime.
-- If `playwright: command not found`, ensure you are inside the same Python
-  virtual environment where `notebooklm-py` is installed.
-- The `--max-new 1` flag in the GitHub Actions workflow means only one new
-  letter is processed per weekly run, keeping runner time under control.
-  Increase this for a manual backfill run.
+- If `notebooklm` or `playwright` is "not recognized", the venv is not active.
+  Activate it and try again.
+- Sessions can't be renewed unattended, which is why the workflow's audio step
+  is `continue-on-error`: letters, summaries, pages and the RSS feed still
+  publish while the cookie is stale.

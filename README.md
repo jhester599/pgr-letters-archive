@@ -218,9 +218,9 @@ per-letter version tracking.
 | `NOTEBOOKLM_AUTH_JSON` | Full contents of `~/.notebooklm/profiles/default/storage_state.json` |
 | `GEMINI_API_KEY` | Free-tier Gemini API key for `summarizer.py` (see below) |
 
-See `NOTEBOOKLM_SETUP.md` for step-by-step instructions. Session cookies expire every
-few weeks — re-run `notebooklm login` and update the secret when `generator.py` logs an
-auth error. `GITHUB_TOKEN` is provided automatically.
+Session cookies expire every few weeks — re-run `notebooklm login` and update the secret
+when `generator.py` logs an auth error. **[`NOTEBOOKLM_SETUP.md`](NOTEBOOKLM_SETUP.md) has
+the copy-paste PowerShell commands for refreshing it.** `GITHUB_TOKEN` is provided automatically.
 
 Create `GEMINI_API_KEY` in Google AI Studio in a Google Cloud project with **no
 billing account linked**. That keeps it on the free tier, where requests over

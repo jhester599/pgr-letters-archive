@@ -386,14 +386,21 @@ async def main(max_new: int, filing_id: str | None = None) -> None:
     # Auth resolution (mirrors notebooklm-py's own precedence):
     #   1. NOTEBOOKLM_AUTH_JSON env var — inline JSON string (used in CI/GitHub Actions)
     #   2. NOTEBOOKLM_AUTH_FILE env var — path to storage_state.json (Windows-friendly)
-    #   3. ~/.notebooklm/storage_state.json — written automatically by `notebooklm login`
+    #   3. ~/.notebooklm/profiles/default/storage_state.json (or the legacy
+    #      ~/.notebooklm/storage_state.json) — written by `notebooklm login`
     #
     # For local runs after `notebooklm login`, option 3 works with no env vars at all.
     # For GitHub Actions, set NOTEBOOKLM_AUTH_JSON as a repository secret.
 
     auth_json = os.environ.get("NOTEBOOKLM_AUTH_JSON", "").strip()
     auth_file = os.environ.get("NOTEBOOKLM_AUTH_FILE", "").strip()
-    default_storage = Path.home() / ".notebooklm" / "storage_state.json"
+    # Recent notebooklm-py writes profiles/default/; older versions wrote the home root.
+    nb_home = Path.home() / ".notebooklm"
+    default_storage = next(
+        (p for p in (nb_home / "profiles" / "default" / "storage_state.json",
+                     nb_home / "storage_state.json") if p.exists()),
+        nb_home / "profiles" / "default" / "storage_state.json",
+    )
 
     if not auth_json and auth_file:
         try:
@@ -410,9 +417,10 @@ async def main(max_new: int, filing_id: str | None = None) -> None:
     elif not auth_json:
         log.error(
             "No NotebookLM auth found. Options:\n"
-            "  Local:  run 'notebooklm login' (writes ~/.notebooklm/storage_state.json)\n"
+            "  Local:  run 'notebooklm login' (writes ~/.notebooklm/profiles/default/storage_state.json)\n"
             "  CI:     set NOTEBOOKLM_AUTH_JSON repository secret\n"
-            "  Windows workaround: set NOTEBOOKLM_AUTH_FILE=%%USERPROFILE%%\\.notebooklm\\storage_state.json"
+            "  Windows workaround: set NOTEBOOKLM_AUTH_FILE=%USERPROFILE%\\.notebooklm\\profiles\\default\\storage_state.json\n"
+            "  Refresh steps: NOTEBOOKLM_SETUP.md"
         )
         raise SystemExit(1)
 

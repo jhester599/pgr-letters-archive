@@ -51,19 +51,9 @@ jobs:
       # Same ffmpeg install as quarterly_podcast.yml: the static build first,
       # apt only as a fallback (apt's ffmpeg has broken on libcaca0 before).
       - name: Install ffmpeg
-        run: |
-          set -uo pipefail
-          for attempt in 1 2 3; do
-            if wget -q "https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz" \
-                 -O /tmp/ffmpeg-static.tar.xz; then
-              mkdir -p /tmp/ffmpeg-static
-              tar -xf /tmp/ffmpeg-static.tar.xz -C /tmp/ffmpeg-static --strip-components=1
-              sudo install -m 755 /tmp/ffmpeg-static/ffmpeg /usr/local/bin/
-              break
-            fi
-            sleep $((attempt * 5))
-          done
-          command -v ffmpeg || { sudo apt-get update && sudo apt-get install -y ffmpeg; }
+        # Static build (verified with xz -t), GitHub-hosted fallback, then apt.
+        # See scripts/install_ffmpeg.sh.
+        run: bash scripts/install_ffmpeg.sh
           ffmpeg -version | head -1
 
       - name: Install Python packages

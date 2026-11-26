@@ -27,6 +27,15 @@ If PowerShell refuses to run the activation script, allow local scripts once:
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 ```
 
+**Upgrade notebooklm-py first.** Google renamed NotebookLM, and the app now
+lives at `notebook.google.com` (the old `notebooklm.google.com` redirects
+there). CI always installs the latest library, which uses the new host, so log
+in with the latest version too:
+
+```powershell
+pip install -U notebooklm-py
+```
+
 **2. Sign in again** — a browser opens; sign in to Google (including 2FA) and
 wait until the NotebookLM home page loads.
 
@@ -114,6 +123,12 @@ first-time setup.
 ---
 
 ## Notes
+
+- **If CI fails with an auth error right after a fresh login,** the cookies may
+  have been saved for the other host. Re-run `notebooklm login` with the latest
+  notebooklm-py and update the secret again. As a fallback, add
+  `NOTEBOOKLM_BASE_URL: https://notebooklm.google.com` to the generator step's
+  `env:` in the workflow to use the old host, which Google still serves.
 
 - The JSON contains your Google session cookies. Treat it like a password and
   never commit it to the repository.

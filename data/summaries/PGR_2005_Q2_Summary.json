@@ -2,14 +2,52 @@
   "id": "PGR_2005_Q2",
   "year": 2005,
   "quarter": "Q2",
-  "generated_date": "2026-04-26T00:00:00+00:00",
+  "generated_date": "2026-11-26T15:16:24.422372+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 8
+  },
   "bullets": [
-    {"topic": "Profitability & Underwriting Performance", "text": "Combined ratio of 85.6 year-to-date through June; profitability remains strong despite soft market conditions limiting consumer shopping motivation."},
-    {"topic": "Premium Growth", "text": "Net premiums written grew 8% through June; growth slowing as low frequency stabilizes or reduces consumer rates, dampening shopping behavior that drives new business."},
-    {"topic": "Policies in Force & Customer Growth", "text": "Approaching 10 million policies in force covering over 14 million drivers; Drive auto PIF up 7%, Direct auto up 14%, Commercial Auto up 13%, Special Lines up 16%."},
-    {"topic": "Loss Costs & Severity Trends", "text": "Severity trends in most coverages are no longer fully offset by lower frequency; management is monitoring carefully and preparing for growth when conditions favor increased shopping."},
-    {"topic": "Claims Service & Innovation", "text": "Concierge claims expansion announced with about 50 new centers planned over two years; two sites opened in Q2 with four more planned before year-end; improved center design achieved."},
-    {"topic": "Technology & Digital Transformation", "text": "New billing system and claims management platform deployment on track; data center in Colorado Springs broke ground, expected operational in 2007; policy management system redesign underway."},
-    {"topic": "Distribution Channel Strategy", "text": "Drive and Progressive Direct dual-brand strategy now nine months old and operating smoothly; Internet sales representing a growing majority of Direct new business activity."}
+    {
+      "topic": "Profitability & Underwriting Performance",
+      "text": "June YTD CR 85.6 with strong profitability; operating results are strong and business is in excellent shape at the halfway point."
+    },
+    {
+      "topic": "Policies in Force & Customer Growth",
+      "text": "Closing in on 10M PIF covering 14M+ drivers; Drive auto PIF +~7%, Progressive Direct auto +~14%, Commercial Auto +~13%, Special Lines +16%; retention metrics improved modestly."
+    },
+    {
+      "topic": "Premium Growth",
+      "text": "Through June, NPW grew 8%, below multi-year average growth rates; low accident frequency along with stabilizing or reducing rates continue, creating an environment that does not motivate consumer shopping behavior."
+    },
+    {
+      "topic": "Industry Cycle & Market Conditions",
+      "text": "Current environment of stabilizing or reducing rates benefits consumers and profitability but does not motivate shopping; management observed this result last year and expects it to continue through the year."
+    },
+    {
+      "topic": "Loss Costs & Severity Trends",
+      "text": "Severity trends in most coverages are no longer entirely offset by lower frequency; management is attempting to compete smartly in current conditions and preparing for growth when shopping increases."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "Announced intent to add about 50 concierge service centers over the next couple of years; opened two sites in Q2 and plans four more this year, meeting its fast, fair, better standard."
+    },
+    {
+      "topic": "Technology & Digital Transformation",
+      "text": "Deployments of new customer billing and claims platforms meet expectations; work is well underway on a redesigned policy management system; ground broken on Colorado Springs data center, expected operational in 2007."
+    },
+    {
+      "topic": "Brand Building & Marketing Strategy",
+      "text": "Formally announced the two-brand strategy—Drive Insurance from Progressive and Progressive Direct—nine months ago; Direct aired a fresh presentation of its price comparison service in commercials throughout most of Q2."
+    },
+    {
+      "topic": "Distribution Channel Strategy",
+      "text": "Management is pleased with agents accepting Drive and promoting agent-related benefits; Direct business, particularly Internet-generated, saw attractive growth in soft market conditions with consumers responding to its 'easy' message."
+    },
+    {
+      "topic": "Catastrophe Response & Disaster Management",
+      "text": "First-half results were unaffected by major weather events, though winter lingered into May; watching a projected active hurricane season as an opportunity to execute preparedness programs and provide hallmark claims response."
+    }
   ]
 }

@@ -2,15 +2,52 @@
   "id": "PGR_2004_Q3",
   "year": 2004,
   "quarter": "Q3",
-  "generated_date": "2026-04-26T00:00:00+00:00",
+  "generated_date": "2026-11-26T15:08:33.196557+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 4
+  },
   "bullets": [
-    {"topic": "Capital Management & Financial Position", "text": "Dutch auction tender offer repurchased 16.9 million shares at $88 per share for $1.5 billion, reducing shares outstanding by approximately 7.8% from 217 million."},
-    {"topic": "Brand Building & Marketing Strategy", "text": "Drive Insurance from Progressive launched September 21 as a dedicated brand for independent agents; formal market launch set for December 10, targeting 80%-plus of auto insurance sold through agents."},
-    {"topic": "Policies in Force & Customer Growth", "text": "Year-to-date industry auto segment grew an estimated 4%; Progressive Direct was the fastest-growing top-15 insurer at 17% and Agency ranked sixth at 11%."},
-    {"topic": "Premium Growth", "text": "Overall new business pace matched prior year; year-over-year percentage growth slowed significantly from prior three years, reflecting soft market conditions and rate stability."},
-    {"topic": "Catastrophe Response & Disaster Management", "text": "Four hurricanes hit Florida and Southeast; Progressive closed 94% of hurricane-related claims and reached approximately 80% closed within 20–25 days of each storm."},
-    {"topic": "Claims Service & Innovation", "text": "Concierge claims strategy met expansion performance standards; multiple new service center locations to be announced with planned openings in 2005."},
-    {"topic": "Policies in Force & Customer Growth", "text": "Retention measures unexpectedly declined during the quarter despite rate stability; management flagged understanding retention as a key ongoing challenge."},
-    {"topic": "Competitive Position & Market Share", "text": "Progressive and other insurers received subpoenas related to industry-wide bid-rigging investigations; management stated it is not a target and will cooperate fully."}
+    {
+      "topic": "Premium Growth",
+      "text": "YOY growth rate down significantly from prior three years, reflecting soft market conditions expected to continue; new business on pace with last year, stronger in Direct than Agency."
+    },
+    {
+      "topic": "Distribution Channel Strategy",
+      "text": "Announced 'Drive Insurance from Progressive' for independent agents and brokers, formally launching December 10th; provides clarity between consumer offerings. More than 80% of U.S. auto insurance is written through captive and independent agents."
+    },
+    {
+      "topic": "Capital Management & Financial Position",
+      "text": "Dutch auction tender offer purchased 16.9M common shares at $88/share, reducing outstanding shares by approximately 7.8% from 217.0M at the end of the third quarter."
+    },
+    {
+      "topic": "Catastrophe Response & Disaster Management",
+      "text": "Hurricane claims response closed 94% of reported damage claims, approaching 80% closed within 20 to 25 days post-incident; after-action review planned to identify further service improvements."
+    },
+    {
+      "topic": "Policies in Force & Customer Growth",
+      "text": "Renewal business provided an increased percentage of premium and growth, and efforts focus on increasing customer retention. Retention measures were expected to increase with rate stability, but observed measures fell during the quarter."
+    },
+    {
+      "topic": "Competitive Position & Market Share",
+      "text": "Based on YTD written premiums through Q2, the industry auto insurance segment grew an estimated 4%. Among top 15 private passenger auto insurers, Progressive Direct grew fastest at 17%, with Agency sixth at 11%."
+    },
+    {
+      "topic": "Brand Building & Marketing Strategy",
+      "text": "Created separate brand identities for Agency and Direct; independent agents sought greater participation and recognition in advertising, which was difficult under a single brand primarily promoting Direct attributes."
+    },
+    {
+      "topic": "Rate Adequacy & Pricing Strategy",
+      "text": "After a period of increase, average premium per policy is essentially flat year-to-date. Market conditions and competitor actions suggest no immediate outlook for premium increases."
+    },
+    {
+      "topic": "Industry Cycle & Market Conditions",
+      "text": "Received subpoenas regarding industrywide broker bid-rigging and antitrust investigations; no regulator has suggested Progressive is an investigation target, nor does management believe it should be."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "Achieved performance standards required for concierge claims strategy expansion; plans to announce multiple new locations shortly for site development and scheduled openings in 2005."
+    }
   ]
 }

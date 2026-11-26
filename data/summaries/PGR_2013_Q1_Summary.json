@@ -2,17 +2,52 @@
   "id": "PGR_2013_Q1",
   "year": 2013,
   "quarter": "Q1",
-  "generated_date": "2026-04-26T00:00:00+00:00",
+  "generated_date": "2026-11-26T16:34:47.127881+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 6
+  },
   "bullets": [
-    {"topic": "Profitability & Underwriting Performance", "text": "Q1 2013 combined ratio was 92.4, well inside the 96 target, with net income growth of 20%, though results included ~$65 million of unfavorable prior accident year development."},
-    {"topic": "Premium Growth", "text": "Written premium grew 7% and earned premium grew 8% year-over-year in Q1, driven primarily by higher average rates rather than unit growth."},
-    {"topic": "Loss Costs & Severity Trends", "text": "Unfavorable prior-year development of ~$65 million stemmed from underestimated frequency and severity of late-emerging bodily injury and property damage claims in Agency Personal Lines and Commercial Auto."},
-    {"topic": "Policies in Force & Customer Growth", "text": "Unit growth was weak at 1–2% for both Personal Lines and Commercial Auto, though new application trends began improving toward quarter-end as rate competitiveness stabilized."},
-    {"topic": "Catastrophe Response & Disaster Management", "text": "Atypically early hail storms in Louisiana, Mississippi, Alabama, and Georgia damaged ~16,000 insured vehicles, making catastrophe losses an unexpected Q1 factor."},
-    {"topic": "Rate Adequacy & Pricing Strategy", "text": "Management expressed comfort that auto rate levels were close to target; policy life expectancy decline was expected to reverse as customers renewed within the same rate plan."},
-    {"topic": "Distribution Channel Strategy", "text": "Agency conversion rate was lower than prior year despite comparable quote volumes; Direct new applications crossed from below to above prior-year levels during the quarter aided by Internet and mobile demand."},
-    {"topic": "Technology & Digital Transformation", "text": "Mobile acquisition capabilities were expanded to cover nearly all car-and-driver combinations, with service enhancements planned; Snapshot device was piloted with thousands of agents."},
-    {"topic": "Product Innovation & Expansion", "text": "Progressive Home Advantage marketing was advanced through the ASI relationship; two new co-located Service Centers opened in Maryland and Pennsylvania, with seven more planned by year-end."},
-    {"topic": "Brand Building & Marketing Strategy", "text": "A new Snapshot advertising campaign launched post-quarter, shifting messaging from 'you could save' to emphasizing that non-participants may subsidize poor drivers, targeting consumer fairness sentiment."}
+    {
+      "topic": "Profitability & Underwriting Performance",
+      "text": "Combined ratio was 92.4 and net income grew 20%. Commercial Auto lagged projected profitability, partly due to late-emerging claims and high-limit profile volatility, though Progressive sees no need for immediate corrective action."
+    },
+    {
+      "topic": "Premium Growth",
+      "text": "Written and earned premiums grew 7% and 8%, respectively; unit growth was weaker at 1%–2% for Personal Lines and Commercial Auto, though dynamics began trending more favorably late in Q1."
+    },
+    {
+      "topic": "Distribution Channel Strategy",
+      "text": "Agency auto conversion and new applications fell on comparable quote opportunities. Direct auto new applications crossed from below to above prior-year levels, driven largely by Internet and mobile quote interest."
+    },
+    {
+      "topic": "Rate Adequacy & Pricing Strategy",
+      "text": "Progressive is satisfied rate levels are close to objectives; significant conversion changes may depend largely on competitors' actions. Renewals, having greater influence on the book, were generally negatively affected by rate increases."
+    },
+    {
+      "topic": "Loss Costs & Severity Trends",
+      "text": "Unfavorable prior accident year development was about $65 million, mostly from Agency Personal Lines and Commercial Auto, partly reflecting that initial frequency and severity estimates for late-emerging BI and PD claims proved too low."
+    },
+    {
+      "topic": "Policies in Force & Customer Growth",
+      "text": "Estimates of policy life expectancy declined notably through late 2012 and Q1 before early reversal signs appeared. Motorcycle new applications also reflected poor March riding conditions and low interest."
+    },
+    {
+      "topic": "Catastrophe Response & Disaster Management",
+      "text": "Atypical early catastrophe losses arose from late-February and March hail storms across Louisiana, Mississippi, Alabama, and Georgia, damaging about 16,000 insured vehicles in areas not normally among Progressive's highest hail exposure geographies."
+    },
+    {
+      "topic": "Brand Building & Marketing Strategy",
+      "text": "New campaign reframes Snapshot messaging from potential savings to avoiding subsidizing poorer drivers; several thousand agents plugged Snapshot devices into their own vehicles to experience and relay benefits."
+    },
+    {
+      "topic": "Technology & Digital Transformation",
+      "text": "Mobile acquisition capabilities expanded to quote almost all combinations of cars and drivers on mobile devices; plans underway to enhance service response to match mobile acquisition success."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "Promotional plans developed with American Strategic Insurance for home-auto bundles; opened 55th and 56th Service Centers in Maryland and Pennsylvania, with seven more planned before year-end."
+    }
   ]
 }

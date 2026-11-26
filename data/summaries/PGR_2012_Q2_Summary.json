@@ -2,17 +2,47 @@
   "id": "PGR_2012_Q2",
   "year": 2012,
   "quarter": "Q2",
-  "generated_date": "2026-04-27T00:00:00+00:00",
+  "generated_date": "2026-11-26T16:27:17.389256+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 7,
+    "numbers_not_in_letter": [
+      "30"
+    ]
+  },
   "bullets": [
-    {"topic": "Profitability & Underwriting Performance", "text": "Q2 CR 97.6 — acknowledged as disappointing and below the 96.0 cultural target; 8% premium growth achieved but at unacceptable margin; full rate revision response engaged immediately."},
-    {"topic": "Loss Costs & Severity Trends", "text": "Q1 favorable frequency did not persist; severity trends confirmed 'solidly mid-single digit'; hail, floods, winds, and wildfires elevated property losses; motorcycle exposure elevated by heat and drought."},
-    {"topic": "Rate Adequacy & Pricing Strategy", "text": "Rate revision infrastructure shifted to fully responsive mode in Q2; rate adequacy expected to be restored in early Q3; Commercial annual policies slow to reflect rate vs. personal auto monthly cadence."},
-    {"topic": "Premium Growth", "text": "Written premium grew 8% in Q2 — growth continuing but at unacceptable profitability; rate increases beginning to flow through earned premium as portfolio adjusts toward adequate pricing."},
-    {"topic": "Technology & Digital Transformation", "text": "Mobile app released with camera-capture for driver's license and insurance ID — fast quoting expanded from 1 driver/1 vehicle to 3 drivers/3 vehicles; Snapshot 'Test Drive' 30-day free trial launched."},
-    {"topic": "Product Innovation & Expansion", "text": "Snapshot 'Test Drive' announced — 30-day free trial allows consumers to experience UBI discounts without abandoning current insurer; removes largest behavioral adoption barrier for skeptical shoppers."},
-    {"topic": "Capital Management & Financial Position", "text": "YTD investment total return 3.6% through June; portfolio generating income despite compressed yields; capital position strong enough to absorb loss cost volatility without strategic adjustment."},
-    {"topic": "Competitive Position & Market Share", "text": "Conversion rates monitored as rate increases reduce price competitiveness; competitors' actions tracked closely; new business volume intentionally allowed to moderate during rate restoration period."},
-    {"topic": "Operating Efficiency & Expense Ratio", "text": "Claims LAE continuing multi-year improvement trend even as loss costs elevated; efficiency gains in claims operations sustained despite catastrophe volume and severity pressures."},
-    {"topic": "Brand Building & Marketing Strategy", "text": "Advertising investment maintained through rate revision period; Flo campaign continued with no strategic pullback; brand building sustained even as pricing competitiveness temporarily reduced."}
+    {
+      "topic": "Profitability & Underwriting Performance",
+      "text": "A Q2 combined ratio of 97.6 missed the expectation of 96 or better; underwriting margin is the quarter's story, but the diagnosis and treatment plan are well within Progressive's control."
+    },
+    {
+      "topic": "Rate Adequacy & Pricing Strategy",
+      "text": "Rate actions lagged need by a few months; responsive revision infrastructure targets early Q3 in-market prices; six-month auto terms aid renewal realization, whereas commercial auto annual terms put a premium on timing."
+    },
+    {
+      "topic": "Loss Costs & Severity Trends",
+      "text": "Costs fixing cars and people rose quickly, with severity trends estimated solidly mid-single digit. Favorable first-quarter frequency did not persist, notably in bodily injury; weather increased motorcycle riding days and exposure."
+    },
+    {
+      "topic": "Premium Growth",
+      "text": "Premium growth reached 8%, noted as positive but less so at a 97.6 combined ratio; Progressive expects to end the year with higher written premium per policy on most products."
+    },
+    {
+      "topic": "Capital Management & Financial Position",
+      "text": "Year-to-date total return was 3.6% alongside frustration with sustained low-single-digit portfolio returns; investment style and duration remain unchanged. Risk assessment, contingency considerations, and capital position strength are all very strong."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "Snapshot usage-based segmentation expanded via a 30-day free trial without disturbing current insurance arrangements; Progressive considers the Snapshot discount structure the most powerful rate segmentation variable it has ever used."
+    },
+    {
+      "topic": "Technology & Digital Transformation",
+      "text": "Progressive released a mobile application using camera capture of driver's license and insurance ID card information for fast auto quotes, and expanded mobile quoting from one driver and vehicle to up to three each."
+    },
+    {
+      "topic": "Catastrophe Response & Disaster Management",
+      "text": "Weather events were materially greater than non-Katrina prior-decade years. Hail, floods, winds, and fires factored into results, with hail almost certainly having the highest per-minute event cost; customers expressed satisfaction with catastrophe claims responses."
+    }
   ]
 }

@@ -2,43 +2,52 @@
   "id": "PGR_2022_Q1",
   "year": 2022,
   "quarter": "Q1",
-  "generated_date": "2026-04-26T00:00:00+00:00",
+  "generated_date": "2026-11-26T18:09:58.864899+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 1
+  },
   "bullets": [
     {
-      "topic": "Loss Costs & Severity Trends",
-      "text": "Personal auto loss costs rose nearly 18% year over year, driven by used car prices up ~35% and broad inflation, pressuring collision, property damage, and total loss payouts throughout the quarter."
-    },
-    {
       "topic": "Rate Adequacy & Pricing Strategy",
-      "text": "Progressive raised personal auto rates in 36 states representing 75% of trailing 12-month premium, an average ~7% increase—one of the highest quarterly rate actions ever—following an 8% full-year increase in 2021, with ~7 points still to earn in."
+      "text": "Personal auto rates increased across 36 states representing ~75% of TTM premium, a ~7% countrywide increase; nearly 7 points remain to earn in during 2022; underwriting restrictions and bill plan limits continued."
     },
     {
       "topic": "Profitability & Underwriting Performance",
-      "text": "Companywide combined ratio was 94.5 for Q1 2022, up 5.2 points year over year; Personal Lines CR was 95.2 and Property CR was 98.5 including 17.8 points of catastrophe losses from March wind and hail events."
+      "text": "Companywide CR was 94.5, up 5.2 points YOY; PL CR 95.2, with personal auto about one point above 96 target excluding special lines; CL CR 90.5; Property CR 98.5."
+    },
+    {
+      "topic": "Loss Costs & Severity Trends",
+      "text": "Average loss costs increased almost 18% YOY in personal auto; collision, property damage, and total loss payouts were pressured by general inflation and used car prices rising about 35% YOY."
     },
     {
       "topic": "Premium Growth",
-      "text": "Companywide net premiums written grew 12% in Q1 2022, with Commercial Lines up 63%, Property up 13%, and Personal Lines up 3%, reflecting strong commercial momentum but personal auto rate-driven moderation."
+      "text": "NPW grew 12% YOY; PL NPW +3%; CL NPW +63%, crossing $9B on a TTM basis and aided by TNC policy terms shifting to 12 months; Property NPW grew 13%."
     },
     {
       "topic": "Policies in Force & Customer Growth",
-      "text": "Companywide PIF growth slowed to 3% year over year as higher personal auto rates drove a significant decline in new business applications compared to the stimulus-boosted Q1 2021."
+      "text": "Companywide PIF +3% YOY; personal auto PIF slowed to +1% due to significantly lower new applications following rate actions; CL PIF +16% to nearly 1M; Property PIF rose 9%."
     },
     {
       "topic": "Capital Management & Financial Position",
-      "text": "Progressive issued $1.5 billion of senior unsecured notes in March across 5-, 10-, and 30-year maturities to rebuild capital cushion and return leverage to historical range after entering 2022 at a below-normal level."
-    },
-    {
-      "topic": "Distribution Channel Strategy",
-      "text": "Commercial Lines crossed $9 billion in trailing 12-month NPW in March 2022, reaching nearly 1 million policies in force; BOP expanded to 36 states and heavy truck roadside assistance launched in seven states."
-    },
-    {
-      "topic": "Technology & Digital Transformation",
-      "text": "Personal auto product model 8.7 was deployed in 27 states representing 60% of countrywide premium, with early results showing improved quote-to-customer conversion, especially for multicar and prior-insurance segments."
+      "text": "Issued $1.5B senior unsecured notes to prudently restore historical leverage; investment portfolio returned (3.8)%, with fixed income at (3.6)% and equities at (4.9)% amid rising interest rates and volatility."
     },
     {
       "topic": "Catastrophe Response & Disaster Management",
-      "text": "Wind, hail, and tornadoes across Texas and the Southeast drove 17.8 catastrophe loss ratio points in Property for Q1 2022; the personal auto impact was more modest but contributed to the above-target combined ratio."
+      "text": "Property CR included 17.8 points of catastrophe losses from March wind, hail, and tornadoes in Texas and the Southeast; intentional growth cutbacks caused Florida and hail belt homeowners PIF to shrink."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "Personal auto model 8.7 deployed in 27 states (60% countrywide premium), improving quote conversion; BOP expanded to 36 states; heavy truck roadside assistance launched in seven states covering ~20% of eligible vehicles."
+    },
+    {
+      "topic": "Brand Building & Marketing Strategy",
+      "text": "Advertising spend decreased 8% YOY in the first quarter of 2022; higher 2021 ad spend contributed to the prior-year period's exceptionally high new business volume."
+    },
+    {
+      "topic": "Employee Engagement & Culture",
+      "text": "The Golden Rule core value illustrated by an internal employee assistance story during travel disruptions; Progressive marked its 85th anniversary on March 10, 2022, honoring founders Joe Lewis and Jack Green."
     }
   ]
 }

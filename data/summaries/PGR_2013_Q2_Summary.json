@@ -2,16 +2,52 @@
   "id": "PGR_2013_Q2",
   "year": 2013,
   "quarter": "Q2",
-  "generated_date": "2026-04-26T00:00:00+00:00",
+  "generated_date": "2026-11-26T16:37:12.710245+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 3
+  },
   "bullets": [
-    {"topic": "Profitability & Underwriting Performance", "text": "Q2 combined ratio was 93.3, with year-to-date at 92.9; net income up 174% for the quarter and 68% year-to-date, though comprehensive income comparisons were more modest at +154% and +9%."},
-    {"topic": "Premium Growth", "text": "Written premium grew 6% for Q2 and 7% year-to-date, driven heavily by higher average premium per policy from 2012 rate actions rather than new customer volume."},
-    {"topic": "Policies in Force & Customer Growth", "text": "Direct auto new applications were up low single digits while Agency new applications lagged prior year by ~7%, consistent with expected outcomes following significant 2012 rate increases."},
-    {"topic": "Catastrophe Response & Disaster Management", "text": "Year-to-date catastrophe losses totaled $130 million from fires, tornadoes, flooding, hail, and late snow; all events were manageable within product pricing, though severe for affected customers."},
-    {"topic": "Rate Adequacy & Pricing Strategy", "text": "Modest downward rate adjustments were taken in several large states, including Florida where loss experience was favorable; ongoing PIP uncertainty in Florida complicated further pricing actions."},
-    {"topic": "Capital Management & Financial Position", "text": "Portfolio year-to-date total return was 2.2% after rising interest rates reduced gains in June; short-duration positioning provided insulation as the yield curve steepened significantly during Q2."},
-    {"topic": "Technology & Digital Transformation", "text": "Progressive was recognized as best insurance website for the 20th time by Keynote; mobile servicing capabilities were being advanced to match the company's quoting and acquisition leadership."},
-    {"topic": "Product Innovation & Expansion", "text": "Snapshot policies and associated premium grew to 1.2 million and $1.8 billion respectively; two new Service Centers opened in New Jersey and California, with nine total planned for 2013."},
-    {"topic": "Distribution Channel Strategy", "text": "Renewal offer acceptance declined as expected post-rate increases, with slow recovery underway; management focused on rebuilding retention in both Agency and Direct channels for H2 growth."}
+    {
+      "topic": "Profitability & Underwriting Performance",
+      "text": "Q2 CR 93.3, YTD 92.9; net income up 174% for Q2 and 68% YTD; comprehensive income increased 154% in Q2 and 9% YTD, eliminating timing differences in recognized investment gains and losses."
+    },
+    {
+      "topic": "Premium Growth",
+      "text": "Written premium grew 6% in Q2 and 7% YTD. Average premiums reflecting year-ago rate changes were a big driver of premium growth, but application growth was considerably slower than prepared to handle."
+    },
+    {
+      "topic": "Rate Adequacy & Pricing Strategy",
+      "text": "Comfortable with prior-year aggregate rate actions; implemented modest downward rate adjustments in major states including Florida where loss experience was very good, though personal injury protection coverage uncertainty persists."
+    },
+    {
+      "topic": "Policies in Force & Customer Growth",
+      "text": "Application growth was considerably slower than prepared to handle; renewal offer acceptances experienced an expected decline with slow recovery, particularly among policies in early-term relationships."
+    },
+    {
+      "topic": "Distribution Channel Strategy",
+      "text": "Customer demand strengthened and was healthy across both channels; Direct Auto new applications rose by low single digits YOY, while Agency channel new applications lagged the prior-year quarter by roughly 7%."
+    },
+    {
+      "topic": "Catastrophe Response & Disaster Management",
+      "text": "Catastrophe losses reached $130M YTD, comparable to the prior two years; severe weather events were manageable within product pricing, though Colorado Springs fires forced temporary evacuation of an operating facility."
+    },
+    {
+      "topic": "Capital Management & Financial Position",
+      "text": "Portfolio total return was 2.2% YTD (down from 2.9% through May); short duration positioning and front-end yield curve exposure provided some insulation against rising interest rates and yield curve steepening."
+    },
+    {
+      "topic": "Brand Building & Marketing Strategy",
+      "text": "Snapshot advertising campaign outside the Superstore construct ran most of Q2 to highlight driving profile subsidies; performance was very acceptable but short of breakout."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "Snapshot and Progressive Home Advantage remained key growth initiatives; Snapshot reached 1.2M policies and $1.8B in premium; Commercial Auto aggregate results matched expectations despite greater period-to-period volatility."
+    },
+    {
+      "topic": "Strategic Vision & Company Philosophy",
+      "text": "Opening nine Service Centers with co-located claims offices in 2013, adding sites in NJ and CA; rest-of-year focus targets customer retention, multi-product growth, and claims and cost advantages."
+    }
   ]
 }

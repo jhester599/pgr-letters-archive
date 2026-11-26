@@ -1,6 +1,6 @@
 {
   "meta": {
-    "last_updated": "2026-11-26T16:46:30.986866+00:00",
+    "last_updated": "2026-11-26T18:42:57.157478+00:00",
     "total_letters": 102,
     "total_audio": 100,
     "description": "State ledger for the PGR Letters Archive pipeline. Each entry tracks one SEC filing through the scrape \u2192 generate \u2192 compress lifecycle."

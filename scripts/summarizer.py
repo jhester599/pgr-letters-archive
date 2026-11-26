@@ -323,8 +323,13 @@ def _numbers(text: str, expand_scales: bool = False) -> set[str]:
         number = _canonical(match.group())
         found.add(number)
         scale = re.match(r"\s+(thousand|million|billion)\b", after)
-        if expand_scales and scale and "." not in number:
-            found.add(str(int(number) * _SCALE_WORDS[scale.group(1)]))
+        if expand_scales and scale:
+            value = float(number) * _SCALE_WORDS[scale.group(1)]
+            if value == int(value):
+                found.add(str(int(value)))
+            # "$3,180.0 million" may be summarized as "$3.18B" or "$3,180M".
+            for unit in (1_000_000, 1_000_000_000):
+                found.add(_canonical(f"{value / unit:.4f}"))
     return found
 
 

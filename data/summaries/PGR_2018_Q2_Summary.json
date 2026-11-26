@@ -2,43 +2,52 @@
   "id": "PGR_2018_Q2",
   "year": 2018,
   "quarter": "Q2",
-  "generated_date": "2026-04-26T00:00:00+00:00",
+  "generated_date": "2026-11-26T17:34:01.949383+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 3
+  },
   "bullets": [
     {
-      "topic": "Profitability & Underwriting Performance",
-      "text": "Year-to-date combined ratio of 89.7 through H1 2018 despite $125 million in vehicle catastrophe losses and $82 million net Property catastrophe losses from 19 declared events in Q2."
-    },
-    {
-      "topic": "Premium Growth",
-      "text": "YTD net premiums written growth of approximately 21% through Q2, with Commercial Lines TNC premiums up nearly 120% quarter over quarter after Uber expansion to four states."
+      "topic": "Technology & Digital Transformation",
+      "text": "Photo estimating completed ~20% of estimates, returning them two days faster; August testing begins on machine learning algorithm for estimate workflows; claims texting exceeded 3M interactions; 11,000+ eSign forms completed."
     },
     {
       "topic": "Competitive Position & Market Share",
-      "text": "Progressive moved from #4 to #3 in the private passenger auto marketplace, a milestone the letter calls one big step closer to the ultimate goal of becoming consumers' number one choice."
+      "text": "Advanced from #4 to #3 in the private passenger auto marketplace; currently serves 19 million customers supported by nearly 36 thousand employees across the company."
     },
     {
-      "topic": "Claims Service & Innovation",
-      "text": "Photo estimating used for over 6.3 million customer-submitted photos in 18 months; nearly 75% of eligible customers accept the process; estimates returned an average two days faster than traditional inspection."
+      "topic": "Profitability & Underwriting Performance",
+      "text": "YTD combined ratio was 89.7, aided by strong frequency trends, new application growth, and retention; over the past five years, comprehensive ROE averaged 18% and annual stock price appreciation averaged 25%."
     },
     {
-      "topic": "Technology & Digital Transformation",
-      "text": "Machine learning AI algorithm to flag real-time estimate accuracy opportunities planned for August; texting solution used over 3 million times by claims reps since February rollout; eSign pilot completed 11,000+ forms."
-    },
-    {
-      "topic": "Distribution Channel Strategy",
-      "text": "HQX buy button launched in Wisconsin allowing online home purchase; rolled out to all available states for bundled auto and home quoting, providing lift to Robinson sales in both channels."
+      "topic": "Premium Growth",
+      "text": "YTD NPW increased approximately 21%, with 11% compounded annual growth over five years; TNC net premiums earned rose nearly 120% over Q1 following Uber footprint expansion into four states."
     },
     {
       "topic": "Catastrophe Response & Disaster Management",
-      "text": "19 catastrophes declared in Q2 including Colorado hailstorms, Texas flooding, and Hawaii Kilauea eruption; companywide catastrophe losses still down 12% versus Q2 2017; new Nashville CAT facility leased."
+      "text": "Quarterly catastrophe impacts totaled $125 million for vehicle businesses and $82 million for Property after reinsurance; companywide cat losses fell 12% YOY; leased Nashville claims handling facility is expected to open in August."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "Rolled out HQX bundled auto-home quoting across all available states; Progressive Property added direct online buying in Wisconsin; Smart Haul UBI take rate is trending up with ELD mandate enforcement."
     },
     {
       "topic": "Capital Management & Financial Position",
-      "text": "Investment portfolio returned 0.6% for Q2 with equities up 3.1%; corporate bond portfolio expanded as valuations improved; five-year compounded equity return 25% annually, average ROE 18%."
+      "text": "Portfolio total return was 0.6% in Q2 amid high market volatility; equities returned 3.1%; added to corporate bonds as valuations became more attractive; higher interest rates offer potential yield gains."
+    },
+    {
+      "topic": "Rate Adequacy & Pricing Strategy",
+      "text": "Comfortable with commercial auto rate levels; removed multiple underwriting restrictions early in Q2, though select truck underwriting restrictions remain active in California, Florida, and a few other markets."
     },
     {
       "topic": "Strategic Vision & Company Philosophy",
-      "text": "Progressive formed an eleven-person Strategy Council in December 2017 and appointed Andrew Quigg as Chief Strategy Officer effective July 1, 2018, to lead dedicated Horizon Three exploration efforts."
+      "text": "Appointed Andrew Quigg as Chief Strategy Officer leading a dedicated team focused on Horizon 3 future business initiatives, following work initiated by the eleven-person Strategy Council formed in December 2017."
+    },
+    {
+      "topic": "Employee Engagement & Culture",
+      "text": "Marked the fifth anniversary of STEM Progress program; over 1,000 employee volunteers have taught 1,010 classes across 275 schools to 26,000 students in 31 states using insurance concepts."
     }
   ]
 }

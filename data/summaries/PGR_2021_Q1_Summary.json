@@ -2,17 +2,55 @@
   "id": "PGR_2021_Q1",
   "year": 2021,
   "quarter": "Q1",
-  "generated_date": "2026-04-27T00:00:00+00:00",
+  "generated_date": "2026-11-26T18:02:02.566746+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 5,
+    "numbers_not_in_letter": [
+      "32"
+    ]
+  },
   "bullets": [
-    {"topic": "Profitability & Underwriting Performance", "text": "Q1 CR 89.3 with NPW growth 19%; all segments profitable except Property (weather 30.6 CR points); Commercial Lines CR 83.9 (+57% NPW) driven by freight market boom and pandemic recovery."},
-    {"topic": "Policies in Force & Customer Growth", "text": "Companywide PIFs up 12% YOY, crossing 25 million milestone; personal auto and special lines surpassed 17M and 5M PIFs respectively — first time all three product lines grew double digits simultaneously since June 2004."},
-    {"topic": "Premium Growth", "text": "NPW growth 19% YOY; March 17 was second highest Direct auto prospect/sales day ever, boosted by third round of stimulus payments; commercial auto new business hit all-time highs in late Q1 and early April."},
-    {"topic": "Product Innovation & Expansion", "text": "Auto model 8.6 in 32 states (59% of premium); model 8.7 launched in January 2021; commercial model 8.0 with new policy admin system in 12 states; BOP in 19 states (37% of CL multiperil market); Protective Insurance acquisition announced for ~$338M ($23.30/share)."},
-    {"topic": "Capital Management & Financial Position", "text": "Q1 investment return 0.3% (equity strength offset rising rates); duration increased slightly on higher yields; capital position described as strong; Protective acquisition subject to regulatory approvals expected to close in 2021."},
-    {"topic": "Loss Costs & Severity Trends", "text": "Vehicle miles traveled down 8–10% through March vs. pre-pandemic average but rising; claims frequency increasing as states reopened; claims staffing ramping to handle anticipated volume increase through remainder of 2021."},
-    {"topic": "Policies in Force & Customer Growth", "text": "Snapshot Apron Relief program launched in 43 states offering existing customers 30-day monitoring period to realize savings faster; single-credential login launched across Progressive auto and home online platforms; Robinson PIF growth ~20% in Direct channel."},
-    {"topic": "Employee Engagement & Culture", "text": "People of color in senior leadership growing toward goal of doubling by 2025; on track for women in leadership parity by 2025; 'broken first rung' programs added to Multicultural Leadership Development program to develop supervisor-level diverse talent."},
-    {"topic": "Technology & Digital Transformation", "text": "New self-service personal auto website launched for all eligible policyholders after successful testing showing higher satisfaction and better digital self-service completion; real-time data feeds integrated between auto and home products."},
-    {"topic": "Industry Cycle & Market Conditions", "text": "Commercial auto benefiting from freight market strength, intermodal bottlenecks, and supply chain disruptions driving demand; TNC recovering as Uber/Lyft rideshare mileage rebounded; business auto and contractor BMTs also strengthening."}
+    {
+      "topic": "Profitability & Underwriting Performance",
+      "text": "CR 89.3 with solid profitability across all lines except Property, where catastrophes added 30.6 points to CR; Commercial Lines delivered an 83.9 CR alongside strong Personal Lines margins."
+    },
+    {
+      "topic": "Premium Growth",
+      "text": "Companywide NPW +19% YOY; Commercial Lines NPW surged 57%, driven by pandemic recovery, peak season, and stimulus dollars; March 17 was Progressive's second-highest Direct auto sales day ever."
+    },
+    {
+      "topic": "Policies in Force & Customer Growth",
+      "text": "Total PIF +12% YOY, passing 25M milestone; personal auto surpassed 17M and special lines 5M; double-digit growth across all segments for first time since 2004; Robinson PIFs up ~20% Direct, >16% Agency."
+    },
+    {
+      "topic": "Employee Engagement & Culture",
+      "text": "Progress on D&I objectives: if hiring volume holds, expects population parity for people of color in next few years and leadership gender parity by 2025; creating programs aimed at 'fixing the broken first rung.'"
+    },
+    {
+      "topic": "Loss Costs & Severity Trends",
+      "text": "Personal Lines loss frequency rose YOY amid higher VMTs, seasonal weather losses, and special lines volume; VMT was down 8–10% versus prior years by late March; claims is staffing up."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "Announced intent to acquire Protective Insurance for ~$338M ($23.30/share) to expand fleet and workers compensation capabilities; BOP expanded to 19 states (37% of CMP market); Snapshot Apron Relief offered in 43 states."
+    },
+    {
+      "topic": "Rate Adequacy & Pricing Strategy",
+      "text": "Personal auto model 8.6 in 32 states (59% countrywide premium, 67% PIFs) showed improved conversion; model 8.7 launched in January; 12 states are now operating on the new commercial policy administration system."
+    },
+    {
+      "topic": "Capital Management & Financial Position",
+      "text": "Investment portfolio returned 0.3% as equity market strength countered rising interest rates; portfolio duration slightly increased from year-end; management believes capital position remains strong against potential post-pandemic market volatility."
+    },
+    {
+      "topic": "Technology & Digital Transformation",
+      "text": "Launched new customer self-service website experience for all eligible policyholders following successful testing that demonstrated higher customer satisfaction and better self-service resolution for private passenger auto."
+    },
+    {
+      "topic": "Industry Cycle & Market Conditions",
+      "text": "Starting in March 2021, YOY growth comparisons will be inflated due to prior-year depressed shopping and negative Commercial Lines growth; stimulus payments aided Q1 growth, driving near-record Direct auto sales on March 17."
+    }
   ]
 }

@@ -2,17 +2,52 @@
   "id": "PGR_2024_Q4",
   "year": 2024,
   "quarter": "Q4",
-  "generated_date": "2026-04-27T00:00:00+00:00",
+  "generated_date": "2026-11-26T18:40:17.254017+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 3
+  },
   "bullets": [
-    {"topic": "Profitability & Underwriting Performance", "text": "Full-year companywide CR of 88.8, the best in Progressive's history; Personal Lines CR 88.6; Commercial Lines CR 89.4; personal property CR 98.3 despite elevated cat activity."},
-    {"topic": "Premium Growth", "text": "Companywide NPW grew 21% YOY to $74 billion; Personal Lines NPW up 23%; personal auto drove growth at 22% PIF increase — highest organic growth rate in company history."},
-    {"topic": "Policies in Force & Customer Growth", "text": "Total PIFs grew 18% YOY, adding over 5 million new policyholders in 2024; personal auto PIF growth of 22% represents the strongest PIF expansion in Progressive's history."},
-    {"topic": "Capital Management & Financial Position", "text": "Board declared $4.50/share annual-variable dividend; $500M preferred shares redeemed; debt-to-total capital at 21.2%; investment portfolio returned 4.6% (equity 22.9%, fixed income 3.0%)."},
-    {"topic": "Brand Building & Marketing Strategy", "text": "Advertising spend increased approximately 150% YOY as Progressive leaned into exceptionally strong unit economics to fuel growth; brand investment was a primary strategic lever in 2024."},
-    {"topic": "Operating Efficiency & Expense Ratio", "text": "Personal Lines vehicle non-acquisition expense ratio improved 0.4 points YOY; LAE ratio declined 0.5 points driven by lower frequency, higher average premiums, and technology productivity gains."},
-    {"topic": "Loss Costs & Severity Trends", "text": "Profitability driven by sustained lower personal auto loss frequency; catastrophe activity elevated but manageable; personal property CR of 98.3 reflects cat weather pressure during the year."},
-    {"topic": "Employee Engagement & Culture", "text": "Progressive earned Gallup Exceptional Workplace designation for the fourth consecutive year; employee culture cited as a key differentiator enabling the company's historic growth and profitability combination."},
-    {"topic": "Product Innovation & Expansion", "text": "Continued rollout of auto pricing model 8.9, property models, and commercial Lines products; AutoQuote Explorer and Progressive Vehicle Protection expanded; Snapshot telematic program growing."},
-    {"topic": "Industry Cycle & Market Conditions", "text": "Personal auto industry broadly achieved rate adequacy in 2024 after years of aggressive rate increases; Progressive's early return to profitability (2023) gave it a significant head start on growth."}
+    {
+      "topic": "Profitability & Underwriting Performance",
+      "text": "Full-year CR 88.8 — possibly one of the best years in company history; PL CR 88.6; CL CR 89.4; property CR 98.3, profitable but short of its target margin."
+    },
+    {
+      "topic": "Premium Growth",
+      "text": "Companywide NPW +21% YOY to $74B, from an 18% PIF increase and higher average written premiums; PL NPW +23%; CL NPW +8%, influenced by the macroeconomic environment."
+    },
+    {
+      "topic": "Policies in Force & Customer Growth",
+      "text": "Added 5M+ PIFs in 2024 (+18% YOY); personal auto PIFs +22% led growth; claims and call-center staff hired well in advance of need to support it."
+    },
+    {
+      "topic": "Capital Management & Financial Position",
+      "text": "$4.50/share annual-variable dividend; $500M preferred shares redeemed; debt-to-capital 21.2%, near the low end of its historical range; portfolio returned 4.6% (fixed income 3.8%, equity 22.9%)."
+    },
+    {
+      "topic": "Brand Building & Marketing Strategy",
+      "text": "Companywide media spend up 150% YOY to drive growth; #2 U.S. personal auto insurer for a third straight year; Superstore and Dr. Rick continued; new NFL 'Back Up' campaign launched."
+    },
+    {
+      "topic": "Operating Efficiency & Expense Ratio",
+      "text": "Companywide 88.8 CR reflected Progressive's ability to reduce operating expenses and increase acquisition expenses to leverage its competitive position; hiring well in advance of need supported profitable growth."
+    },
+    {
+      "topic": "Rate Adequacy & Pricing Strategy",
+      "text": "Combined ratio of 88.8 reflected adequate rates that match risks along with favorable reserve development; Progressive notes that its markets are very competitive and price remains a significant consideration."
+    },
+    {
+      "topic": "Employee Engagement & Culture",
+      "text": "Gallup Exceptional Workplace for a fourth consecutive year; ERG event attendance rose to 26% of employees from 19%; pay equity maintained; nearly $10M in employee disaster relief."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "BOP available in 46 states (~80% of the commercial multi-peril market); HomeQuote Explorer offers online homeowners purchase in 46 states plus DC, with eight partner carriers integrated."
+    },
+    {
+      "topic": "Strategic Vision & Company Philosophy",
+      "text": "Annual theme of empathy frames the letter; customer and lender accounts illustrate service and claims care, and customer obsession is designated the core focus going forward."
+    }
   ]
 }

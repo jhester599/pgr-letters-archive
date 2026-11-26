@@ -48,10 +48,13 @@ SUMMARIES_DIR = BASE_DIR / "data" / "summaries"
 
 GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/openai/"
 GEMINI_MODEL    = "gemini-3.8-flash"   # on the Gemini API free tier
-# Gemini 3 always thinks, and thinking tokens come out of the output budget; keep
-# the effort low and leave headroom so the JSON is never truncated.
-GEMINI_REASONING_EFFORT = "low"
-MAX_OUTPUT_TOKENS       = 8000
+# Gemini 3 always thinks, and thinking tokens come out of the output budget.
+# Medium effort made better fact-check fixes than low in the 2026-11 tests (low
+# twice missed a claim the letter does not make), but occasionally thinks past
+# 16k tokens, so the budget is generous and the check is retried once.
+GEMINI_REASONING_EFFORT = "medium"
+MAX_OUTPUT_TOKENS       = 32000
+CHECK_ATTEMPTS          = 2
 # Free-tier requests-per-minute limits are low; this pause only matters for
 # --rebuild over the whole archive (a routine run summarizes one letter).
 REQUEST_PAUSE_SECONDS   = 7
@@ -112,7 +115,8 @@ STYLE RULES (critical — match this style exactly):
 - Use abbreviations freely: CR, NPW, PIF, YOY, ROE, LAE, UBI, CL, PL, pts.
 - Lead with the most specific number available; omit generic filler phrases like
   "the letter discusses" or "management highlighted."
-- Do not quote the letter. Synthesize and compress.
+- Compress, but prefer the letter's own words to a paraphrase. Short phrases from
+  the letter are fine; never quote whole sentences.
 
 FACTUAL RULES (critical — the summary is read as a record of what the letter says):
 - Use only facts and figures stated in this letter. Do not add outside knowledge,
@@ -122,6 +126,18 @@ FACTUAL RULES (critical — the summary is read as a record of what the letter s
 - Do not add superlatives ("record", "best ever", "historic") unless the letter
   uses them, and keep the letter's own hedges ("may have been", "approximately").
 - Do not merge separate statements into a claim the letter does not make.
+- Keep the letter's strength. "A significant contributor" is not "drove" or
+  "led"; "more than fivefold" is not "fivefold"; keep "over", "about", "nearly",
+  "at least", "estimated", "we believe" and "we expect".
+- Linking words are claims. Write "despite", "driven by", "due to", "thanks to",
+  "forcing", "as" or "while" only when the letter itself makes that link;
+  otherwise give the facts side by side, separated by a semicolon.
+- The topic label is a filing category, not content. Do not reuse its words
+  ("market share", "innovation", "transformation") unless the letter does, and
+  never write a claim to fit the label: "competitors are raising rates" does
+  not mean "Progressive gained share".
+- Attribute forecasts and beliefs: if the letter says "we believe" or "we
+  expect", the bullet says "expects" or "believes", not a fact.
 
 FEW-SHOT EXAMPLE (PGR_2024_Q4 annual letter):
 [
@@ -153,11 +169,49 @@ LETTER TEXT:
 {letter_text}
 """
 
+_VERIFY_SYSTEM_PROMPT = (
+    "You are a meticulous fact-checker. You compare a summary against its source "
+    "document and correct anything the source does not support. "
+    "Output ONLY valid JSON — no markdown, no prose, no code fences."
+)
+
+_VERIFY_PROMPT_TEMPLATE = """\
+Below are a PGR shareholder letter ({filing_id}) and a draft summary of it as a JSON \
+array of {{"topic", "text"}} bullets. Check every claim in every bullet against the letter.
+
+A claim FAILS if it:
+- states a fact or figure the letter does not contain;
+- is stronger than the letter ("drove" for "contributed to", "fivefold" for "more
+  than fivefold", a fact where the letter says "we believe" or "we expect");
+- links facts the letter does not link ("despite", "driven by", "due to", "as",
+  "forcing", "thanks to", "while");
+- adds a superlative, motive or outcome the letter does not state (for example
+  "gained share" when the letter only says competitors raised rates).
+
+Return the summary as a JSON array in the same order with the same topics. Copy \
+bullets that pass unchanged. Rewrite bullets that fail so every claim matches the \
+letter, keeping the same terse style and 20–35 words; drop the failing claim if \
+the letter has nothing to replace it with. Add "fixed": true to each bullet you \
+changed. Do not add, remove or reorder bullets.
+
+DRAFT SUMMARY:
+{bullets_json}
+
+LETTER TEXT:
+{letter_text}
+"""
+
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 
 def _summary_path(filing_id: str) -> Path:
     return SUMMARIES_DIR / f"{filing_id}_Summary.json"
+
+
+def _strip_fences(raw: str) -> str:
+    """Remove markdown code fences if the model adds them despite instructions."""
+    raw = re.sub(r"^```[a-z]*\n?", "", raw.strip())
+    return re.sub(r"\n?```$", "", raw).strip()
 
 
 def parse_bullets(raw: str) -> list[dict]:
@@ -166,10 +220,7 @@ def parse_bullets(raw: str) -> list[dict]:
     Raises ValueError on anything that is not a summary, so a service that
     answers with something else fails loudly instead of being saved.
     """
-    raw = raw.strip()
-    # Strip markdown code fences if the model adds them despite instructions.
-    raw = re.sub(r"^```[a-z]*\n?", "", raw)
-    raw = re.sub(r"\n?```$", "", raw).strip()
+    raw = _strip_fences(raw)
     try:
         bullets = json.loads(raw)
     except json.JSONDecodeError as exc:
@@ -188,16 +239,12 @@ def parse_bullets(raw: str) -> list[dict]:
     return [{"topic": b["topic"].strip(), "text": b["text"].strip()} for b in bullets]
 
 
-def generate_summary(client: OpenAI, filing: dict, letter_text: str) -> list[dict]:
-    """Call Gemini and return a list of {topic, text} bullet dicts."""
-    prompt = _USER_PROMPT_TEMPLATE.format(
-        filing_id=filing["id"],
-        letter_text=letter_text[:30_000],  # cap at ~30k chars; no letter is longer
-    )
+def _complete(client: OpenAI, system: str, prompt: str) -> str:
+    """One Gemini chat completion; returns its text, or raises ValueError."""
     response = client.chat.completions.create(
         model=GEMINI_MODEL,
         messages=[
-            {"role": "system", "content": _SYSTEM_PROMPT},
+            {"role": "system", "content": system},
             {"role": "user",   "content": prompt},
         ],
         max_tokens=MAX_OUTPUT_TOKENS,
@@ -211,18 +258,108 @@ def generate_summary(client: OpenAI, filing: dict, letter_text: str) -> list[dic
     choice = choices[0]
     if getattr(choice, "finish_reason", None) == "length":
         raise ValueError("Reply was cut off at the output token limit")
-    return parse_bullets(choice.message.content or "")
+    return choice.message.content or ""
 
 
-def save_summary(filing: dict, bullets: list[dict]) -> None:
+def generate_summary(client: OpenAI, filing: dict, letter_text: str) -> list[dict]:
+    """Call Gemini and return a list of {topic, text} bullet dicts."""
+    prompt = _USER_PROMPT_TEMPLATE.format(
+        filing_id=filing["id"],
+        letter_text=letter_text[:30_000],  # cap at ~30k chars; no letter is longer
+    )
+    return parse_bullets(_complete(client, _SYSTEM_PROMPT, prompt))
+
+
+def verify_summary(client: OpenAI, filing: dict, letter_text: str,
+                   bullets: list[dict]) -> tuple[list[dict], int]:
+    """Second pass: Gemini checks the draft against the letter and rewrites any
+    bullet the letter does not support. Returns (bullets, number rewritten).
+
+    Raises ValueError if the reply is not the same bullets in the same order, so
+    a confused checker can never drop or reshuffle the draft.
+    """
+    prompt = _VERIFY_PROMPT_TEMPLATE.format(
+        filing_id=filing["id"],
+        bullets_json=json.dumps(bullets, indent=2, ensure_ascii=False),
+        letter_text=letter_text[:30_000],
+    )
+    raw = _complete(client, _VERIFY_SYSTEM_PROMPT, prompt)
+    checked = parse_bullets(raw)
+    if [b["topic"] for b in checked] != [b["topic"] for b in bullets]:
+        raise ValueError("Checker changed the bullets' topics or order")
+    fixed_flags = [bool(item.get("fixed")) for item in json.loads(_strip_fences(raw))]
+    fixed = sum(1 for flag, old, new in zip(fixed_flags, bullets, checked)
+                if flag or old["text"] != new["text"])
+    return checked, fixed
+
+
+# A figure: digits with optional decimals or thousands commas. The greedy match
+# never backtracks, so "$19.9B" yields 19.9, not 19.
+_NUMBER_RE = re.compile(r"(?<![A-Za-z\d.,])\d+(?:[.,]\d+)*")
+_SCALE_WORDS = {"thousand": 1_000, "million": 1_000_000, "billion": 1_000_000_000}
+
+
+def _canonical(number: str) -> str:
+    """'1,234' -> '1234', '96.0' -> '96', '0.50' -> '0.5'."""
+    number = number.replace(",", "")
+    if "." in number:
+        number = number.rstrip("0").rstrip(".")
+    return number
+
+
+def _numbers(text: str, expand_scales: bool = False) -> set[str]:
+    """Every figure in text, in canonical form.
+
+    Skips labels where a letter follows the digits (Q3 is excluded by the
+    look-behind; 1H, 9M and 2nd here), except the scale suffixes K, M and B.
+    With expand_scales (used on the letter), "43 thousand" also yields 43000,
+    to match a summary's "43,000".
+    """
+    found = set()
+    for match in _NUMBER_RE.finditer(text):
+        after = text[match.end():match.end() + 12]
+        if after[:1].isalpha() and not re.match(r"[KMB](?![a-z])", after):
+            continue
+        number = _canonical(match.group())
+        found.add(number)
+        scale = re.match(r"\s+(thousand|million|billion)\b", after)
+        if expand_scales and scale and "." not in number:
+            found.add(str(int(number) * _SCALE_WORDS[scale.group(1)]))
+    return found
+
+
+def unsupported_numbers(bullets: list[dict], letter_text: str) -> list[str]:
+    """Figures that appear in the summary but nowhere in the letter.
+
+    A cheap guard against invented numbers. "$1.5B" matches "$1.5 billion" and
+    "+4%" matches "4%". Skipped: small integers (<= 10), which letters often
+    spell out ("two states"); bare years; and the 96 CR target when the letter
+    states it as "four cents" of underwriting profit.
+    """
+    in_letter = _numbers(letter_text, expand_scales=True)
+    if re.search(r"\bfour cents\b", letter_text, re.IGNORECASE):
+        in_letter.add("96")
+    missing = []
+    for bullet in bullets:
+        for number in sorted(_numbers(bullet["text"])):
+            if number in in_letter or (number.isdigit() and
+                                       (int(number) <= 10 or 1990 <= int(number) <= 2040)):
+                continue
+            missing.append(number)
+    return sorted(set(missing))
+
+
+def save_summary(filing: dict, bullets: list[dict], verification: dict | None = None) -> None:
     data = {
         "id":             filing["id"],
         "year":           filing["year"],
         "quarter":        filing["quarter"],
         "generated_date": datetime.now(timezone.utc).isoformat(),
         "generated_by":   f"{GEMINI_MODEL} (Gemini API)",
-        "bullets":        bullets,
     }
+    if verification:
+        data["verification"] = verification
+    data["bullets"] = bullets
     path = _summary_path(filing["id"])
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w", encoding="utf-8") as fh:
@@ -235,6 +372,63 @@ def _warn(title: str, message: str) -> None:
     """Log a warning and surface it as an annotation on the Actions run."""
     log.warning(message)
     print(f"::warning title={title}::{message}")
+
+
+def check_summary(client: OpenAI, filing: dict, letter_text: str,
+                  draft: list[dict]) -> tuple[list[dict], dict]:
+    """Run the fact-check pass and the number check on a draft summary.
+
+    Returns the bullets to save and a record of the checks for the summary
+    file. A failed check never loses the summary: the draft is kept, marked
+    unverified, and the run gets a warning so someone reads it by hand.
+    """
+    bullets, verification, error = draft, None, None
+    for attempt in range(1, CHECK_ATTEMPTS + 1):
+        time.sleep(REQUEST_PAUSE_SECONDS)   # another request; free-tier rate limits
+        try:
+            bullets, fixed = verify_summary(client, filing, letter_text, draft)
+        except Exception as exc:
+            error = exc
+            log.warning("  Fact-check attempt %d/%d failed: %s", attempt, CHECK_ATTEMPTS, exc)
+            continue
+        verification = {"checked": True, "bullets_rewritten": fixed}
+        if fixed:
+            log.info("  Fact-check rewrote %d bullet(s).", fixed)
+        break
+    if verification is None:
+        verification = {"checked": False, "error": str(error)[:200]}
+        _warn("Summary not fact-checked",
+              f"{filing['id']}: the fact-check pass failed ({error}); the unchecked "
+              "draft was saved. Compare it with the letter by hand.")
+
+    missing = unsupported_numbers(bullets, letter_text)
+    if missing:
+        verification["numbers_not_in_letter"] = missing
+        _warn("Summary figures not found in letter",
+              f"{filing['id']}: {', '.join(missing)} appear in the summary but not "
+              "in the letter. Check them by hand.")
+    return bullets, verification
+
+
+def audit_saved_summaries() -> int:
+    """Print every saved summary whose figures are not all in its letter.
+
+    Returns the number of summaries flagged. A flag is a lead, not a verdict:
+    the letter may spell a figure out ("one hundred percent").
+    """
+    flagged = 0
+    for filing in load_ledger()["filings"]:
+        path = _summary_path(filing["id"])
+        if not (path.exists() and filing.get("letter_file")):
+            continue
+        letter = clean_letter_text((BASE_DIR / filing["letter_file"]).read_text(encoding="utf-8"))
+        bullets = json.loads(path.read_text(encoding="utf-8"))["bullets"]
+        missing = unsupported_numbers(bullets, letter)
+        if missing:
+            flagged += 1
+            print(f"{filing['id']}: {', '.join(missing)}")
+    print(f"{flagged} summary file(s) have figures not found in their letter.")
+    return flagged
 
 
 def main(rebuild: bool = False, filing_id: str | None = None, dry_run: bool = False) -> None:
@@ -284,17 +478,20 @@ def main(rebuild: bool = False, filing_id: str | None = None, dry_run: bool = Fa
         log.info("Summarizing %s…", filing["id"])
 
         try:
-            bullets = generate_summary(client, filing, letter_text)
+            draft = generate_summary(client, filing, letter_text)
         except Exception as exc:
             log.error("  Failed to summarize %s: %s", filing["id"], exc, exc_info=True)
             continue
 
+        bullets, verification = check_summary(client, filing, letter_text, draft)
+
         if dry_run:
-            print(json.dumps(bullets, indent=2, ensure_ascii=False))
+            print(json.dumps({"draft": draft, "verification": verification,
+                              "bullets": bullets}, indent=2, ensure_ascii=False))
             success += 1
             continue
 
-        save_summary(filing, bullets)
+        save_summary(filing, bullets, verification)
         filing["summary_generated"] = True
         filing["page_built"] = False   # force HTML rebuild to include new summary
         save_ledger(ledger)
@@ -327,5 +524,12 @@ if __name__ == "__main__":
         "--dry-run", action="store_true",
         help="Print the bullets instead of saving them or touching the ledger.",
     )
+    parser.add_argument(
+        "--check-numbers", action="store_true",
+        help="List saved summaries with figures that are not in their letter "
+             "(no API calls, writes nothing).",
+    )
     args = parser.parse_args()
+    if args.check_numbers:
+        sys.exit(1 if audit_saved_summaries() else 0)
     main(rebuild=args.rebuild, filing_id=args.filing_id, dry_run=args.dry_run)

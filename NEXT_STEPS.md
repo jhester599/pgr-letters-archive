@@ -82,6 +82,35 @@ has the capture steps.
 
 ---
 
+## Priority 1b — Older summaries contain figures their letters don't
+
+The 100 summaries made before Gemini (`generated_by` missing, pre-2026-07) were
+never checked against their letters. `python scripts/summarizer.py
+--check-numbers` (added 2026-11-26) flags **58 of them** with at least one
+figure the letter doesn't contain. Spot checks found real outside knowledge,
+not formatting misses: 2025 Q2 cites a "111.4 CR" for the commercial auto
+industry, a topic that letter never mentions; 2020 Q4 has "$21.6M" in
+charitable contributions; 2020 Q1 has "~33%" fewer miles driven. A flag can
+still be a false alarm when the letter spells the figure out.
+
+These summaries appear on the reading pages, and the v1.1 NotebookLM episodes
+were briefed with them.
+
+The fix is to regenerate them with the current prompt plus fact-check:
+`python scripts/summarizer.py --rebuild` (2–3 requests a letter, about 300 in
+all, 7 s apart). That replaces all 102 summaries, including the hand-corrected
+Q3 2026 one; to keep it, regenerate the others with `--id` one at a time.
+Then run `python scripts/build_pages.py --rebuild` and spot-check a few against
+their letters.
+
+Gemini 3.8 Flash tests on 2026-11-26 (Q3 2026, 2025 Q2, 2020 Q4): the new
+drafting rules alone still let "led by" stand in for "a significant
+contributor". The fact-check pass caught that and rewrote 3–5 bullets per
+letter, all for the better. Medium reasoning effort made better fixes than low,
+but once ran past a 16k-token output budget, hence the 32k budget and one retry.
+
+---
+
 ## Priority 2 — Re-enable the schedules
 
 Both crons are commented out:

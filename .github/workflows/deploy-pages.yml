@@ -1,13 +1,27 @@
 name: Deploy to GitHub Pages
 
-# Triggered whenever the quarterly pipeline pushes docs/ changes to main,
-# or manually. Audio is served from the GitHub Releases audio-library release;
-# the Pages artifact contains HTML, JSON, CSS, and feed metadata only.
+# Deploys docs/ to Pages on a push to main that touches docs/, after any
+# workflow that commits to main finishes, or manually. Audio is served from the
+# GitHub Releases audio-library release; the Pages artifact contains HTML,
+# JSON, CSS, and feed metadata only.
+#
+# The workflow_run trigger is required: the pipeline, readings and backfill
+# workflows push with GITHUB_TOKEN, and GitHub never starts a `push` workflow for a
+# GITHUB_TOKEN push. Without it, bot commits reach main but never the live
+# site (the 2026-10-03 and 2026-11-02 updates sat undeployed until this was
+# added). A run that committed nothing redeploys the same content, harmlessly.
 on:
   push:
     branches: [main]
     paths:
       - "docs/**"
+  workflow_run:
+    workflows:
+      - "Quarterly Podcast Pipeline"
+      - "Letter Readings (Gemini TTS)"
+      - "Daily Audio Backfill"
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -24,11 +38,14 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    # A failed writer run may have pushed nothing or half its work; skip it.
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
+      # workflow_run checks out the latest main, including the bot's commit.
       - name: Checkout repository
         uses: actions/checkout@v4
 

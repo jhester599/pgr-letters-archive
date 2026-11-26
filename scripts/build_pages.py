@@ -367,9 +367,15 @@ def main(rebuild: bool = False) -> None:
 
     synced = sync_letter_text(scrapeable)
 
+    # A page links to its neighbours, so building a page also rebuilds the pages
+    # on either side: otherwise a new quarter's predecessor never gets its
+    # "next →" link (2026 Q2 lacked one to Q3 until a full rebuild).
+    stale = {i for i, f in enumerate(scrapeable) if rebuild or not f.get("page_built")}
+    to_build = {j for i in stale for j in (i - 1, i, i + 1) if 0 <= j < len(scrapeable)}
+
     built = 0
     for i, filing in enumerate(scrapeable):
-        if not rebuild and filing.get("page_built"):
+        if i not in to_build:
             log.debug("Skipping already-built page for %s", filing["id"])
             continue
 

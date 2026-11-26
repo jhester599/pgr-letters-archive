@@ -486,3 +486,28 @@ def test_sync_letter_text_does_not_touch_the_real_repository(fake_env):
 
     after = target.read_text(encoding="utf-8") if target.exists() else None
     assert after == before, "build_pages wrote into the real repository during tests"
+
+
+def test_building_a_new_page_also_rebuilds_its_neighbours(monkeypatch, tmp_path):
+    import build_pages
+
+    letters = tmp_path / "letters"
+    letters.mkdir()
+    filings = []
+    for n, quarter in enumerate(["Q1", "Q2", "Q3", "Q4"]):
+        (letters / f"{quarter}.txt").write_text("Para one.", encoding="utf-8")
+        filings.append({"id": f"PGR_2026_{quarter}", "year": 2026, "quarter": quarter,
+                        "letter_scraped": True, "letter_file": f"letters/{quarter}.txt",
+                        "page_built": quarter != "Q4"})   # Q4 is the new letter
+    ledger = {"filings": filings}
+    monkeypatch.setattr(build_pages, "BASE_DIR", tmp_path)
+    monkeypatch.setattr(build_pages, "PAGES_DIR", tmp_path / "pages")
+    monkeypatch.setattr(build_pages, "load_ledger", lambda: ledger)
+    monkeypatch.setattr(build_pages, "save_ledger", lambda l: None)
+    monkeypatch.setattr(build_pages, "sync_letter_text", lambda f: 0)
+    monkeypatch.setattr(build_pages, "build_page", lambda f, *a: f"{f['id']} next={a[2] and a[2]['id']}")
+
+    build_pages.main()
+    built = sorted(p.name for p in (tmp_path / "pages").iterdir())
+    assert built == ["PGR_2026_Q3.html", "PGR_2026_Q4.html"]
+    assert (tmp_path / "pages" / "PGR_2026_Q3.html").read_text() == "PGR_2026_Q3 next=PGR_2026_Q4"

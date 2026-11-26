@@ -39,17 +39,16 @@ jobs:
 
     permissions:
       contents: write      # Required to push new files back to main
-      # pages: write and id-token: write are only needed for the Actions Pages API
-      # deployment flow (currently commented out). Pages deploys via push to main.
+      # Pages deploys from deploy-pages.yml, which runs when this workflow
+      # completes (workflow_run); a GITHUB_TOKEN push alone does not start it.
 
     steps:
       # ── 1. Checkout ──────────────────────────────────────────────────────
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
-          # Use a PAT (PIPELINE_TOKEN) if you need to push and trigger a
-          # subsequent Pages deployment; the default GITHUB_TOKEN works fine
-          # for push+Pages in most setups.
+          # GITHUB_TOKEN pushes do not trigger other workflows; deploy-pages.yml
+          # picks up this run's commit through its workflow_run trigger.
           token: ${{ secrets.GITHUB_TOKEN }}
 
       # ── 2. Python setup ───────────────────────────────────────────────────
@@ -208,14 +207,4 @@ jobs:
           fi
 
       # ── 7. Deploy to GitHub Pages ─────────────────────────────────────────
-      # GitHub Pages is configured to serve from the /docs folder on main,
-      # so pushing to main (step 6) is sufficient to trigger a Pages build.
-      # The steps below are an alternative if you prefer the Pages API flow.
-      #
-      # - name: Upload Pages artifact
-      #   uses: actions/upload-pages-artifact@v3
-      #   with:
-      #     path: docs/
-      #
-      # - name: Deploy to GitHub Pages
-      #   uses: actions/deploy-pages@v4
+      # Not done here: deploy-pages.yml runs when this workflow completes.

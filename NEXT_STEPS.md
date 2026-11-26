@@ -2,7 +2,7 @@
 
 Working guide to what the project needs, in priority order.
 
-Last verified: **2026-10-02**
+Last verified: **2026-11-26**
 
 For architecture see `PLAN.md`; for long-range feature ideas see `ROADMAP.md`.
 This file is the short list of what to actually do next.
@@ -13,26 +13,41 @@ This file is the short list of what to actually do next.
 
 | Area | State |
 |---|---|
-| Letters scraped | 101 of 101 (through Q2 2026) |
-| Letter text review | All 101 read; fixes and open questions in `LETTER_REVIEW.md` |
-| Summaries | 101 of 101 (`data/summaries/`) — Gemini free tier from Q2 2026 on, see Priority 1 |
-| NotebookLM audio | 100 of 101 — 64 at v1.1, **36 still at v1.0**, **Q2 2026 missing** |
-| Reading pages | 101 of 101 built |
+| Letters scraped | 102 of 102 (through Q3 2026, scraped 2026-11-02) |
+| Letter text review | All 102 read (Q3 2026 on 2026-11-26); fixes and open questions in `LETTER_REVIEW.md` |
+| Summaries | 102 of 102 (`data/summaries/`) — Gemini free tier from Q2 2026 on, see Priority 1 |
+| NotebookLM audio | 100 of 102 — 64 at v1.1, **36 still at v1.0**, **Q2 and Q3 2026 missing** |
+| Reading pages | 102 of 102 built |
+| Pages deploys | Fixed 2026-11-26 — bot commits had not deployed since early October; see Priority 1 |
 | RSS feed | 100 episodes, Apple-required tags present, artwork in place |
 | Audio hosting | `audio-library` release, 107 assets, ~1.06 GB, all URLs verified live |
 | Git LFS | Clear — 100% of the free allowance available (checked 2026-10-03); nothing uses LFS |
-| Pipeline schedules | **Both crons disabled** — nothing runs automatically |
+| Pipeline schedules | NotebookLM crons disabled; **Letter Readings runs daily** (09:17 UTC) |
 | Kokoro TTS | Paused, 3 of 100 letters — see `TTS.md` |
 
 Everything below assumes you are working from `main` with a clean tree.
 
 ---
 
-## Priority 1 — Finish Q2 2026
+## Priority 1 — Finish Q2 and Q3 2026
 
-`PGR_2026_Q2` was scraped on 2026-08-03 and now has its reading page and summary,
-but no audio. Q3 2026 (period 2026-09-30) files in late October or early
-November; run `python scripts/scraper.py` again after that.
+`PGR_2026_Q2` (scraped 2026-08-03) and `PGR_2026_Q3` (scraped 2026-11-02 by the
+filing-alert run) both have reading pages and summaries, but no NotebookLM
+audio. Q4 2026 (the 10-K) files mid-February to early March 2027.
+
+**The site was not deploying bot commits.** Pages deploys from
+`deploy-pages.yml`, which ran only on `push`, and GitHub never starts a
+workflow for a push made with `GITHUB_TOKEN`. So the 2026-10-03 and 2026-11-02
+pipeline commits reached `main` but not the live site, which stayed on the
+2026-10-03 ledger with no Q3 page. `deploy-pages.yml` now also runs on
+`workflow_run` after the pipeline, readings and backfill workflows succeed.
+
+The Q3 2026 summary got every figure right, but four bullets added claims the
+letter does not make: core commercial auto "drove" CL growth (the letter says
+"a significant contributor"), Progressive "aims to expand market share",
+expense gains came "despite" acquisition costs, and "fivefold" for "more than
+fivefold". They were corrected by hand, and the summary JSON records this in
+its `edited` field.
 
 **Summaries use the Gemini API free tier.** GitHub Models stopped working for
 the pipeline in mid-2026: it returned `401`, and then a bare string instead of a
@@ -47,12 +62,12 @@ API_KEY_SERVICE_BLOCKED`). The Q2 2026 summary was regenerated with Gemini under
 the prompt's factual rules (only letter-stated facts, no unstated causes or
 superlatives) and checked against the letter.
 
-Generate the audio by hand. NotebookLM auth almost certainly needs refreshing
-first:
+Generate the audio for both by hand. NotebookLM auth almost certainly needs
+refreshing first:
 
 ```cmd
 notebooklm login
-python scripts/generator.py --max-new 1
+python scripts/generator.py --max-new 2
 python scripts/compressor.py
 python scripts/build_pages.py
 ```
@@ -174,7 +189,7 @@ the ledger, and rewrites the feed. The **Letter Readings (Gemini TTS)** workflow
 runs it daily (6 letters a run) until the backlog is done. The main pipeline
 reads up to 2 new letters per run.
 
-**Voices.** Tricia Griffith's 40 letters (2016 Q3 – 2026 Q2) use **Despina**,
+**Voices.** Tricia Griffith's 41 letters (2016 Q3 – 2026 Q3) use **Despina**,
 chosen in the October 2026 pilot (`readings_pilot.yml` stays for voice tests).
 Peter Lewis (9 letters, 1993–2000) and Glenn Renwick (52 letters, 2001–2016)
 have no voice yet and are skipped until `VOICE_BY_SIGNER` in `readings.py` names
@@ -192,8 +207,9 @@ Fix the text in `data/letters/`, and the next run narrates the letter.
 "negative 4.1 percent". The published text is unchanged, and the acronyms (CR,
 NPW, PIF…) sounded right in the pilot, so no pronunciation list.
 
-**Backlog.** 39 letters ready (328 requests, ~680k characters, ~12 hours of
-audio, ~0.35 GB), so about a week of daily runs.
+**Backlog.** 40 letters ready as of 2026-11-26 (335 requests, ~697k characters,
+~12 hours of audio, ~0.35 GB), so about a week of daily runs, newest first
+(2026 Q3 first).
 
 ---
 

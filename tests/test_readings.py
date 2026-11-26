@@ -128,7 +128,17 @@ import xml.etree.ElementTree as ET  # noqa: E402
 
 import build_pages  # noqa: E402
 
-LEDGER = json.loads((Path(__file__).resolve().parent.parent / "docs" / "ledger.json").read_text(encoding="utf-8"))
+def _ledger_without_readings() -> dict:
+    """The real ledger with every reading_* field removed, so these tests do not
+    change meaning as readings are published to it."""
+    ledger = json.loads((Path(__file__).resolve().parent.parent / "docs" / "ledger.json").read_text(encoding="utf-8"))
+    for filing in ledger["filings"]:
+        for key in [k for k in filing if k.startswith("reading_")]:
+            del filing[key]
+    return ledger
+
+
+LEDGER = _ledger_without_readings()
 
 
 def _raw(filing_id: str) -> str:
@@ -188,7 +198,10 @@ def _fake_publish_env(monkeypatch, tmp_path, ledger):
 
 
 def test_publish_records_reading_fields_and_respects_the_limit(monkeypatch, tmp_path):
+    # A fixed set of letters, so a newly scraped quarter does not change the answer.
+    ids = {"PGR_2026_Q2", "PGR_2026_Q1", "PGR_2025_Q4", "PGR_2021_Q2", "PGR_2010_Q2"}
     ledger = copy.deepcopy(LEDGER)
+    ledger["filings"] = [f for f in ledger["filings"] if f["id"] in ids]
     saves = _fake_publish_env(monkeypatch, tmp_path, ledger)
     calls = []
     synth = lambda session, key, chunks, voice, style: (calls.append(voice), _wav(48000))[1]

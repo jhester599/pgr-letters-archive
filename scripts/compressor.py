@@ -276,6 +276,18 @@ def main() -> None:
         and f.get("audio_file") and f.get("audio_raw_file")
     ]
 
+    # In CI the compressed MP3 only lives on the runner, so an upload skipped
+    # for want of a token loses the audio for good (Daily Audio Backfill run 58
+    # lost Q2 and Q3 2026 this way). Stop before touching the raw files.
+    if pending and os.environ.get("GITHUB_ACTIONS") == "true" and not os.environ.get("GITHUB_TOKEN"):
+        log.error(
+            "GITHUB_TOKEN is not set in this workflow step, so the MP3s cannot be "
+            "uploaded to the audio-library release. Add "
+            "'GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}' to the step's env. "
+            "Nothing was compressed; the raw audio is left as it was."
+        )
+        sys.exit(1)
+
     if not pending:
         log.info("No audio files pending compression.")
     else:

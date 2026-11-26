@@ -7,7 +7,7 @@
     <language>en-us</language>
     <copyright>Letter text is © The Progressive Corporation. Audio overviews are AI-generated and are not affiliated with or endorsed by Progressive.</copyright>
     <author>Jeff Hester</author>
-    <lastBuildDate>Thu, 26 Nov 2026 16:22:43 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 26 Nov 2026 16:46:30 GMT</lastBuildDate>
     <atom:link href="https://jhester599.github.io/pgr-letters-archive/feed.xml" rel="self" type="application/rss+xml" />
     <itunes:author>Jeff Hester</itunes:author>
     <itunes:summary>AI-generated audio overviews of Progressive Corporation (NYSE: PGR) CEO Tricia Griffith's quarterly shareholder letters, powered by Google NotebookLM.</itunes:summary>
@@ -21,26 +21,6 @@
       <itunes:category text="Investing" />
     </itunes:category>
     <itunes:image href="https://jhester599.github.io/pgr-letters-archive/cover.png" />
-    <item>
-      <title>PGR 2026 Q3 — CEO Shareholder Letter Overview</title>
-      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q3 2026 shareholder letter.</description>
-      <pubDate>Wed, 30 Sep 2026 00:00:00 GMT</pubDate>
-      <guid isPermaLink="false">PGR_2026_Q3</guid>
-      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2026_Q3_Letter.mp3" length="10531035" type="audio/mpeg" />
-      <itunes:author>Jeff Hester</itunes:author>
-      <itunes:explicit>false</itunes:explicit>
-      <itunes:duration>1316</itunes:duration>
-    </item>
-    <item>
-      <title>PGR 2026 Q2 — CEO Shareholder Letter Overview</title>
-      <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q2 2026 shareholder letter.</description>
-      <pubDate>Tue, 30 Jun 2026 00:00:00 GMT</pubDate>
-      <guid isPermaLink="false">PGR_2026_Q2</guid>
-      <enclosure url="https://jhester599.github.io/pgr-letters-archive/audio/PGR_2026_Q2_Letter.mp3" length="8736736" type="audio/mpeg" />
-      <itunes:author>Jeff Hester</itunes:author>
-      <itunes:explicit>false</itunes:explicit>
-      <itunes:duration>1092</itunes:duration>
-    </item>
     <item>
       <title>PGR 2026 Q1 — CEO Shareholder Letter Overview</title>
       <description>AI-generated audio overview of Progressive Corporation CEO Tricia Griffith's Q1 2026 shareholder letter.</description>

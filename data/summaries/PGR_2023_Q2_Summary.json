@@ -2,39 +2,52 @@
   "id": "PGR_2023_Q2",
   "year": 2023,
   "quarter": "Q2",
-  "generated_date": "2026-04-26T00:00:00+00:00",
+  "generated_date": "2026-11-26T18:22:21.216994+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 7
+  },
   "bullets": [
     {
-      "topic": "Loss Costs & Severity Trends",
-      "text": "Personal auto severity surged 12% year over year in Q2 2023; property damage claims took longer to settle, supplemental payments spiked with inflation, and Florida injury/medical claims drove about 40% of the 3.4-point prior-year adverse reserve development for the quarter."
-    },
-    {
       "topic": "Profitability & Underwriting Performance",
-      "text": "Q2 2023 companywide CR was 100.4, bringing YTD to 99.7; prior accident year adverse reserve development contributed 3.4 points to the quarter's CR; Property CR was 133.2 for Q2 including 66.7 points of catastrophe losses."
+      "text": "Companywide CR was 100.4 (YTD 99.7); Personal Lines CR was 99.5 (YTD 99.1), missing the enterprise calendar-year 96 goal; Commercial Lines CR was 96.4; Property CR was 133.2 (YTD 119.6)."
     },
     {
-      "topic": "Rate Adequacy & Pricing Strategy",
-      "text": "Countrywide personal auto rates rose about 7% in Q2 and roughly 11% YTD through June 2023; commercial auto non-TNC rates increased 7% through June with additional increases planned for H2 subject to regulatory approval."
+      "topic": "Loss Costs & Severity Trends",
+      "text": "Prior accident year reserves negatively impacted quarterly CR by 3.4 points; personal auto severity rose about 12%, frequency increased about 1%; supplemental payments rose dramatically, reflecting inflation and longer repair times."
     },
     {
       "topic": "Catastrophe Response & Disaster Management",
-      "text": "43 catastrophic weather events in the first half of 2023, affecting 44 states, contributed 4.5 CR points YTD; second-quarter severity was higher than Q2 2022 despite fewer events; Property approached its aggregate catastrophe reinsurance retention limits."
+      "text": "19 catastrophe events added 7.1 CR pts companywide; Property cats contributed 66.7 loss ratio pts; June 1 private reinsurance renewed $2.0B coverage excess of $200M retention with 100% placed."
+    },
+    {
+      "topic": "Rate Adequacy & Pricing Strategy",
+      "text": "Personal auto rates increased about 7% in Q2 (~11% YTD); commercial auto (non-TNC) rates rose 7% through June; Property rates increased 4% (~19% trailing four quarters); prioritized auto bundles and lower-risk properties."
     },
     {
       "topic": "Premium Growth",
-      "text": "Companywide NPW grew 18% in Q2 2023; Personal Lines NPW up 22% and PIF up 13%; Commercial Lines NPW up 2% (6% excluding TNC) and Property NPW up 17%, driven by rate-fueled average premium growth and new business applications."
+      "text": "Companywide NPW increased 18%; Personal Lines NPW grew 22%, reflecting rate increases and new applications; Property NPW grew 17%; Commercial Lines NPW rose 2%, or 6% excluding the TNC business."
+    },
+    {
+      "topic": "Policies in Force & Customer Growth",
+      "text": "Companywide PIFs grew 12%; Personal Lines PIFs rose 13%; Property PIFs reached nearly 3 million (+5%); commercial auto retention was negatively impacted by rate and underwriting actions, trucking market conditions, and economic weakening."
     },
     {
       "topic": "Operating Efficiency & Expense Ratio",
-      "text": "Media spend was pulled back in Q2 in response to Q1 profitability shortfall, delivering approximately a 2-point favorable impact on the Personal Lines CR; this marked the first use of advertising as a real-time profitability lever in 2023."
+      "text": "Pulling back media spend had about a 2 point favorable impact on Personal Lines CR; other margin measures included slowing new business through verification activities and bill plan offerings, alongside continuing operational expense discipline."
     },
     {
       "topic": "Capital Management & Financial Position",
-      "text": "Progressive issued $500 million of senior debt in Q2 to bolster capital; debt-to-total capital ratio remained below the 30% annual guideline; no debt maturities until 2027; investment portfolio returned essentially 0.03% for the quarter."
+      "text": "Issued $500 million senior debt; no bonds mature until 2027; debt-to-total capital stayed below the 30% guideline; investment portfolio returned 0.03% (fixed income -0.4%, equities 9.0%), maintaining a conservative posture toward cash and Treasuries."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "BOP launched in 3 states (now in 41); heavy truck roadside assistance reached 46 states (~90% of eligible vehicles); commercial auto policy administration system modernization substantially completed."
     },
     {
       "topic": "Competitive Position & Market Share",
-      "text": "Progressive became the #2 writer of private passenger auto insurance in the U.S. during the first half of 2023, a milestone attributed to the combined efforts of nearly 59,000 employees and independent agent partners."
+      "text": "Progressive achieved #2 writer status in private passenger auto, advancing toward its vision to become the #1 destination for consumers, agents, and business owners' insurance and financial needs."
     }
   ]
 }

@@ -2,17 +2,55 @@
   "id": "PGR_2019_Q4",
   "year": 2019,
   "quarter": "Q4",
-  "generated_date": "2026-04-27T00:00:00+00:00",
+  "generated_date": "2026-11-26T17:49:44.314340+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 5,
+    "numbers_not_in_letter": [
+      "0.1"
+    ]
+  },
   "bullets": [
-    {"topic": "Profitability & Underwriting Performance", "text": "Full-year CR 90.9 (vs. 90.6 in 2018); ROE 31.3%; Commercial Lines CR 89.6; Property CR improved from 106.9 to 101.7 but still above target; $214.5M retained wind/hail losses added 13.8 points to Property loss ratio."},
-    {"topic": "Premium Growth", "text": "NPW grew 15% to $37.6 billion (+$5B YOY); Personal Lines NPW +15%; Commercial Lines NPW +20% to ~$4.8B; Property NPW +16% to $1.7B; five consecutive years of Direct auto new quote and new application growth."},
-    {"topic": "Policies in Force & Customer Growth", "text": "Personal auto PIF growth 11%; Property PIFs up 14% to 2.2 million; Robinson (auto+home bundle) customers growing; 30% of Commercial Lines policyholders also had Personal Lines policy; mobile app customer engagement up ~4x since 2016."},
-    {"topic": "Capital Management & Financial Position", "text": "Investment portfolio exceeded $39 billion; full-year FTE return 7.9% (fixed income 6.0%, equity 30.5%); Board declared $2.25/share annual-variable dividend ($1.3B total) plus $0.10/share quarterly; new dividend policy gave more flexibility vs. prior Gainshare formula."},
-    {"topic": "Product Innovation & Expansion", "text": "Property started reporting into Personal Lines in January 2020; ARX minority buyout agreed February 2020 (100% ownership, one year early); HomeQuote Explorer in 47 states; BOP/GL launched in 11 agency states; BusinessQuote Explorer with multiple carriers; Flo chatbot in Facebook Messenger."},
-    {"topic": "Loss Costs & Severity Trends", "text": "Favorable frequency trends in personal auto beyond model expectations; customer mix shifting toward lower pure premium risk; Snapshot data showing longer trips indicative of preferred driver behavior; Property wind/hail losses persistently above modeled load."},
-    {"topic": "Brand Building & Marketing Strategy", "text": "Flo/Superstore at 10 years with fresh story arcs; Motaur motorcycle campaign launched; Baker and Emily Mayfield 'At Home' homeowner campaign; four different campaigns all showing success; impressions against homeowner/bundle segment more than doubled vs. 2015."},
-    {"topic": "Operating Efficiency & Expense Ratio", "text": "NAER trimmed 3 points over 10 years; LAE ratio down over 1 point in 10 years; Personal Lines expense ratio consistently below 20 points; carbon emissions per policy down 7% in 2019 vs. 2018 and down 57% over past decade."},
-    {"topic": "Employee Engagement & Culture", "text": "Added 4,000+ employees in 2019; Board reached 50/50 gender balance; purpose statement 'True to our name. Progressive.' adopted by employee vote; first corporate sustainability report published at progressive.com/sustainability."},
-    {"topic": "Competitive Position & Market Share", "text": "Progressive estimated personal auto market share ~10% (+0.5 pts); estimated ~10 points more profitable than industry in private passenger auto; #1 in private passenger auto in 7 states, #2 in 19 more; Commercial Lines wrote >$4B NPW."}
+    {
+      "topic": "Profitability & Underwriting Performance",
+      "text": "Combined ratio was 90.9 vs 90.6 in 2018; Personal Lines CR was 90.5; Commercial Lines CR was 89.6; Property CR improved to 101.7 from 106.9; full-year 2019 ROE was 31.3%."
+    },
+    {
+      "topic": "Premium Growth",
+      "text": "Companywide NPW grew 15% to $37.6B, adding nearly $5B; Personal Lines NPW rose 15%; Commercial Lines NPW grew 20%, adding nearly $800M from a $4B base; Property NPW rose 16% to $1.7B."
+    },
+    {
+      "topic": "Capital Management & Financial Position",
+      "text": "Portfolio return 7.9% with assets over $39B (fixed income 6.0%, equity 30.5%); quarterly dividends $0.10/share plus $2.25/share ($1.3B) additional dividend; conservative risk allocation entering 2020."
+    },
+    {
+      "topic": "Brand Building & Marketing Strategy",
+      "text": "New campaigns included Motaur, small business, and “At Home with Baker and Emily Mayfield”; announced partnership with Quibi, Sign Spinner character, and articulated new Marketing Brand Promise."
+    },
+    {
+      "topic": "Operating Efficiency & Expense Ratio",
+      "text": "Over the last decade, NAER was trimmed 3 points; claims LAE dropped over 1 point over ten years and nearly 3 points since 2006; claim handling audit quality scores stayed relatively flat."
+    },
+    {
+      "topic": "Catastrophe Response & Disaster Management",
+      "text": "Property retained $214.5M in catastrophic wind and hail losses, adding 13.8 points to Property loss ratio; rate increases and minimum deductibles instituted in hail alley states; monthly catastrophe disclosure added."
+    },
+    {
+      "topic": "Policies in Force & Customer Growth",
+      "text": "Personal auto PIF +11%; Special Lines PIF +4% after flat 2018; Property PIFs rose 14% to over 2.2M; mobile app customer engagement increased approximately fourfold since 2016."
+    },
+    {
+      "topic": "Strategic Vision & Company Philosophy",
+      "text": "Theme “Think Broadly” aligns with concurrently investing across Three Horizons for short-, mid-, and long-term success; articulated formula: Question Everything plus Always Grow Mindset equals an Enduring Business."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "Agreed to acquire 100% of ARX one year early; shifted Property into Personal Lines; Commercial Lines expanding via BusinessQuote Explorer, BOP/GL programs, and transportation network company relationships."
+    },
+    {
+      "topic": "Employee Engagement & Culture",
+      "text": "Company has over 40,000 people and added 4,000+ employees in 2019; Board reached 50/50 gender balance; carbon emissions per PIF fell 7% (-57% over ten years); claims achieved highest culture and engagement scores."
+    }
   ]
 }

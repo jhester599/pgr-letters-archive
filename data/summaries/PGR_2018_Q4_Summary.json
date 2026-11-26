@@ -2,47 +2,55 @@
   "id": "PGR_2018_Q4",
   "year": 2018,
   "quarter": "Q4",
-  "generated_date": "2026-04-26T00:00:00+00:00",
+  "generated_date": "2026-11-26T17:39:55.918620+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 4,
+    "numbers_not_in_letter": [
+      "1.15"
+    ]
+  },
   "bullets": [
     {
       "topic": "Profitability & Underwriting Performance",
-      "text": "Full-year 2018 combined ratio of 90.6 with 20% NPW growth; Personal Lines CR 90.3, Commercial Lines CR 86.7; Property CR 106.9 due to $295 million in retained catastrophe losses equaling 23 combined ratio points."
+      "text": "Full-year CR 90.6; PL CR 90.3; CL CR 86.7; Property CR 106.9, heavily affected by catastrophes; Gainshare score reached 1.91, the highest mark since 2004."
     },
     {
       "topic": "Premium Growth",
-      "text": "Net premiums written crossed $30 billion, adding over $5 billion in 2018 after $3.8 billion in 2017 and $2.8 billion in 2016; Commercial Lines NPW grew nearly 30%; Property NPW grew 33%."
+      "text": "Companywide NPW +20% YOY to surpass $30B, adding over $5B in 2018; Personal Lines NPW +18%; Commercial Lines NPW grew nearly 30%; Property NPW increased 33%."
     },
     {
       "topic": "Policies in Force & Customer Growth",
-      "text": "Auto PIFs grew 14% to 13 million; companywide PIFs surpassed 20 million; Robinson customers reached 1 million; the latest million auto PIFs added in just six months, the fastest pace in company history."
-    },
-    {
-      "topic": "Operating Efficiency & Expense Ratio",
-      "text": "Expense ratio of 20.4% among the lowest in the industry; Personal Lines non-acquisition expense ratio improved 0.7 points to 9.1%; loss adjustment expense ratio declined 0.7 points to 10.2%; advertising topped $1.4 billion."
+      "text": "Total PIF surpassed 20M; auto PIF grew over 14% past 13M, adding the latest 1M in six months; Robinsons customer count topped 1M; over 2M customers retained 10+ years."
     },
     {
       "topic": "Capital Management & Financial Position",
-      "text": "Raised $1.1 billion in March and $550 million in October via senior notes and preferred stock; 2018 investment portfolio returned 1.2% with fixed income earning 1.5% and equities returning negative 4.4%; portfolio grew to over $33 billion."
+      "text": "Adopted new dividend policy expecting $0.10 quarterly dividend through 2019 plus potential annual variable payout; declared $2.514/share 2018 dividend; issued $1.15B senior notes and $500M preferred stock; portfolio return 1.2%."
     },
     {
-      "topic": "Rate Adequacy & Pricing Strategy",
-      "text": "Property rates increased to address inadequacy; Gainshare score of 1.91, best since 2004; dividend policy revised from formulaic Gainshare-based variable to fixed quarterly $0.10 per share plus annual variable component."
-    },
-    {
-      "topic": "Technology & Digital Transformation",
-      "text": "Launched 'Ask Flo' virtual assistant in mobile app; deployed AI-powered Docuflash document classification; replaced legacy IVR with natural-language voice system; new web servicing stack completed with 4x mobile engagement growth since 2016."
-    },
-    {
-      "topic": "Distribution Channel Strategy",
-      "text": "Portfolio quoting live for all agents in three states with countrywide target by mid-2020; HomeQuote Explorer and BusinessQuote Explorer established as leading digital insurance marketplaces; media impressions for auto/home bundle doubled vs. 2015."
-    },
-    {
-      "topic": "Strategic Vision & Company Philosophy",
-      "text": "Progressive articulated a three-Horizons investment framework: Horizon 1 Execute core growth, Horizon 2 Expand into adjacencies (BOP, Uber expansion to 13 states), Horizon 3 Explore via new Strategy team under Chief Strategy Officer."
+      "topic": "Operating Efficiency & Expense Ratio",
+      "text": "Expense ratio reached 20.4%; PL NAER declined 0.7 pts to 9.1%; CL NAER fell 0.8 pts to 11.0%; LAE ratio decreased 0.7 pts to 10.2%, aided by lower claim feature settlement costs."
     },
     {
       "topic": "Catastrophe Response & Disaster Management",
-      "text": "Hurricane Michael retained losses limited to $60 million via reinsurance; total 2018 catastrophe retained losses including hurricanes, hail, and California wildfires totaled $295 million, driving Property CR to 106.9."
+      "text": "Retained catastrophe losses and LAE reached $295M from hurricanes, hail, winter storms, and California wildfires, adding 23 pts to Property CR; reinsurance limited retained Hurricane Michael losses and LAE to $60M."
+    },
+    {
+      "topic": "Strategic Vision & Company Philosophy",
+      "text": "Three Horizons framework guides growth: Horizon 1 executes core auto and home; Horizon 2 expands adjacencies including BOP and Uber; Horizon 3 explores future opportunities led by new Chief Strategy Officer."
+    },
+    {
+      "topic": "Technology & Digital Transformation",
+      "text": "Completed new policy processing system for auto and special lines; launched 'Ask Flo' mobile virtual assistant, AI customer inquiry chatbot, Docuflash OCR document routing, and natural-voice IVR system."
+    },
+    {
+      "topic": "Distribution Channel Strategy",
+      "text": "Launched FAO Portfolio quoting platform in three states to enable multi-product bundled quotes across auto, special lines, and property, with full countrywide agency rollout expected by mid-2020."
+    },
+    {
+      "topic": "Brand Building & Marketing Strategy",
+      "text": "Expanded advertising spend to over $1.4B with in-house media optimization; introduced Flo’s Squad creative campaign; doubled auto and home bundle media impressions compared to 2015; delivered HQX and BQX shopping experiences."
     }
   ]
 }

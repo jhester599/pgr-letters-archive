@@ -2,39 +2,52 @@
   "id": "PGR_2019_Q2",
   "year": 2019,
   "quarter": "Q2",
-  "generated_date": "2026-04-26T00:00:00+00:00",
+  "generated_date": "2026-11-26T17:44:15.010651+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 5
+  },
   "bullets": [
     {
       "topic": "Profitability & Underwriting Performance",
-      "text": "Q2 combined ratio of 90.4 and YTD CR of 89.6 with 14% YTD NPW growth; Property running less profitably than target with Q2 CR of 109.0 and YTD CR of 103.6 after $81.5 million aggregate stop-loss recovery."
+      "text": "Q2 CR 90.4; YTD CR 89.6; Property ran less profitably than target at 109.0 CR (103.6 YTD) after $42.0M Q2 aggregate stop-loss recoverable, predominantly due to elevated weather."
     },
     {
       "topic": "Premium Growth",
-      "text": "Total NPW grew 13% for the quarter; YTD NPW growth at 14%; investment portfolio returned 2.2% in Q2 with YTD return of 5.5%, equities returning 17.9% YTD."
-    },
-    {
-      "topic": "Loss Costs & Severity Trends",
-      "text": "Auto frequency decreased 4% in Q2, the 10th consecutive quarterly decline; severity rose 8% for the quarter; YTD bodily injury severity up 8%, leading severity trends; collision severity moderated in Q3."
+      "text": "Total NPW grew 13% in Q2 and 14% YTD; results aligned with expectations across all areas except Property profitability, thrilling leadership especially given the competitive environment."
     },
     {
       "topic": "Catastrophe Response & Disaster Management",
-      "text": "Significant wind, hail, and tornado activity drove $193 million in YTD Property catastrophe losses through June, up 31% from H1 2018; aggregate stop-loss recoverable totaled $81.5 million YTD."
+      "text": "Property catastrophe losses +31% YOY to $193.0M YTD; Q2 events added $131.4M, driven by Texas wind, hail, thunderstorms, and widespread tornadoes; YTD stop-loss recoverable reached $81.5M."
     },
     {
-      "topic": "Product Innovation & Expansion",
-      "text": "Progressive Business Owners Policy (BOP) launched through select agents in Ohio; new Property 4.0 product design rolled out in Michigan adding coverage features and improving pricing accuracy; HQX Buy planned for 14 states by year-end."
-    },
-    {
-      "topic": "Strategic Vision & Company Philosophy",
-      "text": "Vision statement revised to add 'agents' and 'home' — now 'Become consumers' and agents' #1 choice and destination for auto, home, and other insurance' — signaling permanent commitment to agents and home bundling."
+      "topic": "Loss Costs & Severity Trends",
+      "text": "Auto frequency fell 4% in Q2, marking the 10th consecutive quarterly decline, while severity rose 8%; YTD frequency decreased 3% against an 8% increase in severity."
     },
     {
       "topic": "Rate Adequacy & Pricing Strategy",
-      "text": "Rate revisions applied diligently at state, consumer segment, and product level; Property 4.0 product expected to improve pricing accuracy and serve as foundation for future state rollouts."
+      "text": "Diligent rate revisions maintained because customers prefer stable rates; loss frequency and severity trends are watched closely at the state, consumer segment, and individual product levels."
     },
     {
       "topic": "Capital Management & Financial Position",
-      "text": "Investment portfolio earned 5.5% YTD return through June; fixed income returned 4.4% and equities 17.9% YTD, driven by Fed rate cut expectations and reduction in trade war rhetoric following G20 summit."
+      "text": "Investment portfolio returned 2.2% in Q2 (fixed income 2.1%, common stocks 4.0%) and 5.5% YTD; equities, credit spreads, and treasuries rallied on expected Fed rate cuts and reduced trade war rhetoric."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "Commercial Lines launched a Business Owners Policy for small businesses via select Ohio agents; Property 4.0 design rolled out in Michigan with plans for five additional states."
+    },
+    {
+      "topic": "Technology & Digital Transformation",
+      "text": "HQX Buy, enabling direct online quoting and buying for Progressive Home, is planned for 10 states this year, bringing the projected year-end total to 14 states."
+    },
+    {
+      "topic": "Strategic Vision & Company Philosophy",
+      "text": "Vision statement was revised to include consumers and agents across auto, home, and other insurance, believed to signal agent importance as Progressive continues its endeavor into the Destination era."
+    },
+    {
+      "topic": "Employee Engagement & Culture",
+      "text": "Progressive ranked in the 96th percentile on Gallup's engagement index; nearly all 40,000 employees participate in Gainsharing; nine ERGs support inclusion, and 'Own It' aids internal career development."
     }
   ]
 }

@@ -167,6 +167,8 @@ def test_check_summary_succeeds_on_the_retry(monkeypatch):
     ("debt-to-capital 21.2%; CR 96.0 target", "21.2% ... four cents of underwriting profit"),
     ("model 8.4 in two states; Q3 and 1H 2026", "our 8.4 model"),
     ("$1,234.50M", "$1,234.5 million"),
+    ("investments grew to $3.18B", "portfolio increased to $3,180.0 million"),
+    ("TNC NPW reduced ~$110.5M", "TNC polices by about $110.5 million"),
 ])
 def test_unsupported_numbers_accepts_figures_the_letter_states(bullet, letter):
     assert summarizer.unsupported_numbers([{"topic": "t", "text": bullet}], letter) == []

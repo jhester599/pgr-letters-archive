@@ -134,16 +134,19 @@ Or manually in cmd.exe:
 notebooklm login
 ```
 This opens a real browser. Sign in to Google, then close the browser.
-Auth is saved automatically to `%USERPROFILE%\.notebooklm\storage_state.json`.
+Auth is saved automatically to
+`%USERPROFILE%\.notebooklm\profiles\default\storage_state.json` (older
+notebooklm-py versions used `%USERPROFILE%\.notebooklm\storage_state.json`).
 
 For CI/GitHub Actions, copy the auth JSON to a repository secret:
 ```powershell
-Get-Content "$env:USERPROFILE\.notebooklm\storage_state.json" -Raw | Set-Clipboard
+Get-Content "$env:USERPROFILE\.notebooklm\profiles\default\storage_state.json" -Raw | Set-Clipboard
 ```
 Add as secret `NOTEBOOKLM_AUTH_JSON` in GitHub → Settings → Secrets → Actions.
 
 Session cookies expire every few weeks. When `generator.py` fails with an auth
 error, re-run `notebooklm login` and update the GitHub secret.
+**`NOTEBOOKLM_SETUP.md` has the step-by-step PowerShell refresh commands.**
 
 ### Audio generation
 

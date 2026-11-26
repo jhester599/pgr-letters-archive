@@ -160,34 +160,40 @@ noticeably improves the output on a sample of two or three.
 
 ---
 
-## Next phase — letter readings feed (Gemini TTS pilot)
+## Letter readings feed (Gemini TTS) — in progress
 
-Plan: verbatim read-through audio of each letter, published as its own
-podcast feed (for example `docs/feed_readings.xml`), separate from the
-NotebookLM commentary feed.
+Verbatim read-throughs of each letter, published as a podcast feed separate
+from the NotebookLM overviews: `docs/feed_readings.xml`
+(https://jhester599.github.io/pgr-letters-archive/feed_readings.xml). Each
+reading page also gets a "Letter Read Aloud" player.
 
-**Engine: Gemini TTS, pending a listening test.** ElevenLabs was the first
-choice, but its free plan (10k characters a month) can't cover even one
-quarterly letter (~12k characters). The whole archive is ~1.5M characters, about
-27 hours of narration. Gemini 3.8 Flash TTS is free on the same `GEMINI_API_KEY`;
-reading the whole archive would cost about $22 even at paid rates.
+**How it works.** `python scripts/readings.py --publish` narrates every letter
+that has a narrator voice and no reading yet, newest first. It uploads
+`reading_<id>.mp3` to the `audio-library` release, records `reading_*` fields in
+the ledger, and rewrites the feed. The **Letter Readings (Gemini TTS)** workflow
+runs it daily (6 letters a run) until the backlog is done. The main pipeline
+reads up to 2 new letters per run.
 
-**Pilot (built):** `scripts/readings.py` narrates one letter, and the
-**Readings Pilot (Gemini TTS)** workflow runs it from the Actions tab
-(inputs: letter id, voices, optional style). The default voices are female
-candidates for Tricia Griffith's letters: Sulafat (Warm), Gacrux (Mature) and
-Despina (Smooth). Erinome (Clear), Vindemiatrix (Gentle) and Kore (Firm) are
-the alternates. It attaches the MP3s to the run as
-an artifact and commits nothing. Listen for voice quality, pacing, and whether
-the voice stays consistent across the ~2,500-character chunks the letter is
-split into.
+**Voices.** Tricia Griffith's 40 letters (2016 Q3 – 2026 Q2) use **Despina**,
+chosen in the October 2026 pilot (`readings_pilot.yml` stays for voice tests).
+Peter Lewis (9 letters, 1993–2000) and Glenn Renwick (52 letters, 2001–2016)
+have no voice yet and are skipped until `VOICE_BY_SIGNER` in `readings.py` names
+one. That needs a male-voice pilot.
 
-Still to decide or build once a voice is chosen:
-- the free-tier TTS rate limits (shown only in AI Studio), which set how fast
-  the 101-letter backlog can be worked through, probably a daily backfill job;
-- release-asset naming alongside `audio-library`;
-- ledger fields for the reading audio;
-- the second feed.
+**Held back.** `readings.py` refuses to narrate a letter with a text hole a
+narrator would read as nonsense. Two letters are held:
+- **2021 Q2** (Tricia): "…22 states … that represented % of the commercial
+  multi-peril market" (the figure is being looked up in the EDGAR filing);
+- **2013 Q2** (Renwick): "best website for the th time".
+
+Fix the text in `data/letters/`, and the next run narrates the letter.
+
+**Speech-only fixes.** Accounting negatives such as "(4.1)%" are read as
+"negative 4.1 percent". The published text is unchanged, and the acronyms (CR,
+NPW, PIF…) sounded right in the pilot, so no pronunciation list.
+
+**Backlog.** 39 letters ready (328 requests, ~680k characters, ~12 hours of
+audio, ~0.35 GB), so about a week of daily runs.
 
 ---
 

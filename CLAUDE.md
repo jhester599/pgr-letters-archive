@@ -216,6 +216,16 @@ GitHub Models powered summaries until mid-2026. Its old endpoint now returns
 `summarizer.py` now validates every reply and rejects anything that is not a
 summary.
 
+Every summary takes two Gemini calls. The first drafts the bullets under the
+prompt's FACTUAL RULES. The second is a fact-check pass: it gets the letter and
+the draft, and rewrites any bullet that states something the letter doesn't,
+overstates it, or links facts the letter keeps separate. A code check then
+flags any figure that isn't in the letter. Each summary file has a
+`verification` record of what happened. If the fact-check fails twice, the
+draft is saved with `"checked": false` and the run shows a warning.
+`python scripts/summarizer.py --check-numbers` runs the figure check over every
+saved summary, with no API calls.
+
 To try the summarizer without writing anything:
 `python scripts/summarizer.py --id PGR_2026_Q1 --dry-run`.
 

@@ -2,17 +2,52 @@
   "id": "PGR_2024_Q3",
   "year": 2024,
   "quarter": "Q3",
-  "generated_date": "2026-04-27T00:00:00+00:00",
+  "generated_date": "2026-11-26T18:38:17.016280+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 6
+  },
   "bullets": [
-    {"topic": "Profitability & Underwriting Performance", "text": "Q3 companywide CR 89.0 including 3.1 CR points from Hurricane Helene (Cat 4); Personal Lines CR 89.6; Commercial Lines CR 88.7, improving 10.4 points YOY — fifth consecutive quarter of double-digit improvement."},
-    {"topic": "Premium Growth", "text": "Q3 companywide NPW grew 25% YOY; Personal Lines NPW $16.3B (+29%); personal auto grew 25% driven by rate increases earning through and strong PIF growth from prior quarters."},
-    {"topic": "Policies in Force & Customer Growth", "text": "Personal Lines PIFs reached 29.3 million, up 15% YOY; personal auto net new PIFs positive for the second consecutive quarter as Progressive opened more broadly to new business."},
-    {"topic": "Loss Costs & Severity Trends", "text": "Hurricane Milton struck early Q4, generating estimated $140M property losses and $600M combined personal and commercial auto losses; Helene added 3.1 CR points in Q3; property benefited from ~30 points favorable prior-year development offsetting 7.5 points cat losses."},
-    {"topic": "Rate Adequacy & Pricing Strategy", "text": "Personal property rates increased 6% in Q3 (20% on trailing four-quarter basis); personal auto rate increases largely complete — company pivoting focus from rate adequacy to growth."},
-    {"topic": "Technology & Digital Transformation", "text": "Auto pricing model 8.9 live in 14 states (35% of PIFs); model 8.8 in 19 states; Snapshot telematics expansion continuing; property 5.0+ models in 19 states covering a majority of homeowners NPW."},
-    {"topic": "Capital Management & Financial Position", "text": "Debt-to-total capital at 20.2% at Q3 end; investment portfolio returned 4.0% YTD; fixed income benefiting from higher reinvestment rates as portfolio rolls into new bonds."},
-    {"topic": "Product Innovation & Expansion", "text": "Commercial Lines BOP and specialty products expanding; for-hire transportation and contractor segments growing; property Blueprint strategy advancing targeted growth in non-catastrophe-prone states."},
-    {"topic": "Competitive Position & Market Share", "text": "Personal auto market share gains accelerating as competitors remained restrictive; Progressive's early return to target profitability created a 6–12 month competitive advantage in growth positioning."},
-    {"topic": "Industry Cycle & Market Conditions", "text": "Personal auto industry broadly achieving rate adequacy by Q3 2024; competitors beginning to re-open for business; Progressive expects competitive environment to intensify but maintains pricing discipline."}
+    {
+      "topic": "Profitability & Underwriting Performance",
+      "text": "Companywide CR 89.0 despite volatile weather; PL CR 89.6; CL CR 88.7 (improved 10.4 pts YOY on rate and underwriting actions); Property CR reached an excellent 78.5."
+    },
+    {
+      "topic": "Catastrophe Response & Disaster Management",
+      "text": "Catastrophes added 4.0 pts to companywide CR, including 3.1 from Helene; Helene contributed 21 Property loss ratio pts; Milton Property losses were estimated at ~$140M net of reinsurance; PL/CL losses estimated ~$600M."
+    },
+    {
+      "topic": "Premium Growth",
+      "text": "Companywide NPW grew 25%; PL NPW +29% to $16.3B from more new apps, renewal increases, and higher average premiums; CL NPW +7%; Property NPW +9%, primarily in less volatile weather states."
+    },
+    {
+      "topic": "Policies in Force & Customer Growth",
+      "text": "Added nearly 4.2M PIFs companywide since year-end 2023; PL PIFs rose over 1.4M in Q3 to 29.3M (+15% YOY); Property PIFs exceeded 3.4M (+14% YOY), led by renters."
+    },
+    {
+      "topic": "Capital Management & Financial Position",
+      "text": "Investment portfolio returned 4.0% (fixed income 3.9%, equity 5.8%); debt-to-total capital fell to 20.2%, well below the <30% internal target; no debt maturities scheduled until 2027."
+    },
+    {
+      "topic": "Rate Adequacy & Pricing Strategy",
+      "text": "With rate adequacy across most states, Progressive continued lifting 2023 underwriting and verification restrictions; Property rates increased 6% in Q3 (~20% across trailing four quarters) to address short- and long-term profitability."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "Personal auto model 8.9 reached 14 states (35% auto PIFs, 32% trailing 12-month written premiums); commercial auto 8.2 active in nine states; newest BOP model deployed in 24 states; Property 5.0 reached 15 states."
+    },
+    {
+      "topic": "Brand Building & Marketing Strategy",
+      "text": "Advertising spend increased above previous quarters; agent compensation programs were leveraged to drive consideration and reward writing profitable business; Direct and Agency channels both experienced record quoting volumes and new business applications."
+    },
+    {
+      "topic": "Loss Costs & Severity Trends",
+      "text": "Personal Lines non-CAT claims showed favorable loss trends with lower frequency consistent with prior quarters; Property's 21 Helene loss ratio points were offset by nearly 30 points of favorable development on first-half storms."
+    },
+    {
+      "topic": "Employee Engagement & Culture",
+      "text": "Claims employees exemplified Core Values by aiding a stranded motorist and helping someone secure a policy off the clock; Progressive awarded $1M in small-business vehicle grants and gifted a Freightliner to a veteran."
+    }
   ]
 }

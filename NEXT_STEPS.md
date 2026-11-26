@@ -82,32 +82,34 @@ has the capture steps.
 
 ---
 
-## Priority 1b — Older summaries contain figures their letters don't
+## Priority 1b — Finish regenerating the older summaries (5 left)
 
-The 100 summaries made before Gemini (`generated_by` missing, pre-2026-07) were
-never checked against their letters. `python scripts/summarizer.py
---check-numbers` (added 2026-11-26) flags **58 of them** with at least one
-figure the letter doesn't contain. Spot checks found real outside knowledge,
-not formatting misses: 2025 Q2 cites a "111.4 CR" for the commercial auto
-industry, a topic that letter never mentions; 2020 Q4 has "$21.6M" in
-charitable contributions; 2020 Q1 has "~33%" fewer miles driven. A flag can
-still be a false alarm when the letter spells the figure out.
+The 100 summaries made before Gemini were never checked against their letters;
+`python scripts/summarizer.py --check-numbers` flagged 58 of them with figures
+the letter doesn't contain (e.g. 2025 Q2's "111.4 CR" for an industry the
+letter never mentions).
 
-These summaries appear on the reading pages, and the v1.1 NotebookLM episodes
-were briefed with them.
+On 2026-11-26, 95 of them were regenerated with the current prompt plus
+fact-check (each has a `verification` record; the pass rewrote 1–10 bullets
+per letter, usually 4–7). The flagged count fell from 58 to 30, and most of
+the 30 are not errors: figures written in words ("half a million", "three
+hundred million", "just over half") or derived from the letter ("4 out of 51
+failed" → "47 of 51 profitable"). Hand-checked so far: 2010 Q4, 2012 Q4,
+2014 Q4, 2021 Q3, all fine.
 
-The fix is to regenerate them with the current prompt plus fact-check:
-`python scripts/summarizer.py --rebuild` (2–3 requests a letter, about 300 in
-all, 7 s apart). That replaces all 102 summaries, including the hand-corrected
-Q3 2026 one; to keep it, regenerate the others with `--id` one at a time.
-Then run `python scripts/build_pages.py --rebuild` and spot-check a few against
-their letters.
+**Still old, not regenerated:** PGR_2025_Q1, PGR_2025_Q2, PGR_2025_Q3,
+PGR_2025_Q4, PGR_2026_Q1. The run stopped there because the Gemini API project
+returned HTTP 402, "Your prepayment credits are depleted". That means the key's
+project **has billing with prepaid credits**, not the free-tier, no-billing
+setup CLAUDE.md describes, so this regeneration spent paid credits. Decide
+whether to top up, or move to a key in a project with no billing, before the
+next run. Then regenerate the five one at a time with
+`python scripts/summarizer.py --id PGR_2025_Q1` (and so on), and run
+`python scripts/build_pages.py`. PGR_2025_Q2 is the one with the known outside
+figure. Leave PGR_2026_Q2 (Gemini) and PGR_2026_Q3 (hand-corrected) alone.
 
-Gemini 3.8 Flash tests on 2026-11-26 (Q3 2026, 2025 Q2, 2020 Q4): the new
-drafting rules alone still let "led by" stand in for "a significant
-contributor". The fact-check pass caught that and rewrote 3–5 bullets per
-letter, all for the better. Medium reasoning effort made better fixes than low,
-but once ran past a 16k-token output budget, hence the 32k budget and one retry.
+The v1.1 NotebookLM episodes were briefed with the old summaries. They have not
+been regenerated, on purpose.
 
 ---
 

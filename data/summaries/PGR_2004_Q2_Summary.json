@@ -2,14 +2,52 @@
   "id": "PGR_2004_Q2",
   "year": 2004,
   "quarter": "Q2",
-  "generated_date": "2026-04-26T00:00:00+00:00",
+  "generated_date": "2026-11-26T15:05:22.812305+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 4
+  },
   "bullets": [
-    {"topic": "Profitability & Underwriting Performance", "text": "Combined ratio of 85.4 for Q2; year-to-date combined ratio of 84.3, substantially better than the industry's reported 94.2 for Q1 2004."},
-    {"topic": "Loss Costs & Severity Trends", "text": "Frequency rates down across all coverages versus 2003; bodily injury severity trending at 2–5% annualized and physical damage severity near flat, supporting rate stability."},
-    {"topic": "Premium Growth", "text": "Net premiums written grew 11% for the quarter; management expects new business growth to slow as low frequency reduces consumer shopping motivation."},
-    {"topic": "Claims Service & Innovation", "text": "Concierge-level physical damage claims service met key operating specifications and is ready for expansion; four new Florida service centers under evaluation plus scouting in four other states."},
-    {"topic": "Policies in Force & Customer Growth", "text": "Progressive became the number-one auto insurer in Rhode Island and Vermont; discussions with New Jersey regulators ongoing regarding potential market entry."},
-    {"topic": "Distribution Channel Strategy", "text": "Customer service restructured into three aligned groups — agency customers, direct customers, and independent agents — to better serve distinct needs and improve targeted efficiencies."},
-    {"topic": "Industry Cycle & Market Conditions", "text": "Market described as transitioning from hard to soft; management emphasized that best service at lowest price is a winning formula through all phases of the insurance cycle."}
+    {
+      "topic": "Profitability & Underwriting Performance",
+      "text": "Q2 CR was 85.4; YTD CR 84.3 was substantially better than estimates of the dramatically improving industry average (94.2 reported for Q1); results benefited from continuing low frequency of reported claims."
+    },
+    {
+      "topic": "Loss Costs & Severity Trends",
+      "text": "Claim frequency lower than comparable 2003 quarterly and annual periods on all coverages; personal auto bodily injury severity trend annualized at 2–5%; physical damage severity trend was closer to flat."
+    },
+    {
+      "topic": "Premium Growth",
+      "text": "Q2 NPW grew 11%, demonstrating solid but slowing expansion; management aims to maintain momentum by continuing to pursue new business growth into the second half of 2004 whenever smart."
+    },
+    {
+      "topic": "Industry Cycle & Market Conditions",
+      "text": "Insurance cycle shifting from 'hard' to 'soft'; very low rate inflation and stable or lower renewal rates led to fewer consumers shopping, alongside heightened marketing intensity from profitable competitors."
+    },
+    {
+      "topic": "Policies in Force & Customer Growth",
+      "text": "Fewer consumers are shopping amid stable renewal pricing, and new business growth is expected to slow; second-half objectives emphasize maintaining momentum, increasing policy retention, and seeking new business growth when smart."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "Concierge physical damage claims service completed a very good first half, consistently meeting key expansion specifications; Progressive is looking to establish four more Florida service centers and scouting locations in four other states."
+    },
+    {
+      "topic": "Distribution Channel Strategy",
+      "text": "Customer service group restructured into three aligned groups: agency customers, direct customers, and independent agents and brokers; initiatives aim to deliver targeted improvements, efficiencies, and an independent agency brand communication strategy."
+    },
+    {
+      "topic": "Competitive Position & Market Share",
+      "text": "Progressive is now the #1 auto insurance writer in Rhode Island and Vermont; the company is in discussions with New Jersey regarding the regulatory environment required for Progressive to consider doing business there."
+    },
+    {
+      "topic": "Strategic Vision & Company Philosophy",
+      "text": "Best service at lowest price is seen as winning formula across hard and soft market cycles; company remains focused on ultimate goal of becoming Consumers’ #1 Choice for Auto Insurance."
+    },
+    {
+      "topic": "Employee Engagement & Culture",
+      "text": "Claims staffing and training are in control; the expected slower hiring period will be used to solidify gains and expand training in preparation for faster growth that management believes will occur in the future."
+    }
   ]
 }

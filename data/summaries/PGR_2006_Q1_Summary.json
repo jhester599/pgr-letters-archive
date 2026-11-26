@@ -2,14 +2,48 @@
   "id": "PGR_2006_Q1",
   "year": 2006,
   "quarter": "Q1",
-  "generated_date": "2026-04-26T00:00:00+00:00",
+  "generated_date": "2026-11-26T15:23:39.486248+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 3
+  },
   "bullets": [
-    {"topic": "Profitability & Underwriting Performance", "text": "Combined ratio of 85.2 for Q1 2006, comparable to 85.0 in Q1 2005; accident-year combined ratio of 88.2 gives a cleaner read of current pricing trends than favorable calendar-year reserve development."},
-    {"topic": "Premium Growth", "text": "Net premiums written grew only 2% versus Q1 2005; Drive auto premium per policy down about 5% and policies in force up about 2%; Direct auto PIF up about 8%; Commercial Auto NPW grew about 14%."},
-    {"topic": "Loss Costs & Severity Trends", "text": "Favorable reserve development continued at levels management did not expect; frequency trends remained broadly negative; severity mostly positive but unremarkable; favorable winter conditions reduced typical Northeast frequency."},
-    {"topic": "Capital Management & Financial Position", "text": "Repurchased 2.2 million shares in Q1; Board approved a 4:1 stock split effective May 18, 2006; variable dividend policy announced for 2007, replacing fixed quarterly dividends."},
-    {"topic": "Claims Service & Innovation", "text": "Three more concierge service centers opened in March; acceleration expected in Q2 and Q3 with a total of 29 new centers planned for 2006."},
-    {"topic": "Policies in Force & Customer Growth", "text": "Growth described as the primary concern for the quarter; reduced new business applications in private passenger auto — more pronounced in Drive than Direct — is the dominant constraint."},
-    {"topic": "Strategic Vision & Company Philosophy", "text": "Management characterized Q1 as good, not great; believed its market response was correct but acknowledged lower growth was uncomfortable; succession planning noted with CFO and Drive President departures announced."}
+    {
+      "topic": "Profitability & Underwriting Performance",
+      "text": "Aggregate CR was 85.2 vs 85.0 last year; accident-year CR was 88.2, better reflecting current pricing and loss trends; margins remained well ahead of the 96 long-term target."
+    },
+    {
+      "topic": "Premium Growth",
+      "text": "Companywide NPW grew 2% year-over-year, with reduced private passenger auto new applications contributing most significantly to results; Commercial Auto written premium grew about 14%, with new applications increasing."
+    },
+    {
+      "topic": "Policies in Force & Customer Growth",
+      "text": "Private passenger auto PIF grew about 2% in Drive and about 8% in Direct; Commercial Auto policy counts increased about 11% over the prior-year period."
+    },
+    {
+      "topic": "Loss Costs & Severity Trends",
+      "text": "Favorable prior-year reserve development continued at unexpected levels; Northeast winter conditions did not produce traditionally expected frequency; negative frequency trends continued by coverage, and severity trends were mostly positive but unremarkable."
+    },
+    {
+      "topic": "Capital Management & Financial Position",
+      "text": "Repurchased 2.2M shares; Board approved 4:1 stock split effective May 18, 2006; 2007 variable dividend will use Gainshare factor, which reached 1.54 through Q1 (January 1.55, February 1.46)."
+    },
+    {
+      "topic": "Distribution Channel Strategy",
+      "text": "New private passenger auto applications slowed more in Drive Insurance than Progressive Direct; year-to-date premium per policy declined about 5% in Drive auto, but was about level in Direct."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "Concierge Level of Claims Service completed three more service centers in March; openings will accelerate across Q2 and Q3, with expectations set at 29 new centers in 2006."
+    },
+    {
+      "topic": "Strategic Vision & Company Philosophy",
+      "text": "Characterized Q1 as 'Good, not great' based on growth attained relative to customer potential; company believes its market response is the correct balanced course, with operations and profitability on track."
+    },
+    {
+      "topic": "Employee Engagement & Culture",
+      "text": "Announced future departures of CFO Tom Forrester in Q1 2007 and Drive Group President Bob Williams in mid-May 2006; active succession planning provides opportunities for several qualified candidates to join management."
+    }
   ]
 }

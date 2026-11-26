@@ -2,14 +2,52 @@
   "id": "PGR_2005_Q1",
   "year": 2005,
   "quarter": "Q1",
-  "generated_date": "2026-04-26T00:00:00+00:00",
+  "generated_date": "2026-11-26T15:14:00.940005+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 10
+  },
   "bullets": [
-    {"topic": "Premium Growth", "text": "Net premiums written grew 10% and earned premiums grew 8% for Q1 2005; Direct Personal Lines grew 15%, Agency grew 6%, and Commercial Auto grew 16%."},
-    {"topic": "Profitability & Underwriting Performance", "text": "Net income of $413 million was strong but $47 million below Q1 2004's exceptional 83.2% combined ratio; all segments remain very profitable with management accepting the year-over-year decline."},
-    {"topic": "Claims Service & Innovation", "text": "Claims quality continued to rise; concierge-level service expansion accelerated with site-finding underway, targeting more than doubling the number of centers over two years."},
-    {"topic": "Distribution Channel Strategy", "text": "Drive Insurance national TV commercials began airing; agents positioned as primary service providers for their customers, reducing long-term channel servicing costs for Progressive."},
-    {"topic": "Technology & Digital Transformation", "text": "Internet-initiated quoting and sales identified as the most notable marketing trend; Progressive Direct brand focused on online sales ease and credible price comparison."},
-    {"topic": "Product Innovation & Expansion", "text": "Special Lines products (motorcycle, boat, motor home) posted about 27% written premium growth in Q1; New Jersey market entry anticipated in the second half of 2005."},
-    {"topic": "Policies in Force & Customer Growth", "text": "Quality of growth was encouraging with new customers and improved retention more than offsetting lower per-customer premiums in the soft market environment."}
+    {
+      "topic": "Profitability & Underwriting Performance",
+      "text": "Net income was $413 million, down some $47 million year-over-year. The first quarter 2004 combined ratio of 83.2% was not expected to be maintained. Commercial Auto delivered 16% growth with excellent margins."
+    },
+    {
+      "topic": "Premium Growth",
+      "text": "Written premium grew 10% and earned premium grew 8% year-over-year. Personal Lines Direct grew slightly over 15%, Agency grew 6%, Commercial Auto grew 16%, and Special Lines written premium grew about 27%."
+    },
+    {
+      "topic": "Policies in Force & Customer Growth",
+      "text": "Growth quality was encouraging, with new customers and extended retention more than offsetting lower premiums per customer. Profitability across every business segment was very strong, and each continued to operate very well."
+    },
+    {
+      "topic": "Loss Costs & Severity Trends",
+      "text": "Claims quality continued rising alongside efforts to increase settlement accuracy. Consistent claims quality and process enabled redeployment of talent during uneven geographic growth, helping in Florida, the company's largest state."
+    },
+    {
+      "topic": "Brand Building & Marketing Strategy",
+      "text": "Drive Insurance commercials aired nationally and were well received. Progressive Direct marketing emphasized online sales and service capabilities, ease of doing business, and credible price comparisons, alongside notable Internet quoting sales trends."
+    },
+    {
+      "topic": "Distribution Channel Strategy",
+      "text": "Progressive provided enhanced systems capability to agents, beginning to position them as primary service providers to reduce channel servicing costs. The company also better appreciated how different customer needs are across channels."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "Concierge claims expansion progressed with headway finding suitable future sites with appropriate zoning, expecting to more than double sites in two years. Possible New Jersey market entry was anticipated in 2005's second half."
+    },
+    {
+      "topic": "Competitive Position & Market Share",
+      "text": "Special Lines specialized coverage and claims handling support expectations to extend motorcycle market leadership this year. Boat product results remained satisfying, even with four hurricanes last year, with expected greater market interest."
+    },
+    {
+      "topic": "Industry Cycle & Market Conditions",
+      "text": "Personal Lines Direct growth of slightly over 15% proved more robust in soft market conditions than Agency growth of 6%. Progressive maintains considerable capacity to grow, especially when market conditions change."
+    },
+    {
+      "topic": "Strategic Vision & Company Philosophy",
+      "text": "Progressive is taking actions believed to enhance market competitiveness and position the firm for future growth. Management emphasized excitement about its future outlook and progress achieved on initiatives necessary to get there."
+    }
   ]
 }

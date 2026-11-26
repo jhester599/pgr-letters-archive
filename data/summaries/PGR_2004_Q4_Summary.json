@@ -2,17 +2,52 @@
   "id": "PGR_2004_Q4",
   "year": 2004,
   "quarter": "Q4",
-  "generated_date": "2026-04-26T00:00:00+00:00",
+  "generated_date": "2026-11-26T15:11:12.152130+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 8
+  },
   "bullets": [
-    {"topic": "Profitability & Underwriting Performance", "text": "Net income rose 31% to a record $1.65 billion ($7.63 per share) for 2004; industry estimated to produce perhaps its lowest combined ratio in history, with a likely three-peat in 2005."},
-    {"topic": "Premium Growth", "text": "Net premiums written grew approximately $1.5 billion, or 12%; industry-wide personal auto NPW grew an estimated 3.7%, down sharply from the prior three-year average of 8%."},
-    {"topic": "Capital Management & Financial Position", "text": "Dutch auction repurchased 16.9 million shares at $88 for $1.5 billion plus 1.7 million open-market shares; ended 2004 with 200.4 million shares and $13.1 billion invested assets; debt-to-capital at 20%."},
-    {"topic": "Claims Service & Innovation", "text": "Best-ever claim file quality achieved in 2004; concierge service expanded to 20 centers, with disciplined planning positioning aggressive expansion through 2005–2006."},
-    {"topic": "Brand Building & Marketing Strategy", "text": "Drive Insurance from Progressive launched for independent agents; two-brand strategy (Drive and Progressive Direct) creates distinct identities for agency and direct channels."},
-    {"topic": "Technology & Digital Transformation", "text": "New billing system and improved claims management platform deployed; 2005 roadmap includes improved customer management systems and new data center infrastructure."},
-    {"topic": "Policies in Force & Customer Growth", "text": "Retention improvement fell short of expectations in 2004; management elevated it to a key company initiative, committing to extraordinary customer experience as the only acceptable standard."},
-    {"topic": "Catastrophe Response & Disaster Management", "text": "Four hurricanes tested operations; Progressive people managed claims with assistance from across the company and received strong customer praise during the response."},
-    {"topic": "Competitive Position & Market Share", "text": "Progressive Direct was the fastest-growing top-15 insurer at 16.5%; Agency Business ranked fifth at 9.5%; scale, IT, pricing segmentation, and claims cited as key consolidation drivers."},
-    {"topic": "Product Innovation & Expansion", "text": "New Jersey market entry anticipated in 2005 pending new ratemaking regulations; Progressive actively handling claims there as a servicing carrier for the Commercial Auto Insurance Plan."}
+    {
+      "topic": "Capital Management & Financial Position",
+      "text": "Repurchased 16.9M shares via $1.5B tender offer at $88/share plus 1.7M shares open-market; invested assets $13.1B; total return 5.2%; debt-to-total capital ended at 20%; subsidiary operating leverage reached 2.9 premiums-to-surplus."
+    },
+    {
+      "topic": "Industry Cycle & Market Conditions",
+      "text": "Declining accident frequency and widespread competitor profitability reduced consumer shopping; auto industry NPW growth slowed to an estimated 3.7%; top 15 auto insurers (72% share) outperformed industry in growth and profitability."
+    },
+    {
+      "topic": "Rate Adequacy & Pricing Strategy",
+      "text": "Temporarily reassessed maximum-growth goals to maintain relatively robust margins without significantly impairing growth. Selective rate actions favored rate stability, recognizing certain potential reductions would simply reduce margins with little volume change."
+    },
+    {
+      "topic": "Profitability & Underwriting Performance",
+      "text": "Net income rose 31% to a record $1.65 billion ($7.63 per share), driven by exceptional underwriting profitability. Progressive estimated the auto industry achieved perhaps its lowest combined ratio in history in 2004."
+    },
+    {
+      "topic": "Premium Growth",
+      "text": "Net premiums written grew 12% (~$1.5B), meeting expectations of several times industry average growth. Direct Business grew 16.5%, the fastest among the top 15 competitors, and Agency Business grew 9.5%, ranking fifth."
+    },
+    {
+      "topic": "Brand Building & Marketing Strategy",
+      "text": "Announced 'Drive Insurance from Progressive' for independent agents and brokers, advancing the initiative to create two top-share personal auto brands. The agency brand will be promoted via television, Yellow Pages, and other advertising."
+    },
+    {
+      "topic": "Policies in Force & Customer Growth",
+      "text": "Customer retention improvements in 2004 missed expectations for degree and speed, causing disappointment. Management recognized that methods for estimating customer relationship life expectancy under varying market conditions were not yet fully developed."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "Expects 2005 New Jersey auto filings assuming proposed ratemaking regulations are promulgated. Operated 20 concierge claims centers and tested offering replacement vehicles instead of payments for un-repairable cars ahead of planned 2005 expansion."
+    },
+    {
+      "topic": "Technology & Digital Transformation",
+      "text": "Replaced billing system and began deploying an improved claims management platform. Planned 2005 progress includes improved customer management systems and IT infrastructure to enhance system availability and disaster preparedness."
+    },
+    {
+      "topic": "Catastrophe Response & Disaster Management",
+      "text": "Responded to four Southeastern hurricanes (Charley, Frances, Ivan, Jeanne). With nationwide assistance across all company areas, employees—many facing their own storm-related problems—managed claims relatively seamlessly and resolved them quickly."
+    }
   ]
 }

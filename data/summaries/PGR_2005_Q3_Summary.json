@@ -2,14 +2,55 @@
   "id": "PGR_2005_Q3",
   "year": 2005,
   "quarter": "Q3",
-  "generated_date": "2026-04-26T00:00:00+00:00",
+  "generated_date": "2026-11-26T15:18:39.991817+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 3,
+    "numbers_not_in_letter": [
+      "5.5"
+    ]
+  },
   "bullets": [
-    {"topic": "Catastrophe Response & Disaster Management", "text": "Hurricane Katrina generated nearly 30,000 claim reports and an expected loss of $185 million — approximately 5.5 times Progressive's prior single highest catastrophe loss; over 90% of claims resolved by end of October."},
-    {"topic": "Profitability & Underwriting Performance", "text": "Combined ratio of 90.4 for Q3 despite Katrina and Rita losses; favorable prior-year reserve development of $93.9 million partially offset catastrophe costs."},
-    {"topic": "Loss Costs & Severity Trends", "text": "Favorable frequency continued broadly; $93.9 million of prior-year reserve development recognized as lower-than-estimated severity on closed and open claims; management emphasized accuracy over labeling development as favorable."},
-    {"topic": "Premium Growth", "text": "Net premiums written grew 5% for Q3 and 7% year-to-date; year-over-year premium per application down about 5% for Drive and 2% for Direct, reflecting soft market pricing."},
-    {"topic": "Policies in Force & Customer Growth", "text": "Personal Lines PIF up 10% year-to-date (Drive auto 6%, Direct auto 12%, Special Lines 14%); Commercial Auto up 12%; Internet-initiated Direct business share increased another 5 percentage points above prior guidance of 50–55%."},
-    {"topic": "Product Innovation & Expansion", "text": "Progressive entered New Jersey on September 30 with both Drive and Progressive Direct brands; planned to add Commercial Auto later in 2005 and motorcycle and boat products in 2006."},
-    {"topic": "Claims Service & Innovation", "text": "Hurricane response deployed over 1,300 claims representatives; 5,000 Katrina flood-contaminated total-loss vehicles ordered crushed rather than returned to market, reflecting strong ethics commitment."}
+    {
+      "topic": "Catastrophe Response & Disaster Management",
+      "text": "Hurricane Katrina caused nearly 30,000 claim reports, over 24,000 incurred claims, and an expected $185M loss (~5.5 times previous record); over 90% resolved by October end; expects to crush over 5,000 vehicles."
+    },
+    {
+      "topic": "Profitability & Underwriting Performance",
+      "text": "Q3 combined ratio was 90.4, with moving parts including favorable frequency, reduced post-Katrina claims activity nationwide, hurricane losses from Katrina and Rita, and $93.9 million in favorable prior-year reserve development."
+    },
+    {
+      "topic": "Policies in Force & Customer Growth",
+      "text": "YTD Personal Lines PIF +10% (Drive auto +6%, Direct auto +12%, special lines +14%), down from 11% in Q2; Commercial Auto PIF +12%, down from 13%; results met company expectations relative to the market."
+    },
+    {
+      "topic": "Premium Growth",
+      "text": "Q3 NPW +5% and NPE +6%, slightly slower than YTD 7% for both, signaling continued slowing; YOY premium per application down about 5% for Drive auto and 2% for Direct."
+    },
+    {
+      "topic": "Loss Costs & Severity Trends",
+      "text": "$93.9M in favorable prior-year reserve development reflected lower-than-estimated claim severity on closed claims and unresolved claims; claims frequency remained favorable nationwide, with reduced activity the week post-Katrina."
+    },
+    {
+      "topic": "Strategic Vision & Company Philosophy",
+      "text": "Company rejects viewing large reserve adjustments as \"favorable,\" striving for accuracy at all times; closely monitors frequency and severity trends; advises investors that accident-year loss/LAE ratio best indicates current performance."
+    },
+    {
+      "topic": "Distribution Channel Strategy",
+      "text": "Direct channel Internet-initiated business rose ~5% above prior 50%–55% range versus phone; online sale completions without call center transfer also increased by ~5% above prior 60%–65% range."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "Reentered New Jersey on September 30, offering personal auto via Drive and Progressive Direct; plans to introduce Commercial Auto products later in 2005, followed by motorcycle and boat products in 2006."
+    },
+    {
+      "topic": "Industry Cycle & Market Conditions",
+      "text": "Third quarter consumer shopping activity continued to reflect soft market conditions across the auto insurance industry, characterized by prices experiencing more downward movement than increases."
+    },
+    {
+      "topic": "Competitive Position & Market Share",
+      "text": "Viewed individually, Drive Insurance and Progressive Direct each rank in the top ten of all auto writers nationally; both brands entered New Jersey on September 30, officially welcomed by the Acting Governor."
+    }
   ]
 }

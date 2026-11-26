@@ -2,14 +2,56 @@
   "id": "PGR_2006_Q2",
   "year": 2006,
   "quarter": "Q2",
-  "generated_date": "2026-04-26T00:00:00+00:00",
+  "generated_date": "2026-11-26T15:26:24.749050+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 7,
+    "numbers_not_in_letter": [
+      "0.5",
+      "0.6"
+    ]
+  },
   "bullets": [
-    {"topic": "Profitability & Underwriting Performance", "text": "Combined ratio of 86.6 for Q2 2006, up only 0.5 points year-over-year; prior accident periods contributed approximately 2 favorable points to the calendar-year combined ratio."},
-    {"topic": "Premium Growth", "text": "Net premiums written grew 2% for the quarter, below expectations; industry-wide 2005 growth of 0.5% and Q1 2006 estimate of 0.6% confirm broad market softness; management announced intent to modify pricing to stimulate new applications."},
-    {"topic": "Policies in Force & Customer Growth", "text": "Drive auto PIF up only 1% year-over-year; Direct auto PIF up 6%; Commercial Auto grew 9% with a 76.4 combined ratio and an estimated top market share position of 6.8% in commercial auto."},
-    {"topic": "Distribution Channel Strategy", "text": "Growing dynamic of online-initiated agency prospects observed; Internet quote volume from web-based agents rising but with significantly lower conversion than traditional agency flow, signaling a structural channel shift."},
-    {"topic": "Technology & Digital Transformation", "text": "Internet sales represented 60–65% of Direct new business; Progressive's website topped Keynote WebExcellence rankings in June; new advertising agency evaluation underway to sharpen the Direct brand message."},
-    {"topic": "Claims Service & Innovation", "text": "Concierge claims expansion on schedule with 42 centers in 18 states operational; 11 additional sites expected before year-end; customer loyalty and Net Promoter Score measures being integrated as key performance indicators."},
-    {"topic": "Industry Cycle & Market Conditions", "text": "Management less confident it can predict the pace or timing of margin normalization; announced shift to modify pricing trends and make smart moves to stimulate growth rather than waiting for external frequency or severity pressure."}
+    {
+      "topic": "Profitability & Underwriting Performance",
+      "text": "CR 86.6, up 0.5 pts YOY; prior accident periods contributed favorably by about 2 pts to calendar-year CR; Commercial Auto generated a 76.4 CR."
+    },
+    {
+      "topic": "Premium Growth",
+      "text": "Quarterly company growth of 2% was lower than expectations; industry growth rates reflected softer market pricing conditions; Commercial Auto delivered a solid quarter with 9% growth."
+    },
+    {
+      "topic": "Rate Adequacy & Pricing Strategy",
+      "text": "With reduced expectations of external drivers of margin erosion, PGR will modify future pricing trends and seek opportunities to stimulate new business applications and extend retention of current customers."
+    },
+    {
+      "topic": "Loss Costs & Severity Trends",
+      "text": "Favorable profitability was driven by reductions in reported accident frequency per vehicle and modest bodily injury inflation; prior-period claims have settled, or are likely to settle, below original reserves."
+    },
+    {
+      "topic": "Policies in Force & Customer Growth",
+      "text": "Drive auto policies in force rose 1% year-over-year, with new applications at reduced levels for some time; Direct auto policies in force grew 6% over the same period last year."
+    },
+    {
+      "topic": "Distribution Channel Strategy",
+      "text": "Direct Internet sales represented between 60% and 65% of new business activity; Agency quote flow from Web-based sources was strong, but conversion was significantly lower than traditional agency quote flow."
+    },
+    {
+      "topic": "Competitive Position & Market Share",
+      "text": "Edged into leading commercial auto market share position with 6.8% share based on estimated Q1 figures, sharing top-three ranking with St. Paul Travelers and Zurich."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "Claims Service Centers reached 42 operational facilities across 18 states, with expectations of 11 additional sites before year end; Commercial Auto expects fourth-quarter entry into Massachusetts and continued New Jersey expansion."
+    },
+    {
+      "topic": "Brand Building & Marketing Strategy",
+      "text": "PGR is evaluating advertising agencies to assist developing the Progressive Direct brand position and message; the auto insurance spending marketplace is very competitive, and PGR intends to enhance consumer appeal."
+    },
+    {
+      "topic": "Industry Cycle & Market Conditions",
+      "text": "Softer market pricing conditions reflected in industry-wide growth of 0.5% in 2005 and estimated 0.6% in Q1 2006; commercial auto faced increased competition and softer pricing in light local."
+    }
   ]
 }

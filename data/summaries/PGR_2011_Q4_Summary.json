@@ -2,17 +2,55 @@
   "id": "PGR_2011_Q4",
   "year": 2011,
   "quarter": "Q4",
-  "generated_date": "2026-04-27T00:00:00+00:00",
+  "generated_date": "2026-11-26T16:22:00.113516+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 3,
+    "numbers_not_in_letter": [
+      "0.41"
+    ]
+  },
   "bullets": [
-    {"topic": "Profitability & Underwriting Performance", "text": "Annual CR 93 — 3 pts better than 96 target, aided by favorable prior-year development; net income $1B+ ($1.59/share); Gainshare score 1.1; variable dividend ~$250M ($0.41/share) paid to shareholders."},
-    {"topic": "Premium Growth", "text": "NPW surpassed $15B for first time in company history; 5% annual growth (~$670M); Q4 growth 8% — strongest quarterly result in 26 quarters; Commercial Auto finished +6% for the year after double-digit H2 growth."},
-    {"topic": "Technology & Digital Transformation", "text": "Snapshot launched nationally — 'statistics of one' personalized pricing via driving behavior data; miles of observation equivalent to 'multiple round trips to Mars'; patents approved; accepted by regulators in 39 states + D.C."},
-    {"topic": "Policies in Force & Customer Growth", "text": "PIFs grew ~580,000 for the year (~1M new customers); agency-produced auto reached all-time high PIF, correcting negative trend from 2006; Direct PIF grew 6%; special lines exceeded $1.2B written premiums."},
-    {"topic": "Capital Management & Financial Position", "text": "$500M 10-year senior notes issued at 3.75% coupon; 51.3M shares repurchased (~$1B, ~7.7% of outstanding); debt-to-total capital 29.6%; $350M debt tranche retired early 2012; investment total return 3.2% FTE."},
-    {"topic": "Brand Building & Marketing Strategy", "text": "Flo voted America's #1 advertising icon by Entertainment Weekly; 3.3M+ Facebook fans; 'Messenger' campaign reworked mid-year for real-world unscripted settings; new commercials inventory built for 2011-2012 use."},
-    {"topic": "Product Innovation & Expansion", "text": "Mobile strategy 'mobilize not miniaturize' — camera-capture prototype for DL and insurance card enables instant quotes; Name Your Price plus Snapshot creates compelling differentiated quote experience unavailable from competitors."},
-    {"topic": "Distribution Channel Strategy", "text": "Personal Lines 55% agency / 45% direct — uniquely balanced single-brand multi-distribution model; agent acceptance of Snapshot growing; Name Your Price available across both channels with consistent brand presentation."},
-    {"topic": "Employee Engagement & Culture", "text": "Claims organization handled multiple 2011 catastrophes with remarkable logistics; catastrophe customers showed higher renewal rates than control group — measurable NPS and retention uplift from excellent disaster response."},
-    {"topic": "Industry Cycle & Market Conditions", "text": "Industry CR estimated at 100+ for 2011 with minimal premium growth (~1.5%); Progressive positioned to outperform as market hardens; 75th anniversary year described as 'beginning' of new chapter in product and technology evolution."}
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "Snapshot introduced personalized pricing via driving behavior; discounts range 0%–30% with >50/50 odds of saving; proprietary algorithms protected in 39 states plus DC, alongside an additional approved patent."
+    },
+    {
+      "topic": "Profitability & Underwriting Performance",
+      "text": "Full-year CR 93, beating 96 target even net of higher-than-expected favorable prior-year reserve development; net income topped $1B ($1.59/share); Gainshare score finished at 1.1 on a 0-to-2 scale."
+    },
+    {
+      "topic": "Premium Growth",
+      "text": "Companywide NPW surpassed $15B for the first time (+5% YOY); Q4 NPW +8%, marking strongest quarter in 26 quarters; Commercial Auto arrested prior declines, finishing up nearly 6%."
+    },
+    {
+      "topic": "Capital Management & Financial Position",
+      "text": "Repurchased 51.3M shares for ~$1B (7.7% of shares); issued $500M 10-year debt at 3.75%; debt-to-capital 29.6%; portfolio return 3.2%; paid ~$250M variable dividend ($0.41/share)."
+    },
+    {
+      "topic": "Policies in Force & Customer Growth",
+      "text": "Added ~580,000 PIFs to reach nearly 13M total; Direct auto PIFs +6% alongside an 11% renewal application increase; agent-produced policies set an all-time high at year-end."
+    },
+    {
+      "topic": "Brand Building & Marketing Strategy",
+      "text": "Flo named America's #1 advertising icon with 3.3M+ Facebook fans; \"Messenger\" campaign was restructured around unscripted \"random acts of savings\" in real-life settings like airports and gas stations."
+    },
+    {
+      "topic": "Distribution Channel Strategy",
+      "text": "Personal Lines balanced between distribution options, with agent-produced auto slightly larger at 55% of policies; Direct channel rebounded to positive new business application growth by the fourth quarter."
+    },
+    {
+      "topic": "Rate Adequacy & Pricing Strategy",
+      "text": "Continuous rate reviews often mean taking rate ahead of competitors without matching their actions; Commercial Auto growth reflected needed pricing increases, returning application units, and expanded offerings, with profitability meeting company objectives."
+    },
+    {
+      "topic": "Technology & Digital Transformation",
+      "text": "Over 15% of searches for Progressive or auto insurance were mobile-based; developed prototype app enabling instant quotes from photos of driver's licenses and insurance cards, personalizable via Name Your Price and Snapshot."
+    },
+    {
+      "topic": "Catastrophe Response & Disaster Management",
+      "text": "Claims organization responded effectively to multiple 2011 catastrophes through rapid logistical deployment, with efforts rewarded by increased customer Net Promoter scores and positive renewal behavior following satisfying claims responses."
+    }
   ]
 }

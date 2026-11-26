@@ -2,17 +2,52 @@
   "id": "PGR_2017_Q1",
   "year": 2017,
   "quarter": "Q1",
-  "generated_date": "2026-04-27T00:00:00+00:00",
+  "generated_date": "2026-11-26T17:19:29.101979+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 5
+  },
   "bullets": [
-    {"topic": "Profitability & Underwriting Performance", "text": "Q1 CR healthy across all lines: Agency auto CR 90.5, Direct auto CR 93.1, Personal Lines CR 91.8; Commercial Lines CR 89.6; Property CR 96.6 including ~7 pts amortization (underlying ~90 before amortization); NPW grew 12% YOY."},
-    {"topic": "Premium Growth", "text": "Personal Lines net written and earned premium each grew 13%; Property net written premium grew 27%; Commercial Lines net written premium flat (underwriting restrictions lifting) but net earned premium up 18% as prior rate increases earned in."},
-    {"topic": "Policies in Force & Customer Growth", "text": "Property PIFs up 17% YOY; Robinson (auto+home bundle) new business applications up 50%+ YOY; PIF growth in Robinson cohort exceeded 25%; Direct auto new applications positive in March as tax refund backlog cleared and media spend ramped."},
-    {"topic": "Capital Management & Financial Position", "text": "Q1 investment return 1.7% (equity +6.1%, fixed income +1.1%); issued $850M 30-year senior notes at 4.125% in early April to pre-fund $564M 6.70% debenture redemption; debt-to-total capital temporarily above 30% ceiling but returning below upon redemption."},
-    {"topic": "Product Innovation & Expansion", "text": "HomeQuote Explorer launched in 8-state pilot in March; Robinson new business apps up 50%+ using HQX; Snapshot mobile app introduced to additional states (targeting full countrywide rollout by year-end); 6.2M miles and 500K+ trips collected via mobile app."},
-    {"topic": "Rate Adequacy & Pricing Strategy", "text": "Commercial Lines underwriting restrictions lifted at end of Q1 as enhanced segmentation gains confidence; several Commercial restrictions lifted in March showing early improvement in new business applications; ~9 pts additional commercial rate still to earn in."},
-    {"topic": "Technology & Digital Transformation", "text": "Snapshot mobile app: >50% of eligible Direct Snapshot customers choosing mobile option where available; photo estimating approaching full countrywide rollout via Progressive mobile app; aggregate stop-loss reinsurance for Property designed and placed for 2017."},
-    {"topic": "Competitive Position & Market Share", "text": "Commercial Lines CR 89.6 in Q1; underwriting restrictions from Q3 2016 being lifted; new segmentation improving quote quality; exiting Australia after 7 years due to inability to reach profitability targets — focusing on U.S. Destination Era agenda."},
-    {"topic": "Employee Engagement & Culture", "text": "Momentum and excitement within Progressive following strong 2016; Agency channel gained momentum with Platinum program; Gainshare score 1.67 for 2016 (highest since 2004); hiring 6,000+ people planned for 2017 to support continued growth."},
-    {"topic": "Distribution Channel Strategy", "text": "Agency new auto applications up 15% in Q1; Agency CR 90.5 vs. Direct CR 93.1 showing channel health; Progressive Advantage Agency growing Robinson capabilities; Platinum agency program driving Robinson PIF growth in +50% range."}
+    {
+      "topic": "Profitability & Underwriting Performance",
+      "text": "Companywide profitability improved; Personal Lines CR was 91.8 (Agency 90.5; Direct 93.1); Commercial Lines CR 89.6; Property CR 96.6, which included nearly seven points of amortization."
+    },
+    {
+      "topic": "Premium Growth",
+      "text": "Companywide NPW +12% YOY; NEP +13%; Personal Lines NPW and NEP both +13%; Commercial Lines NPW flat while NEP +18%; Property NPW +27% and NEP +13%."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "HomeQuote Explorer launched in eight states, testing online homeowners quoting with countrywide rollout planned for 2017; Robinsons new business applications grew over 50% YOY and PIFs increased over 25%."
+    },
+    {
+      "topic": "Technology & Digital Transformation",
+      "text": "Snapshot mobile app launched in four states with countrywide rollout expected by year-end 2017; over half of Direct eligible customers chose mobile; Direct Snapshot quote take rate rose to 35%."
+    },
+    {
+      "topic": "Policies in Force & Customer Growth",
+      "text": "Retention gains declined slightly as renewing customers absorbed late 2016 rate actions; headwind may persist through 2017; Property new apps +31% and PIFs +17%; Robinsons retention increased nearly 25% over three years."
+    },
+    {
+      "topic": "Capital Management & Financial Position",
+      "text": "Total portfolio return 1.7% (equity 6.1%, fixed income 1.1%); issued $850M of 4.125% 30-year notes in April to redeem 6.70% debentures; debt-to-total capital temporarily exceeds 30% ceiling."
+    },
+    {
+      "topic": "Catastrophe Response & Disaster Management",
+      "text": "Vehicle catastrophe losses were high relative to historical averages; March catastrophe activity elevated Property CR; aggregate stop-loss reinsurance agreement limits current-year loss and LAE ratio at 63, excluding named storms and liability."
+    },
+    {
+      "topic": "Rate Adequacy & Pricing Strategy",
+      "text": "Commercial Lines lifted several underwriting restrictions after enhancing segmentation; new policy application growth continued negative; business applications showed early signs of improvement; Commercial Lines CR was 89.6."
+    },
+    {
+      "topic": "Brand Building & Marketing Strategy",
+      "text": "Increased planned 2017 media spend given strong Direct auto profitability; Direct new auto applications turned positive in March, which Progressive believes occurred because federal tax refund backlogs cleared; media spend ramped up."
+    },
+    {
+      "topic": "Strategic Vision & Company Philosophy",
+      "text": "Signed agreements to exit Australia, expecting a fourth-quarter 2017 sale to The Hollard Insurance Company due to unmet profitability goals; Progressive believes it is better suited focusing on U.S. Destination Era opportunities."
+    }
   ]
 }

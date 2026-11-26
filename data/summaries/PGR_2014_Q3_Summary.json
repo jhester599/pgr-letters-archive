@@ -2,15 +2,52 @@
   "id": "PGR_2014_Q3",
   "year": 2014,
   "quarter": "Q3",
-  "generated_date": "2026-04-26T00:00:00+00:00",
+  "generated_date": "2026-11-26T16:52:06.271736+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 8
+  },
   "bullets": [
-    {"topic": "Profitability & Underwriting Performance", "text": "Q3 combined ratio was 92.5, consistent with the year-to-date 92.9; all product lines performed within acceptable targets, aided by favorable special lines seasonality and a below-average hurricane season."},
-    {"topic": "Premium Growth", "text": "Overall written premium grew 6% for the quarter and year-to-date; Direct auto showed strong double-digit monthly written premium growth while Agency auto was described as 'flat-out disappointing.'"},
-    {"topic": "Policies in Force & Customer Growth", "text": "Direct auto PIF grew ~7% with new applications also up ~7%; Agency auto new applications deteriorated significantly after a strong start to 2014, reflecting ongoing competitive pricing challenges in the channel."},
-    {"topic": "Distribution Channel Strategy", "text": "Agency auto growth was a top priority concern; product design, underwriting, and ease-of-use modifications were underway, with Massachusetts Snapshot design improvements planned for broader rollout starting late 2014."},
-    {"topic": "Loss Costs & Severity Trends", "text": "Auto frequency trends that suggested further rate action earlier in the year had mitigated; personal injury protection severity trends were flagged as an area receiving attention despite overall favorable results."},
-    {"topic": "Claims Service & Innovation", "text": "Three new Service Centers opened, bringing the total to 65; ~25% of all repairable vehicles were being processed through Service Centers nationally, at the lowest LAE levels and highest claim quality measures."},
-    {"topic": "Capital Management & Financial Position", "text": "Net income was up 27% for the quarter but only 5% year-to-date due to sluggish investment contributions; management maintained short-duration fixed-income positioning despite frustration with low yields."},
-    {"topic": "Product Innovation & Expansion", "text": "Renters insurance product launched in two states during Q3 with additional rollout planned through year-end and into 2015; Commercial Lines refocused on growth from a position of restored profitability."}
+    {
+      "topic": "Profitability & Underwriting Performance",
+      "text": "Q3 CR 92.5; YTD CR 92.9; target CR 96; net income +27% Q3 (+5% YTD); special lines exceeded expectations across seasonal patterns; Commercial Lines rebounded profitably following 2012–2013 rate increases."
+    },
+    {
+      "topic": "Premium Growth",
+      "text": "Quarterly growth matched year-to-date results at 6%. Direct auto recorded recent double-digit monthly written premium increases; Commercial Lines reported premium growth; special lines produced more muted growth."
+    },
+    {
+      "topic": "Distribution Channel Strategy",
+      "text": "Direct auto grew nicely with recent double-digit monthly written premium increases. Agency auto growth was disappointing; new applications fell off notably, retention lagged Direct auto, and management is responding with product modifications."
+    },
+    {
+      "topic": "Policies in Force & Customer Growth",
+      "text": "Personal Lines Direct new applications and PIF grew in the 7% range, increasingly with multi-product customers; Agency new applications fell off notably; Commercial Lines unit growth expected to mirror premium growth."
+    },
+    {
+      "topic": "Operating Efficiency & Expense Ratio",
+      "text": "Service Centers reached 65 with three co-located openings, handling about 25% of repairable vehicles nationwide. Claims operations operate at their lowest loss adjustment expense level and highest claim quality."
+    },
+    {
+      "topic": "Loss Costs & Severity Trends",
+      "text": "Early auto frequency trends mitigated, and current rate levels have been largely sustainable longer. Recent personal injury protection severity recognition has company attention; auto margins operate better than, but close to, target expectations."
+    },
+    {
+      "topic": "Capital Management & Financial Position",
+      "text": "Net income was sluggish, up 27% in Q3 and 5% YTD, alongside frustratingly lower contributions from risk-matched investment choices. Frustration will not cause deviation from the company's strong, sustainable business plan."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "Agency Snapshot acceptance in Massachusetts was notably higher with tested design changes; rollout to other states is expected late this year through 2015. The two-state renters product started gaining market acceptance."
+    },
+    {
+      "topic": "Catastrophe Response & Disaster Management",
+      "text": "Third-quarter results needed less qualification for weather events. The Hurricane Center's assessment of higher chances for a below-average season is playing out to-date; Progressive remains prepared and adequately priced, noting it only takes one."
+    },
+    {
+      "topic": "Strategic Vision & Company Philosophy",
+      "text": "Progress continued toward the 'Destination Era' strategic positioning. Co-located Service Centers serve as an important factor in expanding customer focus; overall, progress across almost every front builds from a solid market position."
+    }
   ]
 }

@@ -2,17 +2,52 @@
   "id": "PGR_2016_Q4",
   "year": 2016,
   "quarter": "Q4",
-  "generated_date": "2026-04-27T00:00:00+00:00",
+  "generated_date": "2026-11-26T17:16:55.925818+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 1
+  },
   "bullets": [
-    {"topic": "Profitability & Underwriting Performance", "text": "Full-year CR 95.1 despite record catastrophe volume — 54 named weather events with 28% more catastrophe claim counts than the prior record set in 2012 (Superstorm Sandy); NPW grew 14% adding $2.8B to cross $22.8B in annual premiums."},
-    {"topic": "Premium Growth", "text": "NPW grew 14%; Direct auto set monthly sales records every month through August; Agency auto PIFs grew 7% — long-awaited channel resurgence; Gainshare score 1.67 (highest since 2004); $0.68/share variable dividend declared."},
-    {"topic": "Policies in Force & Customer Growth", "text": "Best year-end personal auto retention in company history — trailing 12-month PLE up 5%; decade-or-longer customers up ~10%; Robinson (auto+home bundle) PIF growth in Platinum program at +50%; Progressive Advantage Agency Robinson sales up ~100%."},
-    {"topic": "Capital Management & Financial Position", "text": "Investment portfolio $23.5B with 4% total return (~$515M after-tax comprehensive income); issued $500M 10-year senior notes at 2.45% in Q3; debt-to-total capital 28.3% (within 30% guideline); short duration positioning benefited as rates rose in late year."},
-    {"topic": "Loss Costs & Severity Trends", "text": "Record catastrophe year: San Antonio hail event and Louisiana flood were single-peril Progressive claim records; Hurricane Matthew first hurricane response since Isaac 2012; 90% closure within 60 days for Louisiana flood and Matthew despite complexity; 1,000+ catastrophe reservists deployed."},
-    {"topic": "Technology & Digital Transformation", "text": "Snapshot mobile app debuted in 4 states in December 2016; countrywide rollout planned for 2017; commercial telematics via SmartHaul/ELD data emerging; claims photo estimating investment ongoing; Progressive completed 50-state auto policy processing system migration."},
-    {"topic": "Brand Building & Marketing Strategy", "text": "Flo/Superstore remained culturally relevant (Drake SNL mention, Stephen King novel reference); 'Parentamorphosis' campaign launched for first-time homeowners; 'Flotection' branding extended to multi-product protection messaging; media spend reduced in H2 to protect profit goal."},
-    {"topic": "Employee Engagement & Culture", "text": "Hired 6,600+ employees in 2016; existing employee retention improved ~12%; culture survey improved in every category; first year with Tricia Griffith as CEO — described as 'evolution not reinvention'; theme: 'Transition.'"},
-    {"topic": "Competitive Position & Market Share", "text": "Commercial Lines held #1 market share in commercial auto; mid-year frequency spike prompted rate increases and underwriting restrictions; Commercial Lines consistently outperformed industry on profitability by wide margin in recent years."},
-    {"topic": "Distribution Channel Strategy", "text": "Platinum agent program gaining Robinson momentum with PIFs growing 50%+; agency and ASI collaboration on competitive segmentation state by state; HomeQuote Explorer planned for 2017 launch; Progressive Advantage Agency investing in talent and technology."}
+    {
+      "topic": "Profitability & Underwriting Performance",
+      "text": "Full-year CR 95.1 at 14% NPW growth, meeting the four-cent underwriting profit goal; Gainshare reached 1.67, the highest score since 2004; variable dividend declared at 68 cents per share."
+    },
+    {
+      "topic": "Premium Growth",
+      "text": "Added $2.8B in premiums written following 2015's $20B milestone (+14% NPW); Direct sales grew 9% overall after high-teens first-half growth; Agency auto PIF +7%; Special Lines PIF +4%."
+    },
+    {
+      "topic": "Policies in Force & Customer Growth",
+      "text": "Achieved best year-end personal auto retention in company history; trailing 12-month PLE rose 5%; customers staying a decade or longer increased nearly 10%; Robinsons segment retention gains topped 10%."
+    },
+    {
+      "topic": "Catastrophe Response & Disaster Management",
+      "text": "Responded to 54 named weather events; CAT claim counts more than doubled 2015 and exceeded 2012's record by 28%; achieved 90% claim closure within 60 days for Louisiana floods and Hurricane Matthew."
+    },
+    {
+      "topic": "Capital Management & Financial Position",
+      "text": "Portfolio returned 4% on $23.5B, adding ~$515M after-tax comprehensive income; issued $500M 10-year senior notes at 2.45% coupon in Q3; debt-to-total capital ended at 28.3%, below the 30% guideline."
+    },
+    {
+      "topic": "Distribution Channel Strategy",
+      "text": "Agency auto PIF +7% across 35,000+ independent agents; Platinum program Robinsons PIF grew in +50% range; Direct auto PIF +9%; in-house Advantage Agency grew Robinsons sales nearly 100%."
+    },
+    {
+      "topic": "Loss Costs & Severity Trends",
+      "text": "Commercial auto experienced a mid-year accident frequency spike, prompting actions to slow growth and add rate in high-frequency segments; personal auto faced headwinds from rising loss costs and resulting rate increases."
+    },
+    {
+      "topic": "Brand Building & Marketing Strategy",
+      "text": "Curtailed late-year advertising spend to secure stated 96 calendar-year CR goal; extended brand messaging from savings to protection with Flotection; launched 'Parentamorphosis' campaign targeting first-time homebuyers bundling auto and home."
+    },
+    {
+      "topic": "Technology & Digital Transformation",
+      "text": "Debuted mobile device UBI application in 2016 ahead of 2017 countrywide rollout; continuing significant enterprise R&D investments; enthusiastic about future commercial vehicle telematics to price small fleets."
+    },
+    {
+      "topic": "Employee Engagement & Culture",
+      "text": "Employee culture survey results improved in every category; hired over 6,600 people in advance of need across customer relationship and claims organizations; existing employee retention improved approximately 12%."
+    }
   ]
 }

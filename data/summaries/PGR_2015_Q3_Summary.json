@@ -2,17 +2,52 @@
   "id": "PGR_2015_Q3",
   "year": 2015,
   "quarter": "Q3",
-  "generated_date": "2026-04-27T00:00:00+00:00",
+  "generated_date": "2026-11-26T17:03:26.669318+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 3
+  },
   "bullets": [
-    {"topic": "Profitability & Underwriting Performance", "text": "Q3 CR just under 93, comparable to prior year Q3 and YTD; Commercial Lines CR 85 with 20% NPW growth — extended remarkable combination into a second consecutive quarter; Property CR ~92 including ~7 pts amortization."},
-    {"topic": "Premium Growth", "text": "Direct Personal Lines growth in low teens; Agency auto returning to growth in 6%+ range after sustained underperformance; Commercial Lines NPW growing 20%; Property premiums written nearly $224M in Q3 as Platinum rollout expands Robinson growth."},
-    {"topic": "Policies in Force & Customer Growth", "text": "Agency new business applications increased markedly in Q3 with pleasing geographic dispersion; Direct auto PIF growth ~8%; Platinum home+auto bundled offering expanded to 8 states (Texas plus 7 additional during Q3) with early results described as 'very satisfactory.'"},
-    {"topic": "Rate Adequacy & Pricing Strategy", "text": "Loss frequency and severity trends rising; current results reflect pricing from earlier periods; modest rate adjustments building as necessary; Direct retention strong while Agency retention stubbornly slow to improve despite new business gains; 3-month trailing retention measure showing early signs of acceleration."},
-    {"topic": "Loss Costs & Severity Trends", "text": "Loss frequency and severity trends rising (details in 10-Q); special lines enjoyed another favorable weather quarter with loss costs slightly below expectation; no major storm affecting boats or RVs; Snapshot UBI data used to monitor mileage and driving behavior trends in real-time."},
-    {"topic": "Capital Management & Financial Position", "text": "Q3 equity markets down and highly volatile; investment strategy not requiring position changes; underwriting capacity remains the protected capital asset; strong underwriting performance generating capital to support growth plans."},
-    {"topic": "Competitive Position & Market Share", "text": "Commercial Lines expected to reach #1 commercial auto market share when industrywide results tabulated; Agency personal lines market showing rate actions across all competitors creating shopping environment favorable for Progressive."},
-    {"topic": "Product Innovation & Expansion", "text": "Snapshot program data continuously informing pricing adjustments; Platinum (integrated ASI+Progressive home/auto) rolled out to 8 states during Q3; multi-product customers in the low teens as percentage of book — 'destination company' transformation ongoing."},
-    {"topic": "Distribution Channel Strategy", "text": "Agency channel showing clearest improvement — new business applications up markedly in Q3 after multi-point response agenda from May Investor Conference; not yet policy accretive to prior-year levels but direction changed; Direct channel momentum sustained alongside Agency recovery."},
-    {"topic": "Technology & Digital Transformation", "text": "Snapshot UBI used for real-time trend analysis beyond pricing — mileage types and associated frequency monitored to distinguish weather effects from underlying trends; mobile capabilities expanding; Big Data initiative with special CEO oversight funding advancing data science capabilities."}
+    {
+      "topic": "Distribution Channel Strategy",
+      "text": "Agency personal lines new business applications increased markedly with pleasing geographic dispersion; trailing three-month retention remained stubbornly slow, in contrast to Direct retention results and the Agency new business curve."
+    },
+    {
+      "topic": "Profitability & Underwriting Performance",
+      "text": "Companywide Q3 CR was just under 93; Commercial Lines produced an 85 CR; Property delivered a 92 CR, which included approximately 7 points of intangible asset amortization."
+    },
+    {
+      "topic": "Premium Growth",
+      "text": "Commercial Lines premium grew 20%; Direct premium growth reached the low teens; Property premiums written were nearly $224M; Special lines premium grew around 2%."
+    },
+    {
+      "topic": "Policies in Force & Customer Growth",
+      "text": "Direct PIF grew around 8%; Agency auto remained not yet policy accretive to prior years; mix shifted to a higher composition of new business, requiring precise trend detection."
+    },
+    {
+      "topic": "Loss Costs & Severity Trends",
+      "text": "Loss frequency and other loss cost trends are definitely rising; multiple sources of inflation exist; Special lines experienced summer loss costs slightly lower than expectation without major storms."
+    },
+    {
+      "topic": "Rate Adequacy & Pricing Strategy",
+      "text": "Need for modest rate adjustments is building; adjusting pricing in smaller increments is preferred over delayed reactions; observed very definite competitor rate actions on personal auto across all means of distribution."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "Platinum home and auto bundled offering rolled out past Texas into seven additional states, targeting Robinsons and future Robinsons through designated agents with very satisfactory early incremental growth."
+    },
+    {
+      "topic": "Capital Management & Financial Position",
+      "text": "Equity market was down and highly volatile during Q3; investment and capital strategy does not require rethinking positions or holding periods, leaving unrealized implications for portfolio results."
+    },
+    {
+      "topic": "Catastrophe Response & Disaster Management",
+      "text": "Seasonal potential for dramatic and impactful storms remained unrealized, though South Carolina experienced weather events; Special lines summer loss costs were slightly lower than expectation without major storms affecting boats or RVs."
+    },
+    {
+      "topic": "Strategic Vision & Company Philosophy",
+      "text": "Momentum credited to past actions; elevated CEO paranoia maintained to ensure sound decision-making; focus remains on future positioning and estimating prices for goods with unknown future costs."
+    }
   ]
 }

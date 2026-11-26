@@ -52,7 +52,11 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 # ── Locate the saved auth file ────────────────────────────────────────────────
-$authFile = "$env:USERPROFILE\.notebooklm\storage_state.json"
+# Recent notebooklm-py saves to profiles\default\; older versions used the home root.
+$authFile = "$env:USERPROFILE\.notebooklm\profiles\default\storage_state.json"
+if (-not (Test-Path $authFile)) {
+    $authFile = "$env:USERPROFILE\.notebooklm\storage_state.json"
+}
 if (-not (Test-Path $authFile)) {
     Write-Host ""
     Write-Host "ERROR: Auth file not found at:" -ForegroundColor Red
@@ -82,3 +86,4 @@ Write-Host "  Get-Content '$authFile' -Raw | Set-Clipboard"
 Write-Host ""
 Write-Host "NOTE: Google session cookies expire every few weeks." -ForegroundColor DarkYellow
 Write-Host "When generator.py fails with an auth error, re-run this script."
+Write-Host "Full refresh steps: NOTEBOOKLM_SETUP.md"

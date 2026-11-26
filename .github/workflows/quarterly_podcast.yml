@@ -129,7 +129,7 @@ jobs:
         env:
           # NOTEBOOKLM_AUTH_JSON: capture locally with:
           #   notebooklm login
-          #   cat ~/.notebooklm/profiles/default/storage_state.json
+          #   cat ~/.notebooklm/profiles/default/storage_state.json   # or ~/.notebooklm/storage_state.json on older versions
           # Store the full JSON as the NOTEBOOKLM_AUTH_JSON repository secret.
           NOTEBOOKLM_AUTH_JSON: ${{ secrets.NOTEBOOKLM_AUTH_JSON }}
         run: python scripts/generator.py --max-new 1
@@ -158,6 +158,7 @@ jobs:
             echo '```'
             echo
             echo "Then update the \`NOTEBOOKLM_AUTH_JSON\` repository secret."
+            echo "Step-by-step PowerShell commands: \`NOTEBOOKLM_SETUP.md\`."
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Compress audio and regenerate RSS feed

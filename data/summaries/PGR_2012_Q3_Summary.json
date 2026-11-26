@@ -2,17 +2,55 @@
   "id": "PGR_2012_Q3",
   "year": 2012,
   "quarter": "Q3",
-  "generated_date": "2026-04-27T00:00:00+00:00",
+  "generated_date": "2026-11-26T16:28:49.185635+00:00",
+  "generated_by": "gemini-3.8-flash (Gemini API)",
+  "verification": {
+    "checked": true,
+    "bullets_rewritten": 1,
+    "numbers_not_in_letter": [
+      "29"
+    ]
+  },
   "bullets": [
-    {"topic": "Profitability & Underwriting Performance", "text": "Q3 CR 95.9, recovering from Q2's 97.6 — rate revision infrastructure deployed ~65 adjustments over two quarters; YTD CR tracking toward full-year 96 target after mid-year slip."},
-    {"topic": "Premium Growth", "text": "Written premium grew 10% in Q3 — strongest quarterly growth since Q1 2005; rate increases driving premium ahead of unit growth as new business lagged ~5% in Agency and Direct auto."},
-    {"topic": "Capital Management & Financial Position", "text": "Special $1.00/share dividend declared in October, payable November 29; full-year investment portfolio total return tracking ~6%; portfolio performing despite low yield environment."},
-    {"topic": "Rate Adequacy & Pricing Strategy", "text": "Rate revision response fully engaged after Q2 severity confirmation; ~65 rate actions executed; adequacy expected to be restored to target by early Q4; reaction speed acknowledged as too slow."},
-    {"topic": "Loss Costs & Severity Trends", "text": "Hurricane Isaac most significant Q3 catastrophe; hail, floods, winds, and fires elevated property losses; motorcycle exposure above plan from heat and drought conditions through summer."},
-    {"topic": "Product Innovation & Expansion", "text": "ASI non-controlling equity arrangement announced during Q3 — deepening home+auto bundling capability through independent agent channel; Snapshot 'Test Drive' 30-day free trial program announced."},
-    {"topic": "Technology & Digital Transformation", "text": "Snapshot 'Test Drive' launched — consumers can evaluate UBI program for 30 days without switching current insurance; program removes adoption barrier for unconvinced shoppers."},
-    {"topic": "Policies in Force & Customer Growth", "text": "New business applications lagged ~5% in Agency and Direct auto and ~1% in special lines and Commercial as rate increases reduced competitive position during adjustment period."},
-    {"topic": "Brand Building & Marketing Strategy", "text": "Flo awarded Advertising Week 'Walk of Fame' star — first fictional character so honored; Ad Age 'Top Ten Female Ad Icons' designation confirmed; brand equity expanding beyond insurance category."},
-    {"topic": "Competitive Position & Market Share", "text": "Commercial Lines annual policy structure slows rate earn-through vs. personal auto; rate adequacy restoration expected slightly later in Commercial; monitoring competitive response closely via conversion rates."}
+    {
+      "topic": "Profitability & Underwriting Performance",
+      "text": "CR 95.9 for Q3, matching YTD, achieving a recovery to target underwriting margins after about 65 rate adjustments across product and geographic combinations over the past two quarters."
+    },
+    {
+      "topic": "Rate Adequacy & Pricing Strategy",
+      "text": "Auto average premium per policy matched expectations well; annual-period special lines and Commercial Auto are on-track to rate adequacy, though Commercial Auto may require more rate tuning in selected sectors."
+    },
+    {
+      "topic": "Premium Growth",
+      "text": "Written premium grew 10% in Q3, the strongest growth since Q1 2005, with rate contribution expected to be significantly more than it has been for some time."
+    },
+    {
+      "topic": "Policies in Force & Customer Growth",
+      "text": "New business production lagged prior year by about 5% in Agency and Direct auto and 1% in special lines and Commercial Auto, pressured by positive rate adjustments."
+    },
+    {
+      "topic": "Loss Costs & Severity Trends",
+      "text": "Escalating frequency and severity conditions from Q2 were matched for the time being by pricing adjustments; company remains vigilant to keep pricing trend in line with loss cost trends."
+    },
+    {
+      "topic": "Capital Management & Financial Position",
+      "text": "Declared $1.00/share special dividend payable November 29; investment portfolio achieved 6% total return year-to-date; continuous capital strength supported return of capital in excess of expected needs."
+    },
+    {
+      "topic": "Product Innovation & Expansion",
+      "text": "Entered non-controlling equity arrangement with parent of American Strategic Insurance (ASI) for agent-distributed Progressive Home Advantage; expanded Direct homeowners panel to seven participating partner companies."
+    },
+    {
+      "topic": "Distribution Channel Strategy",
+      "text": "Progressive under-indexes in agent-produced business for established households requiring coordinated multi-product coverage; noted independent agency new business is very elastic, fueled by comparative rating technology."
+    },
+    {
+      "topic": "Brand Building & Marketing Strategy",
+      "text": "Flo campaign exceeded 80 commercials and won Madison Avenue Walk of Fame honors; ad spend scaled down somewhat during rate restoration; 2013 priorities highlight Snapshot and pre-purchase test drives."
+    },
+    {
+      "topic": "Catastrophe Response & Disaster Management",
+      "text": "Isaac was the most notable catastrophe of the first nine months; claims handled volume with high-quality resolution and accuracy in settlement cost, expecting to do the same for Sandy."
+    }
   ]
 }

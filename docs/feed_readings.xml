@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PGR Shareholder Letters — Read Aloud</title>
+    <description>The complete text of Progressive Corporation (NYSE: PGR) CEO letters to shareholders, read aloud by an AI voice. A companion to the PGR Shareholder Letters — Audio Archive podcast of AI-generated discussions.</description>
+    <link>https://jhester599.github.io/pgr-letters-archive</link>
+    <language>en-us</language>
+    <copyright>Letter text is © The Progressive Corporation. The narration is AI-generated and is not affiliated with or endorsed by Progressive.</copyright>
+    <lastBuildDate>Fri, 27 Nov 2026 19:01:31 GMT</lastBuildDate>
+    <atom:link href="https://jhester599.github.io/pgr-letters-archive/feed_readings.xml" rel="self" type="application/rss+xml" />
+    <itunes:author>Jeff Hester</itunes:author>
+    <itunes:summary>The complete text of Progressive Corporation (NYSE: PGR) CEO letters to shareholders, read aloud by an AI voice. A companion to the PGR Shareholder Letters — Audio Archive podcast of AI-generated discussions.</itunes:summary>
+    <itunes:type>episodic</itunes:type>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:owner>
+      <itunes:name>Jeff Hester</itunes:name>
+      <itunes:email>jeffrey.r.hester@gmail.com</itunes:email>
+    </itunes:owner>
+    <itunes:category text="Business">
+      <itunes:category text="Investing" />
+    </itunes:category>
+    <itunes:image href="https://jhester599.github.io/pgr-letters-archive/cover.png" />
+  </channel>
+</rss>
